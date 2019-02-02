@@ -424,7 +424,7 @@
 <p><strong>临界区管理方法：</strong></p>
 <ul>
 <li><p>先检测，后置位。弊端是检测完后可能有其他进程也进入临界区。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> process P1:</span><br><span class="line"><span class="keyword">while</span> inside2; <span class="comment">//等待P2退出临界区</span></span><br><span class="line">inside1 = <span class="literal">true</span>;</span><br><span class="line">临界区;</span><br><span class="line">inside1 = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">inside1, inside2: Boolean</span><br><span class="line">inside1 = <span class="literal">false</span>;</span><br><span class="line">inside2 = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">for</span> process P1:</span><br><span class="line"><span class="keyword">while</span> inside2; <span class="comment">//等待P2退出临界区</span></span><br><span class="line">inside1 = <span class="literal">true</span>;</span><br><span class="line">临界区;</span><br><span class="line">inside1 = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>先置位，后检测。弊端是置位后可能inside2又被置1，可能永远等待。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> process P1:</span><br><span class="line">inside1 = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">while</span> inside2; <span class="comment">//等待P2退出临界区</span></span><br><span class="line">临界区;</span><br><span class="line">inside1 = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
@@ -491,7 +491,17 @@
 <hr>
 <p><strong>管程</strong></p>
 <hr>
+<p><strong>进程通信</strong></p>
+<hr>
 <p><strong>死锁问题</strong></p>
+<hr>
+<p><strong>具体问题的解决方案</strong></p>
+<ul>
+<li>生产者-消费者问题</li>
+<li>五个哲学家吃通心面问题</li>
+<li>读者-写者问题</li>
+<li>理发师问题</li>
+</ul>
 
           
         
