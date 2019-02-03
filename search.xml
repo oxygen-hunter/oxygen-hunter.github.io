@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Rust环境安装/Ubuntu 16.04</title>
+      <link href="/2019/02/03/Rust%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/"/>
+      <url>/2019/02/03/Rust%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。本篇为踩坑之路。</p><p>操作系统：Ubuntu 16.04</p><hr><h2 id="1-安装curl"><a href="#1-安装curl" class="headerlink" title="1-安装curl"></a>1-安装curl</h2><blockquote><p>$ apt install curl</p></blockquote><h2 id="2-安装rustup"><a href="#2-安装rustup" class="headerlink" title="2-安装rustup"></a>2-安装rustup</h2><blockquote><p>$ curl <a href="https://sh.rustup.rs" target="_blank" rel="noopener">https://sh.rustup.rs</a> -sSf | sh</p></blockquote><p>中途会遇到这个3个选项，需要选一个，手动输入1，回车。</p><p><img src="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/9RxHSEakBk0l.png?imageslim" alt="rustup安装选项"></p><p>安装成功后提示</p><p><img src="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/ndYNwqsuQTug.png?imageslim" alt="rustup安装成功"></p><p>然后<strong>重启系统</strong>，重启会使得<strong>rust被添加到PATH中</strong>。这一步很重要。</p><p>重启后，查看是否成功。</p><blockquote><p>$ rustc –version</p></blockquote><p><img src="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/O5BaPiTGa1Od.png?imageslim" alt="rustc版本"></p><hr><h2 id="3-Hello-world"><a href="#3-Hello-world" class="headerlink" title="3-Hello, world!"></a>3-Hello, world!</h2><p>Rust源文件以.rs结尾，文件中的单词以下划线分割，编写hello_world.rs</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>编译+运行</p><blockquote><p>$ rustc hello_world.rs -o hello_world</p></blockquote><blockquote><p>$ ./hello_world</p></blockquote><p>如果显示如下，那便成功了。</p><p><img src="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/GORFIM2pAXJI.png?imageslim" alt="Hello_world"></p><hr><h2 id="4-疑难杂症"><a href="#4-疑难杂症" class="headerlink" title="4-疑难杂症"></a>4-疑难杂症</h2><p>小李哥遇到一个奇怪的问题，就是2-安装rustup完成后，重启，查看version后发现是ok的。结果装了个vim，敲完hello_world.rs，编译的时候它提示：找不到rustc！我再查看version的时候发现我的rustc没了？！</p><p>很玄学……我重启了一下系统就好了，原因未知。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Rust </tag>
+            
+            <tag> 环境安装 </tag>
+            
+            <tag> Ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>OS2019_winter</title>
       <link href="/2019/01/31/OS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
       <url>/2019/01/31/OS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
