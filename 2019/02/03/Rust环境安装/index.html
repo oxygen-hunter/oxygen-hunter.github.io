@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="概述vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。本篇为踩坑之路。 操作系统：Ubuntu 16.04  1-安装curl $ apt install curl  2-安装rustup $ curl https://sh.rustup.rs -sSf | sh  这个命令会帮你装好rustc, cargo等一系列后面要用到的东西，可以说是一键安装了。 中途会遇到这个3个选项，需要选一">
+<meta name="description" content="概述vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。本篇为踩坑之路。 操作系统：Ubuntu 16.04  1-安装curl $ apt install curl   2-安装rustup $ curl https://sh.rustup.rs -sSf | sh  这个命令会帮你装好rustc, cargo等一系列后面要用到的东西，可以说是一键安装了。 中途会遇到这个3个选项，需要选">
 <meta name="keywords" content="Rust,环境安装,Ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rust环境安装&#x2F;Ubuntu 16.04">
 <meta property="og:url" content="http://yoursite.com/2019/02/03/Rust环境安装/index.html">
 <meta property="og:site_name" content="懵逼树树洞">
-<meta property="og:description" content="概述vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。本篇为踩坑之路。 操作系统：Ubuntu 16.04  1-安装curl $ apt install curl  2-安装rustup $ curl https://sh.rustup.rs -sSf | sh  这个命令会帮你装好rustc, cargo等一系列后面要用到的东西，可以说是一键安装了。 中途会遇到这个3个选项，需要选一">
+<meta property="og:description" content="概述vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。本篇为踩坑之路。 操作系统：Ubuntu 16.04  1-安装curl $ apt install curl   2-安装rustup $ curl https://sh.rustup.rs -sSf | sh  这个命令会帮你装好rustc, cargo等一系列后面要用到的东西，可以说是一键安装了。 中途会遇到这个3个选项，需要选">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/9RxHSEakBk0l.png?imageslim">
 <meta property="og:image" content="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/ndYNwqsuQTug.png?imageslim">
 <meta property="og:image" content="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/O5BaPiTGa1Od.png?imageslim">
 <meta property="og:image" content="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/GORFIM2pAXJI.png?imageslim">
-<meta property="og:updated_time" content="2019-02-03T03:57:18.431Z">
+<meta property="og:updated_time" content="2019-02-04T03:03:52.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rust环境安装&#x2F;Ubuntu 16.04">
-<meta name="twitter:description" content="概述vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。本篇为踩坑之路。 操作系统：Ubuntu 16.04  1-安装curl $ apt install curl  2-安装rustup $ curl https://sh.rustup.rs -sSf | sh  这个命令会帮你装好rustc, cargo等一系列后面要用到的东西，可以说是一键安装了。 中途会遇到这个3个选项，需要选一">
+<meta name="twitter:description" content="概述vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。本篇为踩坑之路。 操作系统：Ubuntu 16.04  1-安装curl $ apt install curl   2-安装rustup $ curl https://sh.rustup.rs -sSf | sh  这个命令会帮你装好rustc, cargo等一系列后面要用到的东西，可以说是一键安装了。 中途会遇到这个3个选项，需要选">
 <meta name="twitter:image" content="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/9RxHSEakBk0l.png?imageslim">
 
 
@@ -105,7 +105,7 @@
     root: '/',
     scheme: 'Gemini',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -385,6 +385,7 @@
 <h2 id="1-安装curl"><a href="#1-安装curl" class="headerlink" title="1-安装curl"></a>1-安装curl</h2><blockquote>
 <p>$ apt install curl</p>
 </blockquote>
+<hr>
 <h2 id="2-安装rustup"><a href="#2-安装rustup" class="headerlink" title="2-安装rustup"></a>2-安装rustup</h2><blockquote>
 <p>$ curl <a href="https://sh.rustup.rs" target="_blank" rel="noopener">https://sh.rustup.rs</a> -sSf | sh</p>
 </blockquote>
@@ -412,7 +413,18 @@
 <p>如果显示如下，那便成功了。</p>
 <p><img src="http://pm3e2l94n.bkt.clouddn.com/blog/20190203/GORFIM2pAXJI.png?imageslim" alt="Hello_world"></p>
 <hr>
-<h2 id="4-疑难杂症"><a href="#4-疑难杂症" class="headerlink" title="4-疑难杂症"></a>4-疑难杂症</h2><p>小李哥遇到一个奇怪的问题，就是2-安装rustup完成后，重启，查看version后发现是ok的。结果装了个vim，敲完hello_world.rs，编译的时候它提示：找不到rustc！我再查看version的时候发现我的rustc没了？！</p>
+<h2 id="4-换中科大的源"><a href="#4-换中科大的源" class="headerlink" title="4-换中科大的源"></a>4-换中科大的源</h2><p>按照上面完成后，rustc和cargo都应该自动装好了。但问题在于，速度不够快。使用cargo管理项目的时候，会涉及更新问题，但rust是被墙挡在外面的，更新速度慢是小事，可是卡的根本更新不了，就是大事了。</p>
+<p>所以我们需要，换 <strong>中科大的源</strong> 。</p>
+<p>操作如下：</p>
+<ul>
+<li>在完成上面的步骤的基础上</li>
+<li><p>进入<strong>root</strong>目录，如果有 <strong>.cargo</strong> 目录就进入(应该是一个隐藏目录， <figure class="highlight ls"><figcaption><span>-a``` 查看)，没有就新建一个 **.cargo** 目录，然后进入</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 进入 **.cargo** 目录后，如果有 **config** 文件就打开，没有就新建 **config** 文件</span><br><span class="line">* 在 **config** 文件中写入如下内容，保存退出</span><br></pre></td></tr></table></figure></p>
+<p>  [source.crates-io]<br>  registry = “<a href="https://github.com/rust-lang/crates.io-index&quot;" target="_blank" rel="noopener">https://github.com/rust-lang/crates.io-index&quot;</a><br>  replace-with = ‘ustc’<br>  [source.ustc]<br>  registry = “git://mirrors.ustc.edu.cn/crate.io-index”<br>  <code>`</code></p>
+</li>
+<li>然后重启一下系统就行了，以后更新就不用翻墙啦。</li>
+</ul>
+<hr>
+<h2 id="5-疑难杂症"><a href="#5-疑难杂症" class="headerlink" title="5-疑难杂症"></a>5-疑难杂症</h2><p>小李哥遇到一个奇怪的问题，就是2-安装rustup完成后，重启，查看version后发现是ok的。结果装了个vim，敲完hello_world.rs，编译的时候它提示：找不到rustc！我再查看version的时候发现我的rustc没了？！</p>
 <p>很玄学……我重启了一下系统就好了，原因未知。</p>
 <p>emmm……查看cargo的version时再次遇到找不到cargo！rustc也找不到了！和上次的共同之处在于：我试图关闭终端的时候提示还有进程在运行，然后我直接关掉终端，再次打开终端，cargo和rustc再次出现！</p>
 <p>真奇怪啊……</p>
@@ -459,6 +471,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/03/软件安装参考网站/" rel="prev" title="软件安装参考网站">
+                软件安装参考网站 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -537,7 +553,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -574,7 +590,8 @@
                 
                   <span class="links-of-author-item">
                     <a href="https://github.com/oxygen-hunter" target="_blank" title="GitHub">
-                      GitHub</a>
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
                   </span>
                 
             </div>
@@ -601,7 +618,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装curl"><span class="nav-number">1.1.</span> <span class="nav-text">1-安装curl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装rustup"><span class="nav-number">1.2.</span> <span class="nav-text">2-安装rustup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Hello-world"><span class="nav-number">1.3.</span> <span class="nav-text">3-Hello, world!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-疑难杂症"><span class="nav-number">1.4.</span> <span class="nav-text">4-疑难杂症</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装curl"><span class="nav-number">1.1.</span> <span class="nav-text">1-安装curl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装rustup"><span class="nav-number">1.2.</span> <span class="nav-text">2-安装rustup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Hello-world"><span class="nav-number">1.3.</span> <span class="nav-text">3-Hello, world!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-换中科大的源"><span class="nav-number">1.4.</span> <span class="nav-text">4-换中科大的源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-疑难杂症"><span class="nav-number">1.5.</span> <span class="nav-text">5-疑难杂症</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -609,6 +626,13 @@
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -650,11 +674,6 @@
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     
