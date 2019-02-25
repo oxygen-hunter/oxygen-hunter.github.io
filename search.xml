@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>计网学习笔记</title>
+      <link href="/2019/02/25/%E8%AE%A1%E7%BD%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>/2019/02/25/%E8%AE%A1%E7%BD%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>计算机网络（Computer Network）复习笔记</p><p>参考书目：《计算机网络自顶向下方法（第5版）》机械工业出版社</p><h1 id="CH1-Introduction-of-Networking-1"><a href="#CH1-Introduction-of-Networking-1" class="headerlink" title="CH1-Introduction of Networking-1"></a>CH1-Introduction of Networking-1</h1><h2 id="杂记："><a href="#杂记：" class="headerlink" title="杂记："></a>杂记：</h2><p>CN负责数字通信（数字信号）</p><p>哈罗车筐前黑色是太阳能板？</p><p>宿舍-一层-一楼-学校网络中心-南京教育网（东大）-全国教育网</p><p>第一台联网计算机在UCLA</p><p>remote medicine 瓶颈在于时延</p><p>行星间联网，光速瓶颈</p><p>因特网是一个复杂系统，分解为<strong>5个子问题</strong>，谁来分解？如何分解？</p><hr><h2 id="课程主要讲述："><a href="#课程主要讲述：" class="headerlink" title="课程主要讲述："></a>课程主要讲述：</h2><ol><li>因特网如何工作？</li><li>子问题为什么这样解决？</li></ol><h2 id="讲解顺序："><a href="#讲解顺序：" class="headerlink" title="讲解顺序："></a>讲解顺序：</h2><ol><li>基础：包、链路、复用、时延、丢包</li><li>低级技术：以太网，无线局域网，3g，4g</li><li>IP，路由，BGP</li><li>网络互通后如何交换信息：DNS,CDN,HTTP,TCP</li><li>热点问题：数据中心、</li></ol><h2 id="课程任务："><a href="#课程任务：" class="headerlink" title="课程任务："></a>课程任务：</h2><ol><li>实验25%（现场提问，验收，改代码，严格）</li><li>作业15%</li><li>期末考试60%</li></ol><hr><h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>交换方式</p><ol><li>电路交换：最基础的交换方式。点对点<br> 特点：<ol><li>中间所有资源都预留好</li><li>admission control per connection</li></ol></li><li>包交换：大家都把数据分为小数据包，一股脑发到交换机，交换机再转发，自由竞争，冲突了就丢一个，一个小包失败了就再发一次。（核心思想：统计复用）<br> 特点：<ol><li>包独立处理</li><li>admission control per packet</li></ol></li><li>虚链路：在包交换中给vip用户优先权，以便冲突时优先满足vip用户</li></ol><hr><p>电路交换：src和dst之间直接连接（中间类似于多刀多掷开关）</p><p>时间分片：比如，将1ms分为500片，500个用户同话，用户1通话时只占用1ms的第1片，然后若干个1ms组成了通话时间。</p><p>频率分片：将频率切片，比如1Mhz的一段切成100片分给不同的用户，实际上要分很多级不然没法满足几亿用户的分配需求，频率之间不干扰，频率由国家严格控制</p><p>2019-2-25</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机网络 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 计算机网络 </tag>
+            
+            <tag> 复习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《算法设计与分析》学习笔记</title>
       <link href="/2019/02/10/%E3%80%8A%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
       <url>/2019/02/10/%E3%80%8A%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
@@ -83,7 +110,7 @@
       <link href="/2019/02/03/Rust%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/"/>
       <url>/2019/02/03/Rust%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/</url>
       
-        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。</p><p>操作系统：Ubuntu 16.04</p><hr><h1 id="1-安装curl"><a href="#1-安装curl" class="headerlink" title="1-安装curl"></a>1-安装curl</h1><blockquote><p>$ apt install curl</p></blockquote><hr><h1 id="2-安装rustup"><a href="#2-安装rustup" class="headerlink" title="2-安装rustup"></a>2-安装rustup</h1><blockquote><p>$ curl <a href="https://sh.rustup.rs" target="_blank" rel="noopener">https://sh.rustup.rs</a> -sSf | sh</p></blockquote><p>这个命令会帮你装好rustc, cargo等一系列后面要用到的东西，可以说是一键安装了。</p><p>中途会遇到这个3个选项，需要选一个，手动输入1，回车。</p><p><img src="/2019/02/03/Rust环境安装/rustup安装选项.png" alt="rustup安装选项"></p><p>安装成功后提示</p><p><img src="/2019/02/03/Rust环境安装/rustup安装成功.png" alt="rustup安装成功"></p><p>然后<strong>重启系统</strong>，重启会使得<strong>rust被添加到PATH中</strong>。这一步很重要。</p><p>重启后，查看是否成功。</p><blockquote><p>$ rustc –version</p></blockquote><p><img src="/2019/02/03/Rust环境安装/rustc版本.png" alt="rustc版本"></p><hr><h1 id="3-Hello-world"><a href="#3-Hello-world" class="headerlink" title="3-Hello, world!"></a>3-Hello, world!</h1><p>Rust源文件以.rs结尾，文件中的单词以下划线分割，编写hello_world.rs</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>编译+运行</p><blockquote><p>$ rustc hello_world.rs -o hello_world</p></blockquote><blockquote><p>$ ./hello_world</p></blockquote><p>如果显示如下，那便成功了。</p><p><img src="/2019/02/03/Rust环境安装/Hello_world.png" alt="Hello_world"></p><hr><h1 id="4-换中科大的源"><a href="#4-换中科大的源" class="headerlink" title="4-换中科大的源"></a>4-换中科大的源</h1><p>按照上面完成后，rustc和cargo都应该自动装好了。但问题在于，速度不够快。使用cargo管理项目的时候，会涉及更新问题，但rust是被墙挡在外面的，更新速度慢是小事，可是卡的根本更新不了，就是大事了。</p><p>所以我们需要，换 <strong>中科大的源</strong> 。</p><p>操作如下：</p><ul><li>在完成上面的步骤的基础上</li><li>进入<strong>root</strong>目录，如果有 <strong>.cargo</strong> 目录就进入(应该是一个隐藏目录，用 <code>ls -a</code> 查看)，没有就新建一个 <strong>.cargo</strong> 目录，然后进入</li><li>进入 <strong>.cargo</strong> 目录后，如果有 <strong>config</strong> 文件就打开，没有就新建 <strong>config</strong> 文件</li><li><p>在 <strong>config</strong> 文件中写入如下内容，保存退出</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[source.crates-io]</span><br><span class="line">registry = &quot;https://github.com/rust-lang/crates.io-index&quot;</span><br><span class="line">replace-with = &apos;ustc&apos;</span><br><span class="line">[source.ustc]</span><br><span class="line">registry = &quot;git://mirrors.ustc.edu.cn/crate.io-index&quot;</span><br></pre></td></tr></table></figure></li><li><p>然后重启一下系统就行了，以后更新就不用翻墙啦。</p></li></ul><hr><h1 id="5-疑难杂症"><a href="#5-疑难杂症" class="headerlink" title="5-疑难杂症"></a>5-疑难杂症</h1><p>小李哥遇到一个奇怪的问题，就是2-安装rustup完成后，重启，查看version后发现是ok的。结果装了个vim，敲完hello_world.rs，编译的时候它提示：找不到rustc！我再查看version的时候发现我的rustc没了？！</p><p>很玄学……我重启了一下系统就好了，原因未知。</p><p>emmm……查看cargo的version时再次遇到找不到cargo！rustc也找不到了！和上次的共同之处在于：我试图关闭终端的时候提示还有进程在运行，然后我直接关掉终端，再次打开终端，cargo和rustc再次出现！</p><p>真奇怪啊……</p><p>见鬼图↓，估计和环境变量有关系，应该是我自己的问题……</p><p><img src="/2019/02/03/Rust环境安装/su后找不到rustc.png" alt="su后找不到rustc"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。</p><p>操作系统：Ubuntu 16.04</p><h1 id="1-安装curl"><a href="#1-安装curl" class="headerlink" title="1-安装curl"></a>1-安装curl</h1><blockquote><p>$ apt install curl</p></blockquote><h1 id="2-安装rustup"><a href="#2-安装rustup" class="headerlink" title="2-安装rustup"></a>2-安装rustup</h1><blockquote><p>$ curl <a href="https://sh.rustup.rs" target="_blank" rel="noopener">https://sh.rustup.rs</a> -sSf | sh</p></blockquote><p>这个命令会帮你装好rustc, cargo等一系列后面要用到的东西，可以说是一键安装了。</p><p>中途会遇到这个3个选项，需要选一个，手动输入1，回车。</p><p><img src="/2019/02/03/Rust环境安装/rustup安装选项.png" alt="rustup安装选项"></p><p>安装成功后提示</p><p><img src="/2019/02/03/Rust环境安装/rustup安装成功.png" alt="rustup安装成功"></p><p>然后<strong>重启系统</strong>，重启会使得<strong>rust被添加到PATH中</strong>。这一步很重要。</p><p>重启后，查看是否成功。</p><blockquote><p>$ rustc –version</p></blockquote><p><img src="/2019/02/03/Rust环境安装/rustc版本.png" alt="rustc版本"></p><h1 id="3-Hello-world"><a href="#3-Hello-world" class="headerlink" title="3-Hello, world!"></a>3-Hello, world!</h1><p>Rust源文件以.rs结尾，文件中的单词以下划线分割，编写hello_world.rs</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>编译+运行</p><blockquote><p>$ rustc hello_world.rs -o hello_world</p></blockquote><blockquote><p>$ ./hello_world</p></blockquote><p>如果显示如下，那便成功了。</p><p><img src="/2019/02/03/Rust环境安装/Hello_world.png" alt="Hello_world"></p><h1 id="4-换中科大的源"><a href="#4-换中科大的源" class="headerlink" title="4-换中科大的源"></a>4-换中科大的源</h1><p>按照上面完成后，rustc和cargo都应该自动装好了。但问题在于，速度不够快。使用cargo管理项目的时候，会涉及更新问题，但rust是被墙挡在外面的，更新速度慢是小事，可是卡的根本更新不了，就是大事了。</p><p>所以我们需要，换 <strong>中科大的源</strong> 。</p><p>操作如下：</p><ul><li>在完成上面的步骤的基础上</li><li>进入<strong>root</strong>目录，如果有 <strong>.cargo</strong> 目录就进入(应该是一个隐藏目录，用 <code>ls -a</code> 查看)，没有就新建一个 <strong>.cargo</strong> 目录，然后进入</li><li>进入 <strong>.cargo</strong> 目录后，如果有 <strong>config</strong> 文件就打开，没有就新建 <strong>config</strong> 文件</li><li><p>在 <strong>config</strong> 文件中写入如下内容，保存退出</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[source.crates-io]</span><br><span class="line">registry = &quot;https://github.com/rust-lang/crates.io-index&quot;</span><br><span class="line">replace-with = &apos;ustc&apos;</span><br><span class="line">[source.ustc]</span><br><span class="line">registry = &quot;git://mirrors.ustc.edu.cn/crate.io-index&quot;</span><br></pre></td></tr></table></figure></li><li><p>然后重启一下系统就行了，以后更新就不用翻墙啦。</p></li></ul><h1 id="5-疑难杂症"><a href="#5-疑难杂症" class="headerlink" title="5-疑难杂症"></a>5-疑难杂症</h1><p>小李哥遇到一个奇怪的问题，就是2-安装rustup完成后，重启，查看version后发现是ok的。结果装了个vim，敲完hello_world.rs，编译的时候它提示：找不到rustc！我再查看version的时候发现我的rustc没了？！</p><p>很玄学……我重启了一下系统就好了，原因未知。</p><p>emmm……查看cargo的version时再次遇到找不到cargo！rustc也找不到了！和上次的共同之处在于：我试图关闭终端的时候提示还有进程在运行，然后我直接关掉终端，再次打开终端，cargo和rustc再次出现！</p><p>真奇怪啊……</p><p>见鬼图↓，估计和环境变量有关系，应该是我自己的问题……</p><p><img src="/2019/02/03/Rust环境安装/su后找不到rustc.png" alt="su后找不到rustc"></p>]]></content>
       
       
       <categories>
@@ -123,6 +150,8 @@
       
       
         <tags>
+            
+            <tag> 复习 </tag>
             
             <tag> OS </tag>
             
