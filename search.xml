@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>图论定理收集</title>
+      <link href="/2019/02/26/%E5%9B%BE%E8%AE%BA%E5%AE%9A%E7%90%86%E6%94%B6%E9%9B%86/"/>
+      <url>/2019/02/26/%E5%9B%BE%E8%AE%BA%E5%AE%9A%E7%90%86%E6%94%B6%E9%9B%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>参考书目：《图论与网络理论》和ppt</p><h1 id="第一章-图的基本概念"><a href="#第一章-图的基本概念" class="headerlink" title="第一章 图的基本概念"></a>第一章 图的基本概念</h1><p>定理1.1.1 对任何图G，各顶点度数之和等于边数的2倍。即$ \sum_{\nu\in V(G)}d(\nu) = 2\varepsilon. $</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 图论 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图论 </tag>
+            
+            <tag> 复习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>高程学习笔记</title>
+      <link href="/2019/02/26/%E9%AB%98%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>/2019/02/26/%E9%AB%98%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>高级程序设计复习笔记</p><p>参考书目：<br>《程序设计教程—用C++语言描述》陈家骏、郑滔<br>《Thinking in C++》机械工业出版社</p><h1 id="第一章-复习程设基础"><a href="#第一章-复习程设基础" class="headerlink" title="第一章 复习程设基础"></a>第一章 复习程设基础</h1><h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>分数组成：<br>作业10%<br>上机40%（现场oj和课后projects）<br>期末50%（据说较为简单）</p><h2 id="C-C-数据类型"><a href="#C-C-数据类型" class="headerlink" title="C/C++数据类型"></a>C/C++数据类型</h2><p><code>unsigned</code>类型运算不封闭，+*/封闭，-不封闭</p><p><code>float</code>类型 0.1+0.2!=0.3之类的</p><p><code>实数</code>相等条件，比较差的绝对值是否小于一个很小的数</p><p>联合类型用于用一种类型表示多种类型的数据，例如不同类型的数据组织在一起不能用array</p><p>指针是内存地址的抽象，用于动态变量（链表）、传递参数</p><h2 id="C-过程抽象"><a href="#C-过程抽象" class="headerlink" title="C++过程抽象"></a>C++过程抽象</h2><p><code>C++函数</code>与<code>数学函数</code>区别：</p><ol><li>C++函数可以没有返回值</li><li>可以有副作用(side effect)</li><li>同一个实参，不同时刻调用结果可以不一样</li></ol><h2 id="内存区安排"><a href="#内存区安排" class="headerlink" title="内存区安排"></a>内存区安排</h2><p>静态数据区</p><ul><li>全局变量</li><li>static局部变量</li><li>常量</li></ul><p>2019-2-26</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> C++ </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 复习 </tag>
+            
+            <tag> C++ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>计网学习笔记</title>
       <link href="/2019/02/25/%E8%AE%A1%E7%BD%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
       <url>/2019/02/25/%E8%AE%A1%E7%BD%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
@@ -20,9 +74,9 @@
       
         <tags>
             
-            <tag> 计算机网络 </tag>
-            
             <tag> 复习 </tag>
+            
+            <tag> 计算机网络 </tag>
             
         </tags>
       
