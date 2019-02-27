@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="算法,">
+  <meta name="keywords" content="算法,复习,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="前言本篇供日后复习，跳跃性很大，随性更新。 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}) $$ Stirling公式也可">
-<meta name="keywords" content="算法">
+<meta name="description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\fra">
+<meta name="keywords" content="算法,复习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《算法设计与分析》学习笔记">
 <meta property="og:url" content="http://yoursite.com/2019/02/10/《算法设计与分析》学习笔记/index.html">
 <meta property="og:site_name" content="懵逼树树洞">
-<meta property="og:description" content="前言本篇供日后复习，跳跃性很大，随性更新。 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}) $$ Stirling公式也可">
+<meta property="og:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\fra">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-10T11:59:37.264Z">
+<meta property="og:updated_time" content="2019-02-27T02:08:39.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《算法设计与分析》学习笔记">
-<meta name="twitter:description" content="前言本篇供日后复习，跳跃性很大，随性更新。 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}) $$ Stirling公式也可">
+<meta name="twitter:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\fra">
 
 
 
@@ -379,11 +379,12 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇供日后复习，跳跃性很大，随性更新。</p>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本篇供日后复习，跳跃性很大，随性更新。</p>
+<p>参考书目：《算法设计与分析》 黄宇 机械工业出版社</p>
 <h1 id="第2章-从算法的角度重新审视数学的概念"><a href="#第2章-从算法的角度重新审视数学的概念" class="headerlink" title="第2章 从算法的角度重新审视数学的概念"></a>第2章 从算法的角度重新审视数学的概念</h1><h3 id="2-1-3-阶乘n"><a href="#2-1-3-阶乘n" class="headerlink" title="2.1.3 阶乘n!"></a>2.1.3 阶乘n!</h3><p>根据<code>Stirling公式</code>，可以将<code>n!</code>转化为更易于处理的闭形式，对<code>n&gt;=1</code>，有：</p>
 <p>$$ \sqrt{2\pi n}(\frac{n}{e})^n &lt; n! &lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}) $$</p>
 <p><code>Stirling公式</code>也可以写成：</p>
-<p>$$ n! = \sqrt{2\pi n}(\frac{n}{e})^n e^{\epsilon(n)},其中\frac{1}{12n+1} \leq \epsilon(n) \leq \frac{1}{12n} $$</p>
+<p>$$ n! = \sqrt{2\pi n}(\frac{n}{e})^n e^{\varepsilon(n)},其中\frac{1}{12n+1} \leq \varepsilon(n) \leq \frac{1}{12n} $$</p>
 <p>写成近似形式：</p>
 <p>$$ n! = \sqrt{2\pi n}(\frac{n}{e})^n(1+\Theta(\frac{1}{n})) $$</p>
 <p>由于 $\Theta(\frac{1}{n})$ 是无穷小量，$\lim\limits_{n \to \infty} \frac{1}{n}=0$ ，忽略。所以得到进一步的近似式：</p>
@@ -392,7 +393,7 @@
 <li>多项式级数(polynomial series)<br>  $ \sum\limits_{i=1}^{n}i = \dfrac{n(n+1)}{2} $<br>  .<br>  $ \sum\limits_{i=1}^{n}i^2 = \dfrac{1}{3}n(n+\dfrac{1}{2})(n+1) $<br>  .<br>  $ \sum\limits_{i=1}^{n}i^k = \Theta(\dfrac{1}{k+1}n^{k+1}) $<br>  .</li>
 <li>几何级数(geometric series)<br>  $ \sum\limits_{i=0}^{k}ar^i = a(\dfrac{r^{k+1}-1}{r-1}) $</li>
 </ul>
-<p>$\begin{eqnarray}f(x,y)<br>        &amp;=&amp;2xy+(x-y)^2\<br>        &amp;=&amp;x^2+y^2<br>    \end{eqnarray}$</p>
+<p>测试用<br>$\begin{eqnarray}<br>f(x,y) &amp;=&amp; 2xy+(x-y)^2\<br>       &amp;=&amp; x^2+y^2<br>\end{eqnarray}$</p>
 
       
     </div>
@@ -411,6 +412,8 @@
         <div class="post-tags">
           
             <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/复习/" rel="tag"># 复习</a>
           
         </div>
       
@@ -593,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-从算法的角度重新审视数学的概念"><span class="nav-number">2.</span> <span class="nav-text">第2章 从算法的角度重新审视数学的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-阶乘n"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1.3 阶乘n!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-从算法的角度重新审视数学的概念"><span class="nav-number">2.</span> <span class="nav-text">第2章 从算法的角度重新审视数学的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-阶乘n"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1.3 阶乘n!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</span></a></li></ol></li></ol></div>
             
 
           </div>
