@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="懵逼树树洞">
 <meta property="og:description" content="概述计算机网络（Computer Network）复习笔记 参考书目：《计算机网络自顶向下方法（第5版）》机械工业出版社 CH1-Introduction of Networking-1杂记：CN负责数字通信（数字信号） 哈罗车筐前黑色是太阳能板？ 宿舍-一层-一楼-学校网络中心-南京教育网（东大）-全国教育网 第一台联网计算机在UCLA remote medicine 瓶颈在于时延 行星间联网，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-25T08:10:12.201Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/25/计网学习笔记/">
+<meta property="og:image" content="http://yoursite.com/2019/02/25/计网学习笔记/">
+<meta property="og:updated_time" content="2019-02-28T04:14:14.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计网学习笔记">
 <meta name="twitter:description" content="概述计算机网络（Computer Network）复习笔记 参考书目：《计算机网络自顶向下方法（第5版）》机械工业出版社 CH1-Introduction of Networking-1杂记：CN负责数字通信（数字信号） 哈罗车筐前黑色是太阳能板？ 宿舍-一层-一楼-学校网络中心-南京教育网（东大）-全国教育网 第一台联网计算机在UCLA remote medicine 瓶颈在于时延 行星间联网，">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/25/计网学习笔记/">
 
 
 
@@ -406,8 +409,7 @@
 <li>期末考试60%</li>
 </ol>
 <hr>
-<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>交换方式</p>
-<ol>
+<h2 id="交换方式"><a href="#交换方式" class="headerlink" title="交换方式"></a>交换方式</h2><ol>
 <li>电路交换：最基础的交换方式。点对点<br> 特点：<ol>
 <li>中间所有资源都预留好</li>
 <li>admission control per connection</li>
@@ -418,14 +420,78 @@
 <li>admission control per packet</li>
 </ol>
 </li>
-<li>虚链路：在包交换中给vip用户优先权，以便冲突时优先满足vip用户</li>
+<li>虚链路：在包交换中模拟电路交换给vip用户优先权，以便冲突时优先满足vip用户</li>
 </ol>
 <hr>
-<p>电路交换：src和dst之间直接连接（中间类似于多刀多掷开关）</p>
-<p>时间分片：比如，将1ms分为500片，500个用户同话，用户1通话时只占用1ms的第1片，然后若干个1ms组成了通话时间。</p>
-<p>频率分片：将频率切片，比如1Mhz的一段切成100片分给不同的用户，实际上要分很多级不然没法满足几亿用户的分配需求，频率之间不干扰，频率由国家严格控制</p>
-<p>2019-2-25</p>
+<h2 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h2><p>电路交换：在两点之间建立通道，src和dst之间直接连接（中间类似于多刀多掷开关）</p>
+<p>建链-传输-拆链。想象成老电影里的电话局，处长和局长通话需要接线员接线、通话、拔线。</p>
+<p>时间分片：比如，将1ms分为1000片，1000个用户同话，用户1通话时只占用1ms的第1片，然后若干个1ms组成了通话时间。如果有人通话量大，就多分几片。</p>
+<p>频率分片：将频率切片，比如1Mhz的一段切成100片分给不同的用户，实际上要分很多级/空间复用，不然没法满足几亿用户的分配需求，频率之间不干扰，频率由国家法律严格控制，比如联通被分在800-850Mhz。</p>
+<p>低频波的波长长，容易绕开障碍物。所以停用2G用户，这样子那一段频率就可以用来给5G了。</p>
+<p>1G频分，2G时分，后面的利用更高级原理。</p>
+<p><img src="/2019/02/25/计网学习笔记/" alt="电路交换的时序图1"></p>
+<p><strong>为什么建链时有delay，拆链时没有delay？</strong><br>因为建链时，需要预留电路，要时间，可能会失败。拆链直接拆就行。</p>
+<p><img src="/2019/02/25/计网学习笔记/" alt="电路交换的时序图2"></p>
+<p>传输data时，不一定是连续的，不传输的时候就浪费了。比如2G/3G时代的手机QQ，发一个消息要建链-拆链一次，电费消耗大。在传大文件或者看电影才划算。</p>
+<p><strong>优点：</strong></p>
+<ol>
+<li>predictable performance（保证一定送到，速度也有保障）</li>
+<li>simple/fast switching (once circuit established)（建链后很简单）</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>complexity of circuit setup/teardown（建链和拆链很麻烦）</li>
+<li>inefficient when traffic is bursty（上述手机QQ的浪费、驿站的一匹马只运输一串荔枝，但实际上可以驼很多东西，这些空间浪费了。）</li>
+<li>circuit setup adds delay（建链需要一来一回，增加时延，聊微信会很花时延）</li>
+<li>switch fails-&gt;circuit fails（建链失败就完蛋）</li>
+</ol>
+<p>相似工作原理：华为手机之所以省电，在于有1个主CPU和几个小CPU，微信等通过小CPU。天线也是自己开屏幕才会工作，所以微信可能会收到不及时。</p>
 <hr>
+<h2 id="包交换"><a href="#包交换" class="headerlink" title="包交换"></a>包交换</h2><p>包交换：通信时像快递一样，只要写好每个数据包发货地址和收货地址，交换机只要负责查地址，就可以发了。核心思想是<code>统计复用</code>。</p>
+<p>不保证性能：如果一大堆人同时发包，只能送一个，其他丢掉。或者用一个buffer缓存一下，再发。</p>
+<p><strong>优点：</strong></p>
+<ol>
+<li>Efficient use of network resources</li>
+<li><strong>simpler to implement</strong>（要求交换机做的事情很少，复杂的事交给端系统完成，就很便宜）</li>
+<li>robust: can “route around trouble”（不存在链路建立失败的问题，比如一家快递倒闭了我换一家就可以了）</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>unpredictable performance（由于buffer容量有限，只能保证大部分快递不送丢，类比双11快递公司的爆仓）</li>
+<li>requires buffer management and congestion control（需要管理仓库和拥塞控制，管理仓库是这个快递费20，那个快递费5块，冲突就丢掉5块的。拥塞控制是双11短期取货码（被动，拥塞已经发生）、提前两三周开始双11（主动从源头控制）、南大驿站装不下就返回到上一级驿站）</li>
+</ol>
+<h2 id="统计复用-statistical-multiplexing"><a href="#统计复用-statistical-multiplexing" class="headerlink" title="统计复用 statistical multiplexing"></a>统计复用 statistical multiplexing</h2><p>Allowing more demands than the network can handle.</p>
+<ul>
+<li><p>hoping that not all demands are required at the same time（小区接入宽带，允许10个用户100M，但只给他们分配100M，因为假定他们不会同时用网，且一家人用不了100M。）（旅馆也住不了那么多人，正常情况下不会这么多人同时去住，如果想专享线路，建个行宫吧）</p>
+</li>
+<li><p>results in unpredictability（世界杯期间突然爆满）</p>
+</li>
+<li><p>works well except for the extreme cases（爆满的情况不符合统计复用的条件）</p>
+</li>
+</ul>
+<h2 id="如何评价网络性能"><a href="#如何评价网络性能" class="headerlink" title="如何评价网络性能"></a>如何评价网络性能</h2><ul>
+<li>时延delay</li>
+<li>丢包率loss</li>
+<li>吞吐量throughput</li>
+</ul>
+<p>无线网络侧重于丢包率</p>
+<p>数据中心侧重时延</p>
+<h3 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h3><p>Consists</p>
+<ul>
+<li>transmission delay (link，取决于带宽，$数据量/带宽$)</li>
+<li>propagation delay (link，取决于路长，$长度/光速$)</li>
+<li>queueing delay<br>(取决于来的包，冲突就进队列，队列溢出就丢掉，由于包有编号，接收端数一数123457，丢了6号，那么通知发送方重发)(按均值和variance来衡量，由排队论设计好)（数据中心的主要时延）（平均排队时长）<blockquote>
+<p>Littes’s law(1961)<br>L = A * W</p>
+</blockquote>
+</li>
+<li>processing delay (有但可以忽略不计了，和电子工业发展有关) </li>
+</ul>
+<p>链路带宽bandwidth：八车道的八（同时有几个比特在链路里跑）</p>
+<p>BDP = Bandwidth * propagation delay</p>
+<p>$1G=10^9$</p>
+<p>对于小文件，$D_{prop}$占主导，对于大文件，$D_{trans}$占主导时延</p>
+<p>普通交换机遵循store-forward模式，交换机收到包先存起来解析包头再发下一站。<br>端(trans,prop,queue&amp;process)交换机()交换机()端</p>
+<p>高频交换机（高频率股票交易）不遵循上述模式<br>带宽极高不用queue，收到1bit就直接发。</p>
 
       
     </div>
@@ -458,8 +524,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/10/《算法设计与分析》学习笔记/" rel="next" title="《算法设计与分析》学习笔记">
-                <i class="fa fa-chevron-left"></i> 《算法设计与分析》学习笔记
+              <a href="/2019/02/10/算法学习笔记/" rel="next" title="算法学习笔记">
+                <i class="fa fa-chevron-left"></i> 算法学习笔记
               </a>
             
           </div>
@@ -549,7 +615,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -560,7 +626,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -571,7 +637,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -628,7 +694,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CH1-Introduction-of-Networking-1"><span class="nav-number">2.</span> <span class="nav-text">CH1-Introduction of Networking-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记："><span class="nav-number">2.1.</span> <span class="nav-text">杂记：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程主要讲述："><span class="nav-number">2.2.</span> <span class="nav-text">课程主要讲述：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讲解顺序："><span class="nav-number">2.3.</span> <span class="nav-text">讲解顺序：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程任务："><span class="nav-number">2.4.</span> <span class="nav-text">课程任务：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点"><span class="nav-number">2.5.</span> <span class="nav-text">知识点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CH1-Introduction-of-Networking-1"><span class="nav-number">2.</span> <span class="nav-text">CH1-Introduction of Networking-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记："><span class="nav-number">2.1.</span> <span class="nav-text">杂记：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程主要讲述："><span class="nav-number">2.2.</span> <span class="nav-text">课程主要讲述：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讲解顺序："><span class="nav-number">2.3.</span> <span class="nav-text">讲解顺序：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程任务："><span class="nav-number">2.4.</span> <span class="nav-text">课程任务：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交换方式"><span class="nav-number">2.5.</span> <span class="nav-text">交换方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电路交换"><span class="nav-number">2.6.</span> <span class="nav-text">电路交换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包交换"><span class="nav-number">2.7.</span> <span class="nav-text">包交换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计复用-statistical-multiplexing"><span class="nav-number">2.8.</span> <span class="nav-text">统计复用 statistical multiplexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何评价网络性能"><span class="nav-number">2.9.</span> <span class="nav-text">如何评价网络性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时延"><span class="nav-number">2.9.1.</span> <span class="nav-text">时延</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

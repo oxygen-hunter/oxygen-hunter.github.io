@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="OS,复习,">
+  <meta name="keywords" content="复习,OS,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="前言经一年半的学习，发现计科本科生课程中与计算机原理相关的课程多是隔靴搔痒，用到时再查书/百度也不迟，故接下来的课程中将关注点放在各章的开头1~2节，若有兴趣再继续深入。 参考书目：《操作系统教程（第5版）》费翔林  第一章 操作系统概论PPT内容主要讲述以下问题： 1. 单道/多道程序的CPU效率问题。2. 对于一个操作系统来说，它要有哪些功能？3. 从发明至今，有哪些操作系统，特点是什么？ 第">
-<meta name="keywords" content="OS,复习">
+<meta name="keywords" content="复习,OS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OS2019_winter">
 <meta property="og:url" content="http://yoursite.com/2019/01/31/OS学习笔记/index.html">
 <meta property="og:site_name" content="懵逼树树洞">
 <meta property="og:description" content="前言经一年半的学习，发现计科本科生课程中与计算机原理相关的课程多是隔靴搔痒，用到时再查书/百度也不迟，故接下来的课程中将关注点放在各章的开头1~2节，若有兴趣再继续深入。 参考书目：《操作系统教程（第5版）》费翔林  第一章 操作系统概论PPT内容主要讲述以下问题： 1. 单道/多道程序的CPU效率问题。2. 对于一个操作系统来说，它要有哪些功能？3. 从发明至今，有哪些操作系统，特点是什么？ 第">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-26T04:01:04.378Z">
+<meta property="og:updated_time" content="2019-02-28T07:53:20.854Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OS2019_winter">
 <meta name="twitter:description" content="前言经一年半的学习，发现计科本科生课程中与计算机原理相关的课程多是隔靴搔痒，用到时再查书/百度也不迟，故接下来的课程中将关注点放在各章的开头1~2节，若有兴趣再继续深入。 参考书目：《操作系统教程（第5版）》费翔林  第一章 操作系统概论PPT内容主要讲述以下问题： 1. 单道/多道程序的CPU效率问题。2. 对于一个操作系统来说，它要有哪些功能？3. 从发明至今，有哪些操作系统，特点是什么？ 第">
@@ -514,6 +514,94 @@
 <h2 id="资源抽象"><a href="#资源抽象" class="headerlink" title="资源抽象"></a>资源抽象</h2><p>用软件来屏蔽硬件实现细节，只要调用API就行了</p>
 <p>操作系统：管理计算机硬件资源的系统软件，为用户提供交互界面，提升硬件使用效率，主要方法是复用、虚拟和抽象。<br>2019-2-26</p>
 <hr>
+<h2 id="认识操作系统的四种观点"><a href="#认识操作系统的四种观点" class="headerlink" title="认识操作系统的四种观点"></a>认识操作系统的四种观点</h2><h3 id="服务用户观点"><a href="#服务用户观点" class="headerlink" title="服务用户观点"></a>服务用户观点</h3><p>系统调用向API提供服务</p>
+<p>操作系统提供良好的人机界面</p>
+<h3 id="进程交互观点"><a href="#进程交互观点" class="headerlink" title="进程交互观点"></a>进程交互观点</h3><p>操作系统作为<strong>进程执行的控制者和执行者</strong></p>
+<ul>
+<li>OS需要提供机制，解决并发进程的<strong>互斥、同步、通信和死锁问题</strong></li>
+</ul>
+<h3 id="系统实现观点"><a href="#系统实现观点" class="headerlink" title="系统实现观点"></a>系统实现观点</h3><p>操作系统作为扩展机或虚拟机，把硬件的复杂性与用户隔离开来。</p>
+<ul>
+<li>把操作系统分为若干层次，逐步添加到裸机上，系统功能就能增加一点形成操作系统虚拟机</li>
+<li>扩充后的虚拟机不仅能使用<strong>硬件指令</strong>，还能使用<strong>系统指令</strong></li>
+</ul>
+<h3 id="资源管理观点"><a href="#资源管理观点" class="headerlink" title="资源管理观点"></a>资源管理观点</h3><p>操作系统对软硬件资源进行<strong>资源复用、虚拟和抽象</strong></p>
+<p>管理各种资源</p>
+<h2 id="操作系统功能"><a href="#操作系统功能" class="headerlink" title="操作系统功能"></a>操作系统功能</h2><h3 id="处理器管理"><a href="#处理器管理" class="headerlink" title="处理器管理"></a>处理器管理</h3><p>多道程序设计，提高处理器效率。</p>
+<h3 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h3><p>主要是管理内存，包括</p>
+<ul>
+<li>内存分配</li>
+<li>地址转换</li>
+<li>存储保护</li>
+<li>内存共享</li>
+<li>存储扩充</li>
+</ul>
+<h3 id="设备管理"><a href="#设备管理" class="headerlink" title="设备管理"></a>设备管理</h3><p>主要任务</p>
+<ul>
+<li>管理外设</li>
+<li>发挥设备的并行性</li>
+<li>提供设备驱动程序和中断处理程序</li>
+</ul>
+<p>核心功能</p>
+<ul>
+<li>设备中断处理</li>
+<li>缓冲区管理</li>
+<li>设备独立性<ul>
+<li>实现逻辑设备到物理设备之间的映射</li>
+</ul>
+</li>
+<li>设备的分配和回收</li>
+<li>共享型设备的驱动调度</li>
+<li>虚拟设备</li>
+</ul>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><p>对用户文件和系统文件进行管理</p>
+<ul>
+<li>文件逻辑组织方法</li>
+<li>文件物理组织方法</li>
+<li>文件存取和使用方法</li>
+<li>文件目录管理</li>
+<li>文件共享和安全性控制</li>
+</ul>
+<h3 id="网络与通信管理"><a href="#网络与通信管理" class="headerlink" title="网络与通信管理"></a>网络与通信管理</h3><p>通过网络协议进行管理</p>
+<h2 id="操作系统主要特性"><a href="#操作系统主要特性" class="headerlink" title="操作系统主要特性"></a>操作系统主要特性</h2><h3 id="并发性"><a href="#并发性" class="headerlink" title="并发性"></a>并发性</h3><p>并发：指的是两个或两个以上的事件在同一时间间隔内（比如1分钟内）发生<br>并行：在同一时刻发生</p>
+<p>要求实现多个进程间的安全切换</p>
+<h3 id="共享性"><a href="#共享性" class="headerlink" title="共享性"></a>共享性</h3><p>解决读写一致问题、临界区之类的问题</p>
+<h3 id="异步性"><a href="#异步性" class="headerlink" title="异步性"></a>异步性</h3><p>进程的开始、暂停、前进速度都是随机的</p>
+<p>作业到达系统的类型和时间是随机的</p>
+<p>操作员发命令或按按钮的时刻是随机的</p>
+<p>程序出错是随机的</p>
+<p>软硬件中断是随机的</p>
+<p><strong>所以需要解决和时间有关的错误</strong></p>
+<h2 id="多道程序设计效果"><a href="#多道程序设计效果" class="headerlink" title="多道程序设计效果"></a>多道程序设计效果</h2><ol>
+<li><p>提高了系统效率</p>
+</li>
+<li><p>延长了每道题的计算时间</p>
+</li>
+<li><p>牺牲了用户的响应时间</p>
+</li>
+</ol>
+<p>假设程序等待IO的时间占其运行时间比为p，n道程序同时等待的概率是$p^n$，那么CPU效率是$1-p^n$。</p>
+<h2 id="批处理操作系统"><a href="#批处理操作系统" class="headerlink" title="批处理操作系统"></a>批处理操作系统</h2><p>作业是指把程序、数据连同作业说明书组织起来的任务单位</p>
+<p>批作业是指把批中的作业预先输入作业队列，由操作系统按照说明来调度和控制作业执行，形成自动转接和连续处理作业。</p>
+<p>特点：</p>
+<ul>
+<li>用户脱机工作</li>
+<li>成批处理作业</li>
+<li>多道程序运行</li>
+<li>作业周转时间长</li>
+</ul>
+<h2 id="分时操作系统"><a href="#分时操作系统" class="headerlink" title="分时操作系统"></a>分时操作系统</h2><ul>
+<li>多个联机用户同时使用一个计算机系统在各自的终端上进行交互式对话</li>
+<li>程序、数据和命令都在会话过程中产生，通过问答方式控制程序</li>
+<li>处理器分为时间片给不同用户</li>
+</ul>
+<h2 id="实时操作系统"><a href="#实时操作系统" class="headerlink" title="实时操作系统"></a>实时操作系统</h2><ul>
+<li>外部事件产生时，快速处理</li>
+</ul>
+<hr>
+<p>地址转换</p>
+<p>2019-2-28</p>
+<hr>
 
       
     </div>
@@ -531,9 +619,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/OS/" rel="tag"># OS</a>
-          
             <a href="/tags/复习/" rel="tag"># 复习</a>
+          
+            <a href="/tags/OS/" rel="tag"># OS</a>
           
         </div>
       
@@ -633,7 +721,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -644,7 +732,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -655,7 +743,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -712,7 +800,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-操作系统概论"><span class="nav-number">2.</span> <span class="nav-text">第一章 操作系统概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-单道-多道程序的CPU效率问题。"><span class="nav-number">2.1.</span> <span class="nav-text">1. 单道/多道程序的CPU效率问题。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-对于一个操作系统来说，它要有哪些功能？"><span class="nav-number">2.2.</span> <span class="nav-text">2. 对于一个操作系统来说，它要有哪些功能？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-从发明至今，有哪些操作系统，特点是什么？"><span class="nav-number">2.3.</span> <span class="nav-text">3. 从发明至今，有哪些操作系统，特点是什么？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章-同步、通信与死锁"><span class="nav-number">3.</span> <span class="nav-text">第三章 同步、通信与死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是并发进程"><span class="nav-number">3.1.</span> <span class="nav-text">什么是并发进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发进程与时间无关的充分条件Bernstein条件"><span class="nav-number">3.2.</span> <span class="nav-text">并发进程与时间无关的充分条件Bernstein条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发进程间的交互："><span class="nav-number">3.3.</span> <span class="nav-text">并发进程间的交互：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发进程引起的时间问题："><span class="nav-number">3.4.</span> <span class="nav-text">并发进程引起的时间问题：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临界区-critial-section-是什么？"><span class="nav-number">3.5.</span> <span class="nav-text">临界区(critial section)是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临界区管理方法："><span class="nav-number">3.6.</span> <span class="nav-text">临界区管理方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临界区管理软件方法："><span class="nav-number">3.7.</span> <span class="nav-text">临界区管理软件方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临界区管理硬件方法："><span class="nav-number">3.8.</span> <span class="nav-text">临界区管理硬件方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程同步问题"><span class="nav-number">3.9.</span> <span class="nav-text">进程同步问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号量与PV操作"><span class="nav-number">3.10.</span> <span class="nav-text">信号量与PV操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管程"><span class="nav-number">3.11.</span> <span class="nav-text">管程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程通信"><span class="nav-number">3.12.</span> <span class="nav-text">进程通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁问题"><span class="nav-number">3.13.</span> <span class="nav-text">死锁问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体问题的解决方案"><span class="nav-number">3.14.</span> <span class="nav-text">具体问题的解决方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课程简介"><span class="nav-number">4.</span> <span class="nav-text">课程简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#成绩组成"><span class="nav-number">4.1.</span> <span class="nav-text">成绩组成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-操作系统概述"><span class="nav-number">5.</span> <span class="nav-text">第一章 操作系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记"><span class="nav-number">5.1.</span> <span class="nav-text">杂记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源复用"><span class="nav-number">5.2.</span> <span class="nav-text">资源复用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#空分复用共享"><span class="nav-number">5.2.1.</span> <span class="nav-text">空分复用共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时分复用共享"><span class="nav-number">5.2.2.</span> <span class="nav-text">时分复用共享</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源虚拟"><span class="nav-number">5.3.</span> <span class="nav-text">资源虚拟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源抽象"><span class="nav-number">5.4.</span> <span class="nav-text">资源抽象</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-操作系统概论"><span class="nav-number">2.</span> <span class="nav-text">第一章 操作系统概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-单道-多道程序的CPU效率问题。"><span class="nav-number">2.1.</span> <span class="nav-text">1. 单道/多道程序的CPU效率问题。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-对于一个操作系统来说，它要有哪些功能？"><span class="nav-number">2.2.</span> <span class="nav-text">2. 对于一个操作系统来说，它要有哪些功能？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-从发明至今，有哪些操作系统，特点是什么？"><span class="nav-number">2.3.</span> <span class="nav-text">3. 从发明至今，有哪些操作系统，特点是什么？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章-同步、通信与死锁"><span class="nav-number">3.</span> <span class="nav-text">第三章 同步、通信与死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是并发进程"><span class="nav-number">3.1.</span> <span class="nav-text">什么是并发进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发进程与时间无关的充分条件Bernstein条件"><span class="nav-number">3.2.</span> <span class="nav-text">并发进程与时间无关的充分条件Bernstein条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发进程间的交互："><span class="nav-number">3.3.</span> <span class="nav-text">并发进程间的交互：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发进程引起的时间问题："><span class="nav-number">3.4.</span> <span class="nav-text">并发进程引起的时间问题：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临界区-critial-section-是什么？"><span class="nav-number">3.5.</span> <span class="nav-text">临界区(critial section)是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临界区管理方法："><span class="nav-number">3.6.</span> <span class="nav-text">临界区管理方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临界区管理软件方法："><span class="nav-number">3.7.</span> <span class="nav-text">临界区管理软件方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临界区管理硬件方法："><span class="nav-number">3.8.</span> <span class="nav-text">临界区管理硬件方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程同步问题"><span class="nav-number">3.9.</span> <span class="nav-text">进程同步问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号量与PV操作"><span class="nav-number">3.10.</span> <span class="nav-text">信号量与PV操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管程"><span class="nav-number">3.11.</span> <span class="nav-text">管程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程通信"><span class="nav-number">3.12.</span> <span class="nav-text">进程通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁问题"><span class="nav-number">3.13.</span> <span class="nav-text">死锁问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体问题的解决方案"><span class="nav-number">3.14.</span> <span class="nav-text">具体问题的解决方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课程简介"><span class="nav-number">4.</span> <span class="nav-text">课程简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#成绩组成"><span class="nav-number">4.1.</span> <span class="nav-text">成绩组成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-操作系统概述"><span class="nav-number">5.</span> <span class="nav-text">第一章 操作系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记"><span class="nav-number">5.1.</span> <span class="nav-text">杂记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源复用"><span class="nav-number">5.2.</span> <span class="nav-text">资源复用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#空分复用共享"><span class="nav-number">5.2.1.</span> <span class="nav-text">空分复用共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时分复用共享"><span class="nav-number">5.2.2.</span> <span class="nav-text">时分复用共享</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源虚拟"><span class="nav-number">5.3.</span> <span class="nav-text">资源虚拟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源抽象"><span class="nav-number">5.4.</span> <span class="nav-text">资源抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认识操作系统的四种观点"><span class="nav-number">5.5.</span> <span class="nav-text">认识操作系统的四种观点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务用户观点"><span class="nav-number">5.5.1.</span> <span class="nav-text">服务用户观点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程交互观点"><span class="nav-number">5.5.2.</span> <span class="nav-text">进程交互观点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统实现观点"><span class="nav-number">5.5.3.</span> <span class="nav-text">系统实现观点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源管理观点"><span class="nav-number">5.5.4.</span> <span class="nav-text">资源管理观点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统功能"><span class="nav-number">5.6.</span> <span class="nav-text">操作系统功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理器管理"><span class="nav-number">5.6.1.</span> <span class="nav-text">处理器管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储管理"><span class="nav-number">5.6.2.</span> <span class="nav-text">存储管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设备管理"><span class="nav-number">5.6.3.</span> <span class="nav-text">设备管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件管理"><span class="nav-number">5.6.4.</span> <span class="nav-text">文件管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络与通信管理"><span class="nav-number">5.6.5.</span> <span class="nav-text">网络与通信管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统主要特性"><span class="nav-number">5.7.</span> <span class="nav-text">操作系统主要特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发性"><span class="nav-number">5.7.1.</span> <span class="nav-text">并发性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享性"><span class="nav-number">5.7.2.</span> <span class="nav-text">共享性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步性"><span class="nav-number">5.7.3.</span> <span class="nav-text">异步性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多道程序设计效果"><span class="nav-number">5.8.</span> <span class="nav-text">多道程序设计效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批处理操作系统"><span class="nav-number">5.9.</span> <span class="nav-text">批处理操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分时操作系统"><span class="nav-number">5.10.</span> <span class="nav-text">分时操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实时操作系统"><span class="nav-number">5.11.</span> <span class="nav-text">实时操作系统</span></a></li></ol></li></ol></div>
             
 
           </div>
