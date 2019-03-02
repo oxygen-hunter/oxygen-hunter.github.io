@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\fra">
+<meta name="description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}">
 <meta name="keywords" content="复习,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法学习笔记">
 <meta property="og:url" content="http://yoursite.com/2019/02/10/算法学习笔记/index.html">
 <meta property="og:site_name" content="懵逼树树洞">
-<meta property="og:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\fra">
+<meta property="og:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-02T11:08:51.884Z">
+<meta property="og:updated_time" content="2019-03-02T11:12:27.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法学习笔记">
-<meta name="twitter:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\fra">
+<meta name="twitter:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}">
 
 
 
@@ -382,39 +382,57 @@
         <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本篇供日后复习，跳跃性很大，随性更新。</p>
 <p>参考书目：《算法设计与分析》 黄宇 机械工业出版社</p>
 <h1 id="第2章-从算法的角度重新审视数学的概念"><a href="#第2章-从算法的角度重新审视数学的概念" class="headerlink" title="第2章 从算法的角度重新审视数学的概念"></a>第2章 从算法的角度重新审视数学的概念</h1><h3 id="2-1-3-阶乘n"><a href="#2-1-3-阶乘n" class="headerlink" title="2.1.3 阶乘n!"></a>2.1.3 阶乘n!</h3><p>根据<code>Stirling公式</code>，可以将<code>n!</code>转化为更易于处理的闭形式，对<code>n&gt;=1</code>，有：</p>
-<p>$$ \sqrt{2\pi n}(\frac{n}{e})^n &lt; n! &lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}) $$</p>
-<p><code>Stirling公式</code>也可以写成：</p>
-<p>$$ n! = \sqrt{2\pi n}(\frac{n}{e})^n e^{\varepsilon(n)},其中\frac{1}{12n+1} \leq \varepsilon(n) \leq \frac{1}{12n} $$</p>
-<p>写成近似形式：</p>
-<p>$$ n! = \sqrt{2\pi n}(\frac{n}{e})^n(1+\Theta(\frac{1}{n})) $$</p>
-<p>由于 $\Theta(\frac{1}{n})$ 是无穷小量，$\lim\limits_{n \to \infty} \frac{1}{n}=0$ ，忽略。所以得到进一步的近似式：</p>
-<p>$$ n! \approx \sqrt{2\pi n}(\frac{n}{e})^n $$</p>
-<h3 id="2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><a href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i" class="headerlink" title="2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$"></a>2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</h3><ul>
-<li>多项式级数(polynomial series)<br>  $ \sum\limits_{i=1}^{n}i = \dfrac{n(n+1)}{2} $<br>  .<br>  $ \sum\limits_{i=1}^{n}i^2 = \dfrac{1}{3}n(n+\dfrac{1}{2})(n+1) $<br>  .<br>  $ \sum\limits_{i=1}^{n}i^k = \Theta(\dfrac{1}{k+1}n^{k+1}) $<br>  .</li>
+<script type="math/tex; mode=display">\sqrt{2\pi n}(\frac{n}{e})^n < n! < \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n})</script><p><code>Stirling公式</code>也可以写成：</p>
+<script type="math/tex; mode=display">n! = \sqrt{2\pi n}(\frac{n}{e})^n e^{\varepsilon(n)},其中\frac{1}{12n+1} \leq \varepsilon(n) \leq \frac{1}{12n}</script><p>写成近似形式：</p>
+<script type="math/tex; mode=display">n! = \sqrt{2\pi n}(\frac{n}{e})^n(1+\Theta(\frac{1}{n}))</script><p>由于 $\Theta(\frac{1}{n})$ 是无穷小量，$\lim\limits_{n \to \infty} \frac{1}{n}=0$ ，忽略。所以得到进一步的近似式：</p>
+<script type="math/tex; mode=display">n! \approx \sqrt{2\pi n}(\frac{n}{e})^n</script><h3 id="2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><a href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i" class="headerlink" title="2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$"></a>2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</h3><ul>
+<li>多项式级数(polynomial series)<br>  $ \sum\limits<em>{i=1}^{n}i = \dfrac{n(n+1)}{2} $<br>  .<br>  $ \sum\limits</em>{i=1}^{n}i^2 = \dfrac{1}{3}n(n+\dfrac{1}{2})(n+1) $<br>  .<br>  $ \sum\limits_{i=1}^{n}i^k = \Theta(\dfrac{1}{k+1}n^{k+1}) $<br>  .</li>
 <li>几何级数(geometric series)<br>  $ \sum\limits_{i=0}^{k}ar^i = a(\dfrac{r^{k+1}-1}{r-1}) $</li>
 </ul>
 <p>测试用<br>$\begin{eqnarray}f(x,y)<br>    &amp;=&amp;2xy+(x-y)^2\<br>    &amp;=&amp;x^2+y^2<br>\end{eqnarray}$</p>
 <h1 id="第0章-概论"><a href="#第0章-概论" class="headerlink" title="第0章 概论"></a>第0章 概论</h1><h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>Q1: 在数组中找最大元素和最小元素</p>
-<p>A1: 最优：n为偶数时，将数组切分为($a_0$,$a_1$)($a_2$,$a_3$)…($a_{n-2}$, $a_{n-1}$)，组内比较后分出胜者组和败者组，胜者组遍历一遍得到最大元素，败者组遍历一遍得到最小元素。n为奇数时先抛开最后一个元素，最后额外比较一下。</p>
+<p>A1: 最优：n为偶数时，将数组切分为($a<em>0$,$a_1$)($a_2$,$a_3$)…($a</em>{n-2}$, $a_{n-1}$)，组内比较后分出胜者组和败者组，胜者组遍历一遍得到最大元素，败者组遍历一遍得到最小元素。n为奇数时先抛开最后一个元素，最后额外比较一下。</p>
 <hr>
 <p>Q2: 比较3匹马的预测性</p>
 <p>A2: 将马的过去两百场比赛进行huffman编码，所用字符最少的马预测性越强，原理是信息熵。</p>
 <hr>
 <p>Q3: 停机问题</p>
 <p>A3: 不可判定，假设有程序terminate(p:program, x:input)能判断对于程序p，给一个输入x，p是否会终止（即判定p(x)是否终止），那么定义程序paradox(z:file)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">paradox(z:file):</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">if</span>(terminate(z, z)) <span class="keyword">goto</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
-<p>paradox(z)的执行结果为<br>$$<br>\left{<br>\begin{array}{aligned}<br>z(z)不终止   &amp;&amp;  {paradox(z)终止}\<br>z(z)终止     &amp;&amp;  {paradox(z)不终止}\<br>\end{array} \right.<br>$$</p>
-<p>此时，paradox(paradox)便成为矛盾体<br>$$<br>\left{<br>\begin{array}{aligned}<br>paradox(paradox)不终止 &amp;&amp;   {paradox(paradox)终止}\<br>paradox(paradox)终止   &amp;&amp;   paradox(paradox)不终止<br>\end{array} \right.<br>$$</p>
-<h2 id="课程任务："><a href="#课程任务：" class="headerlink" title="课程任务："></a>课程任务：</h2><p>书面作业15%（8次，准备2个作业本）<br>编程15%（6-8次，每次2-4题，时间2-3周）<br>期中20%<br>期末50%</p>
+<p>paradox(z)的执行结果为</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{array}{aligned}
+z(z)不终止   &&  {paradox(z)终止}\\
+z(z)终止     &&  {paradox(z)不终止}\\
+\end{array} \right.</script><p>此时，paradox(paradox)便成为矛盾体</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{array}{aligned}
+paradox(paradox)不终止 &&   {paradox(paradox)终止}\\
+paradox(paradox)终止   &&   paradox(paradox)不终止
+\end{array} \right.</script><h2 id="课程任务："><a href="#课程任务：" class="headerlink" title="课程任务："></a>课程任务：</h2><p>书面作业15%（8次，准备2个作业本）<br>编程15%（6-8次，每次2-4题，时间2-3周）<br>期中20%<br>期末50%</p>
 <h1 id="第1章-概论"><a href="#第1章-概论" class="headerlink" title="第1章 概论"></a>第1章 概论</h1><p>《proof without words》中的有趣证明？</p>
 <p>double counting 思想用于证明</p>
 <h2 id="平均复杂度"><a href="#平均复杂度" class="headerlink" title="平均复杂度"></a>平均复杂度</h2><p>$ \sum\limits_{i=1}^{n}Pr(i)I(i) $</p>
 <h2 id="算法的最优性"><a href="#算法的最优性" class="headerlink" title="算法的最优性"></a>算法的最优性</h2><p>如果一个算法的最坏情况等于问题的下界，那么这个算法是最优的。</p>
 <h2 id="渐进时间复杂度"><a href="#渐进时间复杂度" class="headerlink" title="渐进时间复杂度"></a>渐进时间复杂度</h2><p>$ log_{n}, n^\alpha, c^n, n!, n^n $</p>
-<p>$$<br>\lim\limits_{n\to \infty}\frac{f(n)}{g(n)}=c,<br>\left{<br>\begin{array}{aligned}<br>c=0 &amp;&amp;  f=o(g)\<br>0 \leq c&lt;\infty &amp;&amp; f=O(g)\<br>0 &lt; c &lt;\infty &amp;&amp; f=\Theta(g)\<br>0 &lt; c \leq \infty &amp;&amp; f=\Omega(g)\<br>c=\infty &amp;&amp; f=\omega(g)<br>\end{array} \right.<br>$$</p>
-<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树的高度p是问题的lower bound，基于比较的决策树节点数为n，有$ n \leq 2^{p-1} $，所以$ p &gt;= lgn $，所以查找问题的lower bound为$lgn$，二分查找是最优算法。</p>
+<script type="math/tex; mode=display">
+\lim\limits_{n\to \infty}\frac{f(n)}{g(n)}=c,
+\left\{
+\begin{array}{aligned}
+c=0 &&  f=o(g)\\
+0 \leq c<\infty && f=O(g)\\
+0 < c <\infty && f=\Theta(g)\\
+0 < c \leq \infty && f=\Omega(g)\\
+c=\infty && f=\omega(g)
+\end{array} \right.</script><h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树的高度p是问题的lower bound，基于比较的决策树节点数为n，有$ n \leq 2^{p-1} $，所以$ p &gt;= lgn $，所以查找问题的lower bound为$lgn$，二分查找是最优算法。</p>
 <p>思考题：圆的内接八边形，边长4个2，4个3，求八边形面积。</p>
-<p>$$<br>f(n) =<br>\begin{cases}<br>n/2,  &amp; \text{if $n$ is even} \<br>3n+1, &amp; \text{if $n$ is odd}<br>\end{cases}<br>$$</p>
-
+<script type="math/tex; mode=display">
+f(n) =
+\begin{cases}
+n/2,  & \text{if $n$ is even}\\
+3n+1, & \text{if $n$ is odd}
+\end{cases}</script>
       
     </div>
     

@@ -391,8 +391,6 @@
 <p>设进程<strong>A</strong>引用变量集合为<strong>R1</strong>，改变变量集合为<strong>W1</strong>，进程<strong>B</strong>引用变量集合为<strong>R2</strong>，改变变量集合为<strong>W2</strong>。那么只要满足：</p>
 <p>(R1 ∩ W2) ∪ (R2 ∩ W1) ∪ (W1 ∩ W2) = ∅</p>
 <p>那么进程<strong>A</strong>和进程<strong>B</strong>与时间无关。</p>
-</blockquote>
-<blockquote>
 <p>简而言之就是A和B的读写不冲突，也不会往同一个变量里写。</p>
 </blockquote>
 <hr>
@@ -463,7 +461,7 @@
 </blockquote>
 </li>
 </ol>
-<ol start="3">
+<ol>
 <li><p>用SWAP指令(在x86-64架构下是XCHG指令)</p>
 <p> 一开始置临界区的lock变量为false，进程P的变量为key，置为true。交换一次lock和key(“上锁”)就检测一次key，如果key为false，说明临界区此时为空闲，进入临界区，出来后再次交换lock和key，即“开锁”。</p>
 <p> 代码：</p>

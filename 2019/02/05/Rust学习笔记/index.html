@@ -387,8 +387,7 @@
 <p>但如果略作修改，即index的mut关键字去掉，在迭代时用let index 隐藏原来的index<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> array: [<span class="built_in">i32</span>; <span class="number">5</span>] = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> index &lt; <span class="number">5</span> &#123;</span><br><span class="line">    	<span class="built_in">println!</span>(<span class="string">"&#123;&#125;"</span>, array[index]);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">let</span> index = index + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>运行结果就是无限输出10。</p>
 <hr>
-<p>## </p>
-
+<h2 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h2>
       
     </div>
     
@@ -588,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#while中的let问题"><span class="nav-number">1.1.</span> <span class="nav-text">while中的let问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#while中的let问题"><span class="nav-number">1.1.</span> <span class="nav-text">while中的let问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-1"><span class="nav-number">1.2.</span> <span class="nav-text"> </span></a></li></ol></li></ol></div>
             
 
           </div>
