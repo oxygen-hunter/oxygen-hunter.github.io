@@ -386,12 +386,12 @@
 <script type="math/tex; mode=display">n! = \sqrt{2\pi n}(\frac{n}{e})^n e^{\varepsilon(n)},其中\frac{1}{12n+1} \leq \varepsilon(n) \leq \frac{1}{12n}</script><p>写成近似形式：</p>
 <script type="math/tex; mode=display">n! = \sqrt{2\pi n}(\frac{n}{e})^n(1+\Theta(\frac{1}{n}))</script><p>由于 $\Theta(\frac{1}{n})$ 是无穷小量，$\lim\limits_{n \to \infty} \frac{1}{n}=0$ ，忽略。所以得到进一步的近似式：</p>
 <script type="math/tex; mode=display">n! \approx \sqrt{2\pi n}(\frac{n}{e})^n</script><h3 id="2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><a href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i" class="headerlink" title="2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$"></a>2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</h3><ul>
-<li>多项式级数(polynomial series)<br>  $ \sum\limits<em>{i=1}^{n}i = \dfrac{n(n+1)}{2} $<br>  .<br>  $ \sum\limits</em>{i=1}^{n}i^2 = \dfrac{1}{3}n(n+\dfrac{1}{2})(n+1) $<br>  .<br>  $ \sum\limits_{i=1}^{n}i^k = \Theta(\dfrac{1}{k+1}n^{k+1}) $<br>  .</li>
+<li>多项式级数(polynomial series)<br>  $ \sum\limits_{i=1}^{n}i = \dfrac{n(n+1)}{2} $<br>  .<br>  $ \sum\limits_{i=1}^{n}i^2 = \dfrac{1}{3}n(n+\dfrac{1}{2})(n+1) $<br>  .<br>  $ \sum\limits_{i=1}^{n}i^k = \Theta(\dfrac{1}{k+1}n^{k+1}) $<br>  .</li>
 <li>几何级数(geometric series)<br>  $ \sum\limits_{i=0}^{k}ar^i = a(\dfrac{r^{k+1}-1}{r-1}) $</li>
 </ul>
-<p>测试用<br>$\begin{eqnarray}f(x,y)<br>    &amp;=&amp;2xy+(x-y)^2\<br>    &amp;=&amp;x^2+y^2<br>\end{eqnarray}$</p>
+<p>测试用<br>$\begin{eqnarray}f(x,y)<br>    &amp;=&amp;2xy+(x-y)^2\\<br>    &amp;=&amp;x^2+y^2<br>\end{eqnarray}$</p>
 <h1 id="第0章-概论"><a href="#第0章-概论" class="headerlink" title="第0章 概论"></a>第0章 概论</h1><h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>Q1: 在数组中找最大元素和最小元素</p>
-<p>A1: 最优：n为偶数时，将数组切分为($a<em>0$,$a_1$)($a_2$,$a_3$)…($a</em>{n-2}$, $a_{n-1}$)，组内比较后分出胜者组和败者组，胜者组遍历一遍得到最大元素，败者组遍历一遍得到最小元素。n为奇数时先抛开最后一个元素，最后额外比较一下。</p>
+<p>A1: 最优：n为偶数时，将数组切分为($a_0$,$a_1$)($a_2$,$a_3$)…($a_{n-2}$, $a_{n-1}$)，组内比较后分出胜者组和败者组，胜者组遍历一遍得到最大元素，败者组遍历一遍得到最小元素。n为奇数时先抛开最后一个元素，最后额外比较一下。</p>
 <hr>
 <p>Q2: 比较3匹马的预测性</p>
 <p>A2: 将马的过去两百场比赛进行huffman编码，所用字符最少的马预测性越强，原理是信息熵。</p>
