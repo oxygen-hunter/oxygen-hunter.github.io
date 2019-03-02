@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="懵逼树树洞">
 <meta property="og:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\fra">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-27T05:59:25.099Z">
+<meta property="og:updated_time" content="2019-03-02T08:25:29.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法学习笔记">
 <meta name="twitter:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： $$ \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\fra">
@@ -394,19 +394,25 @@
 <li>几何级数(geometric series)<br>  $ \sum\limits_{i=0}^{k}ar^i = a(\dfrac{r^{k+1}-1}{r-1}) $</li>
 </ul>
 <p>测试用<br>$\begin{eqnarray}f(x,y)<br>    &amp;=&amp;2xy+(x-y)^2\<br>    &amp;=&amp;x^2+y^2<br>\end{eqnarray}$</p>
-<h1 id="第1章-概论"><a href="#第1章-概论" class="headerlink" title="第1章 概论"></a>第1章 概论</h1><h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>Q1: 在数组中找最大元素和最小元素</p>
+<h1 id="第0章-概论"><a href="#第0章-概论" class="headerlink" title="第0章 概论"></a>第0章 概论</h1><h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>Q1: 在数组中找最大元素和最小元素</p>
 <p>A1: 最优：n为偶数时，将数组切分为($a_0$,$a_1$)($a_2$,$a_3$)…($a_{n-2}$, $a_{n-1}$)，组内比较后分出胜者组和败者组，胜者组遍历一遍得到最大元素，败者组遍历一遍得到最小元素。n为奇数时先抛开最后一个元素，最后额外比较一下。</p>
 <hr>
 <p>Q2: 比较3匹马的预测性</p>
 <p>A2: 将马的过去两百场比赛进行huffman编码，所用字符最少的马预测性越强，原理是信息熵。</p>
 <hr>
 <p>Q3: 停机问题</p>
-<p>A3: 不可判定，假设有程序terminate(p:program, x:input)能判断是否终止，那么定义程序paradox(z:file)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">paradox(z:file):</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">if</span>(terminate(z, z)) <span class="keyword">goto</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
-<p>paradox(z)的执行结果为<br>$$<br>\left{<br>\begin{array}{aligned}<br>terminate(z, z)不终止   &amp;&amp;  {paradox(z)终止}\<br>terminate(z, z)终止     &amp;&amp;  {paradox(z)不终止}\<br>\end{array} \right.<br>$$</p>
+<p>A3: 不可判定，假设有程序terminate(p:program, x:input)能判断对于程序p，给一个输入x，p是否会终止（即判定p(x)是否终止），那么定义程序paradox(z:file)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">paradox(z:file):</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">if</span>(terminate(z, z)) <span class="keyword">goto</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<p>paradox(z)的执行结果为<br>$$<br>\left{<br>\begin{array}{aligned}<br>z(z)不终止   &amp;&amp;  {paradox(z)终止}\<br>z(z)终止     &amp;&amp;  {paradox(z)不终止}\<br>\end{array} \right.<br>$$</p>
 <p>此时，paradox(paradox)便成为矛盾体<br>$$<br>\left{<br>\begin{array}{aligned}<br>paradox(paradox)不终止 &amp;&amp;   {paradox(paradox)终止}\<br>paradox(paradox)终止   &amp;&amp;   paradox(paradox)不终止<br>\end{array} \right.<br>$$</p>
 <h2 id="课程任务："><a href="#课程任务：" class="headerlink" title="课程任务："></a>课程任务：</h2><p>书面作业15%（8次，准备2个作业本）<br>编程15%（6-8次，每次2-4题，时间2-3周）<br>期中20%<br>期末50%</p>
-<p>2019-2-27</p>
-<hr>
+<h1 id="第1章-概论"><a href="#第1章-概论" class="headerlink" title="第1章 概论"></a>第1章 概论</h1><p>《proof without words》中的有趣证明？</p>
+<p>double counting 思想用于证明</p>
+<h2 id="平均复杂度"><a href="#平均复杂度" class="headerlink" title="平均复杂度"></a>平均复杂度</h2><p>$ \sum\limits_{i=1}^{n}Pr(i)I(i) $</p>
+<h2 id="算法的最优性"><a href="#算法的最优性" class="headerlink" title="算法的最优性"></a>算法的最优性</h2><p>如果一个算法的最坏情况等于问题的下界，那么这个算法是最优的。</p>
+<h2 id="渐进时间复杂度"><a href="#渐进时间复杂度" class="headerlink" title="渐进时间复杂度"></a>渐进时间复杂度</h2><p>$ log_{n}, n^\alpha, c^n, n!, n^n $</p>
+<p>$$<br>\lim\limits_{n\to \infty}\frac{f(n)}{g(n)}=c,<br>\left{<br>\begin{array}{aligned}<br>c=0 &amp;&amp;  f=o(g)\<br>0 \leq c&lt;\infty &amp;&amp; f=O(g)\<br>0 &lt; c &lt;\infty &amp;&amp; f=\Theta(g)\<br>0 &lt; c \leq \infty &amp;&amp; f=\Omega(g)\<br>c=\infty &amp;&amp; f=\omega(g)<br>\end{array} \right.<br>$$</p>
+<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树的高度p是问题的lower bound，基于比较的决策树节点数为n，有$ n \leq 2^{p-1} $，所以$ p &gt;= lgn $，所以查找问题的lower bound为$lgn$，二分查找是最优算法。</p>
+<p>思考题：圆的内接八边形，边长4个2，4个3，求八边形面积。</p>
 
       
     </div>
@@ -609,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-从算法的角度重新审视数学的概念"><span class="nav-number">2.</span> <span class="nav-text">第2章 从算法的角度重新审视数学的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-阶乘n"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1.3 阶乘n!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-概论"><span class="nav-number">3.</span> <span class="nav-text">第1章 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记"><span class="nav-number">3.1.</span> <span class="nav-text">杂记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程任务："><span class="nav-number">3.2.</span> <span class="nav-text">课程任务：</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-从算法的角度重新审视数学的概念"><span class="nav-number">2.</span> <span class="nav-text">第2章 从算法的角度重新审视数学的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-阶乘n"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1.3 阶乘n!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#第0章-概论"><span class="nav-number">3.</span> <span class="nav-text">第0章 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记"><span class="nav-number">3.1.</span> <span class="nav-text">杂记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程任务："><span class="nav-number">3.2.</span> <span class="nav-text">课程任务：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-概论"><span class="nav-number">4.</span> <span class="nav-text">第1章 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#平均复杂度"><span class="nav-number">4.1.</span> <span class="nav-text">平均复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的最优性"><span class="nav-number">4.2.</span> <span class="nav-text">算法的最优性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渐进时间复杂度"><span class="nav-number">4.3.</span> <span class="nav-text">渐进时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number">4.4.</span> <span class="nav-text">决策树</span></a></li></ol></li></div>
             
 
           </div>
