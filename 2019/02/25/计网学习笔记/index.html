@@ -89,7 +89,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/02/25/计网学习笔记/">
 <meta property="og:image" content="http://yoursite.com/2019/02/25/计网学习笔记/">
-<meta property="og:updated_time" content="2019-02-28T04:14:14.685Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/25/计网学习笔记/">
+<meta property="og:updated_time" content="2019-03-04T07:49:50.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计网学习笔记">
 <meta name="twitter:description" content="概述计算机网络（Computer Network）复习笔记 参考书目：《计算机网络自顶向下方法（第5版）》机械工业出版社 CH1-Introduction of Networking-1杂记：CN负责数字通信（数字信号） 哈罗车筐前黑色是太阳能板？ 宿舍-一层-一楼-学校网络中心-南京教育网（东大）-全国教育网 第一台联网计算机在UCLA remote medicine 瓶颈在于时延 行星间联网，">
@@ -492,6 +493,24 @@
 <p>对于小文件，$D_{prop}$占主导，对于大文件，$D_{trans}$占主导时延</p>
 <p>普通交换机遵循store-forward模式，交换机收到包先存起来解析包头再发下一站。<br>端(trans,prop,queue&amp;process)交换机()交换机()端</p>
 <p>高频交换机（高频率股票交易）不遵循上述模式<br>带宽极高不用queue，收到1bit就直接发。</p>
+<h3 id="丢包loss"><a href="#丢包loss" class="headerlink" title="丢包loss"></a>丢包loss</h3><h3 id="吞吐率throughput"><a href="#吞吐率throughput" class="headerlink" title="吞吐率throughput"></a>吞吐率throughput</h3><p>transmission rate R bits/sec</p>
+<p>file of size F bits<br>packets of size L bits</p>
+<p>Transfer time(T) = F/R + propagation delay</p>
+<p>木桶原理，端到端的速率取决于最细的那一段</p>
+<h2 id="Little-laws的证明"><a href="#Little-laws的证明" class="headerlink" title="Little laws的证明"></a>Little laws的证明</h2><p>$<br>\begin{equation}<br>\lambda\overset{def}{=}\lim\limits_{t\to \infty} \frac{N(t)}{t}, \text{the arrival rate into the system}<br>\end{equation}<br>$</p>
+<p>$<br>\begin{equation}<br>\omega\overset{def}{=}\lim\limits_{n\to \infty} \frac{1}{n}\sum\limits_{j=1}^{n}W_j, \text{average sojourn time}<br>\end{equation}<br>$</p>
+<p>$<br>\begin{equation}<br>l\overset{def}{=}\lim\limits_{t\to \infty} {\frac{1}{t}\int_{0}^{t}L(s)ds}, \text{average number in system}<br>\end{equation}<br>$</p>
+<p>$<br>L(t):\text{the total number of customers in the system at time t.}<br>$</p>
+<p>$<br>N(t)=max\{n:t_n\leq t\}<br>$</p>
+<p>$<br>L(t)=\sum\limits_{n=1}^{\infty}{I\{t_n\leq t\leq t_n^a\}}=<br>$</p>
+<p>$<br>\frac{1}{t}\sum\limits_{j:t_j^{\alpha}\leq t}{W_j} \leq \frac{1}{t}\int_{0}^{t}{L(s)ds} \leq \frac{1}{t}\sum\limits_{j:t_j &lt; t}{W_j}<br>$</p>
+<p>后者=$ \lim\limits_{t\to \infty} \frac{N(t)}{t} \frac{1}{N(t)}\sum\limits_{j=1}{N(t)}W_j $</p>
+<p>Lemme: if $\lambda$ and $\omega$ exists and finite, then</p>
+<script type="math/tex; mode=display">\lim\limits_{n\to \infty}{\frac{W_n}{n}=0}, \lim\limits_{n\to \infty}{\frac{W_n}{t_n}=0}</script><p>前者<img src="/2019/02/25/计网学习笔记/" alt="手机图片"></p>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>层与层之间没有耦合关系，更新时候方便。</p>
+<p>OSI七层，TCP\IP五层</p>
+<p>应用层-&gt;传输层，加header指明给对方的哪个进程<br>传输层-&gt;…，类似</p>
+<p>端系统5层全要，中间的交换机只要下3层即可。</p>
 
       
     </div>
@@ -694,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CH1-Introduction-of-Networking-1"><span class="nav-number">2.</span> <span class="nav-text">CH1-Introduction of Networking-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记："><span class="nav-number">2.1.</span> <span class="nav-text">杂记：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程主要讲述："><span class="nav-number">2.2.</span> <span class="nav-text">课程主要讲述：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讲解顺序："><span class="nav-number">2.3.</span> <span class="nav-text">讲解顺序：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程任务："><span class="nav-number">2.4.</span> <span class="nav-text">课程任务：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交换方式"><span class="nav-number">2.5.</span> <span class="nav-text">交换方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电路交换"><span class="nav-number">2.6.</span> <span class="nav-text">电路交换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包交换"><span class="nav-number">2.7.</span> <span class="nav-text">包交换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计复用-statistical-multiplexing"><span class="nav-number">2.8.</span> <span class="nav-text">统计复用 statistical multiplexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何评价网络性能"><span class="nav-number">2.9.</span> <span class="nav-text">如何评价网络性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时延"><span class="nav-number">2.9.1.</span> <span class="nav-text">时延</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CH1-Introduction-of-Networking-1"><span class="nav-number">2.</span> <span class="nav-text">CH1-Introduction of Networking-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记："><span class="nav-number">2.1.</span> <span class="nav-text">杂记：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程主要讲述："><span class="nav-number">2.2.</span> <span class="nav-text">课程主要讲述：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讲解顺序："><span class="nav-number">2.3.</span> <span class="nav-text">讲解顺序：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程任务："><span class="nav-number">2.4.</span> <span class="nav-text">课程任务：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交换方式"><span class="nav-number">2.5.</span> <span class="nav-text">交换方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电路交换"><span class="nav-number">2.6.</span> <span class="nav-text">电路交换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包交换"><span class="nav-number">2.7.</span> <span class="nav-text">包交换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计复用-statistical-multiplexing"><span class="nav-number">2.8.</span> <span class="nav-text">统计复用 statistical multiplexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何评价网络性能"><span class="nav-number">2.9.</span> <span class="nav-text">如何评价网络性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时延"><span class="nav-number">2.9.1.</span> <span class="nav-text">时延</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#丢包loss"><span class="nav-number">2.9.2.</span> <span class="nav-text">丢包loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#吞吐率throughput"><span class="nav-number">2.9.3.</span> <span class="nav-text">吞吐率throughput</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Little-laws的证明"><span class="nav-number">2.10.</span> <span class="nav-text">Little laws的证明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协议"><span class="nav-number">2.11.</span> <span class="nav-text">协议</span></a></li></ol></li></ol></div>
             
 
           </div>

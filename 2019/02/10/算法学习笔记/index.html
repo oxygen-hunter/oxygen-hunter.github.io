@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="懵逼树树洞">
 <meta property="og:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-02T11:12:27.459Z">
+<meta property="og:updated_time" content="2019-03-08T03:36:13.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法学习笔记">
 <meta name="twitter:description" content="概述本篇供日后复习，跳跃性很大，随性更新。 参考书目：《算法设计与分析》 黄宇 机械工业出版社 第2章 从算法的角度重新审视数学的概念2.1.3 阶乘n!根据Stirling公式，可以将n!转化为更易于处理的闭形式，对n&amp;gt;=1，有： \sqrt{2\pi n}(\frac{n}{e})^n &amp;lt; n! &amp;lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}">
@@ -421,18 +421,49 @@ paradox(paradox)终止   &&   paradox(paradox)不终止
 \left\{
 \begin{array}{aligned}
 c=0 &&  f=o(g)\\
-0 \leq c<\infty && f=O(g)\\
-0 < c <\infty && f=\Theta(g)\\
-0 < c \leq \infty && f=\Omega(g)\\
-c=\infty && f=\omega(g)
-\end{array} \right.</script><h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树的高度p是问题的lower bound，基于比较的决策树节点数为n，有$ n \leq 2^{p-1} $，所以$ p &gt;= lgn $，所以查找问题的lower bound为$lgn$，二分查找是最优算法。</p>
-<p>思考题：圆的内接八边形，边长4个2，4个3，求八边形面积。</p>
+0 \leq c < \infty   && f=O(g)\\
+0 < c < \infty      && f=\Theta(g)\\
+0 < c \leq \infty   && f=\Omega(g)\\
+c = \infty          && f=\omega(g)
+\end{array} \right.</script><p>不是所有俩函数之间都有上述五种关系，比如$ f(n)=n, g(n)=n^{1+sin n}$，极限不存在。</p>
+<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树的高度p是问题的lower bound，基于比较的决策树节点数为n，有$ n \leq 2^{p-1} $，所以$ p &gt;= lgn $，所以查找问题的lower bound为$lgn$，二分查找是最优算法。</p>
+<p>无关思考题：圆的内接八边形，边长4个2，4个3，求八边形面积。<br>放到正方形里去，减去四个角的等腰直角三角形</p>
 <script type="math/tex; mode=display">
 f(n) =
 \begin{cases}
 n/2,  & \text{if $n$ is even}\\
 3n+1, & \text{if $n$ is odd}
-\end{cases}</script>
+\end{cases}</script><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>时间复杂度计算</p>
+<h3 id="齐次线性"><a href="#齐次线性" class="headerlink" title="齐次线性"></a>齐次线性</h3><p>$ a_n = r_1a_{n-1} + r_2a_{n-2} + … + r_ma_{n-k} $</p>
+<p>特例<br>$ 形如T(n)=r_1T(n-1)+r_2T(n-2),有特征方程x^2 = r_1x + r_2x $<br>$ 则T(n) = ux_1^n + vx_2^n. $</p>
+<p>证明：<br>$ B.C: T(1), T(2) $</p>
+<p>$ I.H: 1 \leq m &lt; n, T(m) = ux_1^m + vx_2^m $</p>
+<p>$\begin{eqnarray}T(n)<br>    &amp;=&amp; ux_1^n+vx_2^n\\<br>    &amp;=&amp; ux_1^{n-2}x_1^2+vx_2^{n-2}x_2^2\\<br>    &amp;=&amp; ux_1^{n-2}(r_1x_1+r_2)+vx_2^{n-2}(r_1x_2+r_2)\\<br>    &amp;=&amp; r_1(ux_1^{n-1}+vx_1^{n-2})+r_2(ux_1^{n-2}+vx2^{n-2})\\<br>    &amp;=&amp; r_1T(n-1)+r_2T(n-2)<br>\end{eqnarray}$</p>
+<p>代价 = 递归代价 + 非递归代价</p>
+<p>$ T(n) = bT(\frac{n}{c})+f(n) $</p>
+<p>after $k$ th expansion</p>
+<p>$ T(n) = b^kT(\frac{n}{c^k})+\sum\limits_{i=1}^{k}f(\frac{n}{c^{i-1}}) $</p>
+<p>意味着递归树高度$\log_c n$</p>
+<script type="math/tex; mode=display">
+\sum\limits_{i=0}^{n-1}=
+\begin{cases}
+n/2, \text{xxx} \\
+ss
+\end{cases}</script><h2 id="最大子序列之和"><a href="#最大子序列之和" class="headerlink" title="最大子序列之和"></a>最大子序列之和</h2><ol>
+<li>暴力枚举<br> 算法：取所有sequence[i, j]，比较。<br> 时间复杂度：$O(n^3)$</li>
+<li>减少重复计算</li>
+<li>二分，最长要么在左，要么在右，要么有左有右</li>
+<li><p>假设A[0, n]中最大和为M[0, n]，那么A[0, n+1]中最大和为$\max\{M[0,n], \sum\limits_{i=0}^{n}A_i, \sum\limits_{i=1}^{n}A_i, …,\sum\limits_{i=n-1}^{n}, A_n\}$</p>
+<p> 当前和一直加，保持增长，如果小于0，就丢弃前面的（即丢弃当前和）</p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ThisSum = MaxSum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; N; j++) &#123;</span><br><span class="line">    ThisSum += A[j];</span><br><span class="line">    <span class="keyword">if</span>(ThisSum &gt; MaxSum) &#123;</span><br><span class="line">        MaxSum = ThisSum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(ThisSum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        ThisSum = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> MaxSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="一个盘子可以被n个直线最多分为多少块"><a href="#一个盘子可以被n个直线最多分为多少块" class="headerlink" title="一个盘子可以被n个直线最多分为多少块"></a>一个盘子可以被n个直线最多分为多少块</h2><p>L(0) = 1<br>L(n) = L(n-1) + n</p>
+<h2 id="合法字符串"><a href="#合法字符串" class="headerlink" title="合法字符串"></a>合法字符串</h2><p>字符串只有abc三种字符，aa不允许出现，长度为n的合法字符串有多少个</p>
+<p>f(1) = 3<br>f(2) = 8<br>str(n)  : ab+str(n-2)<br>        : ac+str(n-2)<br>        : b+str(n-1)<br>        : c+str(n-1)<br>f(n) = 2f(n-1)+2f(n-2)</p>
+<h2 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h2><p>strassen’s alogorithm runs in $O(n^{2.81})$</p>
+<p>f(n) = 7f(n/2) + $\Theta(n^2)$</p>
+
       
     </div>
     
@@ -634,7 +665,7 @@ n/2,  & \text{if $n$ is even}\\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-从算法的角度重新审视数学的概念"><span class="nav-number">2.</span> <span class="nav-text">第2章 从算法的角度重新审视数学的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-阶乘n"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1.3 阶乘n!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#第0章-概论"><span class="nav-number">3.</span> <span class="nav-text">第0章 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记"><span class="nav-number">3.1.</span> <span class="nav-text">杂记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程任务："><span class="nav-number">3.2.</span> <span class="nav-text">课程任务：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-概论"><span class="nav-number">4.</span> <span class="nav-text">第1章 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#平均复杂度"><span class="nav-number">4.1.</span> <span class="nav-text">平均复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的最优性"><span class="nav-number">4.2.</span> <span class="nav-text">算法的最优性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渐进时间复杂度"><span class="nav-number">4.3.</span> <span class="nav-text">渐进时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number">4.4.</span> <span class="nav-text">决策树</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-从算法的角度重新审视数学的概念"><span class="nav-number">2.</span> <span class="nav-text">第2章 从算法的角度重新审视数学的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-阶乘n"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1.3 阶乘n!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.1.4 常见级数求和 $\sum\limits_{i=1}^{n}f(i)$</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#第0章-概论"><span class="nav-number">3.</span> <span class="nav-text">第0章 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#杂记"><span class="nav-number">3.1.</span> <span class="nav-text">杂记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程任务："><span class="nav-number">3.2.</span> <span class="nav-text">课程任务：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-概论"><span class="nav-number">4.</span> <span class="nav-text">第1章 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#平均复杂度"><span class="nav-number">4.1.</span> <span class="nav-text">平均复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的最优性"><span class="nav-number">4.2.</span> <span class="nav-text">算法的最优性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渐进时间复杂度"><span class="nav-number">4.3.</span> <span class="nav-text">渐进时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number">4.4.</span> <span class="nav-text">决策树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">4.5.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#齐次线性"><span class="nav-number">4.5.1.</span> <span class="nav-text">齐次线性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大子序列之和"><span class="nav-number">4.6.</span> <span class="nav-text">最大子序列之和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个盘子可以被n个直线最多分为多少块"><span class="nav-number">4.7.</span> <span class="nav-text">一个盘子可以被n个直线最多分为多少块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合法字符串"><span class="nav-number">4.8.</span> <span class="nav-text">合法字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵乘法"><span class="nav-number">4.9.</span> <span class="nav-text">矩阵乘法</span></a></li></ol></li></div>
             
 
           </div>
