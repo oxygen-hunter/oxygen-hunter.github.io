@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="复习,图论,">
+  <meta name="keywords" content="图论,复习,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="概述参考书目：《图论与网络理论》和ppt 要求：复习的时候都会证明 第一章 图的基本概念定理1.1.1 对任何图 $ G $ ，各顶点度数之和等于边数的2倍.即 $ \sum\limits_{\nu\in V(G)}d(\nu) = 2\varepsilon. $ 推论1.1.1 任何图中，奇度顶点个数为偶数. 例1.1.2 设 $ G $ 是一个简单图，若最小度 $ \delta(G) \geq">
-<meta name="keywords" content="复习,图论">
+<meta name="keywords" content="图论,复习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图论定理收集">
 <meta property="og:url" content="http://yoursite.com/2019/02/26/图论定理收集/index.html">
 <meta property="og:site_name" content="懵逼树树洞">
 <meta property="og:description" content="概述参考书目：《图论与网络理论》和ppt 要求：复习的时候都会证明 第一章 图的基本概念定理1.1.1 对任何图 $ G $ ，各顶点度数之和等于边数的2倍.即 $ \sum\limits_{\nu\in V(G)}d(\nu) = 2\varepsilon. $ 推论1.1.1 任何图中，奇度顶点个数为偶数. 例1.1.2 设 $ G $ 是一个简单图，若最小度 $ \delta(G) \geq">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-13T14:41:02.721Z">
+<meta property="og:updated_time" content="2019-06-11T04:12:55.341Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图论定理收集">
 <meta name="twitter:description" content="概述参考书目：《图论与网络理论》和ppt 要求：复习的时候都会证明 第一章 图的基本概念定理1.1.1 对任何图 $ G $ ，各顶点度数之和等于边数的2倍.即 $ \sum\limits_{\nu\in V(G)}d(\nu) = 2\varepsilon. $ 推论1.1.1 任何图中，奇度顶点个数为偶数. 例1.1.2 设 $ G $ 是一个简单图，若最小度 $ \delta(G) \geq">
@@ -408,6 +408,24 @@
 <p>定理2.2.3 设 $ G $ 是一个简单图，$ k $ 是一个自然数，若$ \delta(G) \geq \frac{v+k+2}{2} $，则 $ G $ 是连通的.</p>
 <p>推论2.2.1 设 $ G $ 是一个简单图，若 $ \delta(G) \geq \frac{v-1}{2} $，则 $ G $ 是连通图。</p>
 <p>定理2.2.4 设 $ G $ 是一个直径为2的简单图，则 $ \kappa’(G)=\delta(G) $.</p>
+<h1 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h1><h2 id="中国邮递员问题-gt-带权最短闭途径"><a href="#中国邮递员问题-gt-带权最短闭途径" class="headerlink" title="中国邮递员问题-&gt;带权最短闭途径"></a>中国邮递员问题-&gt;带权最短闭途径</h2><p>Edmonds-Johnson 算法（补成欧拉图）</p>
+<ol>
+<li>找出奇度顶点，拉出来</li>
+<li>画一个完全图，需要找两两之间最短路</li>
+<li>找最小权匹配</li>
+<li>在原来的图中添边</li>
+</ol>
+<p>Fleury 算法（找欧拉闭迹）</p>
+<ul>
+<li>沿着图的非割边前行</li>
+</ul>
+<h1 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h1><h2 id="支配集"><a href="#支配集" class="headerlink" title="支配集"></a>支配集</h2><p>支配数 $ \gamma(G) $</p>
+<p>支配周围的点</p>
+<p>极小支配集的补集也是支配集</p>
+<h2 id="点独立集"><a href="#点独立集" class="headerlink" title="点独立集"></a>点独立集</h2><p>点独立数 $ \alpha(G) $</p>
+<p>任二顶点有 d(u)+d(v) &gt;= v(G)，则 a &lt; gamma</p>
+<h2 id="点覆盖集"><a href="#点覆盖集" class="headerlink" title="点覆盖集"></a>点覆盖集</h2><p>覆盖了所有的边</p>
+<h2 id="边覆盖集"><a href="#边覆盖集" class="headerlink" title="边覆盖集"></a>边覆盖集</h2><p>覆盖了所有的顶点</p>
 
       
     </div>
@@ -425,9 +443,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/复习/" rel="tag"># 复习</a>
-          
             <a href="/tags/图论/" rel="tag"># 图论</a>
+          
+            <a href="/tags/复习/" rel="tag"># 复习</a>
           
         </div>
       
@@ -531,7 +549,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -610,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-图的基本概念"><span class="nav-number">2.</span> <span class="nav-text">第一章 图的基本概念</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-图的基本概念"><span class="nav-number">2.</span> <span class="nav-text">第一章 图的基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6"><span class="nav-number">3.</span> <span class="nav-text">6.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中国邮递员问题-gt-带权最短闭途径"><span class="nav-number">3.1.</span> <span class="nav-text">中国邮递员问题-&gt;带权最短闭途径</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7"><span class="nav-number">4.</span> <span class="nav-text">7.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#支配集"><span class="nav-number">4.1.</span> <span class="nav-text">支配集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点独立集"><span class="nav-number">4.2.</span> <span class="nav-text">点独立集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点覆盖集"><span class="nav-number">4.3.</span> <span class="nav-text">点覆盖集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边覆盖集"><span class="nav-number">4.4.</span> <span class="nav-text">边覆盖集</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -637,7 +655,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-snowflake-o"></i>
   </span>
