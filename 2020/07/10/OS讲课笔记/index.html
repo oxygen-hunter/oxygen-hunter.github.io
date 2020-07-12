@@ -86,10 +86,13 @@
 <meta property="og:site_name" content="懵逼树树洞">
 <meta property="og:description" content="OS讲课笔记  ch1 概论需要掌握的问题 应用软件、支撑软件/系统软件、操作系统、硬件的层级关系 操作系统的两大功能是什么？ 按功能和使用方式划分，操作系统有哪三种？ 多道程序设计中，CPU的利用率怎么算？ 多道程序设计提高了什么？损失了什么？ 应用程序调用fprintf()之后，调用关系是怎样的？ 系统调用的处理过程是怎样的？在用户态做了哪些事，在内核态做了哪些事？ 系统调用和函数调用的区别？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-07-10T10:20:42.252Z">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/OS讲课笔记/image-20200712195949146.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/OS讲课笔记/image-20200713001124681.png">
+<meta property="og:updated_time" content="2020-07-12T16:13:46.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OS讲课笔记">
 <meta name="twitter:description" content="OS讲课笔记  ch1 概论需要掌握的问题 应用软件、支撑软件/系统软件、操作系统、硬件的层级关系 操作系统的两大功能是什么？ 按功能和使用方式划分，操作系统有哪三种？ 多道程序设计中，CPU的利用率怎么算？ 多道程序设计提高了什么？损失了什么？ 应用程序调用fprintf()之后，调用关系是怎样的？ 系统调用的处理过程是怎样的？在用户态做了哪些事，在内核态做了哪些事？ 系统调用和函数调用的区别？">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/10/OS讲课笔记/image-20200712195949146.png">
 
 
 
@@ -401,6 +404,84 @@
 <p>（另，windows和mac os都是宏内核，不过借鉴了微内核的设计思路，不是纯粹的宏内核，所以不做明确分类，如果考到了，写宏内核）</p>
 <h3 id="13-操作系统的功能在用户进程内执行的代表是？作为独立进程执行的代表是？"><a href="#13-操作系统的功能在用户进程内执行的代表是？作为独立进程执行的代表是？" class="headerlink" title="13. 操作系统的功能在用户进程内执行的代表是？作为独立进程执行的代表是？"></a>13. 操作系统的功能在用户进程内执行的代表是？作为独立进程执行的代表是？</h3><p>在用户进程执行的：unix</p>
 <p>作为独立进程执行的：windows</p>
+<h1 id="ch2-处理器管理"><a href="#ch2-处理器管理" class="headerlink" title="ch2 处理器管理"></a>ch2 处理器管理</h1><p>处理器管理主要讲CPU的工作</p>
+<h2 id="需要掌握的问题-1"><a href="#需要掌握的问题-1" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><p>处理器状态</p>
+<ol>
+<li>ESP、EBP 寄存器的功能</li>
+<li>CS, DS, SS 寄存器分别是哪个段的描述符</li>
+<li>CR0寄存器的PE位和PG位的功能</li>
+<li>CR3寄存器的高20位存的是什么？为什么只使用高20位？</li>
+<li>特权指令有哪些功能？</li>
+<li>intel x86处理器有4个特权级别，用户态和内核态分别运行于哪一级？</li>
+<li>程序状态字包含哪些内容？</li>
+<li>EIP 存的是什么？</li>
+</ol>
+<hr>
+<p>中断机制</p>
+<ol>
+<li>中断源的分类</li>
+<li>中断的处理过程</li>
+<li>异常的处理过程</li>
+</ol>
+<hr>
+<p>进程</p>
+<ol>
+<li>进程的定义</li>
+<li>进程的运行态，就绪态，等待态的切换图是怎样的？</li>
+<li>进程的三个上下文是哪三个？</li>
+</ol>
+<h2 id="回答-1"><a href="#回答-1" class="headerlink" title="回答"></a>回答</h2><p>处理器状态</p>
+<h3 id="1-ESP、EBP-寄存器的功能"><a href="#1-ESP、EBP-寄存器的功能" class="headerlink" title="1. ESP、EBP 寄存器的功能"></a>1. ESP、EBP 寄存器的功能</h3><p>ESP栈顶，EBP栈底</p>
+<h3 id="2-CS-DS-SS-寄存器分别是哪个段的描述符"><a href="#2-CS-DS-SS-寄存器分别是哪个段的描述符" class="headerlink" title="2. CS, DS, SS 寄存器分别是哪个段的描述符"></a>2. CS, DS, SS 寄存器分别是哪个段的描述符</h3><p>代码段，数据段，栈段</p>
+<h3 id="3-CR0寄存器的PE位和PG位的功能"><a href="#3-CR0寄存器的PE位和PG位的功能" class="headerlink" title="3. CR0寄存器的PE位和PG位的功能"></a>3. CR0寄存器的PE位和PG位的功能</h3><p>PE = 0：实模式，PE = 1：保护模式</p>
+<p>PG = 0：不允许分页，PG = 1：开启分页</p>
+<h3 id="4-CR3寄存器的高20位存的是什么？为什么只使用高20位？"><a href="#4-CR3寄存器的高20位存的是什么？为什么只使用高20位？" class="headerlink" title="4. CR3寄存器的高20位存的是什么？为什么只使用高20位？"></a>4. CR3寄存器的高20位存的是什么？为什么只使用高20位？</h3><p>存的是页目录表的物理地址。页目录表总是放在以4K字节为单位的存储器边界上，所以只用高20位。</p>
+<h3 id="5-特权指令有哪些功能"><a href="#5-特权指令有哪些功能" class="headerlink" title="5. 特权指令有哪些功能"></a>5. 特权指令有哪些功能</h3><p>启动I/O设备、设置时钟、控制中断屏蔽位、清主存、建立存储键、加载PSW等</p>
+<h3 id="6-intel-x86处理器有4个特权级别，用户态和内核态分别运行于哪一级？"><a href="#6-intel-x86处理器有4个特权级别，用户态和内核态分别运行于哪一级？" class="headerlink" title="6. intel x86处理器有4个特权级别，用户态和内核态分别运行于哪一级？"></a>6. intel x86处理器有4个特权级别，用户态和内核态分别运行于哪一级？</h3><p>用户3，内核0</p>
+<h3 id="7-程序状态字包含哪些内容？"><a href="#7-程序状态字包含哪些内容？" class="headerlink" title="7. 程序状态字包含哪些内容？"></a>7. 程序状态字包含哪些内容？</h3><p>EFLAGS，EIP，处理器状态位（用户态3，内核态0），中断码，中断屏蔽位</p>
+<h3 id="8-EIP-存的是什么？"><a href="#8-EIP-存的是什么？" class="headerlink" title="8. EIP 存的是什么？"></a>8. EIP 存的是什么？</h3><p>当前指令相对于当前段的偏移量</p>
+<hr>
+<p>中断机制</p>
+<h3 id="1-中断源的分类"><a href="#1-中断源的分类" class="headerlink" title="1. 中断源的分类"></a>1. 中断源的分类</h3><p><img src="/2020/07/10/OS讲课笔记/image-20200712195949146.png" alt="image-20200712195949146"></p>
+<p>外中断是异步的，即随时可能发生，来自机器的端口，有IR0~IR7八根引脚，对应引发外中断的外设们</p>
+<p>内中断是同步的，来自程序内部</p>
+<p>内中断的执行可以被外中断打断，可以被内中断打断（即嵌套执行）</p>
+<p>但外中断的执行不可被打断</p>
+<h3 id="2-中断的过程"><a href="#2-中断的过程" class="headerlink" title="2. 中断的过程"></a>2. 中断的过程</h3><p>粗略来说</p>
+<ol>
+<li><p>产生中断向量</p>
+</li>
+<li><p>拿中断向量查表</p>
+</li>
+<li>保护现场</li>
+<li>执行中断处理程序</li>
+<li>恢复现场</li>
+</ol>
+<hr>
+<p>细致来说</p>
+<p>这里指在保护模式下的外中断，可以分为4步，中断请求-&gt;中断响应-&gt;中断处理-&gt;中断返回</p>
+<p>中断请求：硬件向8259A可编程控制器发送中断请求，由8259A决定是否屏蔽该请求</p>
+<p>中断响应：CPU看8259A控制器是否有中断请求，如果有，就去总线上取中断向量</p>
+<p>中断处理：</p>
+<ol>
+<li>根据中断号查IDT（Interrupt Descriptor Table，中断描述符表），获得中断描述符（段选择符）</li>
+<li>CPU使用IDT查到的中断服务程序的段选择符从GDT中取得相应的段描述符</li>
+<li>CPU会根据当前cs寄存器里的CPL和GDT的段描述符的DPL，以确保中断服务程序是高于当前程序的，如果这次中断是编程异常（如：int 80h系统调用），那么还要检查CPL和IDT表中中断描述符的DPL，以保证当前程序有权限使用中断服务程序</li>
+<li>CPU会根据CPL和中断服务程序段描述符的DPL信息确认是否发生了特权级的转换，比如当前程序正运行在用户态，而中断程序是运行在内核态的，则意味着发生了特权级的转换，这时CPU会从当前程序的TSS信息（该信息在内存中的首地址存在TR寄存器中）里取得该程序的内核栈地址，即包括ss和esp的值，并立即将系统当前使用的栈切换成新的栈。这个栈就是即将运行的中断服务程序要使用的栈。紧接着就将当前程序使用的<strong>ss,esp</strong>压到新栈中保存起来。</li>
+<li>保护当前程序的现场：CPU开始利用栈保护被暂停执行的程序的现场：依次压入当前程序使用的eflags，cs，eip，errorCode（如果是有错误码的异常）信息</li>
+<li>跳转到中断服务程序的第一条指令开始执行，CPU利用中断服务程序的段描述符将其第一条指令的地址加载到cs和eip寄存器中，开始执行中断服务程序。这意味着先前的程序被暂停执行，中断服务程序正式开始工作。</li>
+<li>用iret指令返回用户态，程序执行这条返回指令时，会从栈里弹出先前保存的被暂停程序的现场信息，<strong>即eflags,cs,eip</strong>，被打断的程序继续执行</li>
+</ol>
+<h3 id="3-异常的处理过程"><a href="#3-异常的处理过程" class="headerlink" title="3. 异常的处理过程"></a>3. 异常的处理过程</h3><p>和中断仅有一处不同，就是中断的中断向量会从硬件处获取，即到总线上取，但异常的中断向量是程序给好的</p>
+<hr>
+<p>进程</p>
+<h3 id="1-进程的定义"><a href="#1-进程的定义" class="headerlink" title="1. 进程的定义"></a>1. 进程的定义</h3><p>进程是<strong>可并发执行的程序</strong>在某个数据集合上的一次计算活动，也是操作系统进行<strong>资源分配和保护</strong>的基本单位</p>
+<h3 id="2-进程的运行态，就绪态，等待态的切换图是怎样的？"><a href="#2-进程的运行态，就绪态，等待态的切换图是怎样的？" class="headerlink" title="2. 进程的运行态，就绪态，等待态的切换图是怎样的？"></a>2. 进程的运行态，就绪态，等待态的切换图是怎样的？</h3><p><img src="/2020/07/10/OS讲课笔记/image-20200713001124681.png" alt="image-20200713001124681"></p>
+<h3 id="3-进程的三个上下文是哪三个？"><a href="#3-进程的三个上下文是哪三个？" class="headerlink" title="3. 进程的三个上下文是哪三个？"></a>3. 进程的三个上下文是哪三个？</h3><p>用户级上下文：程序块、数据块、共享内存区、用户栈</p>
+<p>系统级上下文：PCB、页表、段表、内核栈</p>
+<p>寄存器上下文：处理器状态寄存器、EIP、ESP、EBP、通用寄存器（EAX、EBX、ECX、EDX）</p>
+<hr>
+<p>7-12号讲到 os ppt2 103页</p>
 
       
     </div>
@@ -591,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ch1-概论"><span class="nav-number">1.</span> <span class="nav-text">ch1 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题"><span class="nav-number">1.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答"><span class="nav-number">1.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-应用软件、支撑软件-系统软件、操作系统、硬件的层级关系"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 应用软件、支撑软件/系统软件、操作系统、硬件的层级关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-操作系统的两大功能是什么？"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 操作系统的两大功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-按功能和使用方式划分，操作系统有哪三种？"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 按功能和使用方式划分，操作系统有哪三种？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-多道程序设计中，CPU的利用率怎么算？"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 多道程序设计中，CPU的利用率怎么算？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-多道程序设计提高了什么？损失了什么？"><span class="nav-number">1.2.5.</span> <span class="nav-text">5. 多道程序设计提高了什么？损失了什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-应用程序调用fprintf-之后，调用关系是怎样的？"><span class="nav-number">1.2.6.</span> <span class="nav-text">6. 应用程序调用fprintf()之后，调用关系是怎样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-系统调用的处理过程是怎样的？在用户态做了哪些事，在内核态做了哪些事？"><span class="nav-number">1.2.7.</span> <span class="nav-text">7. 系统调用的处理过程是怎样的？在用户态做了哪些事，在内核态做了哪些事？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-系统调用和函数调用的区别？从调用方式-被调用代码位置-提供者回答"><span class="nav-number">1.2.8.</span> <span class="nav-text">8. 系统调用和函数调用的区别？从调用方式/被调用代码位置/提供者回答</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-操作系统的三个基本元素是什么？"><span class="nav-number">1.2.9.</span> <span class="nav-text">9. 操作系统的三个基本元素是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-内核需要提供的4个基本功能是什么？"><span class="nav-number">1.2.10.</span> <span class="nav-text">10. 内核需要提供的4个基本功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-微内核和宏内核（也叫单内核）的优劣对比"><span class="nav-number">1.2.11.</span> <span class="nav-text">11. 微内核和宏内核（也叫单内核）的优劣对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-微内核和宏内核的操作系统代表有哪些？各举1个"><span class="nav-number">1.2.12.</span> <span class="nav-text">12. 微内核和宏内核的操作系统代表有哪些？各举1个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-操作系统的功能在用户进程内执行的代表是？作为独立进程执行的代表是？"><span class="nav-number">1.2.13.</span> <span class="nav-text">13. 操作系统的功能在用户进程内执行的代表是？作为独立进程执行的代表是？</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ch1-概论"><span class="nav-number">1.</span> <span class="nav-text">ch1 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题"><span class="nav-number">1.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答"><span class="nav-number">1.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-应用软件、支撑软件-系统软件、操作系统、硬件的层级关系"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 应用软件、支撑软件/系统软件、操作系统、硬件的层级关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-操作系统的两大功能是什么？"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 操作系统的两大功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-按功能和使用方式划分，操作系统有哪三种？"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 按功能和使用方式划分，操作系统有哪三种？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-多道程序设计中，CPU的利用率怎么算？"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 多道程序设计中，CPU的利用率怎么算？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-多道程序设计提高了什么？损失了什么？"><span class="nav-number">1.2.5.</span> <span class="nav-text">5. 多道程序设计提高了什么？损失了什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-应用程序调用fprintf-之后，调用关系是怎样的？"><span class="nav-number">1.2.6.</span> <span class="nav-text">6. 应用程序调用fprintf()之后，调用关系是怎样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-系统调用的处理过程是怎样的？在用户态做了哪些事，在内核态做了哪些事？"><span class="nav-number">1.2.7.</span> <span class="nav-text">7. 系统调用的处理过程是怎样的？在用户态做了哪些事，在内核态做了哪些事？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-系统调用和函数调用的区别？从调用方式-被调用代码位置-提供者回答"><span class="nav-number">1.2.8.</span> <span class="nav-text">8. 系统调用和函数调用的区别？从调用方式/被调用代码位置/提供者回答</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-操作系统的三个基本元素是什么？"><span class="nav-number">1.2.9.</span> <span class="nav-text">9. 操作系统的三个基本元素是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-内核需要提供的4个基本功能是什么？"><span class="nav-number">1.2.10.</span> <span class="nav-text">10. 内核需要提供的4个基本功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-微内核和宏内核（也叫单内核）的优劣对比"><span class="nav-number">1.2.11.</span> <span class="nav-text">11. 微内核和宏内核（也叫单内核）的优劣对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-微内核和宏内核的操作系统代表有哪些？各举1个"><span class="nav-number">1.2.12.</span> <span class="nav-text">12. 微内核和宏内核的操作系统代表有哪些？各举1个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-操作系统的功能在用户进程内执行的代表是？作为独立进程执行的代表是？"><span class="nav-number">1.2.13.</span> <span class="nav-text">13. 操作系统的功能在用户进程内执行的代表是？作为独立进程执行的代表是？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch2-处理器管理"><span class="nav-number">2.</span> <span class="nav-text">ch2 处理器管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题-1"><span class="nav-number">2.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答-1"><span class="nav-number">2.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ESP、EBP-寄存器的功能"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. ESP、EBP 寄存器的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CS-DS-SS-寄存器分别是哪个段的描述符"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. CS, DS, SS 寄存器分别是哪个段的描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-CR0寄存器的PE位和PG位的功能"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. CR0寄存器的PE位和PG位的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-CR3寄存器的高20位存的是什么？为什么只使用高20位？"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. CR3寄存器的高20位存的是什么？为什么只使用高20位？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-特权指令有哪些功能"><span class="nav-number">2.2.5.</span> <span class="nav-text">5. 特权指令有哪些功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-intel-x86处理器有4个特权级别，用户态和内核态分别运行于哪一级？"><span class="nav-number">2.2.6.</span> <span class="nav-text">6. intel x86处理器有4个特权级别，用户态和内核态分别运行于哪一级？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-程序状态字包含哪些内容？"><span class="nav-number">2.2.7.</span> <span class="nav-text">7. 程序状态字包含哪些内容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-EIP-存的是什么？"><span class="nav-number">2.2.8.</span> <span class="nav-text">8. EIP 存的是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-中断源的分类"><span class="nav-number">2.2.9.</span> <span class="nav-text">1. 中断源的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-中断的过程"><span class="nav-number">2.2.10.</span> <span class="nav-text">2. 中断的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-异常的处理过程"><span class="nav-number">2.2.11.</span> <span class="nav-text">3. 异常的处理过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-进程的定义"><span class="nav-number">2.2.12.</span> <span class="nav-text">1. 进程的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-进程的运行态，就绪态，等待态的切换图是怎样的？"><span class="nav-number">2.2.13.</span> <span class="nav-text">2. 进程的运行态，就绪态，等待态的切换图是怎样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-进程的三个上下文是哪三个？"><span class="nav-number">2.2.14.</span> <span class="nav-text">3. 进程的三个上下文是哪三个？</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
