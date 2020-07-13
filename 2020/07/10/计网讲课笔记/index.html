@@ -87,7 +87,8 @@
 <meta property="og:description" content="计网讲课笔记  ch1 概论需要掌握的问题 Internet是什么？由什么组成？ 网络边缘是什么？ 接入网络是什么？ 网络核心是什么？ 电路交换、分组交换、虚电路是怎么运作的？ 为什么需要多层协议体系结构？（分层的好处） OSI七层模型是哪七层？每一层的功能是什么？ TCP/IP模型是哪五层、每一层的功能是什么？ 七层和五层的对应关系是什么样的？ 网络核心是如何传输数据的（网络核心的两大功能） 电">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/07/10/计网讲课笔记/image-20200710183325823.png">
-<meta property="og:updated_time" content="2020-07-11T11:27:49.971Z">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/计网讲课笔记/image-20200713193203017.png">
+<meta property="og:updated_time" content="2020-07-13T12:02:48.736Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计网讲课笔记">
 <meta name="twitter:description" content="计网讲课笔记  ch1 概论需要掌握的问题 Internet是什么？由什么组成？ 网络边缘是什么？ 接入网络是什么？ 网络核心是什么？ 电路交换、分组交换、虚电路是怎么运作的？ 为什么需要多层协议体系结构？（分层的好处） OSI七层模型是哪七层？每一层的功能是什么？ TCP/IP模型是哪五层、每一层的功能是什么？ 七层和五层的对应关系是什么样的？ 网络核心是如何传输数据的（网络核心的两大功能） 电">
@@ -436,10 +437,53 @@
 </ul>
 <p>排队时延：数据帧到达路由器的时候，会进入输入队列等待，在路由器确定转发出口后，还要进入输出队列等待</p>
 <p>处理时延：主机或路由器收到分组时会花时间处理，比如插入输入队列、决定走哪个出口出去、解析分组内容等</p>
-<h1 id="ch2-数据链路层"><a href="#ch2-数据链路层" class="headerlink" title="ch2 数据链路层"></a>ch2 数据链路层</h1><h2 id="需要掌握的问题-1"><a href="#需要掌握的问题-1" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
-<li></li>
+<h1 id="ch2-数据链路层"><a href="#ch2-数据链路层" class="headerlink" title="ch2 数据链路层"></a>ch2 数据链路层</h1><h2 id="需要掌握的问题-1"><a href="#需要掌握的问题-1" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><p>传输和流量控制</p>
+<ol>
+<li>单工、半双工、全双工是什么？</li>
+<li>停等协议（stop-and-wait）是怎么运作的？</li>
+<li>滑动窗口（sliding window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？</li>
+<li>滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？</li>
 </ol>
-<h2 id="回答-1"><a href="#回答-1" class="headerlink" title="回答"></a>回答</h2><h3 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h3>
+<hr>
+<p>检测和纠正比特错误</p>
+<ol>
+<li>二维的奇偶校验（Parity Checking）的行parity bit和列parity bit是怎么计算的，以及怎么纠错的？</li>
+<li>CRC校验，给定D=101110，r=3，G=1001，要求计算校验码R</li>
+</ol>
+<hr>
+<p>链路层的包</p>
+<ol>
+<li>HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？</li>
+</ol>
+<p>令牌环</p>
+<ol>
+<li>拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？</li>
+</ol>
+<h2 id="回答-1"><a href="#回答-1" class="headerlink" title="回答"></a>回答</h2><p>传输和流量控制</p>
+<h3 id="1-单工、半双工、全双工是什么？"><a href="#1-单工、半双工、全双工是什么？" class="headerlink" title="1. 单工、半双工、全双工是什么？"></a>1. 单工、半双工、全双工是什么？</h3><p>单工：只能由发送方往接收方发消息</p>
+<p>半双工：双方可以互发消息，但同一时间只能有一方的消息在载体上传输</p>
+<p>全双工：双方可以互发消息，可以同时发送消息和接收消息</p>
+<h3 id="2-停等协议（stop-and-wait）是怎么运作的？"><a href="#2-停等协议（stop-and-wait）是怎么运作的？" class="headerlink" title="2. 停等协议（stop-and-wait）是怎么运作的？"></a>2. 停等协议（stop-and-wait）是怎么运作的？</h3><p>发送方：发包，然后等待</p>
+<p>接受方：收到包后回复ACK</p>
+<p>发送方：收到ACK后再发下一个包</p>
+<h3 id="3-滑动窗口（sliding-window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？"><a href="#3-滑动窗口（sliding-window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？" class="headerlink" title="3. 滑动窗口（sliding window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？"></a>3. 滑动窗口（sliding window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？</h3><p>发送方的窗口更新：发送包时更新、收到NAK的时候重传</p>
+<p>接收方的窗口更新：收到包时更新</p>
+<h3 id="4-滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？"><a href="#4-滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？" class="headerlink" title="4. 滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？"></a>4. 滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？</h3><p>期望收到的下一个包编号（比如已接收0、1、2号包，那么下一个期望接受3号包）</p>
+<hr>
+<p>检测和纠正比特错误</p>
+<h3 id="1-二维的奇偶校验（Parity-Checking）的行parity-bit和列parity-bit是怎么计算的，以及怎么纠错的？"><a href="#1-二维的奇偶校验（Parity-Checking）的行parity-bit和列parity-bit是怎么计算的，以及怎么纠错的？" class="headerlink" title="1. 二维的奇偶校验（Parity Checking）的行parity bit和列parity bit是怎么计算的，以及怎么纠错的？"></a>1. 二维的奇偶校验（Parity Checking）的行parity bit和列parity bit是怎么计算的，以及怎么纠错的？</h3><p>如果是奇校验，数一数一行有n个1，如果n是奇数，校验位取1，如果n是偶数，校验位取0</p>
+<p>纠错：根据行列确定是哪个点出问题了，然后取反即可</p>
+<h3 id="2-CRC校验，给定D-101110，r-3，G-1001，要求计算校验码R"><a href="#2-CRC校验，给定D-101110，r-3，G-1001，要求计算校验码R" class="headerlink" title="2. CRC校验，给定D=101110，r=3，G=1001，要求计算校验码R"></a>2. CRC校验，给定D=101110，r=3，G=1001，要求计算校验码R</h3><p><img src="/2020/07/10/计网讲课笔记/image-20200713193203017.png" alt="image-20200713193203017"></p>
+<hr>
+<p>链路层的包</p>
+<h3 id="1-HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？"><a href="#1-HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？" class="headerlink" title="1. HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？"></a>1. HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？</h3><p>01111110</p>
+<p>发送方避免：发送方每读到连续5个1，就插入一个0</p>
+<p>接收方恢复：每读到连续5个1，看下一位或两位，如果是0，那就删掉这个0；如果是10，就认为是分隔标志</p>
+<hr>
+<p>令牌环</p>
+<h3 id="1-拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？"><a href="#1-拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？" class="headerlink" title="1. 拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？"></a>1. 拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？</h3><p>没有要发：把令牌给下一个主机</p>
+<p>有要发：发送数据包</p>
+
       
     </div>
     
@@ -633,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ch1-概论"><span class="nav-number">1.</span> <span class="nav-text">ch1 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题"><span class="nav-number">1.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答"><span class="nav-number">1.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Internet是什么？由什么组成？"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. Internet是什么？由什么组成？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-网络边缘是什么？"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 网络边缘是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-接入网络是什么？"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 接入网络是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-网络核心是什么？"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 网络核心是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-电路交换、分组交换、虚电路是怎么运作的？"><span class="nav-number">1.2.5.</span> <span class="nav-text">5. 电路交换、分组交换、虚电路是怎么运作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-为什么需要多层协议体系结构？（分层的好处）"><span class="nav-number">1.2.6.</span> <span class="nav-text">6. 为什么需要多层协议体系结构？（分层的好处）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-OSI七层模型是哪七层？每一层的功能是什么？"><span class="nav-number">1.2.7.</span> <span class="nav-text">7. OSI七层模型是哪七层？每一层的功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、TCP-IP模型是哪五层、每一层的功能是什么？"><span class="nav-number">1.2.8.</span> <span class="nav-text">8、TCP/IP模型是哪五层、每一层的功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-七层和五层的对应关系是什么样的？"><span class="nav-number">1.2.9.</span> <span class="nav-text">9. 七层和五层的对应关系是什么样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-网络核心是如何传输数据的（网络核心的两大功能）"><span class="nav-number">1.2.10.</span> <span class="nav-text">10. 网络核心是如何传输数据的（网络核心的两大功能）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-电子邮件用到的应用层协议名称"><span class="nav-number">1.2.11.</span> <span class="nav-text">11. 电子邮件用到的应用层协议名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-发送时延-传输时延、传播时延、排队时延、处理时延是什么？"><span class="nav-number">1.2.12.</span> <span class="nav-text">12. 发送时延/传输时延、传播时延、排队时延、处理时延是什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch2-数据链路层"><span class="nav-number">2.</span> <span class="nav-text">ch2 数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题-1"><span class="nav-number">2.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答-1"><span class="nav-number">2.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ch1-概论"><span class="nav-number">1.</span> <span class="nav-text">ch1 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题"><span class="nav-number">1.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答"><span class="nav-number">1.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Internet是什么？由什么组成？"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. Internet是什么？由什么组成？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-网络边缘是什么？"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 网络边缘是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-接入网络是什么？"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 接入网络是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-网络核心是什么？"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 网络核心是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-电路交换、分组交换、虚电路是怎么运作的？"><span class="nav-number">1.2.5.</span> <span class="nav-text">5. 电路交换、分组交换、虚电路是怎么运作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-为什么需要多层协议体系结构？（分层的好处）"><span class="nav-number">1.2.6.</span> <span class="nav-text">6. 为什么需要多层协议体系结构？（分层的好处）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-OSI七层模型是哪七层？每一层的功能是什么？"><span class="nav-number">1.2.7.</span> <span class="nav-text">7. OSI七层模型是哪七层？每一层的功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、TCP-IP模型是哪五层、每一层的功能是什么？"><span class="nav-number">1.2.8.</span> <span class="nav-text">8、TCP/IP模型是哪五层、每一层的功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-七层和五层的对应关系是什么样的？"><span class="nav-number">1.2.9.</span> <span class="nav-text">9. 七层和五层的对应关系是什么样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-网络核心是如何传输数据的（网络核心的两大功能）"><span class="nav-number">1.2.10.</span> <span class="nav-text">10. 网络核心是如何传输数据的（网络核心的两大功能）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-电子邮件用到的应用层协议名称"><span class="nav-number">1.2.11.</span> <span class="nav-text">11. 电子邮件用到的应用层协议名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-发送时延-传输时延、传播时延、排队时延、处理时延是什么？"><span class="nav-number">1.2.12.</span> <span class="nav-text">12. 发送时延/传输时延、传播时延、排队时延、处理时延是什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch2-数据链路层"><span class="nav-number">2.</span> <span class="nav-text">ch2 数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题-1"><span class="nav-number">2.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答-1"><span class="nav-number">2.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单工、半双工、全双工是什么？"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 单工、半双工、全双工是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-停等协议（stop-and-wait）是怎么运作的？"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 停等协议（stop-and-wait）是怎么运作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-滑动窗口（sliding-window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. 滑动窗口（sliding window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. 滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-二维的奇偶校验（Parity-Checking）的行parity-bit和列parity-bit是怎么计算的，以及怎么纠错的？"><span class="nav-number">2.2.5.</span> <span class="nav-text">1. 二维的奇偶校验（Parity Checking）的行parity bit和列parity bit是怎么计算的，以及怎么纠错的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CRC校验，给定D-101110，r-3，G-1001，要求计算校验码R"><span class="nav-number">2.2.6.</span> <span class="nav-text">2. CRC校验，给定D=101110，r=3，G=1001，要求计算校验码R</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？"><span class="nav-number">2.2.7.</span> <span class="nav-text">1. HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？"><span class="nav-number">2.2.8.</span> <span class="nav-text">1. 拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
