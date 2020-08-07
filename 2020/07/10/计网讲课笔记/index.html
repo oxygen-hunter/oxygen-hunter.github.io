@@ -88,7 +88,11 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/07/10/计网讲课笔记/image-20200710183325823.png">
 <meta property="og:image" content="http://yoursite.com/2020/07/10/计网讲课笔记/image-20200713193203017.png">
-<meta property="og:updated_time" content="2020-07-18T06:24:42.912Z">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/计网讲课笔记/image-20200806184630519.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/计网讲课笔记/image-20200806184650986.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/计网讲课笔记/image-20200806190210416.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/计网讲课笔记/image-20200806190428359.png">
+<meta property="og:updated_time" content="2020-08-07T02:57:10.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计网讲课笔记">
 <meta name="twitter:description" content="计网讲课笔记  ch1 概论需要掌握的问题 Internet是什么？由什么组成？ 网络边缘是什么？ 接入网络是什么？ 网络核心是什么？ 电路交换、分组交换、虚电路是怎么运作的？ 为什么需要多层协议体系结构？（分层的好处） OSI七层模型是哪七层？每一层的功能是什么？ TCP/IP模型是哪五层、每一层的功能是什么？ 七层和五层的对应关系是什么样的？ 网络核心是如何传输数据的（网络核心的两大功能） 电">
@@ -502,10 +506,13 @@
 <h3 id="1-HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？"><a href="#1-HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？" class="headerlink" title="1. HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？"></a>1. HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？</h3><p>01111110</p>
 <p>发送方避免：发送方每读到连续5个1，就插入一个0</p>
 <p>接收方恢复：每读到连续5个1，看下一位或两位，如果是0，那就删掉这个0；如果是10，就认为是分隔标志</p>
+<p>msg = 1111110</p>
+<p>handle_msg = 11111010</p>
+<p>send = 01111110  11111010  01111110</p>
 <hr>
 <p>令牌环</p>
 <h3 id="1-拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？"><a href="#1-拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？" class="headerlink" title="1. 拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？"></a>1. 拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？</h3><p>没有要发：把令牌给下一个主机</p>
-<p>有要发：发送数据包</p>
+<p>有要发：发送数据包，把令牌给下一个主机</p>
 <hr>
 <p>以太网</p>
 <h3 id="1-以太网的速率在多少到多少之间？"><a href="#1-以太网的速率在多少到多少之间？" class="headerlink" title="1. 以太网的速率在多少到多少之间？"></a>1. 以太网的速率在多少到多少之间？</h3><p>10Mbps~10Gbps</p>
@@ -561,7 +568,192 @@
 <li>即使发送时检测到信道空闲，由于无线电波可以向各个方向传播，在接收端仍可能碰撞冲突</li>
 <li>无线信号强度范围波动大，冲突检测困难</li>
 </ol>
-<h1 id="ch3-分组交换网络"><a href="#ch3-分组交换网络" class="headerlink" title="ch3 分组交换网络"></a>ch3 分组交换网络</h1>
+<h1 id="ch3-分组交换网络"><a href="#ch3-分组交换网络" class="headerlink" title="ch3 分组交换网络"></a>ch3 分组交换网络</h1><h2 id="需要掌握的问题-2"><a href="#需要掌握的问题-2" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>路由器的两大功能</li>
+<li>路由器的内部结构</li>
+<li>IPv4数据包格式，IPv6数据包格式，两者中有哪些字段是类似的</li>
+<li>链路状态路由选择算法（LS）</li>
+<li>距离向量路由选择算法（DV）</li>
+<li>毒性逆转是什么</li>
+<li>RIP，OSPF，BGP的功能</li>
+<li>多播路由算法，组共享的树和基于源的树的区别</li>
+</ol>
+<h2 id="回答-2"><a href="#回答-2" class="headerlink" title="回答"></a>回答</h2><h3 id="1-路由器的两大功能"><a href="#1-路由器的两大功能" class="headerlink" title="1. 路由器的两大功能"></a>1. 路由器的两大功能</h3><p>转发和路由</p>
+<h3 id="2-路由器的内部结构"><a href="#2-路由器的内部结构" class="headerlink" title="2. 路由器的内部结构"></a>2. 路由器的内部结构</h3><p>输入端口-交换结构-输出端口</p>
+<h3 id="3-IPv4数据包格式，IPv6数据包格式，两者中有哪些字段是类似的"><a href="#3-IPv4数据包格式，IPv6数据包格式，两者中有哪些字段是类似的" class="headerlink" title="3. IPv4数据包格式，IPv6数据包格式，两者中有哪些字段是类似的"></a>3. IPv4数据包格式，IPv6数据包格式，两者中有哪些字段是类似的</h3><p><img src="/2020/07/10/计网讲课笔记/image-20200806184630519.png" alt="image-20200806184630519"></p>
+<p>.</p>
+<p><img src="/2020/07/10/计网讲课笔记/image-20200806184650986.png" alt="image-20200806184650986"></p>
+<p>version相同</p>
+<p>toc 和 traffic class 都表示服务类型</p>
+<p>ttl 和 hop limit 相同</p>
+<p>protocol 和 next header 相同</p>
+<p>total length 和 payload length 相似，一个表示整个包长度，一个表示数据部分长度</p>
+<p>source address 和 destination address 相同（除了长度不同）</p>
+<h3 id="4-链路状态路由选择算法（LS）"><a href="#4-链路状态路由选择算法（LS）" class="headerlink" title="4. 链路状态路由选择算法（LS）"></a>4. 链路状态路由选择算法（LS）</h3><p>本质是dijkstra算法</p>
+<h3 id="5-距离向量路由选择算法（DV）"><a href="#5-距离向量路由选择算法（DV）" class="headerlink" title="5. 距离向量路由选择算法（DV）"></a>5. 距离向量路由选择算法（DV）</h3><p>链路状态变化时，向邻居传递自己到其他节点的路由信息</p>
+<h3 id="6-毒性逆转是什么"><a href="#6-毒性逆转是什么" class="headerlink" title="6. 毒性逆转是什么"></a>6. 毒性逆转是什么</h3><p>假如A经由B到达C且B是第一跳，那么A在DV算法中告诉B：A到C的距离是正无穷</p>
+<h3 id="7-RIP，OSPF，BGP的功能"><a href="#7-RIP，OSPF，BGP的功能" class="headerlink" title="7. RIP，OSPF，BGP的功能"></a>7. RIP，OSPF，BGP的功能</h3><p>域内路由</p>
+<ul>
+<li>RIP：底层是DV算法</li>
+<li>OSPF：底层是LS算法</li>
+</ul>
+<p>域间路由：</p>
+<ul>
+<li>eBGP：AS的边际路由器之间互相通知对方，自己到达某个网段的cost</li>
+<li>iBGP：边际路由器学习到了之后，通知给AS内的路由器</li>
+</ul>
+<h3 id="8-多播路由算法，组共享的树和基于源的树的区别"><a href="#8-多播路由算法，组共享的树和基于源的树的区别" class="headerlink" title="8. 多播路由算法，组共享的树和基于源的树的区别"></a>8. 多播路由算法，组共享的树和基于源的树的区别</h3><p>用单播模拟多播：1个发送方和n个接收方，用n次单播模拟多播</p>
+<p>组共享的树：m个发送方和n个接收方，共享一棵树，包通过树来发给接收方</p>
+<p>基于源的树：m个发送方和n个接收方，一共m棵树</p>
+<h1 id="ch4-传输层"><a href="#ch4-传输层" class="headerlink" title="ch4 传输层"></a>ch4 传输层</h1><h2 id="需要掌握的问题-3"><a href="#需要掌握的问题-3" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>UDP包格式</li>
+<li>UDP和TCP的区别</li>
+<li>TCP包格式</li>
+<li>TCP的SampleRTT、EstimatedRTT、DevRTT、TimeInterval的计算</li>
+<li>TCP可靠数据传输原理、计时器</li>
+<li>TCP三次握手和四次挥手</li>
+<li>TCP拥塞控制的做法，Reno和Tahoe的区别</li>
+<li>TCP平均吞吐量</li>
+</ol>
+<h2 id="回答-3"><a href="#回答-3" class="headerlink" title="回答"></a>回答</h2><h3 id="1-UDP包格式"><a href="#1-UDP包格式" class="headerlink" title="1. UDP包格式"></a>1. UDP包格式</h3><p><img src="/2020/07/10/计网讲课笔记/image-20200806190210416.png" alt="image-20200806190210416"></p>
+<h3 id="2-UDP和TCP的区别"><a href="#2-UDP和TCP的区别" class="headerlink" title="2. UDP和TCP的区别"></a>2. UDP和TCP的区别</h3><p>UDP：</p>
+<ul>
+<li>无需建立连接、无连接状态</li>
+<li>尽力而为，不保证送达，也不保证正确性，也没有拥塞控制</li>
+<li>可能会被防火墙挡</li>
+</ul>
+<p>TCP：</p>
+<ul>
+<li>需要建立连接、保持连接状态、关闭连接</li>
+<li>保证送达、保证正确性、有拥塞控制</li>
+<li>通常不会被防火墙挡</li>
+</ul>
+<h3 id="3-TCP包格式"><a href="#3-TCP包格式" class="headerlink" title="3. TCP包格式"></a>3. TCP包格式</h3><p><img src="/2020/07/10/计网讲课笔记/image-20200806190428359.png" alt="image-20200806190428359"></p>
+<h3 id="4-TCP的SampleRTT、EstimatedRTT、DevRTT、TimeInterval的计算"><a href="#4-TCP的SampleRTT、EstimatedRTT、DevRTT、TimeInterval的计算" class="headerlink" title="4. TCP的SampleRTT、EstimatedRTT、DevRTT、TimeInterval的计算"></a>4. TCP的SampleRTT、EstimatedRTT、DevRTT、TimeInterval的计算</h3><p>$EsitimatedRTT = (1-a)EstimatedRTT + a SampelRTT$</p>
+<p>$DevRTT = (1-\beta)DevRTT+\beta |EstimatedRTT - SampleRTT|$</p>
+<p>$TimeInterval = EstimatedRTT + 4DevRTT$</p>
+<h3 id="5-TCP可靠数据传输原理、计时器"><a href="#5-TCP可靠数据传输原理、计时器" class="headerlink" title="5. TCP可靠数据传输原理、计时器"></a>5. TCP可靠数据传输原理、计时器</h3><p>发送方：</p>
+<ol>
+<li>有新包要发，且计时器处于运行状态的话，启动计时器，发包</li>
+<li>如果计时器超时，重传最小的未被确认的包，然后启动计时器</li>
+<li>收到ACK，看ACK的值和已被确认的最大序号，如果ACK&gt;Base，更新Base=ACK，如果还有已发送但未被确认的包，启动计时器</li>
+</ol>
+<h3 id="6-TCP三次握手和四次挥手"><a href="#6-TCP三次握手和四次挥手" class="headerlink" title="6. TCP三次握手和四次挥手"></a>6. TCP三次握手和四次挥手</h3><p>三次握手：</p>
+<ol>
+<li>客户-&gt;服务器：SYN = 1，Seq = client_init_seq，len = 1</li>
+<li>服务器-&gt;客户：SYN = 1，Seq = server_init_seq，ack = client_init_seq+1，len = 1</li>
+<li>客户-&gt;服务器：SYN = 0，seq = client_init_seq+1，ack = server_init_seq+1</li>
+</ol>
+<p>四次挥手：</p>
+<ol>
+<li>客户-&gt;服务器：FIN = 1，客户以后不再发送应用数据</li>
+<li>服务器-&gt;客户：ACK = 1，还有应用数据要发送给客户</li>
+<li>服务器-&gt;客户：FIN = 1，服务器以后不再发送应用数据</li>
+<li>客户-&gt;服务器：ACK = 1，客户定时等待后关闭TCP，服务器收到这个包后关闭连接</li>
+</ol>
+<h3 id="7-TCP拥塞控制的做法，Reno和Tahoe的区别"><a href="#7-TCP拥塞控制的做法，Reno和Tahoe的区别" class="headerlink" title="7. TCP拥塞控制的做法，Reno和Tahoe的区别"></a>7. TCP拥塞控制的做法，Reno和Tahoe的区别</h3><p>Reno是带快速恢复的，触发条件是收到3个冗余ack</p>
+<p>Tahoe是不带快速恢复的，收到3个冗余ack会进入慢启动</p>
+<p>慢启动：cwnd从0开始，每收到一个ack就把cwnd加1，直到</p>
+<ul>
+<li>cwnd&gt;=ssthresh，就cwnd = ssthresh，进入拥塞避免</li>
+<li>遇到3个冗余ack，ssthresh = cwnd/2，cwnd = ssthresh+3，进入快速恢复</li>
+<li>超时，ssthresh = cwnd/2，cwnd = 1，重新慢启动</li>
+</ul>
+<p>拥塞避免：每收到一个ack就把cwnd增加$\frac{1}{cwnd}$，一个RTT后cwnd的增量就是1，直到</p>
+<ul>
+<li>遇到3个冗余ack，ssthresh = cwnd/2，cwnd = ssthresh+3，进入快速恢复</li>
+<li>超时，ssthresh = cwnd/2，cwnd = 1，重新慢启动</li>
+</ul>
+<p>快速恢复：</p>
+<ul>
+<li>继续收到冗余ack，cwnd = cwnd + 1，保持快速恢复</li>
+<li>收到非冗余的ack，cwnd = ssthresh，进入拥塞避免</li>
+</ul>
+<h3 id="8-TCP平均吞吐量"><a href="#8-TCP平均吞吐量" class="headerlink" title="8. TCP平均吞吐量"></a>8. TCP平均吞吐量</h3><p>一条连接的平均吞吐量为 $\frac{0.75\times W}{RTT}$，W是cwnd能达到的最大值</p>
+<p>计算方法是，拥塞避免从发生3个冗余ack之前，cwnd=W，3个冗余ack之后，cwnd降为W/2，然后每个RTT内增加1，平均吞吐量即为 $\frac{\frac{(W+ \frac{W}{2})}{2}} {RTT}$</p>
+<h1 id="ch5-网络安全"><a href="#ch5-网络安全" class="headerlink" title="ch5 网络安全"></a>ch5 网络安全</h1><h2 id="需要掌握的问题-4"><a href="#需要掌握的问题-4" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>凯撒密码</li>
+<li>改进的凯撒密码</li>
+<li>块密码的输入、输出、映射的数量</li>
+<li>对称加密块密码算法有哪些 AES DES</li>
+<li>RSA的公私钥的生成、加密解密过程</li>
+<li>MAC的过程</li>
+<li>数字签名的过程，提高效率的方法</li>
+<li>端点鉴别，CA</li>
+<li>安全电子邮件</li>
+<li>SSL握手、挥手的过程、每一步的合理性</li>
+</ol>
+<h2 id="回答-4"><a href="#回答-4" class="headerlink" title="回答"></a>回答</h2><h3 id="1-凯撒密码"><a href="#1-凯撒密码" class="headerlink" title="1. 凯撒密码"></a>1. 凯撒密码</h3><p>发送方和接收方共享数字k</p>
+<p>发送方加密时，对字母m，加密为m后的第k个字母</p>
+<p>接收方解密时，对字母e，解密为e前的第k个字母</p>
+<h3 id="2-改进的凯撒密码"><a href="#2-改进的凯撒密码" class="headerlink" title="2. 改进的凯撒密码"></a>2. 改进的凯撒密码</h3><p>发送方和接收方共享数字序列 k1, k2, k3…, kp</p>
+<p>发送方加密时，对第1个字母用凯撒(k1)加密，第2个字母用凯撒(k2)加密，….</p>
+<p>接收方同理</p>
+<h3 id="3-块密码的输入、输出、映射的数量"><a href="#3-块密码的输入、输出、映射的数量" class="headerlink" title="3. 块密码的输入、输出、映射的数量"></a>3. 块密码的输入、输出、映射的数量</h3><p>k-块密码：把文本切成若干块，每块k个比特</p>
+<p>一个块的输入就有$2^k$种，输出也有 $2^k$ 种，从输入到输出的映射有 $2^k !$ 种</p>
+<h3 id="4-对称加密块密码算法有哪些？"><a href="#4-对称加密块密码算法有哪些？" class="headerlink" title="4. 对称加密块密码算法有哪些？"></a>4. 对称加密块密码算法有哪些？</h3><p>AES, DES, 3DES</p>
+<h3 id="5-RSA的公私钥的生成、加密解密过程"><a href="#5-RSA的公私钥的生成、加密解密过程" class="headerlink" title="5. RSA的公私钥的生成、加密解密过程"></a>5. RSA的公私钥的生成、加密解密过程</h3><p>选取素数pq</p>
+<p>计算 n = pq</p>
+<p>计算 z = (p-1)(q-1)</p>
+<p>选取e，满足 e &lt; z，e和z互素</p>
+<p>选取d，满足 ed mod z = 1</p>
+<p>得到私钥(n, e)，公钥(n, d)</p>
+<p>加密：明文m，私钥e，密文 = m^e mod n</p>
+<p>解密：密文c，公钥d，明文 = c^d mod n</p>
+<blockquote>
+<p> 注意：假定需要加密的东西表示成数字是m，那么选取大素数pq的时候，需要满足 pq&gt;m，否则在解密时对n取模后一定恢复不了m</p>
+</blockquote>
+<h3 id="6-MAC的过程"><a href="#6-MAC的过程" class="headerlink" title="6. MAC的过程"></a>6. MAC的过程</h3><p>发送方有报文m，双方共享秘密s，发送方将m和Hash(m+s)拼接后发给接收方</p>
+<p>缺点是双方需要事先共享秘密s，如果有n个人两两进行MAC，那么需要$\frac{n(n+1)}{2}$个共享秘密s</p>
+<h3 id="7-数字签名的过程，提高效率的方法"><a href="#7-数字签名的过程，提高效率的方法" class="headerlink" title="7. 数字签名的过程，提高效率的方法"></a>7. 数字签名的过程，提高效率的方法</h3><p>数字签名是为了证明这份文件是我签署的，所以需要给文件打上我独有的标记，即私钥</p>
+<p>假定你持有原文m和我签名后的文件c，然后你用我的公钥去解密，得到K+(c)</p>
+<ul>
+<li>假如c是我签名的，那么c=K-(m)，你就会发现K+(K-(c))和原文m一致，那么就证明了这份文件m是我签署的</li>
+<li>假如c不是我签名的，那么K+(K-(c))与m不同，那么说明m不是我签名的</li>
+</ul>
+<p>提高效率的原因：公私钥加密计算量大，算的慢</p>
+<p>提高效率：我只需要对Hash(m)进行签名即可，计算量大大降低</p>
+<h3 id="8-端点鉴别，CA"><a href="#8-端点鉴别，CA" class="headerlink" title="8. 端点鉴别，CA"></a>8. 端点鉴别，CA</h3><p>端点鉴别：判断和我通话的人的身份，几种攻击和鉴别协议1.0~4.0看书</p>
+<p>CA：认证中心，会给认证过的人发放证书</p>
+<p>证书：设认证中心的私钥是$K_{CA}^-$，被认证人的公钥是$K_{Bob}^+$，那么证书里的主要东西就是 $K_{CA}^-(K_{Bob}^+)$</p>
+<h3 id="9-安全电子邮件"><a href="#9-安全电子邮件" class="headerlink" title="9. 安全电子邮件"></a>9. 安全电子邮件</h3><p>需求：报文安全性，报文完整性，发送方鉴别，效率</p>
+<p>发送方：</p>
+<ul>
+<li>对报文 $m$ 计算哈希，$H(m)$，再用自己的私钥加密，$K_{A}^-(H(m))$，这里提高了效率（$H(m)$ 比 $m$ 短多了）</li>
+<li>将$m$ 和 $K_{A}^-(H(m))$ 拼接，这里是完整性和发送方鉴别</li>
+<li>然后将拼接结果用对称密钥$K_s$加密，这里提高了效率（对称加密比非对称加密快多了）</li>
+<li>对称密钥$Ks$用接收方的公钥加密，拼接第3步结果，发给接收方，这里是安全性</li>
+</ul>
+<p>画图结果看书p466</p>
+<h3 id="10-SSL握手、挥手的过程、每一步的合理性"><a href="#10-SSL握手、挥手的过程、每一步的合理性" class="headerlink" title="10. SSL握手、挥手的过程、每一步的合理性"></a>10. SSL握手、挥手的过程、每一步的合理性</h3><p>SSL握手</p>
+<ol>
+<li>client hello：客户端向服务器发自己支持的算法列表，包括对称、非对称、MAC，以及客户端不重数</li>
+<li>server hello：服务器向客户端发自己选择的算法，服务器证书，服务器不重数</li>
+<li>客户端验证了服务器证书后，生成PMS，用服务器公钥加密PMS，发给服务器</li>
+<li><p>服务器和客户端此时均拥有PMS、双方的不重数，然后将PMS分割成4部分，分别为$E_A, E_B, M_A, M_B$</p>
+<ul>
+<li>$E_A$ ：Alice（客户）向Bob（服务器）发送消息时的对称密钥</li>
+<li>$E_B$ ：Bob（服务器）向Alice（客户端）发送消息时的对称密钥</li>
+<li>$M_A$：Alice（客户）向Bob（服务器）发送消息时的MAC密钥</li>
+<li>$M_B$ ：Bob（服务器）向Alice（客户端）发送消息时的MAC密钥</li>
+</ul>
+</li>
+<li><p>client handshake message：客户端向服务器发送 客户端发的和收到的所有报文 的一个MAC</p>
+</li>
+<li>server handshake message：服务器向客户端发送 服务器发的和收到的所有报文 的一个MAC</li>
+</ol>
+<p>SSL挥手：</p>
+<ol>
+<li>想结束的人发一条SSL报文，其中SSL报文的类型字段设置为终止会话</li>
+<li>这样可以防止中间人用TCP FIN来断开SSL连接</li>
+</ol>
+<p>SSL记录格式：</p>
+<p>类型 | 版本 | 长度 | 数据 | MAC</p>
+<blockquote>
+<p>其中，MAC里包含了 数据、SSL序号、类型</p>
+<p>数据和MAC都被 $E_A$ 或者 $E_B$ 加密了</p>
+</blockquote>
+
       
     </div>
     
@@ -755,7 +947,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ch1-概论"><span class="nav-number">1.</span> <span class="nav-text">ch1 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题"><span class="nav-number">1.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答"><span class="nav-number">1.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Internet是什么？由什么组成？"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. Internet是什么？由什么组成？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-网络边缘是什么？"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 网络边缘是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-接入网络是什么？"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 接入网络是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-网络核心是什么？"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 网络核心是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-电路交换、分组交换、虚电路是怎么运作的？"><span class="nav-number">1.2.5.</span> <span class="nav-text">5. 电路交换、分组交换、虚电路是怎么运作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-为什么需要多层协议体系结构？（分层的好处）"><span class="nav-number">1.2.6.</span> <span class="nav-text">6. 为什么需要多层协议体系结构？（分层的好处）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-OSI七层模型是哪七层？每一层的功能是什么？"><span class="nav-number">1.2.7.</span> <span class="nav-text">7. OSI七层模型是哪七层？每一层的功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、TCP-IP模型是哪五层、每一层的功能是什么？"><span class="nav-number">1.2.8.</span> <span class="nav-text">8、TCP/IP模型是哪五层、每一层的功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-七层和五层的对应关系是什么样的？"><span class="nav-number">1.2.9.</span> <span class="nav-text">9. 七层和五层的对应关系是什么样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-网络核心是如何传输数据的（网络核心的两大功能）"><span class="nav-number">1.2.10.</span> <span class="nav-text">10. 网络核心是如何传输数据的（网络核心的两大功能）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-电子邮件用到的应用层协议名称"><span class="nav-number">1.2.11.</span> <span class="nav-text">11. 电子邮件用到的应用层协议名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-发送时延-传输时延、传播时延、排队时延、处理时延是什么？"><span class="nav-number">1.2.12.</span> <span class="nav-text">12. 发送时延/传输时延、传播时延、排队时延、处理时延是什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch2-数据链路层"><span class="nav-number">2.</span> <span class="nav-text">ch2 数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题-1"><span class="nav-number">2.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答-1"><span class="nav-number">2.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单工、半双工、全双工是什么？"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 单工、半双工、全双工是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-停等协议（stop-and-wait）是怎么运作的？"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 停等协议（stop-and-wait）是怎么运作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-滑动窗口（sliding-window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. 滑动窗口（sliding window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. 滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-二维的奇偶校验（Parity-Checking）的行parity-bit和列parity-bit是怎么计算的，以及怎么纠错的？"><span class="nav-number">2.2.5.</span> <span class="nav-text">1. 二维的奇偶校验（Parity Checking）的行parity bit和列parity bit是怎么计算的，以及怎么纠错的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CRC校验，给定D-101110，r-3，G-1001，要求计算校验码R"><span class="nav-number">2.2.6.</span> <span class="nav-text">2. CRC校验，给定D=101110，r=3，G=1001，要求计算校验码R</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？"><span class="nav-number">2.2.7.</span> <span class="nav-text">1. HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？"><span class="nav-number">2.2.8.</span> <span class="nav-text">1. 拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-以太网的速率在多少到多少之间？"><span class="nav-number">2.2.9.</span> <span class="nav-text">1. 以太网的速率在多少到多少之间？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-时分复用，频分复用，码分复用"><span class="nav-number">2.2.10.</span> <span class="nav-text">2. 时分复用，频分复用，码分复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-纯ALOHA工作过程，工作效率"><span class="nav-number">2.2.11.</span> <span class="nav-text">3. 纯ALOHA工作过程，工作效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-时隙ALOHA工作过程，工作效率"><span class="nav-number">2.2.12.</span> <span class="nav-text">4. 时隙ALOHA工作过程，工作效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CSMA-CD工作过程，工作效率"><span class="nav-number">2.2.13.</span> <span class="nav-text">5. CSMA/CD工作过程，工作效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-什么是二进制指数后退算法"><span class="nav-number">2.2.14.</span> <span class="nav-text">6. 什么是二进制指数后退算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spanning-tree算法"><span class="nav-number">2.2.15.</span> <span class="nav-text">1. spanning-tree算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-交换机的转发和过滤过程"><span class="nav-number">2.2.16.</span> <span class="nav-text">2. 交换机的转发和过滤过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-交换机的自学习过程"><span class="nav-number">2.2.17.</span> <span class="nav-text">3. 交换机的自学习过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CSMA-CA-协议的工作过程"><span class="nav-number">2.2.18.</span> <span class="nav-text">1. CSMA/CA 协议的工作过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-为什么CSMA-CD-在无线环境中不适用"><span class="nav-number">2.2.19.</span> <span class="nav-text">2. 为什么CSMA/CD 在无线环境中不适用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch3-分组交换网络"><span class="nav-number">3.</span> <span class="nav-text">ch3 分组交换网络</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ch1-概论"><span class="nav-number">1.</span> <span class="nav-text">ch1 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题"><span class="nav-number">1.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答"><span class="nav-number">1.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Internet是什么？由什么组成？"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. Internet是什么？由什么组成？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-网络边缘是什么？"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 网络边缘是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-接入网络是什么？"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 接入网络是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-网络核心是什么？"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 网络核心是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-电路交换、分组交换、虚电路是怎么运作的？"><span class="nav-number">1.2.5.</span> <span class="nav-text">5. 电路交换、分组交换、虚电路是怎么运作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-为什么需要多层协议体系结构？（分层的好处）"><span class="nav-number">1.2.6.</span> <span class="nav-text">6. 为什么需要多层协议体系结构？（分层的好处）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-OSI七层模型是哪七层？每一层的功能是什么？"><span class="nav-number">1.2.7.</span> <span class="nav-text">7. OSI七层模型是哪七层？每一层的功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、TCP-IP模型是哪五层、每一层的功能是什么？"><span class="nav-number">1.2.8.</span> <span class="nav-text">8、TCP/IP模型是哪五层、每一层的功能是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-七层和五层的对应关系是什么样的？"><span class="nav-number">1.2.9.</span> <span class="nav-text">9. 七层和五层的对应关系是什么样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-网络核心是如何传输数据的（网络核心的两大功能）"><span class="nav-number">1.2.10.</span> <span class="nav-text">10. 网络核心是如何传输数据的（网络核心的两大功能）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-电子邮件用到的应用层协议名称"><span class="nav-number">1.2.11.</span> <span class="nav-text">11. 电子邮件用到的应用层协议名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-发送时延-传输时延、传播时延、排队时延、处理时延是什么？"><span class="nav-number">1.2.12.</span> <span class="nav-text">12. 发送时延/传输时延、传播时延、排队时延、处理时延是什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch2-数据链路层"><span class="nav-number">2.</span> <span class="nav-text">ch2 数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题-1"><span class="nav-number">2.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答-1"><span class="nav-number">2.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单工、半双工、全双工是什么？"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 单工、半双工、全双工是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-停等协议（stop-and-wait）是怎么运作的？"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 停等协议（stop-and-wait）是怎么运作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-滑动窗口（sliding-window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. 滑动窗口（sliding window）中，发送方的窗口左边界会在什么时候更新？接收方的窗口左边界会在什么时候更新？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. 滑动窗口中，接收方向发送方发送ACK的时候，ACK的值是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-二维的奇偶校验（Parity-Checking）的行parity-bit和列parity-bit是怎么计算的，以及怎么纠错的？"><span class="nav-number">2.2.5.</span> <span class="nav-text">1. 二维的奇偶校验（Parity Checking）的行parity bit和列parity bit是怎么计算的，以及怎么纠错的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CRC校验，给定D-101110，r-3，G-1001，要求计算校验码R"><span class="nav-number">2.2.6.</span> <span class="nav-text">2. CRC校验，给定D=101110，r=3，G=1001，要求计算校验码R</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？"><span class="nav-number">2.2.7.</span> <span class="nav-text">1. HDLC的flag字段的组成，发送方如何预处理包以避免和flag重复？接收方如何恢复包里的内容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？"><span class="nav-number">2.2.8.</span> <span class="nav-text">1. 拿到令牌时，如果没有要发送的数据包，做什么？如果有要发送的数据包，做什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-以太网的速率在多少到多少之间？"><span class="nav-number">2.2.9.</span> <span class="nav-text">1. 以太网的速率在多少到多少之间？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-时分复用，频分复用，码分复用"><span class="nav-number">2.2.10.</span> <span class="nav-text">2. 时分复用，频分复用，码分复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-纯ALOHA工作过程，工作效率"><span class="nav-number">2.2.11.</span> <span class="nav-text">3. 纯ALOHA工作过程，工作效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-时隙ALOHA工作过程，工作效率"><span class="nav-number">2.2.12.</span> <span class="nav-text">4. 时隙ALOHA工作过程，工作效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CSMA-CD工作过程，工作效率"><span class="nav-number">2.2.13.</span> <span class="nav-text">5. CSMA/CD工作过程，工作效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-什么是二进制指数后退算法"><span class="nav-number">2.2.14.</span> <span class="nav-text">6. 什么是二进制指数后退算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spanning-tree算法"><span class="nav-number">2.2.15.</span> <span class="nav-text">1. spanning-tree算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-交换机的转发和过滤过程"><span class="nav-number">2.2.16.</span> <span class="nav-text">2. 交换机的转发和过滤过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-交换机的自学习过程"><span class="nav-number">2.2.17.</span> <span class="nav-text">3. 交换机的自学习过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CSMA-CA-协议的工作过程"><span class="nav-number">2.2.18.</span> <span class="nav-text">1. CSMA/CA 协议的工作过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-为什么CSMA-CD-在无线环境中不适用"><span class="nav-number">2.2.19.</span> <span class="nav-text">2. 为什么CSMA/CD 在无线环境中不适用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch3-分组交换网络"><span class="nav-number">3.</span> <span class="nav-text">ch3 分组交换网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题-2"><span class="nav-number">3.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答-2"><span class="nav-number">3.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-路由器的两大功能"><span class="nav-number">3.2.1.</span> <span class="nav-text">1. 路由器的两大功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-路由器的内部结构"><span class="nav-number">3.2.2.</span> <span class="nav-text">2. 路由器的内部结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-IPv4数据包格式，IPv6数据包格式，两者中有哪些字段是类似的"><span class="nav-number">3.2.3.</span> <span class="nav-text">3. IPv4数据包格式，IPv6数据包格式，两者中有哪些字段是类似的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-链路状态路由选择算法（LS）"><span class="nav-number">3.2.4.</span> <span class="nav-text">4. 链路状态路由选择算法（LS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-距离向量路由选择算法（DV）"><span class="nav-number">3.2.5.</span> <span class="nav-text">5. 距离向量路由选择算法（DV）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-毒性逆转是什么"><span class="nav-number">3.2.6.</span> <span class="nav-text">6. 毒性逆转是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-RIP，OSPF，BGP的功能"><span class="nav-number">3.2.7.</span> <span class="nav-text">7. RIP，OSPF，BGP的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-多播路由算法，组共享的树和基于源的树的区别"><span class="nav-number">3.2.8.</span> <span class="nav-text">8. 多播路由算法，组共享的树和基于源的树的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch4-传输层"><span class="nav-number">4.</span> <span class="nav-text">ch4 传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题-3"><span class="nav-number">4.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答-3"><span class="nav-number">4.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-UDP包格式"><span class="nav-number">4.2.1.</span> <span class="nav-text">1. UDP包格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-UDP和TCP的区别"><span class="nav-number">4.2.2.</span> <span class="nav-text">2. UDP和TCP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TCP包格式"><span class="nav-number">4.2.3.</span> <span class="nav-text">3. TCP包格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-TCP的SampleRTT、EstimatedRTT、DevRTT、TimeInterval的计算"><span class="nav-number">4.2.4.</span> <span class="nav-text">4. TCP的SampleRTT、EstimatedRTT、DevRTT、TimeInterval的计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-TCP可靠数据传输原理、计时器"><span class="nav-number">4.2.5.</span> <span class="nav-text">5. TCP可靠数据传输原理、计时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-TCP三次握手和四次挥手"><span class="nav-number">4.2.6.</span> <span class="nav-text">6. TCP三次握手和四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-TCP拥塞控制的做法，Reno和Tahoe的区别"><span class="nav-number">4.2.7.</span> <span class="nav-text">7. TCP拥塞控制的做法，Reno和Tahoe的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-TCP平均吞吐量"><span class="nav-number">4.2.8.</span> <span class="nav-text">8. TCP平均吞吐量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ch5-网络安全"><span class="nav-number">5.</span> <span class="nav-text">ch5 网络安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要掌握的问题-4"><span class="nav-number">5.1.</span> <span class="nav-text">需要掌握的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答-4"><span class="nav-number">5.2.</span> <span class="nav-text">回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-凯撒密码"><span class="nav-number">5.2.1.</span> <span class="nav-text">1. 凯撒密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-改进的凯撒密码"><span class="nav-number">5.2.2.</span> <span class="nav-text">2. 改进的凯撒密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-块密码的输入、输出、映射的数量"><span class="nav-number">5.2.3.</span> <span class="nav-text">3. 块密码的输入、输出、映射的数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-对称加密块密码算法有哪些？"><span class="nav-number">5.2.4.</span> <span class="nav-text">4. 对称加密块密码算法有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-RSA的公私钥的生成、加密解密过程"><span class="nav-number">5.2.5.</span> <span class="nav-text">5. RSA的公私钥的生成、加密解密过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-MAC的过程"><span class="nav-number">5.2.6.</span> <span class="nav-text">6. MAC的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-数字签名的过程，提高效率的方法"><span class="nav-number">5.2.7.</span> <span class="nav-text">7. 数字签名的过程，提高效率的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-端点鉴别，CA"><span class="nav-number">5.2.8.</span> <span class="nav-text">8. 端点鉴别，CA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-安全电子邮件"><span class="nav-number">5.2.9.</span> <span class="nav-text">9. 安全电子邮件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-SSL握手、挥手的过程、每一步的合理性"><span class="nav-number">5.2.10.</span> <span class="nav-text">10. SSL握手、挥手的过程、每一步的合理性</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
