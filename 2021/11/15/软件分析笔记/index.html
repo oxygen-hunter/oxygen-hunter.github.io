@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="软件分析笔记 50实验，50理论考试（英文考试，作答中英都可以） class-1网课（b站）听过了就可以不用听了 主讲的是静态分析，static program analysis Programming Language，简称PL，在liyue看来可以分为三个部分  理论：语法，语义，… 环境：编译器，运行环境，… 应用：程序分析，程序验证，程序合成，…  虽然语言很多，但是从2000年开始，语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件分析笔记">
+<meta property="og:url" content="http://yoursite.com/2021/11/15/软件分析笔记/index.html">
+<meta property="og:site_name" content="懵逼树树洞">
+<meta property="og:description" content="软件分析笔记 50实验，50理论考试（英文考试，作答中英都可以） class-1网课（b站）听过了就可以不用听了 主讲的是静态分析，static program analysis Programming Language，简称PL，在liyue看来可以分为三个部分  理论：语法，语义，… 环境：编译器，运行环境，… 应用：程序分析，程序验证，程序合成，…  虽然语言很多，但是从2000年开始，语言">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210902194052147.png">
+<meta property="og:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210902194924758.png">
+<meta property="og:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210902201500591.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210902202402069-1636977678380.png">
+<meta property="og:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210909184655494.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210909192405357-1636977678380.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210909201216382-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210909201431894-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210916185913134.png">
+<meta property="og:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210916190410368.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009175611191-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210916192909319-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923183616652-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923185827091-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923190224858-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210923193714904.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923194332904-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923194238722-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923194357503-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923195108605-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923201830729-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210923202036349-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930185604144-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210930190823625.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930191051791-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930191202099-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930191400711-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930191541385-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930191706578-1636977678381.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930191810665-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930193224520-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930194032125-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930194103532-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930194656140-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930195317451-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20210930200739121-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009173230567-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009171839165-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009173801057-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009180522909-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009192546501-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009192900963-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009193354604-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009200657242-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009201404648-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009202241303-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009202745580-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009203409123-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211009203827282-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014194212217-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014194349988-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014194606638-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014195016141-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014195313068-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014195507872-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014200104973-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014200510811-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014200801820-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014201506737-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014201716224-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014202604005-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014203144030-1636977678382.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014205411790-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014205434270-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014224154286-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014210546045-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014213717355-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014224445529-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014224435597-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014215007255-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211014215157202-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021183247914-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021183751766-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021183925280-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021184522912-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021185146606-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021185551451-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021185852463-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021190413127-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021190637856-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021190752797-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021191039909-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021191537505-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021194312939-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021194726188-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021195437562-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021200002506-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021200043002-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021200222820-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021200830016-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021200951206-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021201418578-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021201441970-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211021201638832-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028184409571-1636977678383.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028185229994-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028185701761-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028185730665-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028190255073-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028190703475-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028192039251-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028193914335-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028194204186-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028195824894-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211028201529968-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211104184059991-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211104185416934-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211104190546640-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211104192009651-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211104194836829-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211104202047234-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211111183952505-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211111184237249-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211111190310520-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211111191241381-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211111193935044-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211111193747076-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211111194619784-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211112110325621-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211112112255565-1636977678384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/15/软件分析笔记/image-20211112112418039.png">
+<meta property="og:updated_time" content="2021-11-15T12:01:27.218Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件分析笔记">
+<meta name="twitter:description" content="软件分析笔记 50实验，50理论考试（英文考试，作答中英都可以） class-1网课（b站）听过了就可以不用听了 主讲的是静态分析，static program analysis Programming Language，简称PL，在liyue看来可以分为三个部分  理论：语法，语义，… 环境：编译器，运行环境，… 应用：程序分析，程序验证，程序合成，…  虽然语言很多，但是从2000年开始，语言">
+<meta name="twitter:image" content="http://yoursite.com/Misc%20Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210902194052147.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/11/15/软件分析笔记/">
+
+
+
+
+
+  <title>软件分析笔记 | 懵逼树树洞</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">懵逼树树洞</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/15/软件分析笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oxygen-hunter">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/rabbit_true.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="懵逼树树洞">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件分析笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-15T20:00:43+08:00">
+                2021-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读量：
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>软件分析笔记</p>
+<p>50实验，50理论考试（英文考试，作答中英都可以）</p>
+<h1 id="class-1"><a href="#class-1" class="headerlink" title="class-1"></a>class-1</h1><p>网课（b站）听过了就可以不用听了</p>
+<p>主讲的是静态分析，static program analysis</p>
+<p>Programming Language，简称PL，在liyue看来可以分为三个部分</p>
+<ul>
+<li>理论：语法，语义，…</li>
+<li>环境：编译器，运行环境，…</li>
+<li>应用：程序分析，程序验证，程序合成，…</li>
+</ul>
+<p>虽然语言很多，但是从2000年开始，语言的核心，就没有变过了（这意味着理论和环境变化很少，变化多的是应用）</p>
+<p>语言分为三种范式</p>
+<ul>
+<li>命令式语言：有时序，和状态修改</li>
+<li>函数式编程语言：弱化了时序和状态修改。函数作为变量，表达式求值，lambda演算<ul>
+<li>由于弱化了时序，很难出现并发错误，多用于金融系统</li>
+</ul>
+</li>
+<li>逻辑式编程语言：mysql，datalog等，基于谓词演算逻辑，主要用于处理大数据</li>
+</ul>
+<p>静态分析能干哪些事？</p>
+<ul>
+<li>程序可靠性：在运行前（称为静态期，编译期）检测出空指针引用，内存泄漏等</li>
+<li>程序安全：隐私保护，注入攻击等</li>
+<li>编译优化：死代码消除，代码转移等</li>
+<li>程序理解：IDE的类调用图，类型提示</li>
+</ul>
+<p>不要浮躁</p>
+<p>认识自己</p>
+<p>重拾自信</p>
+<hr>
+<p>Rice’s Theorem：recursively&amp;enumerable的语言（re语言，是图灵机可识别的语言）的non-trival properties（理解为运行时行为）不存在完美的（sound&amp;complete）程序分析</p>
+<p>解释一下，程序有5个bug，sound就是我说这程序有10个bug，保证5个都包含，即误报。complete就是我说这程序有2个bug，这俩都在那5个里，即漏报。</p>
+<p><img src="/2021/11/15/软件分析笔记/../../../../Misc Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210902194052147.png" alt="image-20210902194052147" style="zoom:67%;"></p>
+<p>现实世界里，大部分程序分析都在妥协sound，即允许误报，不允许漏报。</p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/../../../../Misc Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210902194924758.png" alt="image-20210902194924758" style="zoom:67%;"></p>
+<p>1和2的分析都是sound的，正确的。</p>
+<p>静态分析：在保证（接近）soundness时，在精度和开销大之间做平衡</p>
+<p>静态分析的大框架：分为两步走</p>
+<ol>
+<li>抽象 abstraction</li>
+<li>过近似 over-approximation<ul>
+<li>transfer function</li>
+<li>control flows</li>
+</ul>
+</li>
+</ol>
+<p>以“预测一个程序中所有变量的正负性”这个目标展开的静态分析为例：</p>
+<p>abstraction: 给每个变量定义正，负，0，不确定，未定义这5种类型</p>
+<p>transfer function：规定正+正＝正，正+负=不确定等</p>
+<p>control flow：将控制流图里的汇聚点找出，确定每个汇聚点的变量是什么符号</p>
+<hr>
+<p><img src="/2021/11/15/软件分析笔记/../../../../Misc Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210902201500591.png" alt="image-20210902201500591" style="zoom:67%;"></p>
+<p>实验任务</p>
+<hr>
+<p>本节课的重点</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210902202402069-1636977678380.png" alt="image-20210902202402069"></p>
+<p>TODO：回答上述问题</p>
+<ol>
+<li>运行前vs运行时</li>
+<li>那个圈圈图</li>
+<li>误报是允许的，但漏报就会导致错误</li>
+<li>+-0，确定符号的例子回顾</li>
+</ol>
+<h1 id="class-2"><a href="#class-2" class="headerlink" title="class-2"></a>class-2</h1><p>讲中间表示 intermediate representation</p>
+<p>4种文法分类（由强到弱，开销也由大到小）：图灵机，上下文相关文法，上下文无关文法，正则表达式</p>
+<p><img src="/2021/11/15/软件分析笔记/../../../../Misc Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210909184655494.png" alt="image-20210909184655494" style="zoom:67%;"></p>
+<p>为什么静态分析不用AST，而是用三地址码IR呢？</p>
+<p>AST</p>
+<ul>
+<li>比较high-level，近似语法结构</li>
+<li>和语言相关</li>
+<li>对type检查很快</li>
+<li>缺乏控制流信息</li>
+</ul>
+<p>3-Address Code（3AC）</p>
+<ul>
+<li>比较low-level，接近机器码</li>
+<li>和语言无关</li>
+<li>缺乏类型信息，简单</li>
+<li>看得出来控制流信息</li>
+</ul>
+<p>-</p>
+<p>对java中的一些解释</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210909192405357-1636977678380.png" alt="image-20210909192405357"></p>
+<p>-</p>
+<p>Static Single Assignment（SSA）静态单赋值</p>
+<ul>
+<li>一个变量只会有一个定义</li>
+</ul>
+<p>为了解决分支造成的变量值不确定，引入了phi-function</p>
+<p>SSA好处—-坏处—-</p>
+<p>-</p>
+<p>Control Flow Analysis</p>
+<p>为了看的更清楚，把3AC画成CFG</p>
+<p>CGF中的node都都是Basic Block（BB）</p>
+<p>-</p>
+<p>Basic Block定义</p>
+<ul>
+<li>最大的，满足如下条件的连续语句<pre><code>1. 只有一个入口
+ 2. 只有一个出口
+</code></pre></li>
+</ul>
+<p>-</p>
+<p>BB切分算法：</p>
+<p>入口（leader）：</p>
+<ol>
+<li>第一条指令</li>
+<li>跳转语句的target</li>
+<li>跳转语句的下一条指令</li>
+</ol>
+<p>出口：不用管了，leader之间夹着就足以确定BB了</p>
+<p>如何添加边（edge）：</p>
+<ol>
+<li>A到B有跳转关系</li>
+<li>B在A下面顺序执行，且A的最后一句不是无条件goto</li>
+</ol>
+<p>goto i号语句，可以改成goto Bi基本块，这样清晰且不用考虑语句i的编号增加</p>
+<p>给CFG添加entry和exit</p>
+<p>—</p>
+<p>今日重点</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210909201216382-1636977678381.png" alt="image-20210909201216382"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210909201431894-1636977678381.png" alt="image-20210909201431894"></p>
+<p>需要掌握</p>
+<ol>
+<li>为什么IR比AST更常用？</li>
+<li>BB的定义，划分算法，如何添边</li>
+<li>CFG（并不是非要由BB组成）是怎么画出来的</li>
+<li>开篇的那张关于词法分析，语法分析，语义分析，IR。。。的图</li>
+</ol>
+<h1 id="class-3"><a href="#class-3" class="headerlink" title="class-3"></a>class-3</h1><p>may analysis：分析的结果可能是对的（over-approximation）</p>
+<p>must analysis：分析的结果一定是对的（under-approximation）漏报没关系，顶多是少优化一点</p>
+<p><img src="/2021/11/15/软件分析笔记/../../../../Misc Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210916185913134.png" alt="image-20210916185913134" style="zoom:80%;"></p>
+<p>前向分析和后向分析</p>
+<p><img src="/2021/11/15/软件分析笔记/../../../../Misc Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210916190410368.png" alt="image-20210916190410368" style="zoom:80%;"></p>
+<p>前向分析时，OUT[B]是算出来的，IN[B]是B的前驱的OUT们简单meet出来的</p>
+<p>后向分析时，反的</p>
+<p>-</p>
+<p>数据流分析不考虑：函数调用，别名</p>
+<p>-</p>
+<h2 id="Reaching-Definition"><a href="#Reaching-Definition" class="headerlink" title="Reaching Definition"></a>Reaching Definition</h2><p>是forward analysis和may analysis</p>
+<p>definition定义：</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009175611191-1636977678381.png" alt="image-20211009175611191"></p>
+<p>用途：检测undefined variables（在程序entry处给所有变量一个undefine的定义，然后检测是否reaching到变量被使用的地方，如果reaching，就说明未定义就使用啦）</p>
+<p>求reaching definition的迭代算法</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210916192909319-1636977678381.png" alt="image-20210916192909319"></p>
+<p>Q：为什么要区分entry和B\entry？因为这种迭代算法是一个模板，虽然在这个例子里都是初始化为空，但别的算法里未必。</p>
+<p>Q：为什么初始化为空？想象在程序entry的地方，什么definition都没有。</p>
+<p>Q：为什么迭代算法能停？</p>
+<p>观察发现，gen和kill是不变的如果IN不变，那么OUT也不会变</p>
+<p>OUT[S] = gen U (IN[S] - kill)</p>
+<p>当更多的fact进入IN时，多出来的1有可能被kill，也可能保留下来</p>
+<p>所以OUT永远不会shrink，只有0-&gt;1，1-&gt;1</p>
+<p>而fact的次数是有限的，所以能停</p>
+<p>Q：为什么OUT不再改变，算法就可以停了，结果就是精准的最后的结果呢？</p>
+<p>这个和程序的单调性有关，达到不动点（后续讲）</p>
+<h1 id="class-4"><a href="#class-4" class="headerlink" title="class-4"></a>class-4</h1><h2 id="Live-Variables-Analysis"><a href="#Live-Variables-Analysis" class="headerlink" title="Live Variables Analysis"></a>Live Variables Analysis</h2><p><img src="/2021/11/15/软件分析笔记/image-20210923183616652-1636977678381.png" alt="image-20210923183616652"></p>
+<p>v在给定的程序点P之后一直到exit，是不是还有被用到，且路上没有再次被定义</p>
+<p>他是一个backward analysis（后向更加简洁直接，不代表前向无法做到哈）</p>
+<p>考虑定义，一个变量将来是否可能被用到，假如有多条路径，即使有的路我不跑过去，我也是全部考虑，所以是may analysis</p>
+<p>给定OUT求IN，OUT很好做，OUT=U(In of successors)，如何定义transfer function呢？</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210923185827091-1636977678381.png" alt="image-20210923185827091"></p>
+<p>注意情况4，看似v被改了，但是首先v先被v-1用到了，所以我们先去除redefine的，然后加上use的</p>
+<p>。下面看算法</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210923190224858-1636977678381.png" alt="image-20210923190224858"></p>
+<p>以后讲为什么是初始化为空0000000（一般，may analysis都是空，must analysis都是1111111）</p>
+<h2 id="Available-Expressions-Analysis"><a href="#Available-Expressions-Analysis" class="headerlink" title="Available Expressions Analysis"></a>Available Expressions Analysis</h2><p>是一个forward，must analysis</p>
+<p>一个表达式x op y在给定程序点P是可用的，如果满足1，从entry到P的<strong>所有</strong>路径都要求值x op y，在最后一次x op y算完之后，不能对x和y进行重定义</p>
+<p>有几个表达式就有几个0/1</p>
+<p>怎么考虑gen和kill呢？</p>
+<p><img src="/2021/11/15/软件分析笔记/../../../../Misc Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210923193714904.png" alt="image-20210923193714904" style="zoom:80%;"></p>
+<p>kill的是IN里含有被redefine的表达式</p>
+<p>gen的是</p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210923194332904-1636977678381.png" alt="image-20210923194332904"></p>
+<p>这是一个反直觉的例子，看起来x被改了，但是根据定义，e^16 * x确实在两次last计算后都没有改x，所以在c这一句之前的程序点，表达式是可用的</p>
+<p>有人可能会问：哎，那我使用这个表达式的时候x的值在ab处不一样呀。如下，就行了</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210923194238722-1636977678381.png" alt="image-20210923194238722"></p>
+<p>-</p>
+<p>merge怎么考虑呢？注意是一个must analysis，要用<strong>与</strong>操作</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210923194357503-1636977678381.png" alt="image-20210923194357503"></p>
+<p>-</p>
+<p>算法如下</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210923195108605-1636977678381.png" alt="image-20210923195108605"></p>
+<p>U代表1111111（TOP）</p>
+<p>理论课会讲这和不动点有关，直观的想就是，因为用了“与”，如果初始化为0000，那没机会变1了</p>
+<p>-</p>
+<h2 id="analysis-comparison-of-the-3"><a href="#analysis-comparison-of-the-3" class="headerlink" title="analysis comparison of the 3"></a>analysis comparison of the 3</h2><p><img src="/2021/11/15/软件分析笔记/image-20210923201830729-1636977678381.png" alt="image-20210923201830729"></p>
+<p>transfer function中，available exp之所以也可以这么写，是因为所谓的IN和OUT是可以反一反的</p>
+<p>-</p>
+<p>本课重点</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210923202036349-1636977678381.png" alt="image-20210923202036349"></p>
+<h1 id="class-5"><a href="#class-5" class="headerlink" title="class-5"></a>class-5</h1><p>讲数据流分析的数学基础</p>
+<p>迭代算法的遍历是在格上爬升？抵达不动点？单调性？可分配性？</p>
+<p>事后复习可看ppt第8部分，一图流</p>
+<p>-</p>
+<p>换一种视角看迭代算法</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930185604144-1636977678381.png" alt="image-20210930185604144"></p>
+<p>Xi = F(Xi)，说明Xi是F的一个不动点</p>
+<p>-</p>
+<p>3个general的问题：</p>
+<ul>
+<li>迭代算法模板一定能停吗？</li>
+<li>不动点是唯一不动点吗？如果不是的话，我们的不动点是最好的结果吗？</li>
+<li>什么时候能抵达不动点？</li>
+</ul>
+<p>-</p>
+<p>回顾一下</p>
+<h2 id="离散背景"><a href="#离散背景" class="headerlink" title="离散背景"></a>离散背景</h2><h3 id="偏序集（-lt-代表一种二元关系，自定义）"><a href="#偏序集（-lt-代表一种二元关系，自定义）" class="headerlink" title="偏序集（&lt;=代表一种二元关系，自定义）"></a>偏序集（&lt;=代表一种二元关系，自定义）</h3><ul>
+<li>自反性：x &lt;= x</li>
+<li>反对称性：x&lt;=y ^ y&lt;=x =&gt; x=y</li>
+<li>传递性：x &lt;=y, y&lt;=z  =&gt; x&lt;=z</li>
+</ul>
+<p><img src="/2021/11/15/软件分析笔记/../../../../Misc Docs/PHD/PHD-1/课程/软件分析/软件分析笔记/image-20210930190823625.png" alt="image-20210930190823625" style="zoom:80%;"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930191051791-1636977678381.png" alt="image-20210930191051791"></p>
+<p>偏序偏在哪？两个元素之间不一定可比</p>
+<p>-</p>
+<h3 id="上界和下界"><a href="#上界和下界" class="headerlink" title="上界和下界"></a>上界和下界</h3><p><img src="/2021/11/15/软件分析笔记/image-20210930191202099-1636977678381.png" alt="image-20210930191202099"></p>
+<p>注意，P是幂集，上界不一定要在S中，在大的P中即可，如下图</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930191400711-1636977678381.png" alt="image-20210930191400711"></p>
+<p>-</p>
+<p>下面定义最小上界，least upper bound，简称lub，或者join</p>
+<p>最大下界，greatest lower bound，glb，或者meet</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930191541385-1636977678381.png" alt="image-20210930191541385"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930191706578-1636977678381.png" alt="image-20210930191706578"></p>
+<p>-</p>
+<p>注意，当S只有两个元素是，join就像交，meet就像并</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930191810665-1636977678382.png" alt="image-20210930191810665"></p>
+<p>-</p>
+<p>一些重要性质：</p>
+<p>不是每个偏序集都有lub或者glb</p>
+<p>如果偏序集有lub和glb，那么一定是唯一的</p>
+<p>-</p>
+<h3 id="格，lattice"><a href="#格，lattice" class="headerlink" title="格，lattice"></a>格，lattice</h3><p>如果偏序集poset，中的任意两个元素同时有lub和glb，那么就是格</p>
+<p>example1，整数，&lt;=，是的</p>
+<p>example2，一些字符串，子串关系，不一定嗷</p>
+<p>example3，abc的幂集，子集关系，是的</p>
+<p>-</p>
+<h3 id="半格，semilattice"><a href="#半格，semilattice" class="headerlink" title="半格，semilattice"></a>半格，semilattice</h3><p>相当于格的一半，如果偏序集poset，中的任意两个元素</p>
+<p>如果只有lub存在，就是join semilattice</p>
+<p>如果只有glb存在，就是meet semilattice</p>
+<h3 id="全格，complete-lattice"><a href="#全格，complete-lattice" class="headerlink" title="全格，complete lattice"></a>全格，complete lattice</h3><p>现在要求格的任意子集都存在lub和glb</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930193224520-1636977678382.png" alt="image-20210930193224520"></p>
+<p>example1，整数，&lt;=，不是，如果一个子集包含了所有正整数，它没有upper bound，但如果把正无穷符号引入，它就是了</p>
+<p>example2，幂集，是的</p>
+<p>-</p>
+<p>下面引入全格的top和bottom概念，且一定存在</p>
+<ul>
+<li>top就是P最大的上界</li>
+<li>bottom是P最小的下界</li>
+</ul>
+<p>-</p>
+<p>一个性质</p>
+<p>格如果是有限的，那他一定是全格</p>
+<p>所有全格一定是有限格吗？不一定是的，例如0~1里的实数，无穷多个，但有top和bottom</p>
+<h3 id="produce-lattice"><a href="#produce-lattice" class="headerlink" title="produce lattice"></a>produce lattice</h3><p>一堆格，假如每个格都有上下界</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930194032125-1636977678382.png" alt="image-20210930194032125"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930194103532-1636977678382.png" alt="image-20210930194103532"></p>
+<p>-</p>
+<h2 id="数据流分析和格"><a href="#数据流分析和格" class="headerlink" title="数据流分析和格"></a>数据流分析和格</h2><p>迭代式算法就是在格上面跑transfer function，meet，join</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930194656140-1636977678382.png" alt="image-20210930194656140"></p>
+<p>但是呢，需要满足一些条件才能保证后面能停。</p>
+<p>-</p>
+<h3 id="单调性"><a href="#单调性" class="headerlink" title="单调性"></a>单调性</h3><p>函数f: L-&gt;L，如果x&lt;=y，那么f(x)&lt;=f(y)</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930195317451-1636977678382.png" alt="image-20210930195317451"></p>
+<h3 id="不动点理论"><a href="#不动点理论" class="headerlink" title="不动点理论"></a>不动点理论</h3><p>假如f: L-&gt;L是单调的，全格L是有限的</p>
+<p>那么最小不动点是可以从bottom一路ffff上去的</p>
+<p>最大不动点是可以从top一路ffff上去的</p>
+<p>-</p>
+<p>证明分两步，一步是证明可以获得不动点，第二步证明是最小不动点</p>
+<p>第一步：</p>
+<p>核心：因为L是有限的，所以可以通过有限步（L的高度）的f应用于bottom</p>
+<p>-</p>
+<p>第二步如下：</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20210930200739121-1636977678382.png" alt="image-20210930200739121"></p>
+<p>-</p>
+<h1 id="class-6-Data-Flow-Analysis-Foundations-II"><a href="#class-6-Data-Flow-Analysis-Foundations-II" class="headerlink" title="class-6 Data Flow Analysis - Foundations II"></a>class-6 Data Flow Analysis - Foundations II</h1><h2 id="join-meet-monotonic证明"><a href="#join-meet-monotonic证明" class="headerlink" title="join meet monotonic证明"></a>join meet monotonic证明</h2><p><img src="/2021/11/15/软件分析笔记/image-20211009173230567-1636977678382.png" alt="image-20211009173230567"></p>
+<p>由上节课的内容，我们知道了单调函数F可以让bottom达到最小不动点，top达到最大不动点，那么我们接下来要证明meet和join是单调的</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009171839165-1636977678382.png" alt="image-20211009171839165"></p>
+<p>就是要证明当x&lt;=y时，xuz &lt;= yuz</p>
+<p>证：</p>
+<p>x &lt;= y</p>
+<p>y &lt;= yuz</p>
+<p>所以x &lt;= yuz</p>
+<p>又 z &lt;= yuz</p>
+<p>所以 yuz是x和z的upper bound</p>
+<p>而xuz是x和z的the least upper bound</p>
+<p>所以xuz &lt;= yuz</p>
+<p>由此证明了join函数是单调的</p>
+<p>-</p>
+<h2 id="迭代算法何时收敛"><a href="#迭代算法何时收敛" class="headerlink" title="迭代算法何时收敛"></a>迭代算法何时收敛</h2><p>接下来只剩一个问题，算法何时收敛？</p>
+<p>定义格的高度h，假设CFG里节点一共有k个，最坏情况就是：每次迭代只有1个节点的1个位变化了，总共需要h*k次迭代</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009173801057-1636977678382.png" alt="image-20211009173801057"></p>
+<p>-</p>
+<h2 id="may-must-analyses-from-lattice-view"><a href="#may-must-analyses-from-lattice-view" class="headerlink" title="may must analyses from lattice view"></a>may must analyses from lattice view</h2><p><img src="/2021/11/15/软件分析笔记/image-20211009180522909-1636977678382.png" alt="image-20211009180522909"></p>
+<p>这张图很直观</p>
+<p>另一种角度解释达到的是最大和最小不动点：u和^操作都是最小上界/最大下界，所以迭代的每一个step都是最小的，所以能一个个step达到最小不动点/最大不动点</p>
+<p>-</p>
+<h2 id="精度有多高"><a href="#精度有多高" class="headerlink" title="精度有多高"></a>精度有多高</h2><p>MOP概念：把每条路径的f组合起来</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009192546501-1636977678382.png" alt="image-20211009192546501"></p>
+<p>-</p>
+<p>迭代算法vsMOP</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009192900963-1636977678382.png" alt="image-20211009192900963"></p>
+<p>先u再f  —-vs—- 先f再u</p>
+<p>-</p>
+<p>证明F(xuy) &lt;= F(x) u F(y) 熟悉的感觉</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009193354604-1636977678382.png" alt="image-20211009193354604"></p>
+<p>当F是可分配的时候，我们的分析和MOP一样准</p>
+<p>哪些是可分配的呢？例如前面提到的reaching definition, available expression, live variable，同时满足</p>
+<ul>
+<li>bit-vector：问题转换成集合的交和并</li>
+<li>gen/kill problem</li>
+</ul>
+<p>哪些是不可分配的呢？</p>
+<p>下面这个例子就是不可分配</p>
+<h2 id="constant-propagation"><a href="#constant-propagation" class="headerlink" title="constant propagation"></a>constant propagation</h2><p><img src="/2021/11/15/软件分析笔记/image-20211009200657242-1636977678382.png" alt="image-20211009200657242"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009201404648-1636977678382.png" alt="image-20211009201404648"></p>
+<p>这次的meet不是一个简单交并了</p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009202241303-1636977678382.png" alt="image-20211009202241303"></p>
+<p>otherwise其实只剩val(y),val(z)中有UNDEF的情况了</p>
+<p>identity function：恒等函数，等于啥也不做</p>
+<p>比如if，goto之类的语句</p>
+<p>-</p>
+<p>非分配的例子        </p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009202745580-1636977678382.png" alt="image-20211009202745580"></p>
+<p>。</p>
+<h2 id="worklist-algorithm"><a href="#worklist-algorithm" class="headerlink" title="worklist algorithm"></a>worklist algorithm</h2><p>对迭代算法的一种优化：迭代算法如果一个节点变了一点就要重新算一遍所有的，存在冗余，所以我们改一改，只计算那些OUT变化了的节点（对前向分析来说）</p>
+<p>OUT变化意味着后继节点的IN会改，然后后继节点的OUT也会改，所以需要把后继节点加入worklist</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009203409123-1636977678382.png" alt="image-20211009203409123"></p>
+<p>-</p>
+<p>重点</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211009203827282-1636977678382.png" alt="image-20211009203827282"></p>
+<h1 id="class-7-Inteprocedual-Analysis"><a href="#class-7-Inteprocedual-Analysis" class="headerlink" title="class-7 Inteprocedual Analysis"></a>class-7 Inteprocedual Analysis</h1><p>过程内（intraprocedural）分析是按最保守的假设来的，不够准确</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014194212217-1636977678382.png" alt="image-20211014194212217"></p>
+<p>在这个例子里，x=42，y=43是更精确滴</p>
+<p>-</p>
+<h2 id="Call-Graph"><a href="#Call-Graph" class="headerlink" title="Call Graph"></a>Call Graph</h2><p>调用图的概念</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014194349988-1636977678382.png" alt="image-20211014194349988"></p>
+<p>-</p>
+<p>OOPLs的call graph有哪些应用</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014194606638-1636977678382.png" alt="image-20211014194606638"></p>
+<p>-</p>
+<h2 id="Java的call有三种类型"><a href="#Java的call有三种类型" class="headerlink" title="Java的call有三种类型"></a>Java的call有三种类型</h2><ul>
+<li>static call</li>
+<li>special call</li>
+<li>virtual call</li>
+</ul>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014195016141-1636977678382.png" alt="image-20211014195016141"></p>
+<p>-</p>
+<p>SOOT中采用的格式，绿的是我们课内简写</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014195313068-1636977678382.png" alt="image-20211014195313068"></p>
+<p>-</p>
+<p>起作用的是方法名，参数类型</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014195507872-1636977678382.png" alt="image-20211014195507872"></p>
+<p>相当于找实际调用的是哪个类的方法</p>
+<p>-</p>
+<h2 id="Classs-Hierarchy-Analysis-CHA"><a href="#Classs-Hierarchy-Analysis-CHA" class="headerlink" title="Classs Hierarchy Analysis (CHA)"></a>Classs Hierarchy Analysis (CHA)</h2><p>假设A a可以指向A类和它的子类，CHA就是找目标method</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014200104973-1636977678382.png" alt="image-20211014200104973"></p>
+<p>-</p>
+<p>怎么求解？分情况讨论</p>
+<p>static call就是自己的foo就行了</p>
+<p>注意special call不是只找父类就完事了，因为父类B里不一定有foo，可能是父类的父类</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014200510811-1636977678382.png" alt="image-20211014200510811"></p>
+<p>-</p>
+<p>virtual call需要去找c的声明类型C的所有子类（包括子类的子类）</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014200801820-1636977678382.png" alt="image-20211014200801820"></p>
+<p>-</p>
+<p>一个例子，注意B，B需要Dispatch(B), DIspatch(C), Dispatch(B)，B本身没有foo，所以Dispatch(B)会找到父类A的foo</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014201506737-1636977678382.png" alt="image-20211014201506737"></p>
+<p>-</p>
+<p>即使B b = new B()，依然是ACD，因为CHA只看b的声明类型！不看实际指向。</p>
+<p>可以发现这也导致了一个问题，C.foo()和D.foo()在下图的例子里是假的</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014201716224-1636977678382.png" alt="image-20211014201716224"></p>
+<p>-</p>
+<p>CHA的特点</p>
+<p>pros：快，只看声明类型</p>
+<p>cons：导致引入假方法</p>
+<p>-</p>
+<p>用途：IDE方法提示</p>
+<h2 id="call-graph-construction"><a href="#call-graph-construction" class="headerlink" title="call graph construction"></a>call graph construction</h2><p>从main开始</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014202604005-1636977678382.png" alt="image-20211014202604005"></p>
+<p>-</p>
+<p>T是一个目标方法的集合（之所以是集合，因为virtual call的存在，一对多）</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014203144030-1636977678382.png" alt="image-20211014203144030"></p>
+<p>-</p>
+<h2 id="Interprocedural-Control-Flow-Graph-ICFG"><a href="#Interprocedural-Control-Flow-Graph-ICFG" class="headerlink" title="Interprocedural Control-Flow Graph (ICFG)"></a>Interprocedural Control-Flow Graph (ICFG)</h2><p>ICFG是所有method的CFG加上call edge和return edge</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014205411790-1636977678383.png" alt="image-20211014205411790"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014205434270-1636977678383.png" alt="image-20211014205434270"></p>
+<p>-</p>
+<p>一个例子，里面黄色部分标注的边其实没有也可以呀，但是还是要有</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014224154286-1636977678383.png" alt="image-20211014224154286"></p>
+<p>-</p>
+<h2 id="Interprocedural-Data-Flow-Analysis"><a href="#Interprocedural-Data-Flow-Analysis" class="headerlink" title="Interprocedural Data-Flow Analysis"></a>Interprocedural Data-Flow Analysis</h2><p>主要处理多出来的两种边</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014210546045-1636977678383.png" alt="image-20211014210546045"></p>
+<p>-</p>
+<p>之所以要有b = addOne(a)到c=b-3的边（这样的边称为call-to-return edge），因为a=6这样的local dataflow如果跟着过程调用跑一遍会低效，如下图</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014213717355-1636977678383.png" alt="image-20211014213717355"></p>
+<p>-</p>
+<p>注意要kill b，这样才能和返回值merge成常量，不然就是NAC了，丢失精度</p>
+<p>kill b的位置不是call site，而是call-to-return edge的transfer edge时kill。call site只做恒等变换</p>
+<p>-插播TT的话</p>
+<blockquote>
+<p>现在对于调用语句（如x = m(…);）的node transfer改为identity function（见87页），把kill LHS variable值的操作挪到了call-to-return edge的edge transfer当中（见100—103页对b = ten()的处理）。此外作为参考，105页总结了interprocedural constant propagation的node/edge transfer。</p>
+<p>做出上述改动是为了可以更一致地处理不同类型的ICFG edges，同时简化interprocedural data-flow analysis solver的算法与实现。相关作业文档也会讲解改动后的算法，届时请同学们以最新课件以及作业文档为准。</p>
+</blockquote>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014224445529-1636977678383.png" alt="image-20211014224445529"></p>
+<p>-</p>
+<p>一个小总结</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014224435597-1636977678383.png" alt="image-20211014224435597"></p>
+<p>-</p>
+<p>重点</p>
+<ul>
+<li>怎么建立class hierarchy analysis？从main开始一个类似BFS</li>
+<li>过程间分析要处理哪些关键？与过程内分析有哪些区别？—过程间要处理call edge和return edge。比起过程内，过程间的结果更精确</li>
+<li>过程间的常量传播是怎么处理edge的？</li>
+</ul>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014215007255-1636977678383.png" alt="image-20211014215007255"></p>
+<p>-</p>
+<p>后续预告</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211014215157202-1636977678383.png" alt="image-20211014215157202"></p>
+<h1 id="class-8-Pointer-Analysis"><a href="#class-8-Pointer-Analysis" class="headerlink" title="class-8 Pointer Analysis"></a>class-8 Pointer Analysis</h1><p>五节课介绍他</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021183247914-1636977678383.png" alt="image-20211021183247914"></p>
+<p>-</p>
+<p>这个例子里CHA只考虑了class hierarchy，所以不精确</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021183751766-1636977678383.png" alt="image-20211021183751766"></p>
+<p>-</p>
+<p>指针分析的话，看n具体指向哪个对象</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021183925280-1636977678383.png" alt="image-20211021183925280"></p>
+<p>-</p>
+<h2 id="Pointer-Analysis"><a href="#Pointer-Analysis" class="headerlink" title="Pointer Analysis"></a>Pointer Analysis</h2><p>指针分析研究有一个pointer可以指向什么值</p>
+<p>指针分析是may analysis，做保守的分析</p>
+<p>即使过了40年之久，指针分析还是一个活跃的问题</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021184522912-1636977678383.png" alt="image-20211021184522912"></p>
+<p>-</p>
+<p>输出一个表格</p>
+<p>variable和field都是指针，都要考虑</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021185146606-1636977678383.png" alt="image-20211021185146606"></p>
+<p>-</p>
+<p>当程序规模扩大的时候就问题来了，如何做的又快又准</p>
+<p>-</p>
+<p>指针分析和别名分析（alias analysis）</p>
+<p>别名分析回答的是：两个指针是否指向同一个object</p>
+<p>可以看出别名分析可以从指针分析中得到，指针分析更难</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021185551451-1636977678383.png" alt="image-20211021185551451"></p>
+<p>-</p>
+<p>指针分析应用</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021185852463-1636977678383.png" alt="image-20211021185852463"></p>
+<p>德国的dagstuhl seminar每年举办研讨会，大佬都说指针分析最重要：）</p>
+<p>-</p>
+<h2 id="哪些因素会影响指针分析的精度和效率"><a href="#哪些因素会影响指针分析的精度和效率" class="headerlink" title="哪些因素会影响指针分析的精度和效率"></a>哪些因素会影响指针分析的精度和效率</h2><p>下面展开说</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021190413127-1636977678383.png" alt="image-20211021190413127"></p>
+<p>-</p>
+<h3 id="heap-abstraction"><a href="#heap-abstraction" class="headerlink" title="heap abstraction"></a>heap abstraction</h3><p>heap里可能new出无限个对象，循环停不下来，如果静态分析也跟着while跑，那分析也停不下来，所以需要做抽象。</p>
+<p>抽象成有限个对象</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021190637856-1636977678383.png" alt="image-20211021190637856"></p>
+<p>-</p>
+<p>咋做抽象的呢？</p>
+<p>一类是store based model，另一类是storeless</p>
+<p>调用点抽象是最常用的</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021190752797-1636977678383.png" alt="image-20211021190752797"></p>
+<p>-</p>
+<p>allocation-site abstraction</p>
+<p>循环里new三次，我们就用一个o2来抽象</p>
+<p>程序里有几句new，就有几个o2，所以是有限的</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021191039909-1636977678383.png" alt="image-20211021191039909"></p>
+<p>-</p>
+<h3 id="context-sensitivity"><a href="#context-sensitivity" class="headerlink" title="context sensitivity"></a>context sensitivity</h3><p>一个method被不同地方调用时有不同的上下文</p>
+<p>上下文敏感就是区分上下文，精度更高。不敏感就是凡是上下文全放一起，不区分，更快。</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021191537505-1636977678383.png" alt="image-20211021191537505"></p>
+<p>上下文的概念在interaprocedural中都会用到，比如你跨函数的constant propagation，分开就是不同c1 c2，合一起就是NAC</p>
+<p>-</p>
+<h3 id="flow-sensitivity"><a href="#flow-sensitivity" class="headerlink" title="flow sensitivity"></a>flow sensitivity</h3><p>流敏感：对于每个程序点（语句之类）都记录了这个点上的信息</p>
+<p>流不敏感：不关心语句执行顺序，一锅端，要考虑所有顺序</p>
+<p>-</p>
+<p>流敏感要存的信息量很大，对于OO语言来说开销太大，比如java里，栈内存会自动销毁，堆内存只能靠垃圾回收，静态分析时候为了sound，就得全考虑进去，程序跑到后面就越来越大。1亿条的表格没法存了都</p>
+<p>所以还是流不敏感能用</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021194312939-1636977678383.png" alt="image-20211021194312939"></p>
+<p>-</p>
+<h3 id="analysis-scope"><a href="#analysis-scope" class="headerlink" title="analysis scope"></a>analysis scope</h3><p>全程序分析提供全部分析</p>
+<p>需求驱动的只关心需求里的那些pointer，以及会影响这些pointer的东西（拔出萝卜带出泥，对复杂程序开销也不小，且只满足一种需求，万一多个客户，有冗余）</p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021194726188-1636977678383.png" alt="image-20211021194726188"></p>
+<p>-</p>
+<h2 id="哪些对象我们关心"><a href="#哪些对象我们关心" class="headerlink" title="哪些对象我们关心"></a>哪些对象我们关心</h2><p>程序里有很多复杂语句，但我们不关心，只关心影响pointer的语句</p>
+<p>-</p>
+<p>关心的对象有这些东西</p>
+<p>static field类似全局变量，和local variable一起处理。</p>
+<p>数组有很多下标，但在静态分析里我们只认为有一个array.arr，和instance field一样处理</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021195437562-1636977678383.png" alt="image-20211021195437562"></p>
+<p>-</p>
+<h2 id="哪些语句我们关心"><a href="#哪些语句我们关心" class="headerlink" title="哪些语句我们关心"></a>哪些语句我们关心</h2><p>影响指针的语句</p>
+<p>x.f.g.h这种可以打散成左边的五种</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021200002506-1636977678383.png" alt="image-20211021200002506"></p>
+<p>-</p>
+<p>focus on最难的virtual call</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021200043002-1636977678383.png" alt="image-20211021200043002"></p>
+<p>-</p>
+<p>重点</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021200222820-1636977678383.png" alt="image-20211021200222820"></p>
+<p>-</p>
+<p>别着急，还有一部分。。</p>
+<h1 id="class-8-2-Pointer-Analysis-Foundations"><a href="#class-8-2-Pointer-Analysis-Foundations" class="headerlink" title="class-8-2 Pointer Analysis Foundations"></a>class-8-2 Pointer Analysis Foundations</h1><h2 id="指针分析的domain"><a href="#指针分析的domain" class="headerlink" title="指针分析的domain"></a>指针分析的domain</h2><p>variable + instance field = Pointers</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021200830016-1636977678383.png" alt="image-20211021200830016"></p>
+<p>-</p>
+<p>rule是推导式，横线上面是前提，横线下面是结论</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021200951206-1636977678383.png" alt="image-20211021200951206"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021201418578-1636977678383.png" alt="image-20211021201418578"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021201441970-1636977678383.png" alt="image-20211021201441970"></p>
+<p>-</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211021201638832-1636977678383.png" alt="image-20211021201638832"></p>
+<h1 id="class-9"><a href="#class-9" class="headerlink" title="class-9"></a>class-9</h1><h2 id="实现Pointer-Analysis"><a href="#实现Pointer-Analysis" class="headerlink" title="实现Pointer Analysis"></a>实现Pointer Analysis</h2><p>课上的算法易于理解，重新设计过了，而且比较完备</p>
+<p>指针分析是指向关系在指针之间传播</p>
+<p>有的研究人员（andersen，安徒生）认为指针分析是在求解约束关系（Andersen-style analysis）</p>
+<p>-</p>
+<p>实现的关键是处理变化，传播这种变化</p>
+<p>用图来帮助描述分析</p>
+<p>-</p>
+<h2 id="Pointer-Flow-Graph（PFG）"><a href="#Pointer-Flow-Graph（PFG）" class="headerlink" title="Pointer Flow Graph（PFG）"></a>Pointer Flow Graph（PFG）</h2><p>node就是pointer</p>
+<p>edge指的是流向关系，x-&gt;y说明x指向的对象may流到y去</p>
+<blockquote>
+<p> 为什么是may？pointer analysis是一个may analysis，多包含了一些信息</p>
+<p> 哪些边是may flow to呢？后面说</p>
+</blockquote>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028184409571-1636977678383.png" alt="image-20211028184409571"></p>
+<p>-</p>
+<p>例如</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028185229994-1636977678384.png" alt="image-20211028185229994"></p>
+<p>-</p>
+<p>例子</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028185701761-1636977678384.png" alt="image-20211028185701761"></p>
+<p>-</p>
+<p>如果新加一句b=new T()，pt(b) = {oj}这件事会流到e</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028185730665-1636977678384.png" alt="image-20211028185730665"></p>
+<p>-</p>
+<p>实现PA难得地方在于，建立PFG，和传播指针信息是相互依赖的</p>
+<p>所以PA不是单纯的传递闭包问题</p>
+<blockquote>
+<p> 1依赖2体现在，首先得知道c指向oi，然后才能得出a-&gt;oi.f这些边</p>
+</blockquote>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028190255073-1636977678384.png" alt="image-20211028190255073"></p>
+<p>-</p>
+<h2 id="PA-Algorithm"><a href="#PA-Algorithm" class="headerlink" title="PA Algorithm"></a>PA Algorithm</h2><p>算法如下，solve是main函数</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028190703475-1636977678384.png" alt="image-20211028190703475"></p>
+<p>-</p>
+<p>为啥需要第3条呢？假如s-&gt;t这条边已经建立了，那么当s的指针集变化时，s的指针集会传给t，没有问题，但假如s-&gt;t还没有建立，没有第3条的话，t指向的对象就少了</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028192039251-1636977678384.png" alt="image-20211028192039251"></p>
+<p>-</p>
+<p>从WL里取出一个指针和指针集</p>
+<p>差集delta，减少冗余计算，这样做不会漏传，因为pt(n)中含有的东西已经/在之后肯定会传播出去</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028193914335-1636977678384.png" alt="image-20211028193914335"></p>
+<p>-</p>
+<p>传播</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028194204186-1636977678384.png" alt="image-20211028194204186"></p>
+<p>-</p>
+<p>下面处理field的问题</p>
+<blockquote>
+<p>为啥是may引入新边呢？</p>
+<p>比如有个x2.f = y先让y指向oi.f了，那就不用有新边了</p>
+</blockquote>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028195824894-1636977678384.png" alt="image-20211028195824894"></p>
+<p>-</p>
+<p>一个例子，看ppt走一遍</p>
+<p>-</p>
+<p>重点</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211028201529968-1636977678384.png" alt="image-20211028201529968"></p>
+<h1 id="class-10"><a href="#class-10" class="headerlink" title="class-10"></a>class-10</h1><h2 id="Pointer-Analysis-with-Method-Calls"><a href="#Pointer-Analysis-with-Method-Calls" class="headerlink" title="Pointer Analysis with Method Calls"></a>Pointer Analysis with Method Calls</h2><p>过程间分析的时候，需要知道参数a指向了哪些对象，就是需要建立Call Graph，但是这个call graph的建立也依赖a</p>
+<p>所以，指针分析和call graph的建立是互相依赖的</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211104184059991-1636977678384.png" alt="image-20211104184059991"></p>
+<p>-</p>
+<p>call的rule：</p>
+<p>this看成一个特殊的参数，他决定了callee是谁</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211104185416934-1636977678384.png" alt="image-20211104185416934"></p>
+<p>为啥x不能新建一条指向m_this的边呢？</p>
+<p>如果x指向 new A，那么dispatch的m结果是A.foo，A.this指向new A；如果x指向new B，那么dispatchm结果是B.foo，B.this指向new B，C也是一样。</p>
+<p>如果x指向 {new A, new B, new C}，但是A.this只能指向单一对象new A，把ABC都传过去就不对了</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211104190546640-1636977678384.png" alt="image-20211104190546640"></p>
+<p>-</p>
+<p>我们只分从main开始的reachable的mothods，这样的好处是精度和时间复杂度都好</p>
+<p>精度为什么好？如果我特地额外分析了unreachable的方法（如m9），假如这个m9指向了m4，会导致m4里的指针新增了“m9里的指针指向的那些玩意”，那就不准嘞</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211104192009651-1636977678384.png" alt="image-20211104192009651"></p>
+<p>-</p>
+<h2 id="algorithm"><a href="#algorithm" class="headerlink" title="algorithm"></a>algorithm</h2><p>算法的主体部分和上节课的不涉及过程调用的指针分析差不多</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211104194836829-1636977678384.png" alt="image-20211104194836829"></p>
+<p>-</p>
+<p>问题1：为什么addReachable只处理x = new T()和x = y这两种语句呢</p>
+<p>因为其他的x.f = y，在新方法被分析时，x的指针集是空的，没法分析啊</p>
+<p>但是x = new T() 和 x=y是确定的</p>
+<p>-</p>
+<p>问题2：processCall中为什么要判断l-&gt;m不属于CG？</p>
+<p>m是dispatch的结果，可能之前有其他变量也dispatch出m了</p>
+<p>-</p>
+<p>一个例子，自己看ppt，需要注意的是x = new T()其实分两步：</p>
+<ol>
+<li>x = new T</li>
+<li>x.\<init\>()</init\></li>
+</ol>
+<p>-</p>
+<p>重点</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211104202047234-1636977678384.png" alt="image-20211104202047234"></p>
+<h1 id="class-11-Pointer-Analysis-Context-Sensitivity"><a href="#class-11-Pointer-Analysis-Context-Sensitivity" class="headerlink" title="class-11 Pointer Analysis Context Sensitivity"></a>class-11 Pointer Analysis Context Sensitivity</h1><p>按之前学的，x和y的值来源于n，n来源于n1和n2，那么pt(x) = {new One(), new Two()}</p>
+<p>但实际上程序执行的时候，x只指向 new One()，产生了精度损失</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211111183952505-1636977678384.png" alt="image-20211111183952505"></p>
+<p>-</p>
+<p>如果我们把id分开处理，就可以提升精度</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211111184237249-1636977678384.png" alt="image-20211111184237249"></p>
+<p>-</p>
+<h2 id="Context-Insensitivity为什么不准"><a href="#Context-Insensitivity为什么不准" class="headerlink" title="Context Insensitivity为什么不准"></a>Context Insensitivity为什么不准</h2><p>因为他把method call的上下文混在一起，这些混合的上下文通过method的返回值和副作用传播了出去，造成假的数据流</p>
+<p>-</p>
+<h2 id="Context-Sensitivity"><a href="#Context-Sensitivity" class="headerlink" title="Context Sensitivity"></a>Context Sensitivity</h2><p>一种好理解的：java抛异常时候的调用栈</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211111190310520-1636977678384.png" alt="image-20211111190310520"></p>
+<p>-</p>
+<p>堆也需要上下文，细分对象</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211111191241381-1636977678384.png" alt="image-20211111191241381"></p>
+<p>-</p>
+<p>一个例子</p>
+<p>在没有heap context的时候，虽然x1，x2都分开了，但是第八行的new X，o8.f同时指向o1 o2，就丢精度了</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211111193935044-1636977678384.png" alt="image-20211111193935044"></p>
+<p>-</p>
+<p>另一个例子，没有变量context，有heap context的话，也不对</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211111193747076-1636977678384.png" alt="image-20211111193747076"></p>
+<p>-</p>
+<h2 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h2><p>把乱七八糟的东西前面都加上c</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211111194619784-1636977678384.png" alt="image-20211111194619784"></p>
+<p>-</p>
+<p>new，assign，store，load</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211112110325621-1636977678384.png" alt="image-20211112110325621"></p>
+<p>-</p>
+<p>invoke</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211112112255565-1636977678384.png" alt="image-20211112112255565"></p>
+<p>需要注意的是Select，需要继承（？）一下caller的上下文，所以需要用到call site的信息，和call site的上下文信息</p>
+<p>-</p>
+<p>本讲重点</p>
+<p><img src="/2021/11/15/软件分析笔记/image-20211112112418039.png" alt="image-20211112112418039"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/15/计网名词小结/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/rabbit_true.jpg" alt="oxygen-hunter">
+            
+              <p class="site-author-name" itemprop="name">oxygen-hunter</p>
+              <p class="site-description motion-element" itemprop="description">阿巴阿巴..</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/oxygen-hunter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://purecall.github.io/" title="vct" target="_blank">vct</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#class-1"><span class="nav-number">1.</span> <span class="nav-text">class-1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-2"><span class="nav-number">2.</span> <span class="nav-text">class-2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-3"><span class="nav-number">3.</span> <span class="nav-text">class-3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reaching-Definition"><span class="nav-number">3.1.</span> <span class="nav-text">Reaching Definition</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-4"><span class="nav-number">4.</span> <span class="nav-text">class-4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Live-Variables-Analysis"><span class="nav-number">4.1.</span> <span class="nav-text">Live Variables Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Available-Expressions-Analysis"><span class="nav-number">4.2.</span> <span class="nav-text">Available Expressions Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#analysis-comparison-of-the-3"><span class="nav-number">4.3.</span> <span class="nav-text">analysis comparison of the 3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-5"><span class="nav-number">5.</span> <span class="nav-text">class-5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散背景"><span class="nav-number">5.1.</span> <span class="nav-text">离散背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#偏序集（-lt-代表一种二元关系，自定义）"><span class="nav-number">5.1.1.</span> <span class="nav-text">偏序集（&lt;=代表一种二元关系，自定义）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上界和下界"><span class="nav-number">5.1.2.</span> <span class="nav-text">上界和下界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格，lattice"><span class="nav-number">5.1.3.</span> <span class="nav-text">格，lattice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#半格，semilattice"><span class="nav-number">5.1.4.</span> <span class="nav-text">半格，semilattice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全格，complete-lattice"><span class="nav-number">5.1.5.</span> <span class="nav-text">全格，complete lattice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#produce-lattice"><span class="nav-number">5.1.6.</span> <span class="nav-text">produce lattice</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据流分析和格"><span class="nav-number">5.2.</span> <span class="nav-text">数据流分析和格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单调性"><span class="nav-number">5.2.1.</span> <span class="nav-text">单调性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不动点理论"><span class="nav-number">5.2.2.</span> <span class="nav-text">不动点理论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-6-Data-Flow-Analysis-Foundations-II"><span class="nav-number">6.</span> <span class="nav-text">class-6 Data Flow Analysis - Foundations II</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#join-meet-monotonic证明"><span class="nav-number">6.1.</span> <span class="nav-text">join meet monotonic证明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代算法何时收敛"><span class="nav-number">6.2.</span> <span class="nav-text">迭代算法何时收敛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#may-must-analyses-from-lattice-view"><span class="nav-number">6.3.</span> <span class="nav-text">may must analyses from lattice view</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#精度有多高"><span class="nav-number">6.4.</span> <span class="nav-text">精度有多高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#constant-propagation"><span class="nav-number">6.5.</span> <span class="nav-text">constant propagation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#worklist-algorithm"><span class="nav-number">6.6.</span> <span class="nav-text">worklist algorithm</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-7-Inteprocedual-Analysis"><span class="nav-number">7.</span> <span class="nav-text">class-7 Inteprocedual Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Call-Graph"><span class="nav-number">7.1.</span> <span class="nav-text">Call Graph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java的call有三种类型"><span class="nav-number">7.2.</span> <span class="nav-text">Java的call有三种类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Classs-Hierarchy-Analysis-CHA"><span class="nav-number">7.3.</span> <span class="nav-text">Classs Hierarchy Analysis (CHA)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-graph-construction"><span class="nav-number">7.4.</span> <span class="nav-text">call graph construction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Interprocedural-Control-Flow-Graph-ICFG"><span class="nav-number">7.5.</span> <span class="nav-text">Interprocedural Control-Flow Graph (ICFG)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Interprocedural-Data-Flow-Analysis"><span class="nav-number">7.6.</span> <span class="nav-text">Interprocedural Data-Flow Analysis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-8-Pointer-Analysis"><span class="nav-number">8.</span> <span class="nav-text">class-8 Pointer Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointer-Analysis"><span class="nav-number">8.1.</span> <span class="nav-text">Pointer Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些因素会影响指针分析的精度和效率"><span class="nav-number">8.2.</span> <span class="nav-text">哪些因素会影响指针分析的精度和效率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#heap-abstraction"><span class="nav-number">8.2.1.</span> <span class="nav-text">heap abstraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#context-sensitivity"><span class="nav-number">8.2.2.</span> <span class="nav-text">context sensitivity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flow-sensitivity"><span class="nav-number">8.2.3.</span> <span class="nav-text">flow sensitivity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#analysis-scope"><span class="nav-number">8.2.4.</span> <span class="nav-text">analysis scope</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些对象我们关心"><span class="nav-number">8.3.</span> <span class="nav-text">哪些对象我们关心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些语句我们关心"><span class="nav-number">8.4.</span> <span class="nav-text">哪些语句我们关心</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-8-2-Pointer-Analysis-Foundations"><span class="nav-number">9.</span> <span class="nav-text">class-8-2 Pointer Analysis Foundations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指针分析的domain"><span class="nav-number">9.1.</span> <span class="nav-text">指针分析的domain</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-9"><span class="nav-number">10.</span> <span class="nav-text">class-9</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现Pointer-Analysis"><span class="nav-number">10.1.</span> <span class="nav-text">实现Pointer Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointer-Flow-Graph（PFG）"><span class="nav-number">10.2.</span> <span class="nav-text">Pointer Flow Graph（PFG）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PA-Algorithm"><span class="nav-number">10.3.</span> <span class="nav-text">PA Algorithm</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-10"><span class="nav-number">11.</span> <span class="nav-text">class-10</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointer-Analysis-with-Method-Calls"><span class="nav-number">11.1.</span> <span class="nav-text">Pointer Analysis with Method Calls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#algorithm"><span class="nav-number">11.2.</span> <span class="nav-text">algorithm</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-11-Pointer-Analysis-Context-Sensitivity"><span class="nav-number">12.</span> <span class="nav-text">class-11 Pointer Analysis Context Sensitivity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Context-Insensitivity为什么不准"><span class="nav-number">12.1.</span> <span class="nav-text">Context Insensitivity为什么不准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Context-Sensitivity"><span class="nav-number">12.2.</span> <span class="nav-text">Context Sensitivity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rules"><span class="nav-number">12.3.</span> <span class="nav-text">Rules</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oxygen-hunter</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
