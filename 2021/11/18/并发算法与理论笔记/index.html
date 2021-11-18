@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="并发算法与理论 笔记 40 平时作业 60 期末考试 class-1描述两段代码并行的符号：C1 || C2 注意，main和main中开的子线程是并行的，不要遗漏 cout &amp;lt;&amp;lt; x1 &amp;lt;&amp;lt; x2 &amp;lt;&amp;lt; endl; 涉及三次函数调用，并发是会分割输出x1 x2 endl，而不是作为一条指令，需要讨论并发的粒度(granularity) 如何把三个cout合并成">
+<meta name="keywords" content="program analysis, compiler, security">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发算法与理论笔记">
+<meta property="og:url" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/index.html">
+<meta property="og:site_name" content="懵逼树树洞">
+<meta property="og:description" content="并发算法与理论 笔记 40 平时作业 60 期末考试 class-1描述两段代码并行的符号：C1 || C2 注意，main和main中开的子线程是并行的，不要遗漏 cout &amp;lt;&amp;lt; x1 &amp;lt;&amp;lt; x2 &amp;lt;&amp;lt; endl; 涉及三次函数调用，并发是会分割输出x1 x2 endl，而不是作为一条指令，需要讨论并发的粒度(granularity) 如何把三个cout合并成">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210901091938158.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210908081523800.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210908082028785.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210908112139069.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210908092621196.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210908093353888.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210908105520947.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210908093728552.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210915080911973.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210915081501887.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210915082303847.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210915083645384.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210915085843319.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210915090532504.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210915090720122.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210915094052615.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/v2-c7c8e5fe0a7b71444cb83445a10f2992_720w.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/v2-59e0039749576a20e4863f28a05219e6_720w.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922080647424.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922083527811.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922084046100.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922084320082.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922085002894.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922085103990.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922085514901.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922085736355.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922090200241.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210922090658878.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210926082403890.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210926085020309.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210926092747601.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210926093047988.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210926093526192.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210926094227159.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210929085215599.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210929085708499.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210929091510053.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210929091138281.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019160958953.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019161041636.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019161149779.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019161249751.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019161258467.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019165652394.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019165830305.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019170216046.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211019170559788.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020113929771.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020111421669.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020111809100.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020111837374.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020112400077.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020112533916.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020113131830.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020113203515.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020121832022.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020122043262.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020122925196.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020123015745.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020123124360.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020123404858.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020123507386.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020123728653.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020124233780.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020124720256.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020124910104.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020124937132.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020155525086.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020155536731.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020155641495.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020160442073.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020160721264.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020160839112.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020161038728.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020163212648.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020163244700.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020163443934.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020163626029.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020171045584.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020164049409.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020164839380.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020164954703.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020165041002.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020165242691.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020165445908.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020165803116.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020165921504.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211020170147465.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027085152729.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027090804099.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027111443817.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027111454930.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027091550558.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027092224221.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027092431768.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027093026675.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027094156949.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027094216683.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027095027317.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211027095008829.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103082015878.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211117115701582.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103082213094.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103082623510.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103090052046.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103090520210.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103090653080.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103091047609.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103091435252.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103091452300.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103092134507.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103092909820.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103092945548.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103093348598.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103093405629.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103093437356.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211103094352811.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110080435467.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110081548266.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110083227359.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110083904905.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110092003744.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110092810209.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110093040088.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110093205996.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110104218455.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110104257195.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211110103410900.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211117092017654.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211117092033645.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211117092116587.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211117094805279.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211117094907054.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20211117111558865.png">
+<meta property="og:updated_time" content="2021-11-18T02:59:41.460Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发算法与理论笔记">
+<meta name="twitter:description" content="并发算法与理论 笔记 40 平时作业 60 期末考试 class-1描述两段代码并行的符号：C1 || C2 注意，main和main中开的子线程是并行的，不要遗漏 cout &amp;lt;&amp;lt; x1 &amp;lt;&amp;lt; x2 &amp;lt;&amp;lt; endl; 涉及三次函数调用，并发是会分割输出x1 x2 endl，而不是作为一条指令，需要讨论并发的粒度(granularity) 如何把三个cout合并成">
+<meta name="twitter:image" content="http://yoursite.com/2021/11/18/并发算法与理论笔记/image-20210901091938158.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/11/18/并发算法与理论笔记/">
+
+
+
+
+
+  <title>并发算法与理论笔记 | 懵逼树树洞</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">懵逼树树洞</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/18/并发算法与理论笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oxygen-hunter">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/rabbit_true.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="懵逼树树洞">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">并发算法与理论笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-18T10:58:17+08:00">
+                2021-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读量：
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>并发算法与理论 笔记</p>
+<p>40 平时作业</p>
+<p>60 期末考试</p>
+<h1 id="class-1"><a href="#class-1" class="headerlink" title="class-1"></a>class-1</h1><p>描述两段代码并行的符号：C1 || C2</p>
+<p>注意，main和main中开的子线程是并行的，不要遗漏</p>
+<p>cout &lt;&lt; x1 &lt;&lt; x2 &lt;&lt; endl; 涉及三次函数调用，并发是会分割输出x1 x2 endl，而不是作为一条指令，需要讨论并发的粒度(granularity)</p>
+<p>如何把三个cout合并成一条指令？C++的做法是引入std::mutex</p>
+<p>在这个case中，cout是共享内存，需要锁住</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;mutex&gt;</span><br><span class="line">std::mutex mu; //需要注意mu是全局的，这样才能同时管住&quot;C1&quot;和&quot;C2&quot;</span><br><span class="line"></span><br><span class="line">void func() &#123;</span><br><span class="line">	mu.lock();</span><br><span class="line">	cout &lt;&lt; x1 &lt;&lt; x2 &lt;&lt; endl;</span><br><span class="line">	mu.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一种写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;mutex&gt;</span><br><span class="line">std::mutex mu;</span><br><span class="line"></span><br><span class="line">void func() &#123;</span><br><span class="line">	std::lock_guard&lt;std::mutex&gt; gu(mu);//这里gu诞生，拿锁</span><br><span class="line">	cout &lt;&lt; x1 &lt;&lt; x2 &lt;&lt; endl;</span><br><span class="line">&#125; //到这里gu消亡，释放锁</span><br></pre></td></tr></table></figure>
+<p>TODO: std::mutex的lock和unlock的内部实现是如何的？是串行的吗？为什么线程并发在执行到lock的实现时不会出事.  （<a href="https://zhiqiang.org/coding/std-mutex-implement.html）" target="_blank" rel="noopener">https://zhiqiang.org/coding/std-mutex-implement.html）</a></p>
+<p>concurrent program = concurrent objects + their clients</p>
+<p>memory model：描述了并发程序如何使用内存</p>
+<ul>
+<li>Sequential Consistency(SC) model：顺序一致性，表现为并发线程们交替使用内存（<a href="https://blog.csdn.net/peterlin666/article/details/39080495/）" target="_blank" rel="noopener">https://blog.csdn.net/peterlin666/article/details/39080495/）</a></li>
+<li>weak/relaxed memory model：C1||C2产生比SC model更多的行为（编译器为了优化或性能做出了违反SC的事）<ul>
+<li>java</li>
+<li>c++11</li>
+<li>x86-TSO</li>
+<li>ARMv8</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<p>下面的例子中，assert会fail，因为x=x+1会被拆成两条语句，t=x，x=t+1。该线程t=x使得t存了x的旧值，另一个线程增加了x的值，然后回到该线程x=t+1，将x又恢复成旧值，结果就是执行完之后x的值小于预期的200w。</p>
+<p>此外，++x和x++均同理</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210901091938158.png" alt="image-20210901091938158"></p>
+<p>本课不关注算法复杂度，只关注正确性，即实现出来的concurrent object，即使处于并发环境，也能得到“预期的结果”</p>
+<h1 id="class-2"><a href="#class-2" class="headerlink" title="class-2"></a>class-2</h1><p>为什么现代程序语言都不是SC的？SC的弱点</p>
+<ul>
+<li>SC模型禁止了一些优化</li>
+</ul>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210908081523800.png" alt="image-20210908081523800" style="zoom:67%;"></p>
+<p>该图中的问题</p>
+<ul>
+<li>按SC model，r1=r2=0不会发生</li>
+<li>但是如果不按SC model，编译器编译C1时，想做优化，他发现x和y是俩变量，独立的，那么可以调换语序，变成箭头所示，然后就乱了</li>
+<li>x86体系结构里，每个线程有自己的write buffer，写操作（x=1，y=1）先写在write buffer中，再写入内存，这个中间隔了时间，导致r1=y，r2=x读到的还是旧的0，0</li>
+<li>这段程序很经典，叫store buffering</li>
+</ul>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210908082028785.png" alt="image-20210908082028785" style="zoom:67%;"></p>
+<p>至少一个进程是write，就会出现</p>
+<p>DRF涉及的条件</p>
+<ul>
+<li>conflicting：write-write，或者read-write</li>
+<li>concurrent<ul>
+<li>由内存模型定义什么是并发</li>
+<li>比如java的并发，指的是两个操作没有被happens-before确定顺序，如果有锁，需要看清</li>
+</ul>
+</li>
+</ul>
+<p>DRF Guarantee：满足DRF的程序在SC model下行为是一致的，有类似于锁的机制</p>
+<p>hb： happens before</p>
+<p>sw：synchronized with</p>
+<p>。。。</p>
+<p>hb引出的out-of-thin-air的理解如下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210908112139069.png" alt="image-20210908112139069"></p>
+<p>出现42这种oota的结果，是因为HMM没有DRF-guarantee。</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210908092621196.png" alt="image-20210908092621196"></p>
+<p>。。。</p>
+<p>老师的图如下，特别说明，如果是DRF的话，就只会出现r1=r2=0，不会有oota的42</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210908093353888.png" alt="image-20210908093353888"></p>
+<p>。。。我的图如下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210908105520947.png" alt="image-20210908105520947"></p>
+<p>。。。</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210908093728552.png" alt="image-20210908093728552"></p>
+<h1 id="class-3"><a href="#class-3" class="headerlink" title="class-3"></a>class-3</h1><p>C++内存模型</p>
+<p>C11/C++11自定义了一个DRF，允许比较松的行为，但如果太松就认为是UB</p>
+<p>C11定义了memory_order</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210915080911973.png" alt="image-20210915080911973" style="zoom:67%;"></p>
+<p>release/accquire是配合使用的，一写一读</p>
+<p>mo_seql_cst是最强的要求，等于SC model，例如在处理store buffering(SB)时不会出现r1=r2=0</p>
+<p>message passing(MP)模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = 1; || r1 = y</span><br><span class="line"></span><br><span class="line">y = 1; || r2 = x</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210915081501887.png" alt="image-20210915081501887"></p>
+<p>用mo_seq_cst，不会出现r1=1，r2=0的结果</p>
+<p>-</p>
+<p>IRIW：independent reads, independent writes</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = 1; || y = 1; || r1 = x || r3 = y</span><br><span class="line">				 || r2 = y || r4 = x</span><br></pre></td></tr></table></figure>
+<p>-</p>
+<p>relax比较松，感觉像语序调整了，使得r1和r2都是1</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210915082303847.png" alt="image-20210915082303847"></p>
+<p>relax会使用简单机器码，速度快，但行为就奇怪</p>
+<p>-</p>
+<p>sb(sequence before)：指在之前执行</p>
+<p>rf(reads-from)：</p>
+<p>asw: 初始化和之后操作的先后关系</p>
+<p>dd：struct结构的数据和struct有依赖关系</p>
+<p>sc order：store和load</p>
+<p>mo：写和写之间的先后关系</p>
+<p>sw：synchronized with</p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210915083645384.png" alt="image-20210915083645384"></p>
+<p>这个里面会出现UB</p>
+<p>。</p>
+<p>hb = sw和sb的闭包，带上asw</p>
+<p>。</p>
+<p>C中的data race：2个操作并发，不全是atomic access，其中至少一个是写，没有HB关系</p>
+<p>C有dr，就会有UB，这一点不像java会给出一个行为，C只会UB</p>
+<p>精确定义如下：</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210915085843319.png" alt="image-20210915085843319" style="zoom: 80%;"></p>
+<p>。</p>
+<p>C允许在load(relax)后跟一个fense，形成和acquire-release相同的效果</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210915090532504.png" alt="image-20210915090532504" style="zoom:80%;"></p>
+<p>这俩等价</p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210915090720122.png" alt="image-20210915090720122"></p>
+<p>rlx之间没有sw关系，但是W rlx y = 1和Fense acq之间有sw关系，于是x=1和x=1有了sb关系</p>
+<p>-</p>
+<p>rf，mo都不是hb的一部分</p>
+<p>-</p>
+<p>cas(&amp;x, v1, v3):</p>
+<p>if x == v1</p>
+<p>​    x=v2;</p>
+<p>​    return true</p>
+<p>else</p>
+<p>​    return false</p>
+<p>把他理解成一次read，再加一次write，但是是原子的操作</p>
+<p>-</p>
+<p>consume很麻烦，使得hb没有传递性，不建议使用，不讲</p>
+<p>-</p>
+<p>C中的atomic_init不是原子操作嗷</p>
+<p>-</p>
+<p>C中有问题，self-satisfying</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210915094052615.png" alt="image-20210915094052615"></p>
+<p>实现C的标准时不应该允许这个行为，即使模型中无法rule out这个情况</p>
+<p>-</p>
+<p>对release/acquire的理解：</p>
+<p>Release操作：RELEASE操作前所有的READ/WRITE都不能跑到store后面</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/v2-c7c8e5fe0a7b71444cb83445a10f2992_720w.jpg" alt="img"></p>
+<p>想象成，前面的读写只能完成，直到我释放</p>
+<p>-</p>
+<p>Acquire操作：acquire后面都读写操作无法排到前面</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/v2-59e0039749576a20e4863f28a05219e6_720w.jpg" alt="img"></p>
+<p>想象成，只有我获取到了，后面的值才能进行计算</p>
+<h1 id="class-4"><a href="#class-4" class="headerlink" title="class-4"></a>class-4</h1><p>前沿信息</p>
+<p>rtach motel reordering：lock往前移动，让更多语句进入临界区，是更安全的；反之，lock往后移动，看起来不那么安全</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922080647424.png" alt="image-20210922080647424" style="zoom:80%;"></p>
+<p>这样变换之后，t=x这个语句跑到了临界区外面，不安全了</p>
+<p>-</p>
+<p>WMM：weak memory model</p>
+<p>-</p>
+<p>。。。</p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922083527811.png" alt="image-20210922083527811"></p>
+<p>mo和hb的冲突，不被允许，mo是对单个变量的写顺序</p>
+<p>和下面这个对比一下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922084046100.png" alt="image-20210922084046100" style="zoom:80%;"></p>
+<p>这个问题里是x和y之间不存在mo，所以是允许的</p>
+<p>-</p>
+<p>non-atomic里又不可以了</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922084320082.png" alt="image-20210922084320082"></p>
+<p>。</p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922085002894.png" alt="image-20210922085002894"></p>
+<p>读不到0，因为rb，rf，po组成了环</p>
+<p>non-atomic只能read到和自己有hb关系的最近的write，所以下图里read到1也是不对的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922085103990.png" alt="image-20210922085103990"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922085514901.png" alt="image-20210922085514901"></p>
+<p>第二段程序的if a == 1，因为是non-atomic，所以只会读hb的a=0，而不可能读出a=1，所以if fail，y=1没了，第三段程序中的if y.load(rlx) == 1也没有rf的来源了，就也没了，然后x=1也没了，第二段程序里的if x.load(rlx) ==1也没了</p>
+<p>但，如果串行化之后，把a=1放到第二段程序中，那就有了hb，a可以读出1了，x=y=1也就允许出现了</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922085736355.png" alt="image-20210922085736355"></p>
+<p>-</p>
+<p>monotonicity：串行化不会引入新的行为</p>
+<p>而c11违背了这个原则</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922090200241.png" alt="image-20210922090200241"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210922090658878.png" alt="image-20210922090658878"></p>
+<p>出现了环（核心是Rsc x，0到Wsc x，1有rb的边），就出问题了</p>
+<h1 id="class-5"><a href="#class-5" class="headerlink" title="class-5"></a>class-5</h1><p>讲并发算法</p>
+<p>关注算法的正确性，可以被设计出来之类，不关心效率</p>
+<p>-</p>
+<p>互斥问题</p>
+<p>Mutual Exclusion</p>
+<p>事件：</p>
+<ol>
+<li>瞬时发生，不可能有1点半发生到2点这种事情</li>
+<li>一个时间只能有一个事件产生，事件间一定有先后关系（a0-&gt;a1代表a0先于a1发生）</li>
+</ol>
+<p>method被call，被return也是事件</p>
+<p>-</p>
+<p>线程就像状态机，事件是transitions</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210926082403890.png" alt="image-20210926082403890" style="zoom:80%;"></p>
+<p>-</p>
+<p>时间区间：一个事件到下一个事件之间</p>
+<p>时间区间也有先后关系，A的终止事件在B的起始事件之前，A-&gt;B</p>
+<p>这是偏序的：</p>
+<p>非自反：A-&gt;A不可以</p>
+<p>非对称：A-&gt;B就不会B-&gt;A</p>
+<p>传递：A-&gt;B,B-&gt;C  =&gt; A-&gt;C</p>
+<p>但，A和B之间可以既没有A-&gt;B也没有B-&gt;A，所以不是全序（时间区间可以互相覆盖）</p>
+<p>-</p>
+<p>但事件本身之间是全序的（事件一定有先后顺序）</p>
+<p>-</p>
+<h2 id="mutual-exclusion"><a href="#mutual-exclusion" class="headerlink" title="mutual exclusion"></a>mutual exclusion</h2><p>定义</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210926085020309.png" alt="image-20210926085020309"></p>
+<p>目标：线程i的第k次访问临界区，与，线程j的第m次访问临界区，一定有先后关系</p>
+<p>-</p>
+<p>deadlock-freedom vs starvation-freedom</p>
+<p>死锁free：一个线程lock完就不解锁了，导致所有线程都lock了</p>
+<p>starvation free：一些线程lock完，在一些条件下才能unlock</p>
+<p>形式上，while类型的程序才能出现这两种情况</p>
+<p>-</p>
+<p>mutual exclusion和deadlock-freedom，starvation-freedom有什么关系？</p>
+<ul>
+<li>me只要求不出现同时访问临界区即可（反证法）</li>
+<li>df要求没有死锁</li>
+<li>sf要求总能排到</li>
+<li>有的算法可以满足me但不满足df/sf</li>
+<li>sf是比df更强的性质</li>
+</ul>
+<p>page81的lockone算法好奇怪，被证明是me的？然后又存在deadlock？？—现在看来不奇怪了</p>
+<p>locktwo，如果只有一个线程的话，就一直锁住里面了</p>
+<p>-</p>
+<p>然后引出了两者的结合，peterson算法</p>
+<p>flag表达自己想进临界区的意愿，victim=i表示自己愿意等</p>
+<p>deadlock-free证明：</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210926092747601.png" alt="image-20210926092747601"></p>
+<p>也可以保证starvation-free：</p>
+<p>一个线程如果想进入临界区，那他一定可以进入临界区</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210926093047988.png" alt="image-20210926093047988"></p>
+<p>-</p>
+<p>下面扩展到n&gt;2个线程上去</p>
+<p>filter lock， bakery lock</p>
+<p>-</p>
+<h2 id="fliter-lock"><a href="#fliter-lock" class="headerlink" title="fliter lock"></a>fliter lock</h2><p>想象一个房子有n层，n个线程想到达第n层。进去时候，一个线程留着1楼，一个线程留在2楼……最后只有一个线程进入第n层</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210926093526192.png" alt="image-20210926093526192"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210926094227159.png" alt="image-20210926094227159"></p>
+<p>-</p>
+<h1 id="class-6"><a href="#class-6" class="headerlink" title="class-6"></a>class-6</h1><p>继续filter lock</p>
+<p>锁的时候，线程i想进入下一层，然后把victim设为自己，去看看是否存在也想进入更高层的线程k，并且victim还是自己，就锁着</p>
+<p>Q：为什么是level[k]&gt;=L而不是level[k]==i</p>
+<p>A：这样就不符合me了。如果有线程a到达了L层，下一次循环想到达L+1，但本身还位于L层，此时新来2个线程bc想到达L层，b看victim是c，就到达了L层，然后和a冲突了。</p>
+<p>-</p>
+<h3 id="证明filter-lock是me的："><a href="#证明filter-lock是me的：" class="headerlink" title="证明filter lock是me的："></a>证明filter lock是me的：</h3><p>目标是证明只有1个线程能抵达n-1层，我们证一下对于第L层，只有n-L个线程能到达L层</p>
+<p>递推一下，对于第L-1层，只有n-L+1个线程能到达第L-1层</p>
+<p>假设这些想往L层走的线程里，A是最后一个设置victim[L]=A的，其他线程之一称为B（L&lt;=n-1，所以n-L+1&gt;=2，肯定是有B的）</p>
+<p>W_B level[B] = L -&gt;</p>
+<p>W_B victim[B] = B -&gt;</p>
+<p>W_A victim[A] = A-&gt;</p>
+<p>R_A level[B]</p>
+<p>所以A读到了level[B]&gt;=L，并且victim=A，所以A去不了第L层，而其他的B都能踩着victimA上去到L层</p>
+<p>-</p>
+<h3 id="证明filter-lock是starvation-free的："><a href="#证明filter-lock是starvation-free的：" class="headerlink" title="证明filter lock是starvation free的："></a>证明filter lock是starvation free的：</h3><p>书上讲的有点稀碎，不看了</p>
+<p>-</p>
+<p>引出一种更强的性质：bounded waitingg</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210929085215599.png" alt="image-20210929085215599" style="zoom:80%;"></p>
+<p>-</p>
+<p>r-bounded waiting指的是，线程A第k次想进入临界区的行为中，DA k早于线程B第j次想进入临界区的DB j，然后WA和WB可能产生并发，然后B进入临界区后又来想继续进入临界区r次，最后的结果满足CSA k早于CS j+r</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210929085708499.png" alt="image-20210929085708499"></p>
+<p>-</p>
+<p>fliter lock满足sf，但对于任何r都不满足r-bounded</p>
+<p>为啥呢？</p>
+<p>因为sf的要求低，只要对于每一个执行的线程都能进入CS</p>
+<p>但r-bounded要求对于任何情况，r都生效</p>
+<p>-</p>
+<p>解决不满足r-bounded问题，引出bakery algorithm</p>
+<h2 id="Bakery-lock"><a href="#Bakery-lock" class="headerlink" title="Bakery lock"></a>Bakery lock</h2><p>类似于银行取号，先拿个号，然后等比自己小的都服务完了，然后再自己上</p>
+<p>不一定是字典序的号，只要有一个全序即可</p>
+<p>初始化部分如下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210929091510053.png" alt="image-20210929091510053" style="zoom:80%;"></p>
+<p>lock部分如下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20210929091138281.png" alt="image-20210929091138281"></p>
+<p>Q：max不是原子操作，可能存在两个线程，取到同一个号，这时候用线程id去辅助比较</p>
+<p>unlock部分只把flag置为false，不去管label，所以label只会一直涨，保证没有重复（除非取到一个号）</p>
+<p>-</p>
+<h3 id="满足me的证明："><a href="#满足me的证明：" class="headerlink" title="满足me的证明："></a>满足me的证明：</h3><p>读label[0]~label[n-1]，写label[i]，再次读label[k]，有时间顺序</p>
+<p>如果AB同时进入临界区，假设同时进入的时候，label[A]&lt;label[B]</p>
+<p>当B进入临界区时，while条件为假，那么flag[A] = false或者flag[A] == true &amp;&amp; label[B] &lt; label[A]</p>
+<p>但是呢，已经假设过了，label[A] &lt; label[B]，所以只能是flag[A] = false</p>
+<p>既然flag[A] = false，那么有以下先后顺序推理</p>
+<p>W_B label[B] -&gt; R_B flag[A] -&gt; W_A label[A]</p>
+<p>即B的取号早于A，label[B] &lt; label[A]，与假设矛盾</p>
+<p>-</p>
+<h3 id="证明fcfs："><a href="#证明fcfs：" class="headerlink" title="证明fcfs："></a>证明fcfs：</h3><p>目标是当DA-&gt;DB时，CSA-&gt;CSB</p>
+<p>DA-&gt;DB，说明label[A] &lt; label[B]</p>
+<p>W_A flag[A] -&gt;</p>
+<p>W_A label[A] -&gt;</p>
+<p>R_B label[A] -&gt;</p>
+<p>W_B label[B] -&gt;</p>
+<p>R_B flag[A]</p>
+<p>所以B进入临界区时能看到 flag[A] = true，label[A] &lt; label[B]而被锁在门外，是A先进入临界区的。或者看到flag[A] = false而进入临界区，而此时A也已经退出临界区了</p>
+<p>。。。</p>
+<p>-</p>
+<p>label一直增长，整数溢出了怎么办？</p>
+<p>注意到不需要字典序，只需要有一个全序去标注label就行了</p>
+<h1 id="class-7"><a href="#class-7" class="headerlink" title="class-7"></a>class-7</h1><p>接上文，那么最好构造一个系统，同时满足不饥饿，并发，时间戳，不溢出</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019160958953.png" alt="image-20211019160958953"></p>
+<p>-</p>
+<p>一个有序的设计如下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019161041636.png" alt="image-20211019161041636"></p>
+<p>-</p>
+<p>两个线程的序可以用3个节点的环来表示，并非全序，因为不满足传递性（1 dominate 0，0 dominate 2，但不满足 1 dominate 2）</p>
+<p>这就是不能只有2个节点的原因：1 dominate 2，2 dominate 1，乱掉啦。需要引入第三个节点来缓冲下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019161149779.png" alt="image-20211019161149779"></p>
+<p>-</p>
+<p>三个线程的，把维度升高</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019161249751.png" alt="image-20211019161249751"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019161258467.png" alt="image-20211019161258467"></p>
+<p>处理K个线程的话需要3^(k-1)个节点</p>
+<p>用bit来表示这个数字要log_2^(3^(k-1))个bit位</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019165652394.png" alt="image-20211019165652394"></p>
+<p>-</p>
+<h3 id="对bakery-lock的思考："><a href="#对bakery-lock的思考：" class="headerlink" title="对bakery lock的思考："></a>对bakery lock的思考：</h3><p>既然他是如此的，高效，优雅，公平，为啥不实用？</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019165830305.png" alt="image-20211019165830305"></p>
+<p>TODO啥意思</p>
+<h2 id="shared-memory-问题的通用性质"><a href="#shared-memory-问题的通用性质" class="headerlink" title="shared memory 问题的通用性质"></a>shared memory 问题的通用性质</h2><p>如何解决MRSW？多个读一个写，表达意愿，需要设置flag</p>
+<p>如何解决MRMW？多个读多个写，谦让一下，需要设置victim</p>
+<p>flag[]和victim[]称为寄存器</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019170216046.png" alt="image-20211019170216046"></p>
+<h3 id="定理1"><a href="#定理1" class="headerlink" title="定理1"></a>定理1</h3><p>要解决MRSW问题，保证mutual exclusion和deadlock-free，至少需要N个flag</p>
+<p>假设只用小于N个，那没法确定A在不在临界区</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211019170559788.png" alt="image-20211019170559788"></p>
+<p>上限也顶多需要2N个寄存器，参考bakery alg</p>
+<h3 id="定理2"><a href="#定理2" class="headerlink" title="定理2"></a>定理2</h3><p>如果现在是考虑MRMW寄存器，至少需要N个</p>
+<p>（发现Writer无论是不是Multiple，都不起作用嗷）</p>
+<p>少于N个的时候，B停在要写R_B的前一刻，A进程先进入CS，然后B继续跑，A进程留给R_B R_C的痕迹会被B抹掉，C一看哦豁CS空了，那我就进去了，于是AC同时处于CS了</p>
+<p>-</p>
+<p>总结</p>
+<p>1960s提出了很多不正确的解决me和df的算法</p>
+<p>N个ReadWrite-Registers不高效，因为write会cover old write</p>
+<p>需要更强的硬件操作来避免covering问题（下节课的内容）</p>
+<p>-</p>
+<p>如何定义并发算法的正确性？</p>
+<h2 id="safety和liveness的对比"><a href="#safety和liveness的对比" class="headerlink" title="safety和liveness的对比"></a>safety和liveness的对比</h2><p>safety是有限步内能检测的性质，liveness无法有限步检测出来</p>
+<p>safety认为：如果坏事发生，那么在之前已经发生。如果没有坏事发生，只有当所有前缀都不发生坏事时才成立</p>
+<p>liveness认为：不管前面发生了什么事，现在发生了一件好事，那之后还会再次发生好事</p>
+<p>mutual exclusion，bounded overtaking都是safety的，（只要发生了一次坏事，比如两个进程进CS了，被抢了不止r次，那就完了）</p>
+<p>starvation free，deadlock free都是liveness的（即使单个线程饿了好久，但只要别饿到死，最终能进CS，就可以了）</p>
+<p>-</p>
+<h1 id="class-8"><a href="#class-8" class="headerlink" title="class-8"></a>class-8</h1><h2 id="并发对象的实现探索，queue为例"><a href="#并发对象的实现探索，queue为例" class="headerlink" title="并发对象的实现探索，queue为例"></a>并发对象的实现探索，queue为例</h2><p>如果要实现一个mutual exclusive的queue，最简单的办法是在enq和deq的时候加锁释放锁</p>
+<p>假如不让用锁呢？</p>
+<p>简化一下，只有两个线程，一个只做enq，一个只做deq，这样是一个生产者消费者模型</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020113929771.png" alt="image-20211020113929771"></p>
+<p>-</p>
+<h2 id="如何定义并发对象实现的正确性？"><a href="#如何定义并发对象实现的正确性？" class="headerlink" title="如何定义并发对象实现的正确性？"></a>如何定义并发对象实现的正确性？</h2><p>首先来看顺序执行的对象，有状态</p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020111421669.png" alt="image-20211020111421669"></p>
+<p>-</p>
+<p>例如队列，出队操作，precondition可能是队列为空或者队列不为空，分开讨论</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020111809100.png" alt="image-20211020111809100"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020111837374.png" alt="image-20211020111837374"></p>
+<p>-</p>
+<p>再看看并发算法</p>
+<p>方法调用要花时间（这页干嘛的？噢噢，串行程序花时间不care，因为是一个接一个，并发程序就要考虑重叠了）</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020112400077.png" alt="image-20211020112400077"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020112533916.png" alt="image-20211020112533916"></p>
+<p>-</p>
+<p>对比一下</p>
+<p>串行程序互不打扰，新增方法不影响老方法；并发程序互相干扰，新增方法干扰老方法。</p>
+<p>串行程序有状态，并发程序时间重叠</p>
+<p>串行程序的方法可以单独描述，并发程序要考虑所有可能的执行次序</p>
+<p>-</p>
+<h2 id="如何确定并发对象是对的呢？"><a href="#如何确定并发对象是对的呢？" class="headerlink" title="如何确定并发对象是对的呢？"></a>如何确定并发对象是对的呢？</h2><p><img src="/2021/11/18/并发算法与理论笔记/image-20211020113131830.png" alt="image-20211020113131830"></p>
+<h2 id="queue"><a href="#queue" class="headerlink" title="queue"></a>queue</h2><p><img src="/2021/11/18/并发算法与理论笔记/image-20211020113203515.png" alt="image-20211020113203515"></p>
+<p>-</p>
+<p>lock unlock可以保证enq的绿色部分和deq的黄色部分没有重叠</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020121832022.png" alt="image-20211020121832022"></p>
+<p>-</p>
+<h2 id="linearizability"><a href="#linearizability" class="headerlink" title="linearizability"></a>linearizability</h2><p>可线性化的性质，线性一致性</p>
+<p>找一个特殊的时间点（例如上面图里的绿和黄），如果sequential behavior是正确的，那么object就是正确的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020122043262.png" alt="image-20211020122043262"></p>
+<p>-</p>
+<p>一个valid的例子</p>
+<p>规划一下，先enq(x)，再enq(y)，再deq(x)，再deq(y)，是满足的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020122925196.png" alt="image-20211020122925196"></p>
+<p>一个invliad的例子，整个enq(x)早于enq(y)，所以不可能先deq出y</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020123015745.png" alt="image-20211020123015745"></p>
+<p>-</p>
+<p>又一个例子，linearizability不关心method是否结束，所以这个例子是ok的。</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020123124360.png" alt="image-20211020123124360"></p>
+<p>-</p>
+<p>enq deq都是并发的情况，答案不唯一</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020123404858.png" alt="image-20211020123404858"></p>
+<p>-</p>
+<p>换个模型，这个invalid</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020123507386.png" alt="image-20211020123507386"></p>
+<p>-即使红色的read(1)也是做不到的<img src="/2021/11/18/并发算法与理论笔记/image-20211020123728653.png" alt="image-20211020123728653"></p>
+<p>-但read2就是可以做到的</p>
+<p>-</p>
+<p>现在问题就是，如何找出method里这个特殊的，起决定性作用的点？（linearization point）</p>
+<p>-一些例子可以找，但是还有些例子和具体执行相关</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020124233780.png" alt="image-20211020124233780"></p>
+<p>-</p>
+<h3 id="invocation-amp-response"><a href="#invocation-amp-response" class="headerlink" title="invocation &amp; response"></a>invocation &amp; response</h3><p>上面都是例子，现在想正式定义一下linearizability，那得先定义一下什么是execution</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020124720256.png" alt="image-20211020124720256"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020124910104.png" alt="image-20211020124910104"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020124937132.png" alt="image-20211020124937132"></p>
+<ul>
+<li>知道thread就可以知道这个q是调用谁的了，所以method name是隐含的</li>
+</ul>
+<p>-</p>
+<p>invocation和response要配对</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020155525086.png" alt="image-20211020155525086"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020155536731.png" alt="image-20211020155536731"></p>
+<p>-</p>
+<p>除此之外，可以做projection，直译是投影</p>
+<p>比如H|B，就是保留B线程的内容，剔除A线程的内容</p>
+<p>H|q，就是保留对象q的内容，剔除p的内容</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020155641495.png" alt="image-20211020155641495" style="zoom:50%;"></p>
+<p>-</p>
+<h3 id="complete-subhistory"><a href="#complete-subhistory" class="headerlink" title="complete subhistory"></a>complete subhistory</h3><p>定义complete subhistory</p>
+<p>像下图这种没配对的，属于pending invocation，可能生效也可能没生效，要把它丢掉</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020160442073.png" alt="image-20211020160442073"></p>
+<p>-</p>
+<h3 id="sequential-histories"><a href="#sequential-histories" class="headerlink" title="sequential histories"></a>sequential histories</h3><p>最后也有一个pending，但是没关系，这是顺序的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020160721264.png" alt="image-20211020160721264"></p>
+<p>-</p>
+<h3 id="well-formed-histories"><a href="#well-formed-histories" class="headerlink" title="well-formed histories"></a>well-formed histories</h3><p><img src="/2021/11/18/并发算法与理论笔记/image-20211020160839112.png" alt="image-20211020160839112"></p>
+<p>-</p>
+<h3 id="equivalent-histories"><a href="#equivalent-histories" class="headerlink" title="equivalent histories"></a>equivalent histories</h3><p>线程看到的东西是一样的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020161038728.png" alt="image-20211020161038728"></p>
+<p>-</p>
+<h3 id="sequential-specifications"><a href="#sequential-specifications" class="headerlink" title="sequential specifications"></a>sequential specifications</h3><p>ss就是在说一个单线程单object的history是否legal</p>
+<p>legal是怎么定义的。。噢想起来了，就是上面说的，比如enq(3) deq(3)，就是合法，enq(3) deq(99)就是非法，要找出一个顺序让并发object合理</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020163212648.png" alt="image-20211020163212648"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020163244700.png" alt="image-20211020163244700"></p>
+<p>-</p>
+<h3 id="method的先序关系"><a href="#method的先序关系" class="headerlink" title="method的先序关系"></a>method的先序关系</h3><p>要想把concurrent history map成 sequential history，要满足首先是equivalent的</p>
+<p>先序关系precedes的定义：一个method的return，在另一个method的invocation之前</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020163443934.png" alt="image-20211020163443934"></p>
+<p>-</p>
+<p>非先序关系：有overlap了</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020163626029.png" alt="image-20211020163626029"></p>
+<p>-</p>
+<p>notation（符号）来表示有先后顺序的method call</p>
+<p>这个顺序说是一个偏序吗，我觉得不是，不满足自反性啊，可能是并发这门课里的定义的吧。。（不满足A-&gt;A也行）</p>
+<p>如果想要全序，那H得是一个串行的程序</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020171045584.png" alt="image-20211020171045584"></p>
+<p>-</p>
+<p>以上都是linearizability的铺垫</p>
+<p>一个history H，要给他添加pending的response，或者去掉这些pending，变成一个G</p>
+<p>然后找出一个legal sequential history S，G要求满足equivalent S，先序关系也要在S上出现</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020164049409.png" alt="image-20211020164049409"></p>
+<p>-</p>
+<p>解释一下-&gt;G &lt;= -&gt;S</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020164839380.png" alt="image-20211020164839380"></p>
+<p>-</p>
+<p>注意事项</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020164954703.png" alt="image-20211020164954703"></p>
+<p>-</p>
+<p>一个例子，其中第一条和最后一条是pending</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020165041002.png" alt="image-20211020165041002"></p>
+<p>-</p>
+<p>随便选个策略，给A补一个void，把B enq(6)的丢掉</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020165242691.png" alt="image-20211020165242691"></p>
+<p>-</p>
+<p>只要先enq(4)，再enq(3)就行了</p>
+<p>然后看equivalent，看S|A和S|B是不是依然一样，那显然ok，语序没变过嘛</p>
+<p>然后看先序关系，线程内部的语序由equivalent保证了，线程之间的呢？</p>
+<p>左边的G里面AB间没有先序关系，所以右边的S里怎么搞都行</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020165445908.png" alt="image-20211020165445908"></p>
+<p>-</p>
+<h2 id="Composability-Theorem"><a href="#Composability-Theorem" class="headerlink" title="Composability Theorem"></a>Composability Theorem</h2><p>重要定理，多个object的时候，只要保证每个object是linearizability的，那么整体就是linearizability</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020165803116.png" alt="image-20211020165803116"></p>
+<p>-</p>
+<p>这个定理好，好在模块化，拆开考虑各个object即可</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020165921504.png" alt="image-20211020165921504"></p>
+<p>-</p>
+<p>回过头看看queue的实现，找一下linearization point</p>
+<p>lock之后，unlock之前随便找一个点就行了</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211020170147465.png" alt="image-20211020170147465"></p>
+<h1 id="class-9"><a href="#class-9" class="headerlink" title="class-9"></a>class-9</h1><h2 id="回顾一下linearizable"><a href="#回顾一下linearizable" class="headerlink" title="回顾一下linearizable"></a>回顾一下linearizable</h2><p>对象的linearizable的定义如下：</p>
+<p>linearizable(o, spec) iff</p>
+<p>$\forall$ histories(o), linearizable(H,spec)</p>
+<p>linearizable(H,spec) iff</p>
+<p>$\exist$ G，completion(H, G)</p>
+<p>且$\exist$ S，sequential(S)且valid(s, spec)</p>
+<p>且$\forall$ A，G|A $\subset$ S|A</p>
+<p>且$\rightarrow_G$ $\subseteq$ $\rightarrow_S$</p>
+<hr>
+<p>整体的linearizable，只要每个部件的linearizable就行</p>
+<p>-</p>
+<p>但无法枚举所有histories，怎么办？</p>
+<p>找程序里的linearization point（LP）</p>
+<p>-</p>
+<p>有的linearizable的object没有固定的LP，LP依赖于具体的执行（作业A3里提到）</p>
+<p>-</p>
+<h2 id="sequential-consistency"><a href="#sequential-consistency" class="headerlink" title="sequential consistency"></a>sequential consistency</h2><p>不同于linearizability</p>
+<p>method内部的代码不能改</p>
+<p>同一个线程的operation顺序不能改</p>
+<p>不同线程的不重叠的operation顺序可以改</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027085152729.png" alt="image-20211027085152729"></p>
+<p>-</p>
+<p>例如，这个例子里， 不是linearizable的，但是把enq(x)和enq(y)位置交换，可以满足，所以是sequential consistent的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027090804099.png" alt="image-20211027090804099"></p>
+<p>-</p>
+<p>SC没有composability组合性，例如下面，</p>
+<p>H|p和H|q都满足SC，但是他俩SC的条件里，p.enq(y)-&gt;p.enq(x)，q.enq(x)-&gt;q.enq(y)</p>
+<p>结合已有的顺序p.enq(x)-&gt;q.enq(x)，q.enq(y)-&gt;p.enq(y)，成了环</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027111443817.png" alt="image-20211027111443817"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027111454930.png" alt="image-20211027111454930"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027091550558.png" alt="image-20211027091550558"></p>
+<p>-</p>
+<p>写自己，读对方，是很多mutual exclsion算法的核心</p>
+<p>non-negotiable是不可协商的意思</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027092224221.png" alt="image-20211027092224221"></p>
+<p>-</p>
+<p>硬件上的SC代价昂贵</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027092431768.png" alt="image-20211027092431768"></p>
+<p>-</p>
+<p>现代多核处理器，读写内存一般是先读写cache，即使如此也比指令执行要慢</p>
+<p>程序员自己设置memory barrier，额外的指令等来做sync</p>
+<p>-</p>
+<p>linear，这门课以后的算法都用linear作为标准</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027093026675.png" alt="image-20211027093026675"></p>
+<p>-</p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027094156949.png" alt="image-20211027094156949"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027094216683.png" alt="image-20211027094216683"></p>
+<p>-</p>
+<h2 id="06-ppt"><a href="#06-ppt" class="headerlink" title="06 ppt"></a>06 ppt</h2><p>wait-free是无锁的</p>
+<p>怎么实现呢</p>
+<p>像环形FIFO queue，无锁</p>
+<p>-</p>
+<p>共识</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027095027317.png" alt="image-20211027095027317"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211027095008829.png" alt="image-20211027095008829"></p>
+<p>-</p>
+<h1 id="class-10"><a href="#class-10" class="headerlink" title="class-10"></a>class-10</h1><h2 id="consensus"><a href="#consensus" class="headerlink" title="consensus"></a>consensus</h2><p>寻找一个新问题，叫consensus：多个线程决定一个输入的问题，达成共识。</p>
+<p>-</p>
+<p>consensus有性质：不能被register实现</p>
+<p>但consensus可以被queue实现，所以推理出queue不能被register实现？</p>
+<p>-</p>
+<p>consensus作为一个中间人，上面的queue可以换成其他对象object，如果能证明object能实现consensus，那就能证明register不能实现object</p>
+<p>-</p>
+<p>consensus的核心是一个decide(v)函数，要求先写（写指的是propose函数）的人返回自己写的值，后调用的人返回对方写的值</p>
+<p>下面看看这些object都可以是哪些</p>
+<h2 id="FIFO-x-consensus"><a href="#FIFO-x-consensus" class="headerlink" title="FIFO x consensus"></a>FIFO x consensus</h2><p><img src="/2021/11/18/并发算法与理论笔记/image-20211103082015878.png" alt="image-20211103082015878"></p>
+<p>只针对两个线程的情况即可证明</p>
+<p>思路这样，红球先被拿出来，黑球后被拿出来。所以拿到黑球的thread就知道，对方已经propose value了，然后才拿到红球，所以自己decide读到对方的value，很正确。</p>
+<p>这个核心在于先propose，再取球</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211117115701582.png" alt="image-20211117115701582"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103082213094.png" alt="image-20211103082213094"></p>
+<p>-</p>
+<h2 id="consensus-number"><a href="#consensus-number" class="headerlink" title="consensus number"></a>consensus number</h2><p>定义，如果一个object（附加若干寄存器）可以解决n-thread的consensus，并且不能解决n+1-thread，那就说他的consensus nmber是n</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103082623510.png" alt="image-20211103082623510"></p>
+<p>-</p>
+<p>一些性质：</p>
+<ul>
+<li>如果能用X实现Y，那么cn(Y) &gt;= cn(X)</li>
+<li>如果cn(Y) &gt; cn(X)，那么不可能用Y实现wait-free的X</li>
+</ul>
+<p>-</p>
+<h2 id="mutiple-assignment-x-FIFO"><a href="#mutiple-assignment-x-FIFO" class="headerlink" title="mutiple assignment x FIFO"></a>mutiple assignment x FIFO</h2><p>mutiple assignment不能用register实现</p>
+<p>multiple assignment：多个线程同时对数组里的多个元素进行写</p>
+<p>3个元素的数组，A线程写a[0]和a[1]，B线程写a[1]和a[2]</p>
+<p>-</p>
+<p>思路，来的thread，assgin过后，看看对方该写的a[0]（或者a[2]）是不是空，或者对方写的a[1]和自己一样，是的话就自己是先来的，返回自己写的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103090052046.png" alt="image-20211103090052046"></p>
+<p>-</p>
+<h2 id="read-modify-write-object"><a href="#read-modify-write-object" class="headerlink" title="read-modify-write object"></a>read-modify-write object</h2><p>原子地：读旧值，更新旧值，返回旧值</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103090520210.png" alt="image-20211103090520210"></p>
+<p>-</p>
+<p>例子</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103090653080.png" alt="image-20211103090653080"></p>
+<p>-</p>
+<p>例子</p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103091047609.png" alt="image-20211103091047609"></p>
+<p>rmw的consensus number是多少呢？</p>
+<p>-</p>
+<p>首先定义什么是non-trival的rmw</p>
+<p>non-trival就是存在一个v，使得v != mumble(v)</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103091435252.png" alt="image-20211103091435252"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103091452300.png" alt="image-20211103091452300"></p>
+<p>-</p>
+<p>结论</p>
+<p>non-trivial RMW的consensus number至少有2</p>
+<p>-</p>
+<p>思路：thread来了之后get一下旧值，更新一下non-trivial新值，如果得到的旧值和初始值一样，那就说明我是第一个来的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103092134507.png" alt="image-20211103092134507"></p>
+<p>-</p>
+<p>有两种mumble function的consensus number就是2，这两种分别是</p>
+<ul>
+<li>commute型</li>
+<li>overwrtie型</li>
+</ul>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103092909820.png" alt="image-20211103092909820"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103092945548.png" alt="image-20211103092945548"></p>
+<p>-</p>
+<p>但是，compareAndSet(expect, update)就比较厉害，他的consensus number是无穷大，实现如下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103093348598.png" alt="image-20211103093348598"></p>
+<p>-</p>
+<p>证明如下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103093405629.png" alt="image-20211103093405629"></p>
+<p>-</p>
+<p>总结下</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103093437356.png" alt="image-20211103093437356"></p>
+<p>-</p>
+<h2 id="lock-free-vs-wait-free"><a href="#lock-free-vs-wait-free" class="headerlink" title="lock-free vs wait-free"></a>lock-free vs wait-free</h2><p>wait-free的实现一定是lock-free的</p>
+<p>就像lockout-free（就是starvation free）一定是deadlock-free一样</p>
+<p>-</p>
+<p>consensus是很有用的</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211103094352811.png" alt="image-20211103094352811"></p>
+<h2 id="07-ppt"><a href="#07-ppt" class="headerlink" title="07 ppt"></a>07 ppt</h2><p>处理MIMD的问题</p>
+<h1 id="class-11-Spin-Lock"><a href="#class-11-Spin-Lock" class="headerlink" title="class-11 Spin Lock"></a>class-11 Spin Lock</h1><h2 id="spin-lock的定义"><a href="#spin-lock的定义" class="headerlink" title="spin lock的定义"></a>spin lock的定义</h2><p><img src="/2021/11/18/并发算法与理论笔记/image-20211110080435467.png" alt="image-20211110080435467"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spin_lock() &#123;</span><br><span class="line">	look() &#123;</span><br><span class="line">		while(...)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>-</p>
+<h2 id="Test-and-Set"><a href="#Test-and-Set" class="headerlink" title="Test and Set"></a>Test and Set</h2><p><code>bool test_and_set(bool new)</code> </p>
+<p>只用一个共享变量（一个Read-modify-write register）</p>
+<p>操作：取出旧值，设置新值，返回旧值</p>
+<p>锁free：旧值是false</p>
+<p>锁taken：旧值是true</p>
+<p>开锁：重置锁为false</p>
+<p>-</p>
+<p>根据之前课上的定理，似乎需要n个register才能搞定n个线程的锁，但这里我们用1个register就搞定了，为什么？</p>
+<blockquote>
+<p>因为这里的register是Read-modify-write register，consensus number=2，之前说的是read-write register，consensus number=1</p>
+</blockquote>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110081548266.png" alt="image-20211110081548266"></p>
+<p>-</p>
+<p>TAS的理想表现：线程数-花费时间，当线程数增加时花费时间不变</p>
+<p>但实际上增长非常快，为什么？</p>
+<p>先看TAS的变体：test-and-test-and-set</p>
+<h2 id="Test-and-Test-and-Set"><a href="#Test-and-Test-and-Set" class="headerlink" title="Test and Test and Set"></a>Test and Test and Set</h2><p>在tas之前增加一个test，在test看到false（锁free）的时候去跑TAS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lock() &#123;</span><br><span class="line">	while (true) &#123;</span><br><span class="line">		while (test()) ;</span><br><span class="line">		if (!test_and_set()) &#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TTAS的表现：</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110083227359.png" alt="image-20211110083227359"></p>
+<p>看上去有点奇怪，TTAS明明做了更多的操作，为啥还快呢？</p>
+<blockquote>
+<p>因为每个线程有自己的cache，如果只读cache的话，代价比set memory低很多</p>
+</blockquote>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110083904905.png" alt="image-20211110083904905"></p>
+<p>-</p>
+<p>TAS上锁：当一个线程set共享变量的时候，他会invalidate其他线程的cache，和memory，这样其他线程下次read的时候就发生cache miss，得重新通过bus去memory里取</p>
+<p>TAS开锁：又要set了，要通过bus。但可能其他线程之前因为cache miss还在使用bus，所以开锁线程也要等待bus使用完毕</p>
+<p>-</p>
+<p>TTAS上锁：test阶段只从cache里读，如果锁没被改的话，就不需要走bus，也不会invalidate其他线程的cache</p>
+<p>TTAS开锁：比TAS有更严重的问题，开锁后，其他线程全miss，重新load memory，然后看到false，那就准备进入TAS，假设其他线程都卡在进入TAS之前的地方。第一个执行TAS的成功拿到锁，再invalidate其他线程，第二个执行TAS的线程再次invalidate其他线程，进入新循环，第三个同第二个，。。。</p>
+<blockquote>
+<p>出现开锁问题的原因是，如果一轮尝试TTAS失败后（看到的false是假的），立刻进行下一轮尝试。如果尝试失败后，休息一会再来试试呢</p>
+</blockquote>
+<h2 id="Backoff"><a href="#Backoff" class="headerlink" title="Backoff"></a>Backoff</h2><p>在TTAS的基础上，引入一个随机等待时间</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110092003744.png" alt="image-20211110092003744"></p>
+<p>效果比TTAS好</p>
+<h2 id="Anderson-Queue-Lock"><a href="#Anderson-Queue-Lock" class="headerlink" title="Anderson Queue Lock"></a>Anderson Queue Lock</h2><p>给线程排个队，每个线程处于数组中的一个slot，第一个slot开锁后把锁交给第二个slot（设置第二个slot为true）</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110092810209.png" alt="image-20211110092810209"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110093040088.png" alt="image-20211110093040088"></p>
+<p>-</p>
+<p>表现很好，FIFO，starvation free</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110093205996.png" alt="image-20211110093205996"></p>
+<p>-</p>
+<p>不好的地方</p>
+<ul>
+<li>需要长度n的数组</li>
+<li>如果不知道线程个数呢，该设置多大呢</li>
+<li>如果设置很大了，但只有很少线程在工作呢</li>
+</ul>
+<p>-</p>
+<p>改成linked list就行了</p>
+<p>-</p>
+<p>Anderson Queue Lock符合如下的格式，lineariable point在L=true;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bool L = false;</span><br><span class="line"></span><br><span class="line">lock() &#123;</span><br><span class="line">	while (L);</span><br><span class="line">	L = true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">unlock() &#123;</span><br><span class="line">	L = false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CLH-Lock"><a href="#CLH-Lock" class="headerlink" title="CLH Lock"></a>CLH Lock</h2><p>把anderson的array改成linked list</p>
+<p>但不是显式的linked list，注意到我们在上面的anderson里，数组里只用到next，保持next的增长和开锁后通知下一个slot即可，所以可能不需要显式的指针指向下一个。维护好链表的tail就好了</p>
+<p>-</p>
+<p>所有线程共享一个tail，初值为QNode(false)</p>
+<p>每个线程维护2个指针，一个是自己的QNode my，一个是前驱的QNode pred。</p>
+<blockquote>
+<p>为什么要用QNode指针而不是直接boolean值？因为这样可以把更新传递给前驱</p>
+</blockquote>
+<p>上锁：设置my指向的对象为true，tail指向my指向的对象，pred指向tail，my和tail的指向交换的结果存在pred里，然后等待pred里的对象变成false（tail的初始false，或者被别的线程的my开锁变为false）。</p>
+<p>开锁：my设置false（实际也变更了tail指向的对象，这就是真的开锁），my指向pred（之前的tail，反正肯定是false，但，是什么无所谓，只是之后复用空间才用得到，毕竟lock时候会直接设置my为true）</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110104218455.png" alt="image-20211110104218455"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110104257195.png" alt="image-20211110104257195"></p>
+<p>-</p>
+<p>空间只要L+N，为啥呢，在有多个锁的情况下，他想重用QNode，主要是my指向的QNode</p>
+<p>但我感觉就考虑下一个锁就行了，一个线程里有多个锁的，那不还得顺序执行吗，那同一时间只有一个锁生效，这个L个锁是真没啥必要讨论？</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211110103410900.png" alt="image-20211110103410900"></p>
+<p>-</p>
+<p>CLH Lock的好处</p>
+<ul>
+<li>mutual exclusion</li>
+<li>starvation free</li>
+<li><strong>first come first served</strong></li>
+<li>lineariable</li>
+<li>空间使用率高</li>
+<li>不需要事先确定线程数n</li>
+</ul>
+<p>不好的地方</p>
+<ul>
+<li>在没cache的架构下（NUMA：non-uniform-memory-architecture）表现不好（有线程cache的情况，pred指向的节点，是线程的local memory，那么spin就很快。没cache的情况下，pred指向的节点，是其他处理器的remote memory，spin会很慢）</li>
+</ul>
+<p>-</p>
+<p>如何改进cacheless架构下的表现？看MCS Lock</p>
+<h1 id="class-12"><a href="#class-12" class="headerlink" title="class-12"></a>class-12</h1><h2 id="MCS-Lock"><a href="#MCS-Lock" class="headerlink" title="MCS Lock"></a>MCS Lock</h2><p>CLH是pred连接前驱的链表，MCS要做的是next连接后继的链表？</p>
+<p>CLH是等着pred的节点开锁时更新，然后这个更新通过bus传递到后继的local cache，然后后继得以拿到锁。后继节点的spin完全依赖于前驱节点</p>
+<p>MCS是开锁时通知后继节点，后继节点的spin只在local cache上spin，不会那么依赖前驱节点，所以在NUMS架构下也会表现好。</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211117092017654.png" alt="image-20211117092017654"></p>
+<p>-</p>
+<p>拿锁：</p>
+<p>注意qnode definition的位置，是在lock的内部，纯纯local memory</p>
+<p>如果tail=null，说明现在无线程，直接进入临界区</p>
+<p>如果tail有指向，那就把自己链入链表，然后等pred开锁</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211117092033645.png" alt="image-20211117092033645"></p>
+<p>-</p>
+<p>开锁：qnode.next=null时，并不代表真的没有后继节点，可能是后继节点还没来得及链入链表（未执行pred.next = qnode），所以需要判定一下</p>
+<p>CAS是什么？compare and swap，如果tail == qnode，那tail = null，return true，否则啥也不做并return falsee。这个指令比较消耗时间，所以放在内层的if里。</p>
+<p>判断是不是真的没有后继节点（如果有后继set了tail但未链入qnode.next，tail是会被改变成其他线程的qnode的）</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211117092116587.png" alt="image-20211117092116587"></p>
+<p>-</p>
+<h2 id="Abortable-Locks"><a href="#Abortable-Locks" class="headerlink" title="Abortable Locks"></a>Abortable Locks</h2><p>如果有一个线程等着等着不想等了，退出了，怎么办？</p>
+<h3 id="TAS，TTAS，Backoff-Lock"><a href="#TAS，TTAS，Backoff-Lock" class="headerlink" title="TAS，TTAS，Backoff Lock"></a>TAS，TTAS，Backoff Lock</h3><p>都没问题，因为他们的lock函数return时，完全不影响其他线程</p>
+<h3 id="CLH-Lock-gt-Time-out-Lock"><a href="#CLH-Lock-gt-Time-out-Lock" class="headerlink" title="CLH Lock -&gt; Time-out Lock"></a>CLH Lock -&gt; Time-out Lock</h3><p>放弃的节点不能直接quit，因为lock state需要沿着链传递，直接quit的话后继节点就会饿死</p>
+<p>改一下mcs lock，叫time-out lock</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211117094805279.png" alt="image-20211117094805279"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211117094907054.png" alt="image-20211117094907054" style="zoom:80%;"></p>
+<p>-</p>
+<p><img src="/2021/11/18/并发算法与理论笔记/image-20211117111558865.png" alt="image-20211117111558865"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/15/软件分析笔记/" rel="next" title="软件分析笔记">
+                <i class="fa fa-chevron-left"></i> 软件分析笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/rabbit_true.jpg" alt="oxygen-hunter">
+            
+              <p class="site-author-name" itemprop="name">oxygen-hunter</p>
+              <p class="site-description motion-element" itemprop="description">E = MC^2, Errors = (More Code)^2</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/oxygen-hunter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiao.li@smail.nju.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://purecall.github.io/" title="vct" target="_blank">vct</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kmuay.com/" title="kmuay" target="_blank">kmuay</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#class-1"><span class="nav-number">1.</span> <span class="nav-text">class-1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-2"><span class="nav-number">2.</span> <span class="nav-text">class-2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-3"><span class="nav-number">3.</span> <span class="nav-text">class-3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-4"><span class="nav-number">4.</span> <span class="nav-text">class-4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-5"><span class="nav-number">5.</span> <span class="nav-text">class-5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mutual-exclusion"><span class="nav-number">5.1.</span> <span class="nav-text">mutual exclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fliter-lock"><span class="nav-number">5.2.</span> <span class="nav-text">fliter lock</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-6"><span class="nav-number">6.</span> <span class="nav-text">class-6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#证明filter-lock是me的："><span class="nav-number">6.0.1.</span> <span class="nav-text">证明filter lock是me的：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证明filter-lock是starvation-free的："><span class="nav-number">6.0.2.</span> <span class="nav-text">证明filter lock是starvation free的：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bakery-lock"><span class="nav-number">6.1.</span> <span class="nav-text">Bakery lock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#满足me的证明："><span class="nav-number">6.1.1.</span> <span class="nav-text">满足me的证明：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证明fcfs："><span class="nav-number">6.1.2.</span> <span class="nav-text">证明fcfs：</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#class-7"><span class="nav-number">7.</span> <span class="nav-text">class-7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对bakery-lock的思考："><span class="nav-number">7.0.1.</span> <span class="nav-text">对bakery lock的思考：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shared-memory-问题的通用性质"><span class="nav-number">7.1.</span> <span class="nav-text">shared memory 问题的通用性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定理1"><span class="nav-number">7.1.1.</span> <span class="nav-text">定理1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定理2"><span class="nav-number">7.1.2.</span> <span class="nav-text">定理2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#safety和liveness的对比"><span class="nav-number">7.2.</span> <span class="nav-text">safety和liveness的对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-8"><span class="nav-number">8.</span> <span class="nav-text">class-8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#并发对象的实现探索，queue为例"><span class="nav-number">8.1.</span> <span class="nav-text">并发对象的实现探索，queue为例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何定义并发对象实现的正确性？"><span class="nav-number">8.2.</span> <span class="nav-text">如何定义并发对象实现的正确性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何确定并发对象是对的呢？"><span class="nav-number">8.3.</span> <span class="nav-text">如何确定并发对象是对的呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#queue"><span class="nav-number">8.4.</span> <span class="nav-text">queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linearizability"><span class="nav-number">8.5.</span> <span class="nav-text">linearizability</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#invocation-amp-response"><span class="nav-number">8.5.1.</span> <span class="nav-text">invocation &amp; response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#complete-subhistory"><span class="nav-number">8.5.2.</span> <span class="nav-text">complete subhistory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sequential-histories"><span class="nav-number">8.5.3.</span> <span class="nav-text">sequential histories</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#well-formed-histories"><span class="nav-number">8.5.4.</span> <span class="nav-text">well-formed histories</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#equivalent-histories"><span class="nav-number">8.5.5.</span> <span class="nav-text">equivalent histories</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sequential-specifications"><span class="nav-number">8.5.6.</span> <span class="nav-text">sequential specifications</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#method的先序关系"><span class="nav-number">8.5.7.</span> <span class="nav-text">method的先序关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composability-Theorem"><span class="nav-number">8.6.</span> <span class="nav-text">Composability Theorem</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-9"><span class="nav-number">9.</span> <span class="nav-text">class-9</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾一下linearizable"><span class="nav-number">9.1.</span> <span class="nav-text">回顾一下linearizable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sequential-consistency"><span class="nav-number">9.2.</span> <span class="nav-text">sequential consistency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#06-ppt"><span class="nav-number">9.3.</span> <span class="nav-text">06 ppt</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-10"><span class="nav-number">10.</span> <span class="nav-text">class-10</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#consensus"><span class="nav-number">10.1.</span> <span class="nav-text">consensus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FIFO-x-consensus"><span class="nav-number">10.2.</span> <span class="nav-text">FIFO x consensus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#consensus-number"><span class="nav-number">10.3.</span> <span class="nav-text">consensus number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mutiple-assignment-x-FIFO"><span class="nav-number">10.4.</span> <span class="nav-text">mutiple assignment x FIFO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read-modify-write-object"><span class="nav-number">10.5.</span> <span class="nav-text">read-modify-write object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lock-free-vs-wait-free"><span class="nav-number">10.6.</span> <span class="nav-text">lock-free vs wait-free</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#07-ppt"><span class="nav-number">10.7.</span> <span class="nav-text">07 ppt</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-11-Spin-Lock"><span class="nav-number">11.</span> <span class="nav-text">class-11 Spin Lock</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spin-lock的定义"><span class="nav-number">11.1.</span> <span class="nav-text">spin lock的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-and-Set"><span class="nav-number">11.2.</span> <span class="nav-text">Test and Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-and-Test-and-Set"><span class="nav-number">11.3.</span> <span class="nav-text">Test and Test and Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Backoff"><span class="nav-number">11.4.</span> <span class="nav-text">Backoff</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anderson-Queue-Lock"><span class="nav-number">11.5.</span> <span class="nav-text">Anderson Queue Lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLH-Lock"><span class="nav-number">11.6.</span> <span class="nav-text">CLH Lock</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-12"><span class="nav-number">12.</span> <span class="nav-text">class-12</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MCS-Lock"><span class="nav-number">12.1.</span> <span class="nav-text">MCS Lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abortable-Locks"><span class="nav-number">12.2.</span> <span class="nav-text">Abortable Locks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TAS，TTAS，Backoff-Lock"><span class="nav-number">12.2.1.</span> <span class="nav-text">TAS，TTAS，Backoff Lock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLH-Lock-gt-Time-out-Lock"><span class="nav-number">12.2.2.</span> <span class="nav-text">CLH Lock -&gt; Time-out Lock</span></a></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oxygen-hunter</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
