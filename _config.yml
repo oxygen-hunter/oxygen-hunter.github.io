@@ -5,8 +5,8 @@
 # Site
 title: 懵逼树树洞
 subtitle:
-description: 阿巴阿巴..
-keywords:
+description: E = MC^2, Errors = (More Code)^2
+keywords: program analysis, compiler, security
 author: oxygen-hunter
 language: zh-Hans
 timezone:
@@ -82,3 +82,9 @@ deploy:
   repo: https://github.com/oxygen-hunter/oxygen-hunter.github.io.git
   branch: master
 
+# Search
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000

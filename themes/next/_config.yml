@@ -128,7 +128,7 @@ scheme: Gemini
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/oxygen-hunter || github
-  #E-Mail: mailto:yourname@gmail.com || envelope
+  E-Mail: mailto:xiao.li@smail.nju.edu.cn || envelope
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
@@ -150,6 +150,7 @@ links_layout: block
 #links_layout: inline
 links:
   vct: https://purecall.github.io/
+  kmuay: https://kmuay.com/
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
