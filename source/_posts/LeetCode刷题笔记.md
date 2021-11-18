@@ -1,8 +1,8 @@
 ---
 title: LeetCode刷题笔记
 date: 2020-01-27 09:35:45
-categories:
-tags:
+categories: Algorithm
+tags: LeetCode
 ---
 
 # 简单题

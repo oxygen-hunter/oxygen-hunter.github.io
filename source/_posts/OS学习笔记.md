@@ -1,10 +1,9 @@
 ---
 title: OS2019_winter
 date: 2019-01-31 22:25:52
-categories: OS
+categories: Operating System
 tags: 
-- OS
-- 复习
+- Operating System
 ---
 
 
@@ -121,7 +120,7 @@ tags:
     进入临界区前关中断，进入临界区，出临界区后开中断
 
 2. 用TS指令(test and set)
-    
+   
     反复TS代表临界区的lock变量，即“上锁”，如果该临界区空闲，会返回true，否则返回false。如果空闲，就进入临界区，否则一直反复。出临界区后lock置为true，即“开锁”。
     > TS(x)指令等价于这段代码
     ```C
@@ -135,7 +134,7 @@ tags:
         }
     }
     ```
-        
+    
 3. 用SWAP指令(在x86-64架构下是XCHG指令)
 
     一开始置临界区的lock变量为false，进程P的变量为key，置为true。交换一次lock和key("上锁")就检测一次key，如果key为false，说明临界区此时为空闲，进入临界区，出来后再次交换lock和key，即“开锁”。

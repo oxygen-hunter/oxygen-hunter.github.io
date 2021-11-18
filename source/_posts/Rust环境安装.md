@@ -4,7 +4,7 @@ date: 2019-02-03 08:47:56
 categories: Rust
 tags: 
 - Rust
-- 环境安装
+- Build
 - Ubuntu
 ---
 

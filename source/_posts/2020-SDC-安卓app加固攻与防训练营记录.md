@@ -1,8 +1,8 @@
 ---
 title: 2020 SDC 安卓app加固攻与防训练营记录
 date: 2020-10-19 08:42:17
-categories:
-tags: android reverse
+categories: Reverse Engineering
+tags: Android RE
 ---
 
 # 前期环境准备

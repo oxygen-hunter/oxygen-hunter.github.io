@@ -1,8 +1,8 @@
 ---
 title: OS讲课笔记
 date: 2020-07-10 18:20:10
-categories:
-tags:
+categories: Operating System
+tags: Operating System
 ---
 
 OS讲课笔记

@@ -1,8 +1,8 @@
 ---
 title: Java学习笔记
 date: 2020-09-23 09:58:00
-categories:
-tags:
+categories: Java
+tags: Java
 ---
 
 
