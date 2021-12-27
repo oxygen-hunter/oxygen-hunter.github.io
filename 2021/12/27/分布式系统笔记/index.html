@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Distributed System,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分布式系统笔记 40平时作业（3-4大作业，20-30天完成一个，每个10-15分），60%期末闭卷考试 class-1分布式的课程很多，内容很多 主要教材：分布式系统：原理和范型distributed systems: principles and paradigms 2nd edition, prentice hall, 2007 参考：distributed systems: concept">
+<meta name="keywords" content="Distributed System">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式系统笔记">
+<meta property="og:url" content="http://yoursite.com/2021/12/27/分布式系统笔记/index.html">
+<meta property="og:site_name" content="懵逼树树洞">
+<meta property="og:description" content="分布式系统笔记 40平时作业（3-4大作业，20-30天完成一个，每个10-15分），60%期末闭卷考试 class-1分布式的课程很多，内容很多 主要教材：分布式系统：原理和范型distributed systems: principles and paradigms 2nd edition, prentice hall, 2007 参考：distributed systems: concept">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20210924081938244.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20210924090138056.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20210924090636795.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20210924091812437.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008082109872.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008082727961.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008084043194.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008084551134.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008084858151.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008085024951.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008085302542.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008085549844.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008091336962.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008093034204.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008093905309.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008094416641.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211008094635554.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015082228780.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015083337877.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015091341826.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015091621109.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015092006833.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015092603204.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015092629886.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015093125389.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015093603593.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015093715120.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211015094937092.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022083039753.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022084621930.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022084752957.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022084951977.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022091925200.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022092738616.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022092853985.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022093600176.png">
+<meta property="og:updated_time" content="2021-12-27T07:45:22.193Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式系统笔记">
+<meta name="twitter:description" content="分布式系统笔记 40平时作业（3-4大作业，20-30天完成一个，每个10-15分），60%期末闭卷考试 class-1分布式的课程很多，内容很多 主要教材：分布式系统：原理和范型distributed systems: principles and paradigms 2nd edition, prentice hall, 2007 参考：distributed systems: concept">
+<meta name="twitter:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20210924081938244.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/12/27/分布式系统笔记/">
+
+
+
+
+
+  <title>分布式系统笔记 | 懵逼树树洞</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">懵逼树树洞</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/27/分布式系统笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oxygen-hunter">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/juyoujing.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="懵逼树树洞">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分布式系统笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-27T15:43:47+08:00">
+                2021-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/system/" itemprop="url" rel="index">
+                    <span itemprop="name">system</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读量：
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>分布式系统笔记</p>
+<p>40平时作业（3-4大作业，20-30天完成一个，每个10-15分），60%期末闭卷考试</p>
+<h1 id="class-1"><a href="#class-1" class="headerlink" title="class-1"></a>class-1</h1><p>分布式的课程很多，内容很多</p>
+<p>主要教材：分布式系统：原理和范型distributed systems: principles and paradigms 2nd edition, prentice hall, 2007</p>
+<p>参考：distributed systems: concepts and design, 4th edition, addison-wesley, 2005</p>
+<p>-</p>
+<p>分布式系统：几台机器，对用户来说看起来好像是一个系统，是一个中间层</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20210924081938244.png" alt="image-20210924081938244" style="zoom:80%;"></p>
+<p>-</p>
+<p>为什么需要分布式？</p>
+<ul>
+<li>经济，可以用小破电脑叠加</li>
+<li>速度</li>
+<li>。。看课件</li>
+</ul>
+<p>-</p>
+<p>分布式系统的任务</p>
+<ul>
+<li>资源可用，利用起来</li>
+<li>透明性，对用户来说只看到一个单一系统</li>
+<li>开放，接口简单</li>
+<li>可扩展性</li>
+</ul>
+<p>-</p>
+<p>分布式系统只提供机制，不提供策略（策略和业务相关联）</p>
+<p>（例如，TCP IP是传输机制，滑动窗口是策略）</p>
+<p>Qos：quality of service</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20210924090138056.png" alt="image-20210924090138056" style="zoom:80%;"></p>
+<p>-</p>
+<p>规模上，可扩展性上</p>
+<ul>
+<li>用户数量/处理器数量</li>
+<li>节点之间的最大地理距离</li>
+<li>管理权限层次性（中心节点，次一级，再次一级）</li>
+</ul>
+<p><img src="/2021/12/27/分布式系统笔记/image-20210924090636795.png" alt="image-20210924090636795"></p>
+<p>-</p>
+<p>grid要求最好是同构的</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20210924091812437.png" alt="image-20210924091812437"></p>
+<h1 id="class-2"><a href="#class-2" class="headerlink" title="class-2"></a>class-2</h1><p>讲architectural</p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>层次式系统：</p>
+<ul>
+<li><p>首先，各个节点要连接起来，网络层的那一套比较薄弱，需要搭一套消息通信。</p>
+</li>
+<li><p>然后，备份系统，备几份，备份多久等等。</p>
+</li>
+<li><p>层次式递进。</p>
+</li>
+</ul>
+<p>面向对象系统</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008082109872.png" alt="image-20211008082109872"></p>
+<p>—</p>
+<h2 id="风格"><a href="#风格" class="headerlink" title="风格"></a>风格</h2><p><img src="/2021/12/27/分布式系统笔记/image-20211008082727961.png" alt="image-20211008082727961"></p>
+<p>风格</p>
+<p>-</p>
+<h2 id="组织"><a href="#组织" class="headerlink" title="组织"></a>组织</h2><p>分布式系统的组织organization</p>
+<ul>
+<li>centralized：一组节点作为管理者/管理组</li>
+<li>decentralized：所有节点自己管理自己</li>
+<li>hybrid</li>
+</ul>
+<p>-</p>
+<p>1 单服务器</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008084043194.png" alt="image-20211008084043194"></p>
+<p>理一下一个应用跑到服务器经过了多少层</p>
+<p>该架构的问题</p>
+<ul>
+<li>服务器限制了瓶颈</li>
+<li>服务器挂了就gg</li>
+<li>服务器扩容难</li>
+</ul>
+<p>-</p>
+<p>2 多服务器</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008084551134.png" alt="image-20211008084551134"></p>
+<p>比上面的single server多了一个服务器之间的数据同步</p>
+<p>-</p>
+<p>3 代理服务器</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008084858151.png" alt="image-20211008084858151"></p>
+<p>-</p>
+<p>4 web applets（现在不用了，不安全啊）</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008085024951.png" alt="image-20211008085024951"></p>
+<p>-</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p><img src="/2021/12/27/分布式系统笔记/image-20211008085302542.png" alt="image-20211008085302542"></p>
+<p>-</p>
+<p>划分方式不同</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008085549844.png" alt="image-20211008085549844"></p>
+<p>e比如百度云之类的云盘</p>
+<p>-</p>
+<p>现在流行瘦客户端</p>
+<ul>
+<li>客户端该做哪些事，能做哪些事</li>
+</ul>
+<p>-</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008091336962.png" alt="image-20211008091336962"></p>
+<p>常规的模型</p>
+<p>-</p>
+<p>去中心化模型P2P</p>
+<ul>
+<li>结构化P2P，节点都是同构的，邻居是确定的</li>
+<li>非结构化P2P，邻居是随机挑选的</li>
+<li>混合P2P</li>
+</ul>
+<p>-</p>
+<p>P2P最后还是要落实到物理网上</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008093034204.png" alt="image-20211008093034204"></p>
+<p>环状的时候数据单向传递，为啥。。</p>
+<p>右边的图叫超立方体</p>
+<p>节点不是永久存在</p>
+<p>-</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008093905309.png" alt="image-20211008093905309"></p>
+<p>-</p>
+<p>在unstrucutured P2P的基础上选一些superpeers</p>
+<p>。</p>
+<p>-</p>
+<p>superpeer本质还是peer，不过是多做了点事。</p>
+<p>但edge server与实际peer是不一样的</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008094416641.png" alt="image-20211008094416641"></p>
+<p>-</p>
+<p>BT下载就是P2P应用</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211008094635554.png" alt="image-20211008094635554"></p>
+<h1 id="class-3"><a href="#class-3" class="headerlink" title="class-3"></a>class-3</h1><h2 id="上节课的遗留内容"><a href="#上节课的遗留内容" class="headerlink" title="上节课的遗留内容"></a>上节课的遗留内容</h2><p>P2P系统里也可以有server，就是一个机器同时充当client和server，但这样client会成为性能瓶颈</p>
+<p>-</p>
+<p>非集中式的系统，需要做到自管理</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015082228780.png" alt="image-20211015082228780"></p>
+<p>-</p>
+<p>-</p>
+<p>以下今天内容</p>
+<h2 id="Processes"><a href="#Processes" class="headerlink" title="Processes"></a>Processes</h2><p>分布式系统中的进程具体是跑在哪台机子，不关心？</p>
+<p>整个系统中运行了多少个进程？关心</p>
+<p>-</p>
+<p>进程是一个包含了状态的执行流，动态是核心</p>
+<ul>
+<li>指令流</li>
+<li>执行态的代码</li>
+<li>指令序列</li>
+<li>线程控制</li>
+</ul>
+<p>-</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015083337877.png" alt="image-20211015083337877"></p>
+<p>-</p>
+<p>进程切换</p>
+<ul>
+<li>processor context: register, stack pointer, ..</li>
+<li>thread context: </li>
+<li>。</li>
+</ul>
+<p>-</p>
+<p>线程的实现模式</p>
+<p>user-level线程切换可以不经过操作系统，但是如果线程被block的话，OS看到它所在的进程被block了，就换到下一个进程了，即该线程没法自己恢复</p>
+<p>然后可以用kernel-level线程切换了，OS看得到线程</p>
+<p>或者用折中方案，把线程映射到轻量级进程，实现复杂，理论方案罢了</p>
+<p>-</p>
+<p>多线程在分布式系统里的好处</p>
+<ul>
+<li>隐藏了网络时延：比如浏览器看网页，文字线程先出来，图片后出来，让你感觉到是在加载</li>
+<li>多线程性能提升</li>
+<li>多线程才能利用多核</li>
+<li>……</li>
+</ul>
+<p>-</p>
+<h2 id="Virtualization"><a href="#Virtualization" class="headerlink" title="Virtualization"></a>Virtualization</h2><p>以前流行虚拟机，现在流行容器，container</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015091341826.png" alt="image-20211015091341826"></p>
+<p>-</p>
+<p>先看看VirtualMachine的设计，一台物理机上面多个VM</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015091621109.png" alt="image-20211015091621109"></p>
+<p>进程VM，VM Monitor</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015092006833.png" alt="image-20211015092006833"></p>
+<p>-</p>
+<h2 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h2><p>FTP的cs例子</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015092603204.png" alt="image-20211015092603204"></p>
+<p>-</p>
+<p>一个dispatcher负责接受请求+分配请求，worker去处理</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015092629886.png" alt="image-20211015092629886"></p>
+<p>-</p>
+<p>带外数据 out of band communication：一些控制数据，量小但是很重要</p>
+<p>可能会打断正常数据，所以最好预留好带宽给这些out-of-band communication</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015093125389.png" alt="image-20211015093125389"></p>
+<p>-</p>
+<p>client和server通信时，如果没有连接状态，那么假如client断线了，重连上来的时候生成新连接，server不知道老连接不用了，也就不释放，然后就浪费了。</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015093603593.png" alt="image-20211015093603593"></p>
+<p>-</p>
+<p>cookie存在客户端上，只有一些基本信息。cookie算是stateful，但不完全是。</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015093715120.png" alt="image-20211015093715120"></p>
+<p>-</p>
+<p>？</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211015094937092.png" alt="image-20211015094937092"></p>
+<p>-</p>
+<h1 id="class-4"><a href="#class-4" class="headerlink" title="class-4"></a>class-4</h1><h2 id="middleware所处的位置"><a href="#middleware所处的位置" class="headerlink" title="middleware所处的位置"></a>middleware所处的位置</h2><p>前面半小时主要讲分布式系统夹在TCP之上，IP也会涉及</p>
+<p>主要是要设计中间件，CS模式</p>
+<p>-</p>
+<p>CS的同步点，有三个</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211022083039753.png" alt="image-20211022083039753"></p>
+<p>-</p>
+<p>永久性通信（邮件系统）和临时通信</p>
+<p>-</p>
+<p>同步点在request processing后，是同步通信，在request submission时，是异步通信</p>
+<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>remote procedure control</p>
+<p>大部分时候是同步的，对程序员来说是透明的，反正就是一个调用，而且和本地调用差不多</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211022084621930.png" alt="image-20211022084621930"></p>
+<p>-</p>
+<p>RPC的十个步骤</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211022084752957.png" alt="image-20211022084752957"></p>
+<p>-</p>
+<p>不同操作系统，不同架构，怎么传参呢</p>
+<p>语法一样，转成字节流，要求同样的编码，处理本地引用</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211022084951977.png" alt="image-20211022084951977"></p>
+<p>-</p>
+<h3 id="服务器挂了"><a href="#服务器挂了" class="headerlink" title="服务器挂了"></a>服务器挂了</h3><p>客户端无法定位服务器</p>
+<ul>
+<li>服务器down了</li>
+<li>服务器用了新版本，客户端用的旧版本</li>
+</ul>
+<p>怎么处理？</p>
+<ul>
+<li><p>-</p>
+</li>
+</ul>
+<p>丢包怎么办？</p>
+<ul>
+<li>如果超时，会重传</li>
+<li>服务器没法确定新来的包是重发包还是新的包</li>
+<li>如果丢的太多了，客户端误以为服务器down了，回到了无法定位服务器问题</li>
+</ul>
+<p>-</p>
+<p>服务器crash了怎么办？</p>
+<ul>
+<li>客户端发消息前就crash了—回到无法定位</li>
+<li>客户端发请求后，服务器接到消息，执行了后crash</li>
+<li>客户端发请求后，服务器接到消息，没执行就crash了</li>
+</ul>
+<p>23情况客户端是无法区分的</p>
+<p>-</p>
+<p>服务器至少执行一次/至多执行一次指的是啥？</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211022091925200.png" alt="image-20211022091925200"></p>
+<p>-</p>
+<h3 id="客户端挂了之类"><a href="#客户端挂了之类" class="headerlink" title="客户端挂了之类"></a>客户端挂了之类</h3><p>客户端发了一个RPC，然后挂了，然后重启，然后再次RPC</p>
+<p>服务器一看懵逼了你怎么又发了一次</p>
+<p>-</p>
+<p>解决方法：</p>
+<ol>
+<li>client日志记录，看看之前已有连接。和服务器说把之前的挂掉或者继承</li>
+<li>client重启后有个广播，让server把上个时段的全杀了<ol>
+<li>温和一点的，server将找不到远程请求的杀了</li>
+</ol>
+</li>
+<li>超时的：server过一段固定时间，任务还没结束就认为有问题了</li>
+</ol>
+<p>-</p>
+<h3 id="总结一下同步RPC的问题"><a href="#总结一下同步RPC的问题" class="headerlink" title="总结一下同步RPC的问题"></a>总结一下同步RPC的问题</h3><p><img src="/2021/12/27/分布式系统笔记/image-20211022092738616.png" alt="image-20211022092738616"></p>
+<h3 id="异步RPC"><a href="#异步RPC" class="headerlink" title="异步RPC"></a>异步RPC</h3><p>client发完RPC后不用等待，server完成RPC后回送一个事件给client端</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211022092853985.png" alt="image-20211022092853985"></p>
+<p>-</p>
+<p>客户端怎么定位服务器呢？</p>
+<ul>
+<li>ip地址可能会换，不妥</li>
+<li>动态，server在通信开始的时候告诉client的binder程序，注册好，然后client就知道怎么定位server了</li>
+</ul>
+<p>-</p>
+<p>动态绑定如下图，handle和unique id用来识别server</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211022093600176.png" alt="image-20211022093600176"></p>
+<p>-</p>
+<p>好处就是灵活</p>
+<p>坏处就是binder成为大型系统的瓶颈（DNS服务器就是binder的作用，实际里还有忍三登录时候看配置文件，里面是ip列表）</p>
+<h1 id="class-5"><a href="#class-5" class="headerlink" title="class-5"></a>class-5</h1><p>下周开始布置作业…工作量1-2天，DDL约20天</p>
+<p>今日标题communication-2</p>
+<p>-</p>
+<h2 id="message-based-communication"><a href="#message-based-communication" class="headerlink" title="message-based communication"></a>message-based communication</h2><p>message-based 的通信（消息中间件）</p>
+<ul>
+<li>低层次的接口</li>
+<li>原语 send receive</li>
+<li>阻塞or非阻塞？</li>
+<li>原语是持久的吗</li>
+</ul>
+<p>-</p>
+<p>阻塞（同步）：sender send之后阻塞，直到receive才继续</p>
+<p>非阻塞（异步）：send后消息通过某缓冲区，再出去</p>
+<p>-</p>
+<p>持久：类似QQ留言，消息存在网络上，第三方服务器上</p>
+<p>-</p>
+<p>几张时序图，手上无ppt，待补充</p>
+<p>-</p>
+<p>tcp-ip的原语，时序图</p>
+<p>-</p>
+<h3 id="queue类型的中间件"><a href="#queue类型的中间件" class="headerlink" title="queue类型的中间件"></a>queue类型的中间件</h3><p>queue类型的中间件应该提供这4种primitive：</p>
+<ul>
+<li>put：放一个消息</li>
+<li>get：阻塞的get</li>
+<li>pool：非阻塞的get</li>
+<li>notify：install a handler when put message？</li>
+</ul>
+<p>-</p>
+<p>queue-based的架构图</p>
+<p>为了利用带宽，会使用多个queue，而不是只有一个中心服务器</p>
+<p>这个和CDN/边缘计算的思想有些相似</p>
+<p>多个queue使得问题变得复杂，后面讨论</p>
+<p>-</p>
+<h3 id="message-brokers"><a href="#message-brokers" class="headerlink" title="message brokers"></a>message brokers</h3><p>sender和receiver之间的中间代理，集中管理消息</p>
+<p>工作</p>
+<ul>
+<li>转换，统一消息格式</li>
+<li>关心应用层里的东西</li>
+</ul>
+<p>现在，message broker往往作为一个原服务，放在容器里</p>
+<h2 id="stream-oriented-communication"><a href="#stream-oriented-communication" class="headerlink" title="stream-oriented communication"></a>stream-oriented communication</h2><p>流媒体的出现得益于：带宽变大</p>
+<p>特点</p>
+<ul>
+<li>持续不断（如监控），量很大</li>
+<li>无向的</li>
+<li>单一流：单源，多sink（单一音频，文字）</li>
+<li>复合流：stereo audio</li>
+<li>与硬件相关连</li>
+</ul>
+<p>-</p>
+<p>流媒体的发送速度，太快太慢都有问题</p>
+<p>太慢：前面的没发出去，后面的来了</p>
+<p>太快：网络拥塞？</p>
+<p>-</p>
+<h3 id="QoS"><a href="#QoS" class="headerlink" title="QoS"></a>QoS</h3><p>怎么衡量quality</p>
+<ul>
+<li>session建立花费的时间</li>
+<li>最大端到端时延</li>
+<li>bit rate</li>
+<li>最大抖动</li>
+<li>最大往返时延（有时和端到端一样处理）</li>
+</ul>
+<p>-</p>
+<p>保证QoS的办法</p>
+<ul>
+<li>数据包到达有快慢：缓存，存够一部分再播</li>
+<li>丢包：比如一共1~16帧，4帧并成一个数据包，如果按序排1-16帧，第三个包丢了，那么9-12帧丢，画面丢的比较集中。但如果我先打散，再组装数据包，那么第三个包丢了，丢的是3 7 10 14这样，丢的很分散，人眼不一定看得出来。但这样需要更大的缓冲区，因为到达的包是乱序的，先排个序才能播放。</li>
+</ul>
+<p>-</p>
+<p>复合流，如何同步音频，左右声道？</p>
+<p>MPEG：</p>
+<ul>
+<li>sender：将substream complex into single stream</li>
+<li>receiver：decomplex single stream</li>
+</ul>
+<p>-</p>
+<h2 id="multicast-communication"><a href="#multicast-communication" class="headerlink" title="multicast communication"></a>multicast communication</h2><p>组播</p>
+<p>chord-tree，看看就行</p>
+<p>-</p>
+<p>ALM，overlay不是那么精确</p>
+<p>-</p>
+<p>病毒传播算法</p>
+<ul>
+<li>逆熵anti-entropy：我有新消息了，随机选择一个人，我们两个人交换信息，这样随着时间发展，整个系统的信息会统一</li>
+<li>gossiping：我有新消息了，告诉所有人</li>
+</ul>
+<p>-</p>
+<p>anti-entropy中的交换信息可以是</p>
+<ul>
+<li>pull：我从对方那里拉</li>
+<li>push：我告诉对方</li>
+<li>push-and-pull</li>
+</ul>
+<p>只push效率比较低，比如这个消息80个人知道，20个人不知道，我选择push的对象时选到那20个人的概率很低</p>
+<p>-</p>
+<p>gossiping，告诉所有人的动作什么时候停呢？</p>
+<ul>
+<li>假如我告诉了一个人，发现她已经知道了，那我推测这个消息已经传播出去了，那接下来我就以1/k的概率去告诉所有人</li>
+</ul>
+<p>问题：一个人要知道所有人的存在</p>
+<p>-</p>
+<p>病毒传播的通用问题：撤回消息</p>
+<ul>
+<li>如果只删掉，那没用，等会还会传播回来</li>
+<li>要传播一个death certificate，如果有人有var，有人有death cert，他俩一交流，就传播death cert？</li>
+<li>death cert一般设为超时时间</li>
+<li>还有super death certificate：即使没超时（？），也kill掉（？）</li>
+</ul>
+<h1 id="class-6-Synchronization"><a href="#class-6-Synchronization" class="headerlink" title="class-6 Synchronization"></a>class-6 Synchronization</h1><p>前几节课里漏讲的东西：</p>
+<p>命名：匿名，动态绑定（看教材）</p>
+<p>今天主要讲时钟的同步，下周五（11.12）运动会，咕咕</p>
+<p>-</p>
+<p>单机器中，同步主要是mutual exclusion和critical regions的问题，用原语和锁解决，基于shared memory，但这在分布式系统里是不行的。</p>
+<p>分布式系统关注的问题是两个事件谁先发生。</p>
+<p>-</p>
+<p>triggering patterns</p>
+<p>一张图，来自16年某顶会，展示了abc三个机器在工作时，因为网络原因延时，导致的好几种bug</p>
+<h2 id="sync的思路"><a href="#sync的思路" class="headerlink" title="sync的思路"></a>sync的思路</h2><p>思路</p>
+<p>如果有一个理想的时钟，那就很ok了</p>
+<p>共享资源同步的mutual exclusion</p>
+<p>共享资源时的election问题</p>
+<p>-</p>
+<p>如果有一个全局的时钟（一般是集中式系统才有），那对于每个user来说，时钟是没有歧义的，比如教室里的时钟。但如果每个人各自看各自的手表，那就有歧义了。</p>
+<p>例如 unix中的makefile，检查time(input.c) &lt; time(input.o)，就判断源文件没改，不用重新编译</p>
+<p>-</p>
+<p>每台机器上自己的时钟硬件是石英，但不同机子石英的频率不一样，时间久了就会有偏差</p>
+<p>现实世界中，UTC的生成是：133号原子裂变多少次的时间，定义为1s，全世界一共五十家机构测这个时间，然后取平均。</p>
+<p>-</p>
+<p>其实，我们也不是一定要一个和物理时间一模一样的时钟，时钟只是解决同步问题的手段，我们只要一个有序就行</p>
+<h2 id="Cristian算法"><a href="#Cristian算法" class="headerlink" title="Cristian算法"></a>Cristian算法</h2><p>专门有time server作为标准时间机器</p>
+<p>client向server提问现在的时间</p>
+<p>-</p>
+<p>注意，时间不能倒流，所以client拿到的标准时间不能直接去重置client的时间</p>
+<p>存在网络传输的时间差</p>
+<h2 id="Berkeley算法"><a href="#Berkeley算法" class="headerlink" title="Berkeley算法"></a>Berkeley算法</h2><p>反过来，server轮询client，告诉他们该怎么同步</p>
+<p>但是，server不是标准时间机器，他取所有client的平均值</p>
+<p>-</p>
+<p>也存在网络传输的时间差</p>
+<h2 id="Averaging算法"><a href="#Averaging算法" class="headerlink" title="Averaging算法"></a>Averaging算法</h2><p>纯分布式，没有server</p>
+<p>其实是对Berkeley的改变：哪个进程需要时间，他就承担server的角色</p>
+<p>-</p>
+<h2 id="happened-before关系"><a href="#happened-before关系" class="headerlink" title="happened-before关系"></a>happened-before关系</h2><p>定义：hb的两种情况：</p>
+<ol>
+<li>同一个进程内，a先于b发生，a-&gt;b</li>
+<li>两个进程，a是发送者，b是接收者，a-&gt;b</li>
+</ol>
+<p>hb关系有传递性</p>
+<p>-</p>
+<h2 id="Lamport’s算法"><a href="#Lamport’s算法" class="headerlink" title="Lamport’s算法"></a>Lamport’s算法</h2><p>每个进程Pi自己维护一个local的计数器Ci</p>
+<ol>
+<li>Pi内部发生事件，Ci+1</li>
+<li>Pi发送一个消息，设置消息的时间戳为Ci</li>
+<li>Pi接收到一个消息，看下时间戳t，如果t&lt;Ci，那就不动；如果大于，那就取t，设置Ci=t，然后调用步骤1</li>
+</ol>
+<p>-</p>
+<p>例子：全序组播</p>
+<p>银行有两个数据库，其中一个是副本，初始有1000块，进程1想加100，进程2想加1%，那么谁先谁后执行会导致银行两个数据库不一致</p>
+<p>-</p>
+<p>但，lamport算法没法体现事件的因果关系</p>
+<h2 id="vector-clocks算法"><a href="#vector-clocks算法" class="headerlink" title="vector clocks算法"></a>vector clocks算法</h2><p>每个进程Pi维护一个local的计数数组Vi = [c1, c2, …, cn]，n是进程总数</p>
+<p>看ppt，不麻烦</p>
+<h2 id="mutual-exclusion"><a href="#mutual-exclusion" class="headerlink" title="mutual exclusion"></a>mutual exclusion</h2><p>先看集中式的me，好处是能达到me，fair，starvation-free，易于实现</p>
+<p>-</p>
+<p>如果有中心服务器管理锁，中心服务器挂了就gg</p>
+<p>-</p>
+<p>如果纯分布式，一个进程的timestamp小，他win，进去，出来的时候广播一个我出来了，然后后续进程可以进入。</p>
+<p>但是，如果这个进程进去之后挂了，那后面的进程全部无限制等待</p>
+<p>-</p>
+<p>如果令牌环，令牌丢了要重新生成</p>
+<p>-</p>
+<h3 id="election算法"><a href="#election算法" class="headerlink" title="election算法"></a>election算法</h3><p>选一个协调人：解决纯分布式里一个进程挂了的情况</p>
+<p>为什么不能随便选？因为一个进程挂了这件事，和一个进程运行太久，可能比较难区分</p>
+<p>协调人选出来之后要让所有人知道</p>
+<p>-</p>
+<h3 id="election之Bully算法"><a href="#election之Bully算法" class="headerlink" title="election之Bully算法"></a>election之Bully算法</h3><p>选进程ID最大的</p>
+<h3 id="election之ring的问题"><a href="#election之ring的问题" class="headerlink" title="election之ring的问题"></a>election之ring的问题</h3><p>如果选举过程中有进程挂了怎么办</p>
+<p>两个进程同时启动init选举，会有问题吗</p>
+<h1 id="class-7-Consistency-and-Replication"><a href="#class-7-Consistency-and-Replication" class="headerlink" title="class-7 Consistency and Replication"></a>class-7 Consistency and Replication</h1><h2 id="作业又提了一嘴"><a href="#作业又提了一嘴" class="headerlink" title="作业又提了一嘴"></a>作业又提了一嘴</h2><p>作业有3个部分，12部分必做，3选作加分，ddl 1月。</p>
+<p>内容：同步，一致性复制，go语言</p>
+<p>提交：代码+报告，报告遵循学术规范，中英文标题，中英文摘要，intro，算法，实验验证，参考文献。。等</p>
+<p>-</p>
+<h2 id="Replication"><a href="#Replication" class="headerlink" title="Replication"></a>Replication</h2><p>复制的必要性</p>
+<ul>
+<li>防止单点存储挂了</li>
+<li>扩大系统规模，从数量和地理位置上</li>
+</ul>
+<p>复制的问题</p>
+<ul>
+<li>透明性的问题，对用户他不关心你到底存在哪</li>
+<li>consistency的问题<ul>
+<li>update的开销</li>
+<li>availability may suffer if not careful</li>
+</ul>
+</li>
+</ul>
+<p>-</p>
+<p>为啥产生一致性问题？</p>
+<ul>
+<li>时间要求高</li>
+<li>物理copy慢</li>
+</ul>
+<p>-</p>
+<h3 id="Object-Replication"><a href="#Object-Replication" class="headerlink" title="Object Replication"></a>Object Replication</h3><p>复制object的时候有两种架构</p>
+<ul>
+<li>一种是，有一个中心adapter来处理复制（存储和应用分离）</li>
+<li>另一种是每个存副本的server都有一个adapter，自己处理请求（没分离）</li>
+</ul>
+<p>还有复制哪些东西的策略，也有俩，看ppt</p>
+<p>-</p>
+<p>升级一下，几个问题</p>
+<ul>
+<li>3个副本，1个local，2个remote，如果只是很小的改动，2个remote的副本可以不同步，不同步到什么地步</li>
+<li>以数据为中心的一致性vs用户为中心的一致性</li>
+</ul>
+<p>-</p>
+<h2 id="Data-Centric-Consistency-Models"><a href="#Data-Centric-Consistency-Models" class="headerlink" title="Data-Centric Consistency Models"></a>Data-Centric Consistency Models</h2><p>考虑有3个副本</p>
+<h3 id="Strict-Consistency"><a href="#Strict-Consistency" class="headerlink" title="Strict Consistency"></a>Strict Consistency</h3><p>严格一致，任何read读出来都是全局时间线上最近一次的write</p>
+<h3 id="Sequence-Consistency"><a href="#Sequence-Consistency" class="headerlink" title="Sequence Consistency"></a>Sequence Consistency</h3><p>所有人看到的write顺序是一样的，至于read，无所谓。</p>
+<h3 id="Linearizability"><a href="#Linearizability" class="headerlink" title="Linearizability"></a>Linearizability</h3><p>满足3个条件</p>
+<ul>
+<li>SC</li>
+<li>需要时间戳来辅助，如果op1比op2的时间戳要早，那么op1比op2早发生</li>
+</ul>
+<p>linearizability比strict弱，比sc强</p>
+<p>需要时间戳，开销较大，实际使用中很少实现linearizability</p>
+<h3 id="Causal-Consistency"><a href="#Causal-Consistency" class="headerlink" title="Causal Consistency"></a>Causal Consistency</h3><p>因果一致性</p>
+<p>有因果关系的write操作顺序，在所有进程看来必须一样，其他并发写操作可以不一样</p>
+<p>（比如写同一个变量，或者有关联的两个变量）</p>
+<p>（一个进程如果先read a，再write b，就隐含了先a后b，b的值依赖于a。看causal consistency(3) (a)，有点迷惑）</p>
+<p>cc比sc更弱，但是满足sc未必满足cc</p>
+<h3 id="FIFO-Consistency"><a href="#FIFO-Consistency" class="headerlink" title="FIFO Consistency"></a>FIFO Consistency</h3><p>只要求保证同一个进程里的写操作顺序一样，不同进程里的因果关系不管</p>
+<p>fifo相当于各跑各的，不管别人</p>
+<p>比cc更弱</p>
+<p>FIFO(4) ppt的例子，SC结果有3种，P1终止，P2终止，P1 P2都不终止</p>
+<p>FIFO的结果有4种，多一种P1 P2都终止</p>
+<h3 id="Weak-Consistency"><a href="#Weak-Consistency" class="headerlink" title="Weak Consistency"></a>Weak Consistency</h3><p>引入synchronize</p>
+<p>把一组操作变成原子操作S，对临界区变量更新完成后，其他进程才允许进行读写</p>
+<p>靠S来进行一个全局同步，S就类似并发课里那个把前后语序都挡住的墙？好像不是</p>
+<h3 id="Release-Consistency"><a href="#Release-Consistency" class="headerlink" title="Release Consistency"></a>Release Consistency</h3><p>acq，rel操作</p>
+<p>就是那个墙，acq固定后面的语句，rel固定前面的语句</p>
+<p>rel是weak的强化</p>
+<h3 id="Entry-Consistency"><a href="#Entry-Consistency" class="headerlink" title="Entry Consistency"></a>Entry Consistency</h3><p>临界区，进出需要acq和rel，类似拿锁和释放锁</p>
+<h3 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h3><p>PPT有图</p>
+<h1 id="class-8"><a href="#class-8" class="headerlink" title="class-8"></a>class-8</h1><p>回顾了一下上周的几种一致性图表</p>
+<p>虽然paxos已经完备了，但是很复杂，实际系统实现时和效率做一个折中</p>
+<h2 id="Client-Centric-Consistency"><a href="#Client-Centric-Consistency" class="headerlink" title="Client Centric Consistency"></a>Client Centric Consistency</h2><p>客户为中心的一致性：</p>
+<ul>
+<li>客户需要数据的时候，系统要有同步，传播数据的能力</li>
+<li>单个用户访问数据时可能比较容易，多个用户访问数据时可能出错</li>
+</ul>
+<p>-</p>
+<blockquote>
+<p>题外话，机制是基本的能力，策略是在机制上设计的算法</p>
+<p>研究上的套路：机制我不动，我把问题转化成一个NP-hard问题，然后用数学方法去解，设计一个好的策略</p>
+<p>机制上的创新可能很难，策略上的创新比较简单</p>
+<p>先从策略起步，厉害了再做机制，这就是sigcom和infocom的差别</p>
+</blockquote>
+<p>比如在client centric这个机制下，设计一个好的策略，既满足高速访问，又满足客户访问不出错。</p>
+<p>-</p>
+<p>四个要求</p>
+<ul>
+<li>Monotonic Reads：一个线程一旦读了x的值，在该线程的此次读之后的读一定会读到x或者更新的值</li>
+</ul>
+<p>-</p>
+<h3 id="Replica-Server-Placement"><a href="#Replica-Server-Placement" class="headerlink" title="Replica Server Placement"></a>Replica Server Placement</h3><p>很多个格子，每个格子放多少服务器</p>
+<p>-</p>
+<p>放多少不一定是技术问题，是商业问题管理问题</p>
+<p>client读信息的时候，可能访问的是有copy的服务器，也可能访问的是没copy的服务器</p>
+<p>怎么更新内容？</p>
+<ul>
+<li>传播要更新的通知</li>
+<li>直接传播数据</li>
+<li>传播操作（传播数据的数量可能很大）</li>
+</ul>
+<p>信息传递的方式</p>
+<ul>
+<li>pull</li>
+<li>push</li>
+</ul>
+<p>服务器分成主副本和从副本，主副本固定</p>
+<p>-</p>
+<h3 id="Quorum-Based-Protocols"><a href="#Quorum-Based-Protocols" class="headerlink" title="Quorum-Based Protocols"></a>Quorum-Based Protocols</h3><p>读的人和写的人进行投票，票数V_w和V_r，V是副本数量？，需要满足</p>
+<p>V_w + V_r &gt; V</p>
+<p>V_w &gt; V/2</p>
+<p>-</p>
+<h3 id="Causally-Consistent-Lazy-Replication"><a href="#Causally-Consistent-Lazy-Replication" class="headerlink" title="Causally-Consistent Lazy Replication"></a>Causally-Consistent Lazy Replication</h3><h1 id="class-9-Fault-Tolerance"><a href="#class-9-Fault-Tolerance" class="headerlink" title="class-9 Fault Tolerance"></a>class-9 Fault Tolerance</h1><p>容错的需求：</p>
+<ul>
+<li>可靠reliable：给定时间段里正常工作的概率，可持续操作</li>
+<li>可用available：可提供功能的时间段</li>
+<li>safety</li>
+<li>maintainability：修起来容易不</li>
+</ul>
+<p>reliable和available的区别：</p>
+<p>假如一个系统每小时有1s会不工作，我们说他是不可靠。但因为24h随时去都能用，所以很available</p>
+<p>如果白天上班8小时，那么可靠性好，可用性差</p>
+<p>-</p>
+<p>错误的差别</p>
+<ul>
+<li>failure：</li>
+<li>error：</li>
+<li>fault：故障，蓝屏</li>
+</ul>
+<p>-</p>
+<p>fault cause error result by failure</p>
+<p>-</p>
+<h2 id="improve-dependency"><a href="#improve-dependency" class="headerlink" title="improve dependency"></a>improve dependency</h2><p>做副本，让系统可靠性强一些</p>
+<ul>
+<li>information redundancy：额外的bits，比如奇偶校验码，带修复的校验码</li>
+<li>time redundancy：允许一段时间不工作？</li>
+<li>physical redundancy：<ul>
+<li>硬件冗余：多台server</li>
+<li>软件冗余：多个进程</li>
+</ul>
+</li>
+</ul>
+<p>设计系统的时候没有关键模块，避免类似中心节点挂了</p>
+<p>-</p>
+<p>triple voter</p>
+<p>协作者</p>
+<p>进程：主拷贝</p>
+<p>-</p>
+<h2 id="bizantine-fault"><a href="#bizantine-fault" class="headerlink" title="bizantine fault"></a>bizantine fault</h2><p>如果系统是K容错的</p>
+<ul>
+<li>节点挂了没反应：需要K+1个副本</li>
+<li>拜占庭故障：节点挂了会返回一个错误的结果，需要2K+1个副本</li>
+</ul>
+<blockquote>
+<p>byzantine 将军：一群将军打拜占庭，其中有t个叛徒，将军总数至少要达到多少才能让忠诚的将军达成一致（问题的关键不是找叛徒，而是一致）答案是3t+1</p>
+</blockquote>
+<p>-</p>
+<p>拜占庭算法：看ppt，挺简单的思路</p>
+<h2 id="reliable-client-server-communication"><a href="#reliable-client-server-communication" class="headerlink" title="reliable client-server communication"></a>reliable client-server communication</h2><p>需要设计可靠RPC</p>
+<p>failure类型</p>
+<ul>
+<li>client找不到server</li>
+<li>client到server的request丢了</li>
+<li>server接受到request后挂了</li>
+<li>server发给client的reply丢了</li>
+<li>client发送一个request后挂了</li>
+</ul>
+<p>-</p>
+<p>可靠组播</p>
+<ul>
+<li>扁平式</li>
+<li>层次式：类似集中式，自己没收到就问上层重新要，扩展强</li>
+</ul>
+<p>原子多播</p>
+<p>要么都处理，要么都不处理</p>
+<p>-</p>
+<p>分布式commit</p>
+<p>2-phase commit，协调者，参与者，阻塞问题</p>
+<p>3-phase commit，避免阻塞</p>
+<h2 id="recovery"><a href="#recovery" class="headerlink" title="recovery"></a>recovery</h2><p>设置恢复点</p>
+<p>backward恢复，类似win10恢复</p>
+<p>forward恢复，继续往前走，类似纠错码</p>
+<p>互不依赖的恢复点vs有依赖的恢复点</p>
+<h1 id="class-10-分布一致性协议-助教"><a href="#class-10-分布一致性协议-助教" class="headerlink" title="class-10 分布一致性协议@助教"></a>class-10 分布一致性协议@助教</h1><p>一致性只解决达成一致，不保证正确性</p>
+<h2 id="Paxos"><a href="#Paxos" class="headerlink" title="Paxos"></a>Paxos</h2><p>前提：信道可信</p>
+<p>高容错：2F+1</p>
+<p>目的：一个节点拿到数据后，系统中的其他节点也都能拿到数据，整个系统达到一致</p>
+<p>-</p>
+<p>角色划分</p>
+<ul>
+<li>proposer提议发起者：<ul>
+<li>主动发起提议</li>
+<li>处理客户端请求</li>
+</ul>
+</li>
+<li>acceptor提议接收者：<ul>
+<li>对提议进行投票表决，如果超过半数，则提议被选中</li>
+</ul>
+</li>
+<li>learner提议学习者<ul>
+<li>无投票权，只能从acceptor处获知哪个提议被选中</li>
+</ul>
+</li>
+</ul>
+<p>-</p>
+<p>paxos中，存在多个proposer，但只有一个提案会被选定</p>
+<h2 id="Raft"><a href="#Raft" class="headerlink" title="Raft"></a>Raft</h2><h2 id="Gossip"><a href="#Gossip" class="headerlink" title="Gossip"></a>Gossip</h2><h1 id="class-11-大数据分布式系统-助教2"><a href="#class-11-大数据分布式系统-助教2" class="headerlink" title="class-11 大数据分布式系统@助教2"></a>class-11 大数据分布式系统@助教2</h1><p>hadoop dfs的三个副本，成功率99.999%</p>
+<p>它的优势是把3年完成的任务加速到1个月完成，但是对于1小时加速到30min，不太合适。</p>
+<p>合适的应用</p>
+<ul>
+<li>网页倒排索引</li>
+<li>pdf压缩编辑（？？）</li>
+</ul>
+<p>-</p>
+<p>mapreduce不好的地方</p>
+<ol>
+<li>每次map和reduce时候都需要读写磁盘（中间结果读-写）</li>
+<li>元数据超过了单机最大容量（500台服务器以上）</li>
+</ol>
+<p>针对1，spark把map的结果（一定会被reduce用到）放在内存中，这个称为弹性分布式数据集RDD。比hadoop快一个数量级</p>
+<h2 id="往年题"><a href="#往年题" class="headerlink" title="往年题"></a>往年题</h2><p><a href="https://docs.qq.com/doc/DYnJGQnpOSHBwSkN1" target="_blank" rel="noopener">https://docs.qq.com/doc/DYnJGQnpOSHBwSkN1</a></p>
+<p>助教题1 容错问题，2k还是3k，和N相关的复杂度</p>
+<p>助教题2 对于DAG型作业，spark+yarn的优势（相比于hadoop+hdfs）在哪里？</p>
+<ol>
+<li>DAG型的每个中间结果hadoop会有频繁的磁盘IO，spark用分布式弹性数据集把中间结果存在内存中，避免了DAG中间结构的频繁IO</li>
+<li>单纯用hadoop+mapreduce，集群要管任务管理信息和集群信息。YARN把复杂的集群管理逻辑交给应用，虽然应用逻辑变复杂了，但这样集群可以支持更多的设备</li>
+</ol>
+<p>-</p>
+<p>往年题1 分布式系统中采用多副本的优缺点</p>
+<p>优点：</p>
+<ol>
+<li>当出现节点崩溃，出错等情况时，可根据副本快速恢复节点。</li>
+<li>当其他节点出现错误时，可根据副本排查问题，明确出错的节点位置。</li>
+</ol>
+<p>缺点：需要耗费更多的资源</p>
+<p>-</p>
+<p>往年题2 网格计算与传统分布式计算的区别</p>
+<p>-</p>
+<p>往年题3 分布式有那些架构</p>
+<p>主从，混合，。。。</p>
+<p>-</p>
+<p>往年题4 消息通信</p>
+<p>-</p>
+<p>往年题5 lamport时钟，逻辑时钟，有计算题，传下去时候数字是几</p>
+<p>-</p>
+<p>往年题6 机制与策略的区别</p>
+<p>-</p>
+<p>往年题7 RPC出错原因有哪些？RPC出错了怎么办</p>
+<p>出错原因：网络中断，发送出错，接受出错，。。</p>
+<p>解决：多发几次，收到了校验，。。。</p>
+<p>-</p>
+<p>往年题8 RPC怎么保证语言一致性</p>
+<p>-</p>
+<p>往年题9 分布式系统特点</p>
+<p>透明性，。。。</p>
+<p>-</p>
+<p>往年题10 给个例子然后让你判断说明是不是符合XX一致性</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Distributed-System/" rel="tag"># Distributed System</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/18/并发算法与理论笔记/" rel="next" title="并发算法与理论笔记">
+                <i class="fa fa-chevron-left"></i> 并发算法与理论笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/juyoujing.jpg" alt="oxygen-hunter">
+            
+              <p class="site-author-name" itemprop="name">oxygen-hunter</p>
+              <p class="site-description motion-element" itemprop="description">E = MC^2, Errors = (More Code)^2</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/oxygen-hunter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiao.li@smail.nju.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://purecall.github.io/" title="vct" target="_blank">vct</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://kmuay.com/" title="kmuay" target="_blank">kmuay</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#class-1"><span class="nav-number">1.</span> <span class="nav-text">class-1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-2"><span class="nav-number">2.</span> <span class="nav-text">class-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构"><span class="nav-number">2.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#风格"><span class="nav-number">2.2.</span> <span class="nav-text">风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组织"><span class="nav-number">2.3.</span> <span class="nav-text">组织</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.4.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-3"><span class="nav-number">3.</span> <span class="nav-text">class-3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上节课的遗留内容"><span class="nav-number">3.1.</span> <span class="nav-text">上节课的遗留内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Processes"><span class="nav-number">3.2.</span> <span class="nav-text">Processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtualization"><span class="nav-number">3.3.</span> <span class="nav-text">Virtualization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client"><span class="nav-number">3.4.</span> <span class="nav-text">Client</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-4"><span class="nav-number">4.</span> <span class="nav-text">class-4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#middleware所处的位置"><span class="nav-number">4.1.</span> <span class="nav-text">middleware所处的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC"><span class="nav-number">4.2.</span> <span class="nav-text">RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器挂了"><span class="nav-number">4.2.1.</span> <span class="nav-text">服务器挂了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端挂了之类"><span class="nav-number">4.2.2.</span> <span class="nav-text">客户端挂了之类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下同步RPC的问题"><span class="nav-number">4.2.3.</span> <span class="nav-text">总结一下同步RPC的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步RPC"><span class="nav-number">4.2.4.</span> <span class="nav-text">异步RPC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-5"><span class="nav-number">5.</span> <span class="nav-text">class-5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#message-based-communication"><span class="nav-number">5.1.</span> <span class="nav-text">message-based communication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#queue类型的中间件"><span class="nav-number">5.1.1.</span> <span class="nav-text">queue类型的中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#message-brokers"><span class="nav-number">5.1.2.</span> <span class="nav-text">message brokers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stream-oriented-communication"><span class="nav-number">5.2.</span> <span class="nav-text">stream-oriented communication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#QoS"><span class="nav-number">5.2.1.</span> <span class="nav-text">QoS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multicast-communication"><span class="nav-number">5.3.</span> <span class="nav-text">multicast communication</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-6-Synchronization"><span class="nav-number">6.</span> <span class="nav-text">class-6 Synchronization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sync的思路"><span class="nav-number">6.1.</span> <span class="nav-text">sync的思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cristian算法"><span class="nav-number">6.2.</span> <span class="nav-text">Cristian算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Berkeley算法"><span class="nav-number">6.3.</span> <span class="nav-text">Berkeley算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Averaging算法"><span class="nav-number">6.4.</span> <span class="nav-text">Averaging算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#happened-before关系"><span class="nav-number">6.5.</span> <span class="nav-text">happened-before关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lamport’s算法"><span class="nav-number">6.6.</span> <span class="nav-text">Lamport’s算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vector-clocks算法"><span class="nav-number">6.7.</span> <span class="nav-text">vector clocks算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mutual-exclusion"><span class="nav-number">6.8.</span> <span class="nav-text">mutual exclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#election算法"><span class="nav-number">6.8.1.</span> <span class="nav-text">election算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#election之Bully算法"><span class="nav-number">6.8.2.</span> <span class="nav-text">election之Bully算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#election之ring的问题"><span class="nav-number">6.8.3.</span> <span class="nav-text">election之ring的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-7-Consistency-and-Replication"><span class="nav-number">7.</span> <span class="nav-text">class-7 Consistency and Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作业又提了一嘴"><span class="nav-number">7.1.</span> <span class="nav-text">作业又提了一嘴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Replication"><span class="nav-number">7.2.</span> <span class="nav-text">Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-Replication"><span class="nav-number">7.2.1.</span> <span class="nav-text">Object Replication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Centric-Consistency-Models"><span class="nav-number">7.3.</span> <span class="nav-text">Data-Centric Consistency Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Strict-Consistency"><span class="nav-number">7.3.1.</span> <span class="nav-text">Strict Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sequence-Consistency"><span class="nav-number">7.3.2.</span> <span class="nav-text">Sequence Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linearizability"><span class="nav-number">7.3.3.</span> <span class="nav-text">Linearizability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Causal-Consistency"><span class="nav-number">7.3.4.</span> <span class="nav-text">Causal Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FIFO-Consistency"><span class="nav-number">7.3.5.</span> <span class="nav-text">FIFO Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weak-Consistency"><span class="nav-number">7.3.6.</span> <span class="nav-text">Weak Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Release-Consistency"><span class="nav-number">7.3.7.</span> <span class="nav-text">Release Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Entry-Consistency"><span class="nav-number">7.3.8.</span> <span class="nav-text">Entry Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#summary"><span class="nav-number">7.3.9.</span> <span class="nav-text">summary</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-8"><span class="nav-number">8.</span> <span class="nav-text">class-8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-Centric-Consistency"><span class="nav-number">8.1.</span> <span class="nav-text">Client Centric Consistency</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Replica-Server-Placement"><span class="nav-number">8.1.1.</span> <span class="nav-text">Replica Server Placement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quorum-Based-Protocols"><span class="nav-number">8.1.2.</span> <span class="nav-text">Quorum-Based Protocols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Causally-Consistent-Lazy-Replication"><span class="nav-number">8.1.3.</span> <span class="nav-text">Causally-Consistent Lazy Replication</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-9-Fault-Tolerance"><span class="nav-number">9.</span> <span class="nav-text">class-9 Fault Tolerance</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#improve-dependency"><span class="nav-number">9.1.</span> <span class="nav-text">improve dependency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bizantine-fault"><span class="nav-number">9.2.</span> <span class="nav-text">bizantine fault</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reliable-client-server-communication"><span class="nav-number">9.3.</span> <span class="nav-text">reliable client-server communication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#recovery"><span class="nav-number">9.4.</span> <span class="nav-text">recovery</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-10-分布一致性协议-助教"><span class="nav-number">10.</span> <span class="nav-text">class-10 分布一致性协议@助教</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Paxos"><span class="nav-number">10.1.</span> <span class="nav-text">Paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft"><span class="nav-number">10.2.</span> <span class="nav-text">Raft</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gossip"><span class="nav-number">10.3.</span> <span class="nav-text">Gossip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-11-大数据分布式系统-助教2"><span class="nav-number">11.</span> <span class="nav-text">class-11 大数据分布式系统@助教2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#往年题"><span class="nav-number">11.1.</span> <span class="nav-text">往年题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oxygen-hunter</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
