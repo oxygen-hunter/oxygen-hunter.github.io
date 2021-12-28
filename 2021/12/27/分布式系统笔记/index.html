@@ -125,12 +125,16 @@
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211022093600176.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228162122300.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228162830393.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228192617525.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228210609122.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228163101094.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228165333457.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228172246206.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228172535764.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228172520373.png">
-<meta property="og:updated_time" content="2021-12-28T10:17:59.609Z">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228224436869.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228224411571.png">
+<meta property="og:updated_time" content="2021-12-28T15:24:12.587Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式系统笔记">
 <meta name="twitter:description" content="分布式系统笔记 40平时作业（3-4大作业，20-30天完成一个，每个10-15分），60%期末闭卷考试 class-1分布式的课程很多，内容很多 主要教材：分布式系统：原理和范型distributed systems: principles and paradigms 2nd edition, prentice hall, 2007 参考：distributed systems: concept">
@@ -706,6 +710,7 @@
 <p>非阻塞（异步）：send后消息通过某缓冲区，再出去</p>
 <p>-</p>
 <p>持久：类似QQ留言，消息存在网络上，第三方服务器上</p>
+<p>实时：QQ在线文件传输</p>
 <p>-</p>
 <p>几张时序图，手上无ppt，待补充</p>
 <p>-</p>
@@ -828,7 +833,18 @@
 <h2 id="Berkeley算法"><a href="#Berkeley算法" class="headerlink" title="Berkeley算法"></a>Berkeley算法</h2><p>反过来，server轮询client，告诉他们该怎么同步</p>
 <p>但是，server不是标准时间机器，他取所有client的平均值</p>
 <p>-</p>
-<p>也存在网络传输的时间差</p>
+<p>也存在网络传输的时间差、</p>
+<p>master轮询从slave服务器收集时间</p>
+<ol>
+<li>maste向slave服务器收集时间</li>
+<li>master 观察 Tround 并估计当前时钟值</li>
+<li>master 平均时钟值，包括它自己的<ul>
+<li>消除个人时钟跑得快的倾向</li>
+<li>忽略远远超出他人时间的时间</li>
+</ul>
+</li>
+<li>master发送每个时钟需要的调整量</li>
+</ol>
 <h2 id="Averaging算法"><a href="#Averaging算法" class="headerlink" title="Averaging算法"></a>Averaging算法</h2><p>纯分布式，没有server</p>
 <p>其实是对Berkeley的改变：哪个进程需要时间，他就承担server的角色</p>
 <p>-</p>
@@ -938,6 +954,7 @@
 <p>就是那个墙，acq固定后面的语句，rel固定前面的语句</p>
 <p>rel是weak的强化</p>
 <h3 id="Entry-Consistency"><a href="#Entry-Consistency" class="headerlink" title="Entry Consistency"></a>Entry Consistency</h3><p>临界区，进出需要acq和rel，类似拿锁和释放锁</p>
+<p>粒度比release更粗</p>
 <h3 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h3><p>PPT有图</p>
 <h1 id="class-8"><a href="#class-8" class="headerlink" title="class-8"></a>class-8</h1><p>回顾了一下上周的几种一致性图表</p>
 <p>虽然paxos已经完备了，但是很复杂，实际系统实现时和效率做一个折中</p>
@@ -994,9 +1011,9 @@
 <p>-</p>
 <p>错误的差别</p>
 <ul>
-<li>failure：</li>
-<li>error：</li>
-<li>fault：故障，蓝屏</li>
+<li>failure：服务失效（最终导致）</li>
+<li>error：理论值于实际值不符（过程）</li>
+<li>fault：故障，蓝屏（起因）</li>
 </ul>
 <p>-</p>
 <p>fault cause error result by failure</p>
@@ -1076,7 +1093,19 @@
 </ul>
 <p>-</p>
 <p>paxos中，存在多个proposer，但只有一个提案会被选定</p>
-<h2 id="Raft"><a href="#Raft" class="headerlink" title="Raft"></a>Raft</h2><h2 id="Gossip"><a href="#Gossip" class="headerlink" title="Gossip"></a>Gossip</h2><p>轮数 logN</p>
+<h2 id="Raft"><a href="#Raft" class="headerlink" title="Raft"></a>Raft</h2><p>角色：follower，candidate，leader</p>
+<p>阶段：选举阶段和正常工作阶段，阶段靠term区分</p>
+<p>follower和leader日志不一致的处理：</p>
+<p>leader不会改自己的，而是强迫follower和自己保持一致。为每个follower维护一个next_index，表示完全一致的最后下标，每次对比不同后就next_index-1，然后去删follower的日志</p>
+<h2 id="Gossip"><a href="#Gossip" class="headerlink" title="Gossip"></a>Gossip</h2><p>基于聊八卦和病毒传播，去中心化</p>
+<p>需要 O(logN)轮才能将信息传播到所有节点</p>
+<p>任何节点挂了都不会影响协议运行</p>
+<p>通信机制</p>
+<ul>
+<li>push：A向B发送新数据 (key, value, version)，B更新</li>
+<li>pull：A向B请求(key, version)求value，B把(key, value, version)发给A</li>
+<li>push&amp;pull：pull的操作，加上A把自身比B新的数据也发给B</li>
+</ul>
 <p>push SI 总的信息传播数量NlogN</p>
 <p>push-pull 总的信息传播数量 NloglogN</p>
 <p><img src="/2021/12/27/分布式系统笔记/image-20211228162830393.png" alt="image-20211228162830393"></p>
@@ -1132,6 +1161,22 @@
 <p>透明性，。。。</p>
 <p>-</p>
 <p>往年题10 给个例子然后让你判断说明是不是符合XX一致性</p>
+<h2 id="2019年回忆题"><a href="#2019年回忆题" class="headerlink" title="2019年回忆题"></a>2019年回忆题</h2><p>1、分布式系统的定义和分布式系统的⽬标</p>
+<p>定义：分布式系统是一组独立的计算机的集合，他能够使得在用户看来，像一个计算机系统一样</p>
+<p>目标：资源共享可访问，透明性，开放性，可扩展性</p>
+<p>2、集中式、非集中式和混合式体系结构的含义</p>
+<p>集中式：C/S模式，有中心服务器负责协调</p>
+<p>非集中式：去中心化，节点之间相互协调同步</p>
+<p>混合式：有需求的节点主动承担中心服务器的任务</p>
+<p>3、对机制与策略的理解，举例说明何为机制，何为策略</p>
+<p>机制：基本的能力，描述要做什么</p>
+<p>策略：基于机制，实现效果，解决怎么做</p>
+<p>举例：</p>
+<p>6、动态绑定的原因和缺点</p>
+<p>原因：服务器的ip地址动态变化，服务器客户端，要使用相同版本的接口</p>
+<p>缺点：binder是额外开销，binder成为大分布式系统的瓶颈</p>
+<p>13、以数据为中心和客户为中心的一致性协议的对比，web缓存适合用哪一种一致性协议？</p>
+<p>web缓存适合用户为中心，因为用户要到处跑</p>
 <h2 id="2020年回忆题"><a href="#2020年回忆题" class="headerlink" title="2020年回忆题"></a>2020年回忆题</h2><p>1、网络操作系统和分布式系统（基于中间件的）的定义分别是什么？请通过一个实例说明这两者之间的关系</p>
 <p>网络操作系统：网络操作系统是在网络环境下实现对网络资源的管理和控制的操作系统，是用户与网络资源之间的接口，用户实际访问的还是单个计算机的资源。</p>
 <p>分布式系统：分布式系统是若干独立计算机的集合，这些计算机对于用户来说就像是单个相关系统。</p>
@@ -1139,10 +1184,10 @@
 <p>分布式系统：hadoop</p>
 <p>2、判断以下三项是属于“策略”还是“机制”。如果是策略，写出相应机制；如果是机制，给出任意一个相应的策略。(类似2019年的题目，只要记住机制有哪些就好写)<br>a) 根据运算能力不同将任务分配到不同计算机上<br>b) 支持不同类型的存储方式<br>c) 能够通过多条路径传递数据包</p>
 <p>a是策略，机制是执行计算任务</p>
-<p>b是策略，机制是存储数据</p>
-<p>c是策略，机制是传输数据包</p>
+<p>b是机制，策略：根据硬件类型和容量决定存储分配</p>
+<p>c是机制，策略：根据带宽分配路径</p>
 <p>3、电子邮件采用什么样的通信模式？简要说明如何在一般TCP/IP协议基础上实现这样的通信</p>
-<p>客户端/服务器的持久通信模式？</p>
+<p>客户端/服务器的异步持久通信模式</p>
 <p>实现：整个系统由服务器+客户端组成，sender客户端将邮件通过TCP/IP协议发送给服务器，服务器进行存储，然后再通过TCP/IP协议发给receiver客户端</p>
 <p>4、如何在TCP的基础上，实现远程过程调用(RPC)的“最多执行一次”机制。</p>
 <p>TCP协议保证了同一个包，接收方只会收到最多一次，所以可以如下实现：</p>
@@ -1167,13 +1212,33 @@
 <li>服务器宕机挂了</li>
 <li>网络中断</li>
 </ul>
+<p>解决方案：</p>
+<ul>
+<li>服务器重启，恢复</li>
+<li>服务器设置计时器，时间到了重发</li>
+</ul>
 <p>6、设计一个协议让节点的时间是所有节点时间的平均值，详细描述流程以及时间计算方式</p>
+<p>berkeley算法：由一个中心服务器和若干客户端组成，服务器轮询客户端获得客户端的时间T_i，然后服务器计算时延Tround_i，去掉离的最远</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211228192617525.png" alt="image-20211228192617525"></p>
 <p>7、为什么Lamport不能全序逻辑而向量时钟可以。</p>
-<p>lamport时钟只保证a &lt; b 则C(a) &lt; C(b)，无法体现事件发生的因果逻辑</p>
+<p>lamport时钟只保证a &lt; b 则C(a) &lt; C(b)，无法体现事件发生的因果逻辑（如果 C(a) &lt; C(b)无法推出 a &lt; b）</p>
 <p>向量时钟可以表示出2个事件的因果关系：早于发生或同时发生</p>
 <p>8、用向量时钟表示下面的传播过程，要求给传播过程标注向量时钟的时间戳，并给出其中的一个错误纠正</p>
 <p>详见class-6 vector clocks算法</p>
 <p>9、设计一个协议，利用检查点来达成一致性协议。并说明正确的理由</p>
+<p>10、分别描述流媒体的非交叉传输和交叉传输的优缺点</p>
+<p>非交叉：缓冲区小，可以开始播放缓冲区中数据包的时延小，但如果丢包会有明显中断</p>
+<p>交叉：如果丢包只会影响一些帧，不会明显中断，但缓冲区大，可以开始播放缓冲区中数据包的时延大</p>
+<p>11、容错问题</p>
+<p>1）某个没有协调者的非集中式系统中，正确运行的进程必然返回唯一正确结果，进程出错后会返回任意的错误结果，请设计一个协议保证该系统达到K容错，也就是当K个进程出错时，进程间仍能达成一致并返回正确结果。（5分）</p>
+<p>答：需要(2K+1)个进程，题目要求设计一个协议保证具有拜占庭错误的系统达到K容错，可以使用2K+1个重复的进程，当有K个进程出错时，剩下的K+1个进程仍然会返回相同的唯一正确结果，只需要取2K+1个进程中大多数进程返回的结果就能保证K容错。</p>
+<p>2）有多个传感器从不同位置监控一个系统的温度，该系统的最终温度取这些传感器的平均值。在一个统计周期内，正常工作的传感器对外总是发送其测定的唯一正确温度值；而出现故障的传感器对外发送的温度值是不确定的任意值，但我们无法仅仅通过收到的温度值来判定传感器是否故障。(10分)<br>a）设计一个协议保证正确的传感器间能协调一致，并得到正确的温度平均值。<br>b）如果要求在K个传感器出错的情况下，系统仍能正常工作，总共需要安放多少个传感器？</p>
+<p>答：<br>第一步：每个传感器向所有的其他传感器发送它测得的温度值<br>第二步：每个传感器收集其他传感器发送的温度值，组成一个包含自身在内的所有传感器测得的温度值的向量<br>第三步：每个传感器向其他所有传感器发送向量<br>第四步：每个传感器依次检查它收到所有向量的第i个元素，如果有某个值v占据大多数，那么第i个传感器是正常工作的，v就是它测得的温度值；否则说明第i个传感器出现了故障<br>第五步：每个传感器对所有正常工作的传感器测得的温度值取平均，得到正确的平均温度。<br>需要(3K+1)个进程</p>
+<p>12、讲座题，画图表示Paxos的协议最后形态</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211228210609122.png" alt="image-20211228210609122"></p>
+<p>13、gossip算法多少轮才能终止。可以用复杂度表示，说明理由</p>
+<p>O(logN) 终止，N是节点数量</p>
+<p>原因：病毒传播一传十十传百，指数级传播，所以收敛只需要logN</p>
 <p>X、直播卡顿的4种解决方法</p>
 <p>方案：</p>
 <p>百度上说，增加物理带宽，增大缓冲区，交错传输，压缩数据包，分片传输</p>
@@ -1191,7 +1256,12 @@
 <p>Q 检查点</p>
 <p><a href="https://chenxfeng.github.io/2017/06/06/parellel_and_distributed_computing/distributed_compute5/" target="_blank" rel="noopener">https://chenxfeng.github.io/2017/06/06/parellel_and_distributed_computing/distributed_compute5/</a></p>
 <p>Q 为什么2PC是阻塞的</p>
-<p>因为要等大家都准备好，才能继续</p>
+<p>如果不加定时器，有3种阻塞：</p>
+<ol>
+<li>参与者等待协作者发VOTE_REQUEST</li>
+<li>某个参与者挂了，协作者等不到它的VOTE_COMMIT/VOTE_ABORT</li>
+<li>其他参与者也等不到协作者的GLOBAL_ABORT/GLOBAL_COMMIT</li>
+</ol>
 <p>Q FIFO一致性，为啥左边满足右边不满足</p>
 <p><img src="/2021/12/27/分布式系统笔记/image-20211228172246206.png" alt="image-20211228172246206"></p>
 <p>4个write操作，P1 要求 W(a)1 &lt;- W(a)3，P2要求W(a)2 &lt;- W(a)4</p>
@@ -1200,6 +1270,18 @@
 <p><img src="/2021/12/27/分布式系统笔记/image-20211228172535764.png" alt="image-20211228172535764"></p>
 <p>A：如下</p>
 <p><img src="/2021/12/27/分布式系统笔记/image-20211228172520373.png" alt="image-20211228172520373"></p>
+<p>Q 背书内容</p>
+<p>类型（type）：分布式计算、分布式信息、分布式普适<br>种类（style）：分布式操作系统、网络操作系统、基于中间件的系统<br>架构（architecture）：分层、面向对象、面向事件、面向共享数据库<br>组织形式（struct）：集中式、非集中、混合</p>
+<p>Q 客户端服务器通信挂了问题</p>
+<p>客户端服务器两个crash，传输信息两个lost，客户端找不到服务器。<br>服务器的问题统一重发解决，传输信息lost统一附加time out，找不到服务器异常处理。剩下的客户端crash查看日志</p>
+<p>Q RPC如何保证语言一致性</p>
+<p>语言一致性应该就是指调用的语言和被调用的语言一致？</p>
+<p>序列化和反序列化</p>
+<p>Q 有木有快速找到一致性切面的方法呀</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211228224436869.png" alt="image-20211228224436869"></p>
+<p>按照这个 ，漏了8这个点</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211228224411571.png" alt="image-20211228224411571"></p>
+<p>A 三个检查点能连成线并且不跟消息传递有交点</p>
 
       
     </div>
@@ -1406,7 +1488,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#class-1"><span class="nav-number">1.</span> <span class="nav-text">class-1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-2"><span class="nav-number">2.</span> <span class="nav-text">class-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构"><span class="nav-number">2.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#风格"><span class="nav-number">2.2.</span> <span class="nav-text">风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组织"><span class="nav-number">2.3.</span> <span class="nav-text">组织</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.4.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-3"><span class="nav-number">3.</span> <span class="nav-text">class-3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上节课的遗留内容"><span class="nav-number">3.1.</span> <span class="nav-text">上节课的遗留内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Processes"><span class="nav-number">3.2.</span> <span class="nav-text">Processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtualization"><span class="nav-number">3.3.</span> <span class="nav-text">Virtualization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client"><span class="nav-number">3.4.</span> <span class="nav-text">Client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-Migration"><span class="nav-number">3.5.</span> <span class="nav-text">Code Migration</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-4"><span class="nav-number">4.</span> <span class="nav-text">class-4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#middleware所处的位置"><span class="nav-number">4.1.</span> <span class="nav-text">middleware所处的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC"><span class="nav-number">4.2.</span> <span class="nav-text">RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器挂了"><span class="nav-number">4.2.1.</span> <span class="nav-text">服务器挂了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端挂了之类"><span class="nav-number">4.2.2.</span> <span class="nav-text">客户端挂了之类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下同步RPC的问题"><span class="nav-number">4.2.3.</span> <span class="nav-text">总结一下同步RPC的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步RPC"><span class="nav-number">4.2.4.</span> <span class="nav-text">异步RPC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-5"><span class="nav-number">5.</span> <span class="nav-text">class-5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#message-based-communication"><span class="nav-number">5.1.</span> <span class="nav-text">message-based communication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#queue类型的中间件"><span class="nav-number">5.1.1.</span> <span class="nav-text">queue类型的中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#message-brokers"><span class="nav-number">5.1.2.</span> <span class="nav-text">message brokers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stream-oriented-communication"><span class="nav-number">5.2.</span> <span class="nav-text">stream-oriented communication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#QoS"><span class="nav-number">5.2.1.</span> <span class="nav-text">QoS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multicast-communication"><span class="nav-number">5.3.</span> <span class="nav-text">multicast communication</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-6-Synchronization"><span class="nav-number">6.</span> <span class="nav-text">class-6 Synchronization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sync的思路"><span class="nav-number">6.1.</span> <span class="nav-text">sync的思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cristian算法"><span class="nav-number">6.2.</span> <span class="nav-text">Cristian算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Berkeley算法"><span class="nav-number">6.3.</span> <span class="nav-text">Berkeley算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Averaging算法"><span class="nav-number">6.4.</span> <span class="nav-text">Averaging算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#happened-before关系"><span class="nav-number">6.5.</span> <span class="nav-text">happened-before关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lamport’s算法"><span class="nav-number">6.6.</span> <span class="nav-text">Lamport’s算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vector-clocks算法"><span class="nav-number">6.7.</span> <span class="nav-text">vector clocks算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mutual-exclusion"><span class="nav-number">6.8.</span> <span class="nav-text">mutual exclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#election算法"><span class="nav-number">6.8.1.</span> <span class="nav-text">election算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#election之Bully算法"><span class="nav-number">6.8.2.</span> <span class="nav-text">election之Bully算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#election之ring的问题"><span class="nav-number">6.8.3.</span> <span class="nav-text">election之ring的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-7-Consistency-and-Replication"><span class="nav-number">7.</span> <span class="nav-text">class-7 Consistency and Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作业又提了一嘴"><span class="nav-number">7.1.</span> <span class="nav-text">作业又提了一嘴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Replication"><span class="nav-number">7.2.</span> <span class="nav-text">Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-Replication"><span class="nav-number">7.2.1.</span> <span class="nav-text">Object Replication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Centric-Consistency-Models"><span class="nav-number">7.3.</span> <span class="nav-text">Data-Centric Consistency Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Strict-Consistency"><span class="nav-number">7.3.1.</span> <span class="nav-text">Strict Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sequence-Consistency"><span class="nav-number">7.3.2.</span> <span class="nav-text">Sequence Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linearizability"><span class="nav-number">7.3.3.</span> <span class="nav-text">Linearizability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Causal-Consistency"><span class="nav-number">7.3.4.</span> <span class="nav-text">Causal Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FIFO-Consistency"><span class="nav-number">7.3.5.</span> <span class="nav-text">FIFO Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weak-Consistency"><span class="nav-number">7.3.6.</span> <span class="nav-text">Weak Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Release-Consistency"><span class="nav-number">7.3.7.</span> <span class="nav-text">Release Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Entry-Consistency"><span class="nav-number">7.3.8.</span> <span class="nav-text">Entry Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#summary"><span class="nav-number">7.3.9.</span> <span class="nav-text">summary</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-8"><span class="nav-number">8.</span> <span class="nav-text">class-8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-Centric-Consistency"><span class="nav-number">8.1.</span> <span class="nav-text">Client Centric Consistency</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Replica-Server-Placement"><span class="nav-number">8.1.1.</span> <span class="nav-text">Replica Server Placement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quorum-Based-Protocols"><span class="nav-number">8.1.2.</span> <span class="nav-text">Quorum-Based Protocols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Causally-Consistent-Lazy-Replication"><span class="nav-number">8.1.3.</span> <span class="nav-text">Causally-Consistent Lazy Replication</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-9-Fault-Tolerance"><span class="nav-number">9.</span> <span class="nav-text">class-9 Fault Tolerance</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#improve-dependency"><span class="nav-number">9.1.</span> <span class="nav-text">improve dependency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bizantine-fault"><span class="nav-number">9.2.</span> <span class="nav-text">bizantine fault</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reliable-client-server-communication"><span class="nav-number">9.3.</span> <span class="nav-text">reliable client-server communication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#recovery"><span class="nav-number">9.4.</span> <span class="nav-text">recovery</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-10-分布一致性协议-助教"><span class="nav-number">10.</span> <span class="nav-text">class-10 分布一致性协议@助教</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Paxos"><span class="nav-number">10.1.</span> <span class="nav-text">Paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft"><span class="nav-number">10.2.</span> <span class="nav-text">Raft</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gossip"><span class="nav-number">10.3.</span> <span class="nav-text">Gossip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-11-大数据分布式系统-助教2"><span class="nav-number">11.</span> <span class="nav-text">class-11 大数据分布式系统@助教2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#往年题"><span class="nav-number">12.</span> <span class="nav-text">往年题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#助教口述"><span class="nav-number">12.1.</span> <span class="nav-text">助教口述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2020年回忆题"><span class="nav-number">12.2.</span> <span class="nav-text">2020年回忆题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些群友发言"><span class="nav-number">13.</span> <span class="nav-text">一些群友发言</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#class-1"><span class="nav-number">1.</span> <span class="nav-text">class-1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-2"><span class="nav-number">2.</span> <span class="nav-text">class-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构"><span class="nav-number">2.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#风格"><span class="nav-number">2.2.</span> <span class="nav-text">风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组织"><span class="nav-number">2.3.</span> <span class="nav-text">组织</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.4.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-3"><span class="nav-number">3.</span> <span class="nav-text">class-3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上节课的遗留内容"><span class="nav-number">3.1.</span> <span class="nav-text">上节课的遗留内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Processes"><span class="nav-number">3.2.</span> <span class="nav-text">Processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtualization"><span class="nav-number">3.3.</span> <span class="nav-text">Virtualization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client"><span class="nav-number">3.4.</span> <span class="nav-text">Client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-Migration"><span class="nav-number">3.5.</span> <span class="nav-text">Code Migration</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-4"><span class="nav-number">4.</span> <span class="nav-text">class-4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#middleware所处的位置"><span class="nav-number">4.1.</span> <span class="nav-text">middleware所处的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC"><span class="nav-number">4.2.</span> <span class="nav-text">RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器挂了"><span class="nav-number">4.2.1.</span> <span class="nav-text">服务器挂了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端挂了之类"><span class="nav-number">4.2.2.</span> <span class="nav-text">客户端挂了之类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下同步RPC的问题"><span class="nav-number">4.2.3.</span> <span class="nav-text">总结一下同步RPC的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步RPC"><span class="nav-number">4.2.4.</span> <span class="nav-text">异步RPC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-5"><span class="nav-number">5.</span> <span class="nav-text">class-5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#message-based-communication"><span class="nav-number">5.1.</span> <span class="nav-text">message-based communication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#queue类型的中间件"><span class="nav-number">5.1.1.</span> <span class="nav-text">queue类型的中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#message-brokers"><span class="nav-number">5.1.2.</span> <span class="nav-text">message brokers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stream-oriented-communication"><span class="nav-number">5.2.</span> <span class="nav-text">stream-oriented communication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#QoS"><span class="nav-number">5.2.1.</span> <span class="nav-text">QoS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multicast-communication"><span class="nav-number">5.3.</span> <span class="nav-text">multicast communication</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-6-Synchronization"><span class="nav-number">6.</span> <span class="nav-text">class-6 Synchronization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sync的思路"><span class="nav-number">6.1.</span> <span class="nav-text">sync的思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cristian算法"><span class="nav-number">6.2.</span> <span class="nav-text">Cristian算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Berkeley算法"><span class="nav-number">6.3.</span> <span class="nav-text">Berkeley算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Averaging算法"><span class="nav-number">6.4.</span> <span class="nav-text">Averaging算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#happened-before关系"><span class="nav-number">6.5.</span> <span class="nav-text">happened-before关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lamport’s算法"><span class="nav-number">6.6.</span> <span class="nav-text">Lamport’s算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vector-clocks算法"><span class="nav-number">6.7.</span> <span class="nav-text">vector clocks算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mutual-exclusion"><span class="nav-number">6.8.</span> <span class="nav-text">mutual exclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#election算法"><span class="nav-number">6.8.1.</span> <span class="nav-text">election算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#election之Bully算法"><span class="nav-number">6.8.2.</span> <span class="nav-text">election之Bully算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#election之ring的问题"><span class="nav-number">6.8.3.</span> <span class="nav-text">election之ring的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-7-Consistency-and-Replication"><span class="nav-number">7.</span> <span class="nav-text">class-7 Consistency and Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作业又提了一嘴"><span class="nav-number">7.1.</span> <span class="nav-text">作业又提了一嘴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Replication"><span class="nav-number">7.2.</span> <span class="nav-text">Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-Replication"><span class="nav-number">7.2.1.</span> <span class="nav-text">Object Replication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Centric-Consistency-Models"><span class="nav-number">7.3.</span> <span class="nav-text">Data-Centric Consistency Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Strict-Consistency"><span class="nav-number">7.3.1.</span> <span class="nav-text">Strict Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sequence-Consistency"><span class="nav-number">7.3.2.</span> <span class="nav-text">Sequence Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linearizability"><span class="nav-number">7.3.3.</span> <span class="nav-text">Linearizability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Causal-Consistency"><span class="nav-number">7.3.4.</span> <span class="nav-text">Causal Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FIFO-Consistency"><span class="nav-number">7.3.5.</span> <span class="nav-text">FIFO Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weak-Consistency"><span class="nav-number">7.3.6.</span> <span class="nav-text">Weak Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Release-Consistency"><span class="nav-number">7.3.7.</span> <span class="nav-text">Release Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Entry-Consistency"><span class="nav-number">7.3.8.</span> <span class="nav-text">Entry Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#summary"><span class="nav-number">7.3.9.</span> <span class="nav-text">summary</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-8"><span class="nav-number">8.</span> <span class="nav-text">class-8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-Centric-Consistency"><span class="nav-number">8.1.</span> <span class="nav-text">Client Centric Consistency</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Replica-Server-Placement"><span class="nav-number">8.1.1.</span> <span class="nav-text">Replica Server Placement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quorum-Based-Protocols"><span class="nav-number">8.1.2.</span> <span class="nav-text">Quorum-Based Protocols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Causally-Consistent-Lazy-Replication"><span class="nav-number">8.1.3.</span> <span class="nav-text">Causally-Consistent Lazy Replication</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-9-Fault-Tolerance"><span class="nav-number">9.</span> <span class="nav-text">class-9 Fault Tolerance</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#improve-dependency"><span class="nav-number">9.1.</span> <span class="nav-text">improve dependency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bizantine-fault"><span class="nav-number">9.2.</span> <span class="nav-text">bizantine fault</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reliable-client-server-communication"><span class="nav-number">9.3.</span> <span class="nav-text">reliable client-server communication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#recovery"><span class="nav-number">9.4.</span> <span class="nav-text">recovery</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-10-分布一致性协议-助教"><span class="nav-number">10.</span> <span class="nav-text">class-10 分布一致性协议@助教</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Paxos"><span class="nav-number">10.1.</span> <span class="nav-text">Paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft"><span class="nav-number">10.2.</span> <span class="nav-text">Raft</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gossip"><span class="nav-number">10.3.</span> <span class="nav-text">Gossip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class-11-大数据分布式系统-助教2"><span class="nav-number">11.</span> <span class="nav-text">class-11 大数据分布式系统@助教2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#往年题"><span class="nav-number">12.</span> <span class="nav-text">往年题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#助教口述"><span class="nav-number">12.1.</span> <span class="nav-text">助教口述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2019年回忆题"><span class="nav-number">12.2.</span> <span class="nav-text">2019年回忆题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2020年回忆题"><span class="nav-number">12.3.</span> <span class="nav-text">2020年回忆题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些群友发言"><span class="nav-number">13.</span> <span class="nav-text">一些群友发言</span></a></li></ol></div>
             
 
           </div>
