@@ -131,10 +131,11 @@
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228165333457.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228172246206.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228172535764.png">
-<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228172520373.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211229112301000.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228224436869.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228224411571.png">
-<meta property="og:updated_time" content="2021-12-28T15:24:12.587Z">
+<meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211229095332675.png">
+<meta property="og:updated_time" content="2021-12-29T04:04:59.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式系统笔记">
 <meta name="twitter:description" content="分布式系统笔记 40平时作业（3-4大作业，20-30天完成一个，每个10-15分），60%期末闭卷考试 class-1分布式的课程很多，内容很多 主要教材：分布式系统：原理和范型distributed systems: principles and paradigms 2nd edition, prentice hall, 2007 参考：distributed systems: concept">
@@ -646,9 +647,10 @@
 </ul>
 <p>怎么处理？</p>
 <ul>
-<li><p>-</p>
-</li>
+<li>返回错误值-1</li>
+<li>throw exception/raise signal</li>
 </ul>
+<p>-</p>
 <p>丢包怎么办？</p>
 <ul>
 <li>如果超时，会重传</li>
@@ -656,13 +658,19 @@
 <li>如果丢的太多了，客户端误以为服务器down了，回到了无法定位服务器问题</li>
 </ul>
 <p>-</p>
-<p>服务器crash了怎么办？</p>
+<p>服务器crash的情况</p>
 <ul>
 <li>客户端发消息前就crash了—回到无法定位</li>
 <li>客户端发请求后，服务器接到消息，执行了后crash</li>
 <li>客户端发请求后，服务器接到消息，没执行就crash了</li>
 </ul>
 <p>23情况客户端是无法区分的</p>
+<p>-</p>
+<p>服务器挂了怎么处理？</p>
+<ul>
+<li>重启</li>
+<li>重发</li>
+</ul>
 <p>-</p>
 <p>服务器至少执行一次/至多执行一次指的是啥？</p>
 <p><img src="/2021/12/27/分布式系统笔记/image-20211022091925200.png" alt="image-20211022091925200"></p>
@@ -1243,8 +1251,15 @@
 <p>方案：</p>
 <p>百度上说，增加物理带宽，增大缓冲区，交错传输，压缩数据包，分片传输</p>
 <h1 id="一些群友发言"><a href="#一些群友发言" class="headerlink" title="一些群友发言"></a>一些群友发言</h1><p>Q 数据为中心还是用户为中心？</p>
+<p>特点</p>
 <ul>
-<li>以用户为中心就是为了解决用户跑来跑去的问题</li>
+<li>以用户为中心的一致性：就是为了解决用户跑来跑去的问题，只要保证同一个用户访问的数据是一致的即可，例如DNS，万维网。包括：单调读一致性/单调写一致性/读写一致性/写读一致性。</li>
+<li>以数据为中心的一致性包括：严格一致性，顺序一致性，线性一致性，因果一致性，弱一致性，释放一致性，入口一致性。</li>
+</ul>
+<p>选择</p>
+<ul>
+<li>以数据为中心的一致性模型：读写并重（计算密集型任务）</li>
+<li>以用户为中心的一致性模型：读多写少（内容分发、手机应用）</li>
 </ul>
 <p>Q 好兄弟们，分别描述流媒体的非交叉传输和交叉传输的优缺点，这个能否给介绍介绍</p>
 <ul>
@@ -1269,12 +1284,12 @@
 <p>Q lamport时钟怎么标注</p>
 <p><img src="/2021/12/27/分布式系统笔记/image-20211228172535764.png" alt="image-20211228172535764"></p>
 <p>A：如下</p>
-<p><img src="/2021/12/27/分布式系统笔记/image-20211228172520373.png" alt="image-20211228172520373"></p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211229112301000.png" alt="image-20211229112301000"></p>
 <p>Q 背书内容</p>
-<p>类型（type）：分布式计算、分布式信息、分布式普适<br>种类（style）：分布式操作系统、网络操作系统、基于中间件的系统<br>架构（architecture）：分层、面向对象、面向事件、面向共享数据库<br>组织形式（struct）：集中式、非集中、混合</p>
+<p>类型（type）：分布式计算系统、分布式信息系统、分布式普适系统<br>种类（style）：分布式操作系统、网络操作系统、基于中间件的系统<br>架构（architecture）：分层、面向对象、面向事件、面向共享数据库<br>组织形式（struct）：集中式、非集中、混合</p>
 <p>Q 客户端服务器通信挂了问题</p>
 <p>客户端服务器两个crash，传输信息两个lost，客户端找不到服务器。<br>服务器的问题统一重发解决，传输信息lost统一附加time out，找不到服务器异常处理。剩下的客户端crash查看日志</p>
-<p>Q RPC如何保证语言一致性</p>
+<p>Q RPC如何保证语言一致性？原语一致性？</p>
 <p>语言一致性应该就是指调用的语言和被调用的语言一致？</p>
 <p>序列化和反序列化</p>
 <p>Q 有木有快速找到一致性切面的方法呀</p>
@@ -1282,6 +1297,19 @@
 <p>按照这个 ，漏了8这个点</p>
 <p><img src="/2021/12/27/分布式系统笔记/image-20211228224411571.png" alt="image-20211228224411571"></p>
 <p>A 三个检查点能连成线并且不跟消息传递有交点</p>
+<p>Q 检查点保证一致性的算法？</p>
+<p>coordinate checkpointing，一致性切面</p>
+<p>Q 互斥算法，尽可能快+单节点故障后仍可工作</p>
+<p>A 如下</p>
+<p><img src="/2021/12/27/分布式系统笔记/image-20211229095332675.png" alt="image-20211229095332675"></p>
+<p>集中式(centralized）最快，大量节点想进临界区时，令牌环也很高效</p>
+<p>分布式（distributed）</p>
+<p>Q bully算法</p>
+<p>是一个选举算法，leader挂了之后，follower发现了这件事，广播自己的id，企图当老大，比自己大的节点收到这的id，发现比自己的小，那就霸凌，让他知道自己更大，让他放弃；比自己小的节点收到这id，发现比自己大，就沉默。</p>
+<p>Q 进程和线程的区别</p>
+<p>线程是操作系统执行运算的最小单位，而进程是操作系统进行资源分配的最小单位。</p>
+<p>一个进程可以拥有多个线程，一个线程的阻塞不会导致进程的阻塞看，线程切换的代价很小。</p>
+<p>线程自己不拥有资源，而是和同一个进程的线程之间共享地址空间等资源。</p>
 
       
     </div>
