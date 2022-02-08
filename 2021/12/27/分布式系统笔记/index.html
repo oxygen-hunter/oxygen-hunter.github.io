@@ -135,7 +135,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228224436869.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211228224411571.png">
 <meta property="og:image" content="http://yoursite.com/2021/12/27/分布式系统笔记/image-20211229095332675.png">
-<meta property="og:updated_time" content="2021-12-29T04:04:59.459Z">
+<meta property="og:updated_time" content="2022-02-08T01:53:19.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式系统笔记">
 <meta name="twitter:description" content="分布式系统笔记 40平时作业（3-4大作业，20-30天完成一个，每个10-15分），60%期末闭卷考试 class-1分布式的课程很多，内容很多 主要教材：分布式系统：原理和范型distributed systems: principles and paradigms 2nd edition, prentice hall, 2007 参考：distributed systems: concept">
@@ -386,8 +386,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/system/" itemprop="url" rel="index">
-                    <span itemprop="name">system</span>
+                  <a href="/categories/System/" itemprop="url" rel="index">
+                    <span itemprop="name">System</span>
                   </a>
                 </span>
 
@@ -1179,7 +1179,7 @@
 <p>3、对机制与策略的理解，举例说明何为机制，何为策略</p>
 <p>机制：基本的能力，描述要做什么</p>
 <p>策略：基于机制，实现效果，解决怎么做</p>
-<p>举例：</p>
+<p>举例：根据带宽分配数据包传输路径</p>
 <p>6、动态绑定的原因和缺点</p>
 <p>原因：服务器的ip地址动态变化，服务器客户端，要使用相同版本的接口</p>
 <p>缺点：binder是额外开销，binder成为大分布式系统的瓶颈</p>
@@ -1226,7 +1226,7 @@
 <li>服务器设置计时器，时间到了重发</li>
 </ul>
 <p>6、设计一个协议让节点的时间是所有节点时间的平均值，详细描述流程以及时间计算方式</p>
-<p>berkeley算法：由一个中心服务器和若干客户端组成，服务器轮询客户端获得客户端的时间T_i，然后服务器计算时延Tround_i，去掉离的最远</p>
+<p>berkeley算法：由一个中心服务器和若干客户端组成，服务器轮询客户端获得客户端的时间T_i，然后服务器计算时延Tround_i，去掉离的最远的T_i，计算平均时间，将调整量发给客户端。</p>
 <p><img src="/2021/12/27/分布式系统笔记/image-20211228192617525.png" alt="image-20211228192617525"></p>
 <p>7、为什么Lamport不能全序逻辑而向量时钟可以。</p>
 <p>lamport时钟只保证a &lt; b 则C(a) &lt; C(b)，无法体现事件发生的因果逻辑（如果 C(a) &lt; C(b)无法推出 a &lt; b）</p>
@@ -1234,6 +1234,7 @@
 <p>8、用向量时钟表示下面的传播过程，要求给传播过程标注向量时钟的时间戳，并给出其中的一个错误纠正</p>
 <p>详见class-6 vector clocks算法</p>
 <p>9、设计一个协议，利用检查点来达成一致性协议。并说明正确的理由</p>
+<p>coordinate checkpointing，检查点一致性切面</p>
 <p>10、分别描述流媒体的非交叉传输和交叉传输的优缺点</p>
 <p>非交叉：缓冲区小，可以开始播放缓冲区中数据包的时延小，但如果丢包会有明显中断</p>
 <p>交叉：如果丢包只会影响一些帧，不会明显中断，但缓冲区大，可以开始播放缓冲区中数据包的时延大</p>
@@ -1350,6 +1351,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2022/02/08/zotero批量管理文献方法/" rel="prev" title="Zotero批量管理文献方法">
+                Zotero批量管理文献方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -1427,7 +1432,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1449,7 +1454,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1543,7 +1548,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-snowflake-o"></i>
   </span>
