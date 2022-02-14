@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2022/02/14/IDM的Chrome插件问题解决方法/image-20220214105955345.png">
 <meta property="og:image" content="http://yoursite.com/2022/02/14/IDM的Chrome插件问题解决方法/image-20220214110108802.png">
-<meta property="og:updated_time" content="2022-02-14T03:02:02.434Z">
+<meta property="og:updated_time" content="2022-02-14T04:03:09.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IDM的Chrome插件问题解决方法">
 <meta name="twitter:description" content="IDM目前我用的是俄罗斯大神破解版，版本6.33，现最新版本应该是6.40，本来相安无事，但chrome会自动更新IDM插件，导致出现“此版本的idm不支持该类下载”的弹窗。解决心路如下 1 治标不治本在chrome中卸载IDM扩展，然后去IDM安装路径里找到IDMGCExt.crx文件，拖到chrome中重新安装。 但有效期往往只有一天 2 治本参考https://blog.csdn.net/C">
@@ -388,8 +388,9 @@
 <h1 id="2-治本"><a href="#2-治本" class="headerlink" title="2 治本"></a>2 治本</h1><p>参考<a href="https://blog.csdn.net/CW_SZDX/article/details/108748072" target="_blank" rel="noopener">https://blog.csdn.net/CW_SZDX/article/details/108748072</a></p>
 <p>得知chrome是依靠一个manifest.json来自动更新扩展的，找到扩展的本地路径<code>C:\Users\xander\AppData\Local\Google\Chrome\User Data\Default\Extensions\ngpampappnmepgilojfohadhhmbhlaek\6.33.2_0</code></p>
 <p><img src="/2022/02/14/IDM的Chrome插件问题解决方法/image-20220214105955345.png" alt="image-20220214105955345"></p>
-<p>打开manifest.json，关注3个红框，改成下图即可。</p>
+<p>打开manifest.json，关注3个红框，改成下图内容</p>
 <p><img src="/2022/02/14/IDM的Chrome插件问题解决方法/image-20220214110108802.png" alt="image-20220214110108802"></p>
+<p>最后按治标法重装IDM扩展即可</p>
 
       
     </div>
