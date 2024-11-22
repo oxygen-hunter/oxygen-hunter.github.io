@@ -1,100 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>2020 SDC 安卓app加固攻与防训练营记录</title>
-    <url>/2020/10/19/2020-SDC-%E5%AE%89%E5%8D%93app%E5%8A%A0%E5%9B%BA%E6%94%BB%E4%B8%8E%E9%98%B2%E8%AE%AD%E7%BB%83%E8%90%A5%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<h1 id="前期环境准备"><a href="#前期环境准备" class="headerlink" title="前期环境准备"></a>前期环境准备</h1><h2 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h2><p>@所有人<br>感谢大家报名《2020 SDC 安卓app加固攻与防》训练营,下面给大家说下训练营需要做好预先准备的内容:<br>1、提前准备好500G的存储空间。课程会给大家准备好aosp完整编译和实验环境，因此需要提前准备好足够的空间。<br>2、课程全程在pixel手机上进行实验，该机型随报名课程赠送每人一个。<br>3、需要提前掌握aosp系统编译与刷机、常见逆向分析常见工具如jadx,jeb，ida，gdb等的使用<br>4、鉴于直接拉aosp代码非常耗时，我这里上传了压缩的aosp8.0源码，下载解压直接搭建源码编译环境即可，复制这段内容后打开百度网盘手机App，操作更方便哦 链接:<a href="https://pan.baidu.com/s/1XrJ_TziryjuDBwa5JCpbIg" target="_blank" rel="noopener">https://pan.baidu.com/s/1XrJ_TziryjuDBwa5JCpbIg</a> 提取码:7x41</p>
-<hr>
-<p>训练营地点确定了。在上海裕景大饭店<br>时间10&#x2F;22  9：00-18：00</p>
-<h2 id="aosp系统编译"><a href="#aosp系统编译" class="headerlink" title="aosp系统编译"></a>aosp系统编译</h2><h2 id="jadx，jeb，ida，gdb在android上的使用"><a href="#jadx，jeb，ida，gdb在android上的使用" class="headerlink" title="jadx，jeb，ida，gdb在android上的使用"></a>jadx，jeb，ida，gdb在android上的使用</h2><p>jadx：<a href="https://github.com/skylot/jadx" target="_blank" rel="noopener">https://github.com/skylot/jadx</a></p>
-<p>jeb：<a href="https://www.52pojie.cn/thread-722648-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-722648-1-1.html</a></p>
-<p>jeb要java 8.121及之前版本</p>
-<h1 id="训练营内容"><a href="#训练营内容" class="headerlink" title="训练营内容"></a>训练营内容</h1><h2 id="1-and-app加固技术发展"><a href="#1-and-app加固技术发展" class="headerlink" title="1. and app加固技术发展"></a>1. and app加固技术发展</h2><p>dex，整体粒度</p>
-<p>函数粒度</p>
-<p>vmp，dex2c，指令粒度</p>
-<p>只加固onCreate函数，因为参数固定</p>
-<p>用jni语言映射java，因为jni不好逆？</p>
-<p>加壳后每个函数解释器是相同的，不然so会很大</p>
-<hr>
-<p>判断壳的类型：</p>
-<ol>
-<li><p>整体壳只要完整dump下来就行</p>
-</li>
-<li><p>函数壳在dump完内存dex镜像后，依然存在函数内容无效的情况，（直接nop或随机填充）</p>
-</li>
-<li><p>指令粒度壳：</p>
-</li>
-</ol>
-<ul>
-<li><p>如果每个函数绑定到相同地址（共享解释器），是vmp</p>
-</li>
-<li><p>如果每个被保护的函数逻辑不同，大小不同，是dec2c</p>
-</li>
-</ul>
-<p>vmp映射关系，const string之类的指令可以很方便猜出来，因为长度固定，允许多对一映射，每个函数的映射关系都不一样</p>
-<h2 id="2-and-app脱壳原理"><a href="#2-and-app脱壳原理" class="headerlink" title="2. and app脱壳原理"></a>2. and app脱壳原理</h2><p>dexcode的前16字节是固定的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct DexCode &#123;</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u4</span><br><span class="line">	u4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如何整体dex获取？</p>
-<ol>
-<li>内存中dex文件的起始地址和大小</li>
-<li>时机问题（不同的时机dump的内容不一样，越晚越完整？）</li>
-</ol>
-<p>Dalvik下通用脱壳</p>
-<p>关键字pathList以及内部类lement，根据classloader来脱壳</p>
-<p>loadDex-&gt;DexFile-&gt;openDexFile-&gt;。。</p>
-<p>Dalvik下两个有效脱壳点：</p>
-<ol>
-<li>主要是带dex前缀的？</li>
-<li>dexfileparse，dvmDexFileOpen</li>
-</ol>
-<p>getDex和getBytes函数，可以直接用纯java代码写脱壳工具</p>
-<p>ART脱壳点</p>
-<ol>
-<li>openCommon，openMemory</li>
-<li>修改dex2oat在dex编译优化流程中完成脱壳</li>
-<li>利用构造函数DexFile::DexFile()脱壳</li>
-</ol>
-<p>拿到artmethod，也可脱壳，ida打开后搜artmethod方法，</p>
-<p>solveClass，defineClass</p>
-<h2 id="3-FART脱壳机的原理"><a href="#3-FART脱壳机的原理" class="headerlink" title="3. FART脱壳机的原理"></a>3. FART脱壳机的原理</h2><p>三大功能</p>
-<ul>
-<li><p>dex dump</p>
-</li>
-<li><p>主动调用</p>
-</li>
-<li><p>修复组件</p>
-</li>
-</ul>
-<h2 id="4-hyperpwn动态调试vmp"><a href="#4-hyperpwn动态调试vmp" class="headerlink" title="4. hyperpwn动态调试vmp"></a>4. hyperpwn动态调试vmp</h2>]]></content>
-      <categories>
-        <category>Reverse Engineering</category>
-      </categories>
-      <tags>
-        <tag>Android RE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IDM的Chrome插件问题解决方法</title>
-    <url>/2022/02/14/IDM%E7%9A%84Chrome%E6%8F%92%E4%BB%B6%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>IDM目前我用的是俄罗斯大神破解版，版本6.33，现最新版本应该是6.40，本来相安无事，但chrome会自动更新IDM插件，导致出现“此版本的idm不支持该类下载”的弹窗。解决心路如下</p>
-<h1 id="1-治标不治本"><a href="#1-治标不治本" class="headerlink" title="1 治标不治本"></a>1 治标不治本</h1><p>在chrome中卸载IDM扩展，然后去IDM安装路径里找到<code>IDMGCExt.crx</code>文件，拖到chrome中重新安装。</p>
-<p>但有效期往往只有一天</p>
-<h1 id="2-治本"><a href="#2-治本" class="headerlink" title="2 治本"></a>2 治本</h1><p>参考<a href="https://blog.csdn.net/CW_SZDX/article/details/108748072" target="_blank" rel="noopener">https://blog.csdn.net/CW_SZDX/article/details/108748072</a></p>
-<p>得知chrome是依靠一个manifest.json来自动更新扩展的，找到扩展的本地路径<code>C:\Users\xander\AppData\Local\Google\Chrome\User Data\Default\Extensions\ngpampappnmepgilojfohadhhmbhlaek\6.33.2_0</code></p>
-<p><img src="/2022/02/14/IDM的Chrome插件问题解决方法/IDM%E7%9A%84Chrome%E6%8F%92%E4%BB%B6%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/image-20220214105955345.png" alt="image-20220214105955345"></p>
-<p>打开manifest.json，关注3个红框，改成下图内容</p>
-<p><img src="/2022/02/14/IDM的Chrome插件问题解决方法/IDM%E7%9A%84Chrome%E6%8F%92%E4%BB%B6%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/image-20220214110108802.png" alt="image-20220214110108802"></p>
-<p>最后按治标法重装IDM扩展即可</p>
-]]></content>
-      <categories>
-        <category>Misc</category>
-      </categories>
-      <tags>
-        <tag>IDM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DVWA学习笔记</title>
     <url>/2021/01/23/DVWA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p>DVWA学习笔记</p>
@@ -262,40 +168,97 @@
       </tags>
   </entry>
   <entry>
-    <title>Java学习笔记</title>
-    <url>/2020/09/23/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="vscode-java疑难杂症"><a href="#vscode-java疑难杂症" class="headerlink" title="vscode+java疑难杂症"></a>vscode+java疑难杂症</h1><h2 id="1-报找不到主类的错误"><a href="#1-报找不到主类的错误" class="headerlink" title="1. 报找不到主类的错误"></a>1. 报找不到主类的错误</h2><p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> lixiao.sorthuluwa;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lixiao.grandfather.*;</span><br><span class="line"><span class="keyword">import</span> lixiao.huluwa.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortHuluwa</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Huluwa[] queue = &#123;<span class="keyword">new</span> Huluwa(<span class="number">1</span>, <span class="string">"大娃"</span>)&#125;;</span><br><span class="line">        Grandfather.getInstance().SortHuluwa(queue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">javac SortHuluwa.java 无错误</span><br><span class="line">java SortHuluwa 报找不到主类的错误</span><br></pre></td></tr></table></figure>
-
-<p>原因，要带上包名运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java lixiao.sorthuluwa.SortHuluwa</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-多个package，多个java文件时不要点run-code按钮"><a href="#2-多个package，多个java文件时不要点run-code按钮" class="headerlink" title="2. 多个package，多个java文件时不要点run code按钮"></a>2. 多个package，多个java文件时不要点run code按钮</h2><p>因为其他包还没编译，首先要编译其他包，然后编译自己</p>
-<p>编译时不要用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">javac -d . *.java</span><br></pre></td></tr></table></figure>
-
-<p>因为没有指定编译顺序，依赖会错误</p>
-<p>可以写个bat脚本来做编译包和运行的事，比如</p>
-<figure class="highlight bat"><table><tr><td class="code"><pre><span class="line"><span class="built_in">del</span> .\*.class /s</span><br><span class="line"><span class="built_in">echo</span> "删除*.class成功"</span><br><span class="line"></span><br><span class="line">javac -d . Huluwa.java</span><br><span class="line">javac -d . Grandfather.java</span><br><span class="line">javac -d . SortHuluwa.java</span><br><span class="line">java lixiao.sorthuluwa.SortHuluwa</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-设计问题：不希望父类被new-Huluwa-，但允许子类的new-Dawa"><a href="#3-设计问题：不希望父类被new-Huluwa-，但允许子类的new-Dawa" class="headerlink" title="3. 设计问题：不希望父类被new Huluwa()，但允许子类的new Dawa()"></a>3. 设计问题：不希望父类被new Huluwa()，但允许子类的new Dawa()</h2><p>即不希望看到父类的默认构造函数被外部使用者调用</p>
-<p>但允许子类构造函数被外部使用者调用，做法是</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Huluwa &#123;</span><br><span class="line">	protected Huluwa() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dawa extends Huluwa &#123;</span><br><span class="line">	public Dawa() &#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>不可以使用默认访问权限（包内的class可见），因为虽然父类和子类偶尔处于一个包之下，不会出错，但万一不在一个包底下，直接编译错误</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//Huluwa() &#123;&#125; //不可以</span><br></pre></td></tr></table></figure>
-
+    <title>IDM的Chrome插件问题解决方法</title>
+    <url>/2022/02/14/IDM%E7%9A%84Chrome%E6%8F%92%E4%BB%B6%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>IDM目前我用的是俄罗斯大神破解版，版本6.33，现最新版本应该是6.40，本来相安无事，但chrome会自动更新IDM插件，导致出现“此版本的idm不支持该类下载”的弹窗。解决心路如下</p>
+<h1 id="1-治标不治本"><a href="#1-治标不治本" class="headerlink" title="1 治标不治本"></a>1 治标不治本</h1><p>在chrome中卸载IDM扩展，然后去IDM安装路径里找到<code>IDMGCExt.crx</code>文件，拖到chrome中重新安装。</p>
+<p>但有效期往往只有一天</p>
+<h1 id="2-治本"><a href="#2-治本" class="headerlink" title="2 治本"></a>2 治本</h1><p>参考<a href="https://blog.csdn.net/CW_SZDX/article/details/108748072" target="_blank" rel="noopener">https://blog.csdn.net/CW_SZDX/article/details/108748072</a></p>
+<p>得知chrome是依靠一个manifest.json来自动更新扩展的，找到扩展的本地路径<code>C:\Users\xander\AppData\Local\Google\Chrome\User Data\Default\Extensions\ngpampappnmepgilojfohadhhmbhlaek\6.33.2_0</code></p>
+<p><img src="/2022/02/14/IDM的Chrome插件问题解决方法/IDM%E7%9A%84Chrome%E6%8F%92%E4%BB%B6%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/image-20220214105955345.png" alt="image-20220214105955345"></p>
+<p>打开manifest.json，关注3个红框，改成下图内容</p>
+<p><img src="/2022/02/14/IDM的Chrome插件问题解决方法/IDM%E7%9A%84Chrome%E6%8F%92%E4%BB%B6%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/image-20220214110108802.png" alt="image-20220214110108802"></p>
+<p>最后按治标法重装IDM扩展即可</p>
 ]]></content>
       <categories>
-        <category>Java</category>
+        <category>Misc</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>IDM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2020 SDC 安卓app加固攻与防训练营记录</title>
+    <url>/2020/10/19/2020-SDC-%E5%AE%89%E5%8D%93app%E5%8A%A0%E5%9B%BA%E6%94%BB%E4%B8%8E%E9%98%B2%E8%AE%AD%E7%BB%83%E8%90%A5%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h1 id="前期环境准备"><a href="#前期环境准备" class="headerlink" title="前期环境准备"></a>前期环境准备</h1><h2 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h2><p>@所有人<br>感谢大家报名《2020 SDC 安卓app加固攻与防》训练营,下面给大家说下训练营需要做好预先准备的内容:<br>1、提前准备好500G的存储空间。课程会给大家准备好aosp完整编译和实验环境，因此需要提前准备好足够的空间。<br>2、课程全程在pixel手机上进行实验，该机型随报名课程赠送每人一个。<br>3、需要提前掌握aosp系统编译与刷机、常见逆向分析常见工具如jadx,jeb，ida，gdb等的使用<br>4、鉴于直接拉aosp代码非常耗时，我这里上传了压缩的aosp8.0源码，下载解压直接搭建源码编译环境即可，复制这段内容后打开百度网盘手机App，操作更方便哦 链接:<a href="https://pan.baidu.com/s/1XrJ_TziryjuDBwa5JCpbIg" target="_blank" rel="noopener">https://pan.baidu.com/s/1XrJ_TziryjuDBwa5JCpbIg</a> 提取码:7x41</p>
+<hr>
+<p>训练营地点确定了。在上海裕景大饭店<br>时间10&#x2F;22  9：00-18：00</p>
+<h2 id="aosp系统编译"><a href="#aosp系统编译" class="headerlink" title="aosp系统编译"></a>aosp系统编译</h2><h2 id="jadx，jeb，ida，gdb在android上的使用"><a href="#jadx，jeb，ida，gdb在android上的使用" class="headerlink" title="jadx，jeb，ida，gdb在android上的使用"></a>jadx，jeb，ida，gdb在android上的使用</h2><p>jadx：<a href="https://github.com/skylot/jadx" target="_blank" rel="noopener">https://github.com/skylot/jadx</a></p>
+<p>jeb：<a href="https://www.52pojie.cn/thread-722648-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-722648-1-1.html</a></p>
+<p>jeb要java 8.121及之前版本</p>
+<h1 id="训练营内容"><a href="#训练营内容" class="headerlink" title="训练营内容"></a>训练营内容</h1><h2 id="1-and-app加固技术发展"><a href="#1-and-app加固技术发展" class="headerlink" title="1. and app加固技术发展"></a>1. and app加固技术发展</h2><p>dex，整体粒度</p>
+<p>函数粒度</p>
+<p>vmp，dex2c，指令粒度</p>
+<p>只加固onCreate函数，因为参数固定</p>
+<p>用jni语言映射java，因为jni不好逆？</p>
+<p>加壳后每个函数解释器是相同的，不然so会很大</p>
+<hr>
+<p>判断壳的类型：</p>
+<ol>
+<li><p>整体壳只要完整dump下来就行</p>
+</li>
+<li><p>函数壳在dump完内存dex镜像后，依然存在函数内容无效的情况，（直接nop或随机填充）</p>
+</li>
+<li><p>指令粒度壳：</p>
+</li>
+</ol>
+<ul>
+<li><p>如果每个函数绑定到相同地址（共享解释器），是vmp</p>
+</li>
+<li><p>如果每个被保护的函数逻辑不同，大小不同，是dec2c</p>
+</li>
+</ul>
+<p>vmp映射关系，const string之类的指令可以很方便猜出来，因为长度固定，允许多对一映射，每个函数的映射关系都不一样</p>
+<h2 id="2-and-app脱壳原理"><a href="#2-and-app脱壳原理" class="headerlink" title="2. and app脱壳原理"></a>2. and app脱壳原理</h2><p>dexcode的前16字节是固定的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct DexCode &#123;</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u4</span><br><span class="line">	u4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如何整体dex获取？</p>
+<ol>
+<li>内存中dex文件的起始地址和大小</li>
+<li>时机问题（不同的时机dump的内容不一样，越晚越完整？）</li>
+</ol>
+<p>Dalvik下通用脱壳</p>
+<p>关键字pathList以及内部类lement，根据classloader来脱壳</p>
+<p>loadDex-&gt;DexFile-&gt;openDexFile-&gt;。。</p>
+<p>Dalvik下两个有效脱壳点：</p>
+<ol>
+<li>主要是带dex前缀的？</li>
+<li>dexfileparse，dvmDexFileOpen</li>
+</ol>
+<p>getDex和getBytes函数，可以直接用纯java代码写脱壳工具</p>
+<p>ART脱壳点</p>
+<ol>
+<li>openCommon，openMemory</li>
+<li>修改dex2oat在dex编译优化流程中完成脱壳</li>
+<li>利用构造函数DexFile::DexFile()脱壳</li>
+</ol>
+<p>拿到artmethod，也可脱壳，ida打开后搜artmethod方法，</p>
+<p>solveClass，defineClass</p>
+<h2 id="3-FART脱壳机的原理"><a href="#3-FART脱壳机的原理" class="headerlink" title="3. FART脱壳机的原理"></a>3. FART脱壳机的原理</h2><p>三大功能</p>
+<ul>
+<li><p>dex dump</p>
+</li>
+<li><p>主动调用</p>
+</li>
+<li><p>修复组件</p>
+</li>
+</ul>
+<h2 id="4-hyperpwn动态调试vmp"><a href="#4-hyperpwn动态调试vmp" class="headerlink" title="4. hyperpwn动态调试vmp"></a>4. hyperpwn动态调试vmp</h2>]]></content>
+      <categories>
+        <category>Reverse Engineering</category>
+      </categories>
+      <tags>
+        <tag>Android RE</tag>
       </tags>
   </entry>
   <entry>
@@ -426,6 +389,43 @@
       </categories>
       <tags>
         <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java学习笔记</title>
+    <url>/2020/09/23/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="vscode-java疑难杂症"><a href="#vscode-java疑难杂症" class="headerlink" title="vscode+java疑难杂症"></a>vscode+java疑难杂症</h1><h2 id="1-报找不到主类的错误"><a href="#1-报找不到主类的错误" class="headerlink" title="1. 报找不到主类的错误"></a>1. 报找不到主类的错误</h2><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> lixiao.sorthuluwa;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lixiao.grandfather.*;</span><br><span class="line"><span class="keyword">import</span> lixiao.huluwa.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortHuluwa</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Huluwa[] queue = &#123;<span class="keyword">new</span> Huluwa(<span class="number">1</span>, <span class="string">"大娃"</span>)&#125;;</span><br><span class="line">        Grandfather.getInstance().SortHuluwa(queue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">javac SortHuluwa.java 无错误</span><br><span class="line">java SortHuluwa 报找不到主类的错误</span><br></pre></td></tr></table></figure>
+
+<p>原因，要带上包名运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java lixiao.sorthuluwa.SortHuluwa</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-多个package，多个java文件时不要点run-code按钮"><a href="#2-多个package，多个java文件时不要点run-code按钮" class="headerlink" title="2. 多个package，多个java文件时不要点run code按钮"></a>2. 多个package，多个java文件时不要点run code按钮</h2><p>因为其他包还没编译，首先要编译其他包，然后编译自己</p>
+<p>编译时不要用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">javac -d . *.java</span><br></pre></td></tr></table></figure>
+
+<p>因为没有指定编译顺序，依赖会错误</p>
+<p>可以写个bat脚本来做编译包和运行的事，比如</p>
+<figure class="highlight bat"><table><tr><td class="code"><pre><span class="line"><span class="built_in">del</span> .\*.class /s</span><br><span class="line"><span class="built_in">echo</span> "删除*.class成功"</span><br><span class="line"></span><br><span class="line">javac -d . Huluwa.java</span><br><span class="line">javac -d . Grandfather.java</span><br><span class="line">javac -d . SortHuluwa.java</span><br><span class="line">java lixiao.sorthuluwa.SortHuluwa</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-设计问题：不希望父类被new-Huluwa-，但允许子类的new-Dawa"><a href="#3-设计问题：不希望父类被new-Huluwa-，但允许子类的new-Dawa" class="headerlink" title="3. 设计问题：不希望父类被new Huluwa()，但允许子类的new Dawa()"></a>3. 设计问题：不希望父类被new Huluwa()，但允许子类的new Dawa()</h2><p>即不希望看到父类的默认构造函数被外部使用者调用</p>
+<p>但允许子类构造函数被外部使用者调用，做法是</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Huluwa &#123;</span><br><span class="line">	protected Huluwa() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dawa extends Huluwa &#123;</span><br><span class="line">	public Dawa() &#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不可以使用默认访问权限（包内的class可见），因为虽然父类和子类偶尔处于一个包之下，不会出错，但万一不在一个包底下，直接编译错误</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//Huluwa() &#123;&#125; //不可以</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1252,6 +1252,34 @@
       </tags>
   </entry>
   <entry>
+    <title>版本问题解决</title>
+    <url>/2024/11/22/hexo-node-npm%E7%89%88%E6%9C%AC%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><p>起因是<a href="mailto:&#x68;&#101;&#120;&#x6f;&#64;&#51;&#46;&#56;&#46;&#x30;" target="_blank" rel="noopener">&#x68;&#101;&#120;&#x6f;&#64;&#51;&#46;&#56;&#46;&#x30;</a>与手动安装的node16.x.x不兼容，导致hexo d的时侯出现一个mode type报错</p>
+<h2 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h2><p>与<a href="mailto:&#x68;&#101;&#x78;&#x6f;&#64;&#51;&#x2e;&#x38;&#x2e;&#48;" target="_blank" rel="noopener">&#x68;&#101;&#x78;&#x6f;&#64;&#51;&#x2e;&#x38;&#x2e;&#48;</a>兼容的node是12.14.0，参考 [1]</p>
+<p>所以把node降版本或者hexo升版本即可，参考 [2]</p>
+<p>测试发现hexo升版本还是存在问题，<a href="mailto:&#104;&#x65;&#x78;&#111;&#64;&#55;&#x2e;&#51;&#x2e;&#x30;" target="_blank" rel="noopener">&#104;&#x65;&#x78;&#111;&#64;&#55;&#x2e;&#51;&#x2e;&#x30;</a>与node18.20.5不兼容</p>
+<p>坑点：</p>
+<ol>
+<li>必须用兼容的node去装hexo，如果用高版本node装低版本hexo，再切回低版本node，此时依然不兼容且卸载时容易出问题。所以需要在高版本node安装，高版本node卸载，再换回低版本</li>
+<li>在项目内安装hexo的时侯先把旧的<code>packages-lock.json</code>和<code>node_modules</code>删掉，然后用<code>npm install hexo@3.9.0 --save</code>，其中–save不能少，不然不会修改本项目里的packages.json，之后使用的时候用<code>npx hexo clean</code>去启动</li>
+<li>想全局安装hexo的话，<code>npm install -g hexo@3.9.0 </code></li>
+</ol>
+<p>一些用到的命令：</p>
+<ol>
+<li>nvm安装，卸载和切换</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nvm install 12.14.0</span><br><span class="line">nvm use 12.14.0</span><br><span class="line">nvm uninstall 12.14.0</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>npm安装hexo</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo@3.9.0 --save</span><br></pre></td></tr></table></figure>
+
+<h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><p>[1] <a href="https://hexo.io/docs/" target="_blank" rel="noopener">https://hexo.io/docs/</a></p>
+<p>[2] <a href="https://www.jb51.net/article/202124.htm" target="_blank" rel="noopener">https://www.jb51.net/article/202124.htm</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Rust环境安装+换中科大源</title>
     <url>/2019/02/03/Rust%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>vct说Rust环境配置很复杂，小李哥不信邪地来打算试一试。</p>
@@ -1315,50 +1343,6 @@
         <tag>Rust</tag>
         <tag>Build</tag>
         <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>zotero+坚果云+pdfexpert同步管理文献</title>
-    <url>/2022/05/23/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/</url>
-    <content><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>记录一下zotero+坚果云+pdfexpert实现PC和ipad同步文献的方法和坑。</p>
-<h1 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h1><p>在PC上你喜欢的位置新建一个文件夹，然后右键设置坚果云同步，比如我的是【D:\Documents\Security-Docs\平板文献同步区】</p>
-<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523164723510.png" alt="image-20220523164723510"></p>
-<h1 id="Zotero"><a href="#Zotero" class="headerlink" title="Zotero"></a>Zotero</h1><p>需要完成两处设置</p>
-<p>其一在【编辑-首选项-高级-文件和文件夹】</p>
-<ul>
-<li>把红框里的根目录设置为刚刚那个坚果云的同步目录【D:\Documents\Security-Docs\平板文献同步区】</li>
-<li>至于下面的数据存储位置，就用默认的【C:\Users\xander\Zotero】即可。</li>
-</ul>
-<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523164548636.png" alt="image-20220523164548636"></p>
-<p>其二需要安装ZotFile插件，去【工具-插件】自己装好，然后去【工具-ZotFile Preferences】里</p>
-<ul>
-<li>第一个红框里填刚刚首选项里的Zotero数据库目录【C:\Users\xander\Zotero】</li>
-<li>第二个红框里填坚果云的平板同步目录【D:\Documents\Security-Docs\平板文献同步区】</li>
-<li>勾选Use subfolder defined by，填入 【&#x2F;%c】，这样同步到坚果云上的目录名字就不会是一串字母了</li>
-</ul>
-<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523165042216.png" alt="image-20220523165042216"></p>
-<p>然后在Zotero中选择你想同步的文章，【右键-Manage Attachment-Rename and Move-确定】，注意，需要建立一个条目然后再重命名，否则会报错，top-level item不能命名之类。</p>
-<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523165808988.png" alt="image-20220523165808988"></p>
-<p>此时回到平板文献同步目录，发现已经同步到坚果云了</p>
-<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523165930307.png" alt="image-20220523165930307"></p>
-<p>接下来就是把坚果云上的内容通过webdev传送到ipad上</p>
-<h1 id="坚果云-webdev"><a href="#坚果云-webdev" class="headerlink" title="坚果云 webdev"></a>坚果云 webdev</h1><p>登录坚果云网页版 <a href="https://www.jianguoyun.com/d/home#/safety" target="_blank" rel="noopener">https://www.jianguoyun.com/d/home#/safety</a></p>
-<ul>
-<li>添加应用，设置密码</li>
-</ul>
-<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523170141894.png" alt="image-20220523170141894"></p>
-<h1 id="ipad-PDF-Experts"><a href="#ipad-PDF-Experts" class="headerlink" title="ipad PDF Experts"></a>ipad PDF Experts</h1><p>在ipad上下载app：PDF Expert</p>
-<ul>
-<li>在里面【添加连接-webdav】</li>
-<li>【标题】随意，然后填入坚果云网页版里的【服务器地址】【账户】【应用密码】，完成</li>
-<li>然后下拉同步一下就可以完成同步了，PC端和ipad端的修改都会互相同步</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Paper</category>
-      </categories>
-      <tags>
-        <tag>Zotero</tag>
       </tags>
   </entry>
   <entry>
@@ -1682,6 +1666,130 @@
       </tags>
   </entry>
   <entry>
+    <title>zotero better bibtex配置教程</title>
+    <url>/2024/11/22/zotero-better-bibtex%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><p>better bibtex for zotero 是一款zotero文献管理插件，可以改变zotero文献索引+自定义导出文献格式（类似google scholar的格式）</p>
+<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p><a href="https://retorque.re/zotero-better-bibtex/installation/" target="_blank" rel="noopener">https://retorque.re/zotero-better-bibtex/installation/</a></p>
+<h2 id="set-up"><a href="#set-up" class="headerlink" title="set up"></a>set up</h2><ol>
+<li><p>插件设置 [1]</p>
+<ol>
+<li>点击 <strong>编辑——首选项——Better BibTeX</strong>；设置 引用格式公式 为 <code>auth.fold.lower + year + shorttitle(1,0).lower</code>；</li>
+<li>设置 不导出的字段 为 <code>abstract,file,shorttitle,langid,month,keywords</code>；</li>
+<li>取消选择 <code>对标题应用标题大小写格式 和 使用大括号括起首字母大写的单词以保持大小写格式</code>。</li>
+<li>设置 导入时格式化标题为句首大写 为 <code>否（按原样导入标题）</code>；</li>
+<li>转至 <strong>导出</strong> 选项卡，设置 快速复制条目格式 为 <code>Better BibTeX</code>。</li>
+</ol>
+</li>
+<li><p>设置完了要手动重建zotero key，具体操作 [2]</p>
+<ol>
+<li>我的文库-右边文献全选-Better Bibtex-刷新Bibtex引用</li>
+</ol>
+</li>
+</ol>
+<h2 id="use"><a href="#use" class="headerlink" title="use"></a>use</h2><ol>
+<li>选个文库-导出条目-格式选Better bibtex-导出</li>
+<li>效果展示</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@article&#123;boi2024smart,</span><br><span class="line">  title = &#123;Smart Contract Vulnerability Detection: The Role of Large Language Model (LLM)&#125;,</span><br><span class="line">  author = &#123;Boi, Biagio and Esposito, Christian and Lee, Sokjoon&#125;,</span><br><span class="line">  year = &#123;2024&#125;,</span><br><span class="line">  journal = &#123;SIGAPP Appl. Comput. Rev.&#125;,</span><br><span class="line">  volume = &#123;24&#125;,</span><br><span class="line">  number = &#123;2&#125;,</span><br><span class="line">  pages = &#123;19--29&#125;,</span><br><span class="line">  issn = &#123;1559-6915&#125;,</span><br><span class="line">  doi = &#123;10.1145/3687251.3687253&#125;,</span><br><span class="line">  urldate = &#123;2024-10-09&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><p>[1] <a href="https://www.cnblogs.com/BoyaYan/p/17310302.html" target="_blank" rel="noopener">https://www.cnblogs.com/BoyaYan/p/17310302.html</a></p>
+<p>[2] <a href="https://blog.sciencenet.cn/blog-531760-1002555.html" target="_blank" rel="noopener">https://blog.sciencenet.cn/blog-531760-1002555.html</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>zotero+坚果云+pdfexpert同步管理文献</title>
+    <url>/2022/05/23/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/</url>
+    <content><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>记录一下zotero+坚果云+pdfexpert实现PC和ipad同步文献的方法和坑。</p>
+<h1 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h1><p>在PC上你喜欢的位置新建一个文件夹，然后右键设置坚果云同步，比如我的是【D:\Documents\Security-Docs\平板文献同步区】</p>
+<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523164723510.png" alt="image-20220523164723510"></p>
+<h1 id="Zotero"><a href="#Zotero" class="headerlink" title="Zotero"></a>Zotero</h1><p>需要完成两处设置</p>
+<p>其一在【编辑-首选项-高级-文件和文件夹】</p>
+<ul>
+<li>把红框里的根目录设置为刚刚那个坚果云的同步目录【D:\Documents\Security-Docs\平板文献同步区】</li>
+<li>至于下面的数据存储位置，就用默认的【C:\Users\xander\Zotero】即可。</li>
+</ul>
+<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523164548636.png" alt="image-20220523164548636"></p>
+<p>其二需要安装ZotFile插件，去【工具-插件】自己装好，然后去【工具-ZotFile Preferences】里</p>
+<ul>
+<li>第一个红框里填刚刚首选项里的Zotero数据库目录【C:\Users\xander\Zotero】</li>
+<li>第二个红框里填坚果云的平板同步目录【D:\Documents\Security-Docs\平板文献同步区】</li>
+<li>勾选Use subfolder defined by，填入 【&#x2F;%c】，这样同步到坚果云上的目录名字就不会是一串字母了</li>
+</ul>
+<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523165042216.png" alt="image-20220523165042216"></p>
+<p>然后在Zotero中选择你想同步的文章，【右键-Manage Attachment-Rename and Move-确定】，注意，需要建立一个条目然后再重命名，否则会报错，top-level item不能命名之类。</p>
+<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523165808988.png" alt="image-20220523165808988"></p>
+<p>此时回到平板文献同步目录，发现已经同步到坚果云了</p>
+<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523165930307.png" alt="image-20220523165930307"></p>
+<p>接下来就是把坚果云上的内容通过webdev传送到ipad上</p>
+<h1 id="坚果云-webdev"><a href="#坚果云-webdev" class="headerlink" title="坚果云 webdev"></a>坚果云 webdev</h1><p>登录坚果云网页版 <a href="https://www.jianguoyun.com/d/home#/safety" target="_blank" rel="noopener">https://www.jianguoyun.com/d/home#/safety</a></p>
+<ul>
+<li>添加应用，设置密码</li>
+</ul>
+<p><img src="/2022/05/23/zotero-坚果云-pdfexperts同步管理文献/zotero-%E5%9D%9A%E6%9E%9C%E4%BA%91-pdfexperts%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE/image-20220523170141894.png" alt="image-20220523170141894"></p>
+<h1 id="ipad-PDF-Experts"><a href="#ipad-PDF-Experts" class="headerlink" title="ipad PDF Experts"></a>ipad PDF Experts</h1><p>在ipad上下载app：PDF Expert</p>
+<ul>
+<li>在里面【添加连接-webdav】</li>
+<li>【标题】随意，然后填入坚果云网页版里的【服务器地址】【账户】【应用密码】，完成</li>
+<li>然后下拉同步一下就可以完成同步了，PC端和ipad端的修改都会互相同步</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Paper</category>
+      </categories>
+      <tags>
+        <tag>Zotero</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>不同架构的编译方法总结</title>
+    <url>/2020/08/19/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="mips"><a href="#mips" class="headerlink" title="mips"></a>mips</h1><h2 id="linux环境下编译"><a href="#linux环境下编译" class="headerlink" title="linux环境下编译"></a>linux环境下编译</h2><p>系统：ubuntu 18.04-64</p>
+<p>安装编译器</p>
+<blockquote>
+<p>sudo apt-get update</p>
+<p>sudo apt-get install g++-mips-linux-gnu</p>
+</blockquote>
+<p>用的时候名字是反过来，命令和g++类似</p>
+<p>编译成可执行文件：</p>
+<blockquote>
+<p>mips-linux-gnu-g++ hello.cpp -o hello</p>
+</blockquote>
+<p>编译成mips汇编文件</p>
+<blockquote>
+<p>mips-linux-gnu-g++ hello.cpp -S -o hello.asm</p>
+</blockquote>
+<h2 id="mips模拟器"><a href="#mips模拟器" class="headerlink" title="mips模拟器"></a>mips模拟器</h2><h3 id="MARS"><a href="#MARS" class="headerlink" title="MARS"></a>MARS</h3><p>官网下载链接：<a href="http://courses.missouristate.edu/kenvollmar/mars/" target="_blank" rel="noopener">http://courses.missouristate.edu/kenvollmar/mars/</a></p>
+<p>但MARS识别不了mips-linux-gnu-g++生成的汇编代码，会报语法错误，不知道和版本有没有关系，MARS的支持是2003~2014，可能有新汇编语法？</p>
+<h3 id="Spim"><a href="#Spim" class="headerlink" title="Spim"></a>Spim</h3><p>同样识别不了，有语法错误，奇了怪了</p>
+<h3 id="QEMU"><a href="#QEMU" class="headerlink" title="QEMU"></a>QEMU</h3><p>可直接运行mips可执行文件的环境</p>
+<p>安装：</p>
+<blockquote>
+<p>sudo apt-get install qemu-user-static qemu-system-mips</p>
+</blockquote>
+<p>qemu可执行动态链接的mips程序，但是会出现报错：ld.so.1缺失</p>
+<p>解决办法1：</p>
+<ol>
+<li>将qemu-mips和qemu-mips-static从<code>/usr/bin</code>复制到当前目录</li>
+<li>尝试<code>sudo chroot . ./qemu-mips ./hello</code>会报chroot错如下图，改用<code>sudo chroot . ./qemu-mips-static ./hello</code>后ok，报库缺失</li>
+<li>用<code>locate /lib/ld.so.1</code>查看缺失库的路径</li>
+<li>将ld.so.1所在lib复制到当前目录</li>
+<li>运行<code>sudo chroot . ./qemu-mips-static ./hello</code>，完工</li>
+</ol>
+<p><img src="/2020/08/19/不同架构的编译方法总结/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/image-20200819091402503.png" alt="image-20200819091402503"></p>
+<p>或者，编译时就编译为静态程序，可直接执行，无需上面的复杂操作，弊端就是静态程序有点大</p>
+<blockquote>
+<p>mips-linux-gnu-g++ -static hello.cpp -o hello</p>
+<p>qemu-mips-static .&#x2F;hello</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Compiler</category>
+      </categories>
+      <tags>
+        <tag>Compiler</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Zotero批量管理文献方法</title>
     <url>/2022/02/08/zotero%E6%89%B9%E9%87%8F%E7%AE%A1%E7%90%86%E6%96%87%E7%8C%AE%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>最近突发奇想，打算利用碎片时间浏览一下安全领域四大顶会的paper，于是产生如下需求：</p>
@@ -1747,83 +1855,465 @@
       </tags>
   </entry>
   <entry>
-    <title>zotero better bibtex配置教程</title>
-    <url>/2024/11/22/zotero-better-bibtex%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><p>better bibtex for zotero 是一款zotero文献管理插件，可以改变zotero文献索引+自定义导出文献格式（类似google scholar的格式）</p>
-<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p><a href="https://retorque.re/zotero-better-bibtex/installation/" target="_blank" rel="noopener">https://retorque.re/zotero-better-bibtex/installation/</a></p>
-<h2 id="set-up"><a href="#set-up" class="headerlink" title="set up"></a>set up</h2><ol>
-<li><p>插件设置 [1]</p>
+    <title>图论定理收集</title>
+    <url>/2019/02/26/%E5%9B%BE%E8%AE%BA%E5%AE%9A%E7%90%86%E6%94%B6%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>参考书目：《图论与网络理论》和ppt</p>
+<p>要求：复习的时候都会证明</p>
+<h1 id="第一章-图的基本概念"><a href="#第一章-图的基本概念" class="headerlink" title="第一章 图的基本概念"></a>第一章 图的基本概念</h1><p>定理1.1.1 对任何图 $ G $ ，各顶点度数之和等于边数的2倍.即 $ \sum\limits_{\nu\in V(G)}d(\nu) &#x3D; 2\varepsilon. $</p>
+<p>推论1.1.1 任何图中，奇度顶点个数为偶数.</p>
+<p>例1.1.2 设 $ G $ 是一个简单图，若最小度 $ \delta(G) \geq 2 $，则 $ G $ 中必含有圈.</p>
+<p>例1.1.3 设 $ G $ 是一个简单图，若最小度 $ \delta(G) \geq 3 $，则 $ G $ 中必含有偶圈.</p>
+<p>例1.1.4 设 $ G $ 是简单图，若最小度 $ \delta(G) \geq 3 $，则 $ G $ 中各个圈长的最大公因数是1或2.</p>
+<p>定理1.1.2 一个图是二部图当且仅当它不含有奇圈.</p>
+<p>定理1.1.3 如果图 $ G $ 连通，$ \varepsilon(G) \geq \nu(G)-1 $.</p>
+<p>例1.1.6 设图 $ G $ 有 $ 2n $个顶点，$ \delta(G) \geq n $，求证 $ G $ 连通.</p>
+<p>例1.1.7 求证：若图中有且仅有2个奇度顶点，则它们必然连通.</p>
+<p>定理1.3.1<br>下列命题等价</p>
 <ol>
-<li>点击 <strong>编辑——首选项——Better BibTeX</strong>；设置 引用格式公式 为 <code>auth.fold.lower + year + shorttitle(1,0).lower</code>；</li>
-<li>设置 不导出的字段 为 <code>abstract,file,shorttitle,langid,month,keywords</code>；</li>
-<li>取消选择 <code>对标题应用标题大小写格式 和 使用大括号括起首字母大写的单词以保持大小写格式</code>。</li>
-<li>设置 导入时格式化标题为句首大写 为 <code>否（按原样导入标题）</code>；</li>
-<li>转至 <strong>导出</strong> 选项卡，设置 快速复制条目格式 为 <code>Better BibTeX</code>。</li>
+<li>$ G $ 是树（无圈的连通图）.</li>
+<li>$ G $ 无环边且 $ G $ 中任意两个顶点间有唯一的路.</li>
+<li>$ G $ 无圈且 $ \varepsilon &#x3D; v-1 $.</li>
+<li>$ G $ 连通且 $ \varepsilon &#x3D; v-1 $.</li>
+<li>$ G $ 连通且对于任意 $ e \in E(G)$，$ G-e $ 不连通.</li>
+<li>$ G $ 无圈且对于任意 $ e \in E(\overline{G}) $，$ G+e $ 恰有一个圈.</li>
 </ol>
-</li>
-<li><p>设置完了要手动重建zotero key，具体操作 [2]</p>
+<hr>
+<p>定理2.1.3 设 $ v $ 是树的顶点，则 $ v $ 是 $ T $ 的割点当且仅当 $ d(v)&gt;1 $.</p>
+<p>推论2.1.1 每个非平凡无圈连通图至少有2个顶点不是割点.</p>
+<p>定理2.1.5 边 $ e $ 是割边当且仅当 $ e $ 不在 $ G $ 的任何一个圈上.</p>
+<p>定理2.2.1 $ \kappa(G) \leq \kappa’(G) \leq \delta(G) $</p>
+<p>定理2.2.2 对具有 $ v $ 个顶点 $ \varepsilon $，有$ \kappa(G) \leq \lfloor \frac{2\varepsilon}{v} \rfloor $.</p>
+<p>定理2.2.3 设 $ G $ 是一个简单图，$ k $ 是一个自然数，若$ \delta(G) \geq \frac{v+k+2}{2} $，则 $ G $ 是连通的.</p>
+<p>推论2.2.1 设 $ G $ 是一个简单图，若 $ \delta(G) \geq \frac{v-1}{2} $，则 $ G $ 是连通图。</p>
+<p>定理2.2.4 设 $ G $ 是一个直径为2的简单图，则 $ \kappa’(G)&#x3D;\delta(G) $.</p>
+<h1 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h1><h2 id="中国邮递员问题-带权最短闭途径"><a href="#中国邮递员问题-带权最短闭途径" class="headerlink" title="中国邮递员问题-&gt;带权最短闭途径"></a>中国邮递员问题-&gt;带权最短闭途径</h2><p>Edmonds-Johnson 算法（补成欧拉图）</p>
 <ol>
-<li>我的文库-右边文献全选-Better Bibtex-刷新Bibtex引用</li>
+<li>找出奇度顶点，拉出来</li>
+<li>画一个完全图，需要找两两之间最短路</li>
+<li>找最小权匹配</li>
+<li>在原来的图中添边</li>
 </ol>
-</li>
-</ol>
-<h2 id="use"><a href="#use" class="headerlink" title="use"></a>use</h2><ol>
-<li>选个文库-导出条目-格式选Better bibtex-导出</li>
-<li>效果展示</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@article&#123;boi2024smart,</span><br><span class="line">  title = &#123;Smart Contract Vulnerability Detection: The Role of Large Language Model (LLM)&#125;,</span><br><span class="line">  author = &#123;Boi, Biagio and Esposito, Christian and Lee, Sokjoon&#125;,</span><br><span class="line">  year = &#123;2024&#125;,</span><br><span class="line">  journal = &#123;SIGAPP Appl. Comput. Rev.&#125;,</span><br><span class="line">  volume = &#123;24&#125;,</span><br><span class="line">  number = &#123;2&#125;,</span><br><span class="line">  pages = &#123;19--29&#125;,</span><br><span class="line">  issn = &#123;1559-6915&#125;,</span><br><span class="line">  doi = &#123;10.1145/3687251.3687253&#125;,</span><br><span class="line">  urldate = &#123;2024-10-09&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><p>[1] <a href="https://www.cnblogs.com/BoyaYan/p/17310302.html" target="_blank" rel="noopener">https://www.cnblogs.com/BoyaYan/p/17310302.html</a></p>
-<p>[2] <a href="https://blog.sciencenet.cn/blog-531760-1002555.html" target="_blank" rel="noopener">https://blog.sciencenet.cn/blog-531760-1002555.html</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>不同架构的编译方法总结</title>
-    <url>/2020/08/19/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="mips"><a href="#mips" class="headerlink" title="mips"></a>mips</h1><h2 id="linux环境下编译"><a href="#linux环境下编译" class="headerlink" title="linux环境下编译"></a>linux环境下编译</h2><p>系统：ubuntu 18.04-64</p>
-<p>安装编译器</p>
-<blockquote>
-<p>sudo apt-get update</p>
-<p>sudo apt-get install g++-mips-linux-gnu</p>
-</blockquote>
-<p>用的时候名字是反过来，命令和g++类似</p>
-<p>编译成可执行文件：</p>
-<blockquote>
-<p>mips-linux-gnu-g++ hello.cpp -o hello</p>
-</blockquote>
-<p>编译成mips汇编文件</p>
-<blockquote>
-<p>mips-linux-gnu-g++ hello.cpp -S -o hello.asm</p>
-</blockquote>
-<h2 id="mips模拟器"><a href="#mips模拟器" class="headerlink" title="mips模拟器"></a>mips模拟器</h2><h3 id="MARS"><a href="#MARS" class="headerlink" title="MARS"></a>MARS</h3><p>官网下载链接：<a href="http://courses.missouristate.edu/kenvollmar/mars/" target="_blank" rel="noopener">http://courses.missouristate.edu/kenvollmar/mars/</a></p>
-<p>但MARS识别不了mips-linux-gnu-g++生成的汇编代码，会报语法错误，不知道和版本有没有关系，MARS的支持是2003~2014，可能有新汇编语法？</p>
-<h3 id="Spim"><a href="#Spim" class="headerlink" title="Spim"></a>Spim</h3><p>同样识别不了，有语法错误，奇了怪了</p>
-<h3 id="QEMU"><a href="#QEMU" class="headerlink" title="QEMU"></a>QEMU</h3><p>可直接运行mips可执行文件的环境</p>
-<p>安装：</p>
-<blockquote>
-<p>sudo apt-get install qemu-user-static qemu-system-mips</p>
-</blockquote>
-<p>qemu可执行动态链接的mips程序，但是会出现报错：ld.so.1缺失</p>
-<p>解决办法1：</p>
-<ol>
-<li>将qemu-mips和qemu-mips-static从<code>/usr/bin</code>复制到当前目录</li>
-<li>尝试<code>sudo chroot . ./qemu-mips ./hello</code>会报chroot错如下图，改用<code>sudo chroot . ./qemu-mips-static ./hello</code>后ok，报库缺失</li>
-<li>用<code>locate /lib/ld.so.1</code>查看缺失库的路径</li>
-<li>将ld.so.1所在lib复制到当前目录</li>
-<li>运行<code>sudo chroot . ./qemu-mips-static ./hello</code>，完工</li>
-</ol>
-<p><img src="/2020/08/19/不同架构的编译方法总结/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/image-20200819091402503.png" alt="image-20200819091402503"></p>
-<p>或者，编译时就编译为静态程序，可直接执行，无需上面的复杂操作，弊端就是静态程序有点大</p>
-<blockquote>
-<p>mips-linux-gnu-g++ -static hello.cpp -o hello</p>
-<p>qemu-mips-static .&#x2F;hello</p>
-</blockquote>
+<p>Fleury 算法（找欧拉闭迹）</p>
+<ul>
+<li>沿着图的非割边前行</li>
+</ul>
+<h1 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h1><h2 id="支配集"><a href="#支配集" class="headerlink" title="支配集"></a>支配集</h2><p>支配数 $ \gamma(G) $</p>
+<p>支配周围的点</p>
+<p>极小支配集的补集也是支配集</p>
+<h2 id="点独立集"><a href="#点独立集" class="headerlink" title="点独立集"></a>点独立集</h2><p>点独立数 $ \alpha(G) $</p>
+<p>任二顶点有 d(u)+d(v) &gt;&#x3D; v(G)，则 a &lt; gamma</p>
+<h2 id="点覆盖集"><a href="#点覆盖集" class="headerlink" title="点覆盖集"></a>点覆盖集</h2><p>覆盖了所有的边</p>
+<h2 id="边覆盖集"><a href="#边覆盖集" class="headerlink" title="边覆盖集"></a>边覆盖集</h2><p>覆盖了所有的顶点</p>
 ]]></content>
       <categories>
-        <category>Compiler</category>
+        <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
+        <tag>Graph Theory</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大数据与并行计算复习笔记</title>
+    <url>/2020/08/08/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="ch1-概论"><a href="#ch1-概论" class="headerlink" title="ch1 概论"></a>ch1 概论</h1><h2 id="需要掌握的问题"><a href="#需要掌握的问题" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>为什么需要并行计算？</li>
+<li>提高计算性能的方法？</li>
+<li>上述方法的瓶颈是什么？</li>
+<li>并行计算技术的分类</li>
+<li>并行加速评估公式 Amdahl 公式</li>
+<li>MPI 主要功能</li>
+<li>MPI 的优点和缺点</li>
+<li>MapReduce的三种理解是什么</li>
+</ol>
+<h2 id="回答"><a href="#回答" class="headerlink" title="回答"></a>回答</h2><h3 id="1-为什么需要并行计算？"><a href="#1-为什么需要并行计算？" class="headerlink" title="1. 为什么需要并行计算？"></a>1. 为什么需要并行计算？</h3><p>web规模爆炸增加</p>
+<p>计算量和计算复杂度增加，比如电影渲染</p>
+<h3 id="2-曾经的提高计算性能的方法？"><a href="#2-曾经的提高计算性能的方法？" class="headerlink" title="2. 曾经的提高计算性能的方法？"></a>2. 曾经的提高计算性能的方法？</h3><ol>
+<li>处理器字长变长</li>
+<li>提高集成度</li>
+<li>微体系结构技术，如流水线，乱序发射</li>
+<li>提高处理器频率（CPU主频）</li>
+</ol>
+<h3 id="3-上述方法的瓶颈"><a href="#3-上述方法的瓶颈" class="headerlink" title="3. 上述方法的瓶颈"></a>3. 上述方法的瓶颈</h3><ol>
+<li>集成度到极限了，受制于芯片制作工艺</li>
+<li>微体系指令并行技术到极限了，ILP墙</li>
+<li>处理器速度与存储器速度不匹配，存储墙</li>
+<li>功耗和散热限制了处理器速度，功耗墙</li>
+</ol>
+<h3 id="4-并行计算技术的分类"><a href="#4-并行计算技术的分类" class="headerlink" title="4. 并行计算技术的分类"></a>4. 并行计算技术的分类</h3><ol>
+<li>按数据和指令类型分（弗林分类）</li>
+<li>按并行类型</li>
+<li>按存储访问结构</li>
+<li>按计算特征</li>
+<li>按系统特征</li>
+<li>按并行程序设计模型&#x2F;方法</li>
+</ol>
+<p>弗林分类：SISD, SIMD, MISD, MIMD，用的最多的是MIMD</p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808115717945.png" alt="image-20200808115717945"></p>
+<p>并行类型</p>
+<ul>
+<li>bit级并行</li>
+<li>指令级并行（ILP: instruction-level parallelism</li>
+<li>线程级并行<ul>
+<li>数据级并行：大数据块切成小数据块</li>
+<li>任务级并行：大任务切成子任务</li>
+</ul>
+</li>
+</ul>
+<p>按存储访问结构</p>
+<ul>
+<li>共享内存，也称UMA，uniform memory acess</li>
+<li>分布式共享存储，每个处理器有自己的本地存储器，再共享一个全局存储器</li>
+<li>分布式内存，每个处理器有自己的本地存储器，无全局存储器</li>
+</ul>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808120105679.png" alt="image-20200808120105679"></p>
+<p>按系统类型分</p>
+<ul>
+<li>多核处理器MC</li>
+<li>对称多处理系统 SMP：symmetric multiprocessing</li>
+<li>大规模并行处理 MPP：massive multiprocessing</li>
+<li>集群cluster</li>
+<li>网格grid：异构计算机</li>
+</ul>
+<p>按计算特征分：</p>
+<ul>
+<li>数据密集型：web搜索</li>
+<li>计算密集型：天气预报，一大堆矩阵运算</li>
+<li>混合型：3d电影渲染</li>
+</ul>
+<p>按并行程序设计模型&#x2F;方法：</p>
+<ul>
+<li>共享内存变量：Pthread，OpenMP</li>
+<li>消息传递方式：MPI</li>
+<li>mapreduce</li>
+</ul>
+<h3 id="5-并行加速评估公式-Amdahl-公式"><a href="#5-并行加速评估公式-Amdahl-公式" class="headerlink" title="5. 并行加速评估公式 Amdahl 公式"></a>5. 并行加速评估公式 Amdahl 公式</h3><p>设S为加速比，P为程序中可并行的比例，N是处理器数量</p>
+<p>$S &#x3D; \frac{1}{(1-P)+\frac{P}{N}}$</p>
+<h3 id="6-MPI主要功能"><a href="#6-MPI主要功能" class="headerlink" title="6. MPI主要功能"></a>6. MPI主要功能</h3><p>message passing interface，消息传递接口</p>
+<p>计算密集型任务，所有节点运行同一个程序，但数据不同</p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808235228378.png" alt="image-20200808235228378"></p>
+<h3 id="7-MPI-优点和缺点"><a href="#7-MPI-优点和缺点" class="headerlink" title="7. MPI 优点和缺点"></a>7. MPI 优点和缺点</h3><p>优点：</p>
+<ol>
+<li>适合计算密集型任务</li>
+<li>有独立于语言外的标准，可移植性好</li>
+<li>有很多开放机构和厂商提供支持</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>没有数据划分和任务划分</li>
+<li>通信开销大</li>
+<li>无分布式文件系统支撑</li>
+<li>无错误恢复机制，一个节点计算失效可能导致所有结果无效</li>
+<li>无良好架构，程序员需要考虑复杂的细节</li>
+</ol>
+<h3 id="8-MapReduce的三种理解是什么？"><a href="#8-MapReduce的三种理解是什么？" class="headerlink" title="8. MapReduce的三种理解是什么？"></a>8. MapReduce的三种理解是什么？</h3><ol>
+<li>基于集群的高性能并行计算平台</li>
+<li>并行程序开发与运行框架：自动完成任务的并行化处理、自动划分数据、数据通信、错误恢复等等</li>
+<li>并行程序设计模型与方法：函数式编程思想，用两个函数完成基本的并行计算任务</li>
+</ol>
+<h1 id="ch2-MapReduce-简介"><a href="#ch2-MapReduce-简介" class="headerlink" title="ch2 MapReduce 简介"></a>ch2 MapReduce 简介</h1><h2 id="需要掌握的问题-1"><a href="#需要掌握的问题-1" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>mapper，combiner，partitionner，reducer的关系</li>
+<li>MapReduce的优点</li>
+</ol>
+<h2 id="回答-1"><a href="#回答-1" class="headerlink" title="回答"></a>回答</h2><h3 id="1-mapper，combiner，partitionner，reducer的关系"><a href="#1-mapper，combiner，partitionner，reducer的关系" class="headerlink" title="1. mapper，combiner，partitionner，reducer的关系"></a>1. mapper，combiner，partitionner，reducer的关系</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200809152940591.png" alt="image-20200809152940591"></p>
+<h3 id="2-MapReduce-的优点"><a href="#2-MapReduce-的优点" class="headerlink" title="2. MapReduce 的优点"></a>2. MapReduce 的优点</h3><p>提供了统一的计算框架</p>
+<ul>
+<li>划分数据和任务、出错恢复、数据通信、负载均衡等等</li>
+</ul>
+<p>提供了抽象的程序模型</p>
+<ul>
+<li>map函数和reduce函数，把做什么和怎么做区分开</li>
+</ul>
+<p>平滑的可扩展性</p>
+<ul>
+<li>用的集群是普通商用机，可扩展性好，性能可以随处理器数量线性增长</li>
+</ul>
+<p>把处理向数据迁移</p>
+<ul>
+<li>处理器先处理本地磁盘的数据，处理不了时再用就近原则把数据传输去附近的计算节点上算</li>
+</ul>
+<h3 id="3-Google-MapReduce-基本工作流程"><a href="#3-Google-MapReduce-基本工作流程" class="headerlink" title="3. Google MapReduce 基本工作流程"></a>3. Google MapReduce 基本工作流程</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200810095325815.png" alt="image-20200810095325815"></p>
+<ol>
+<li>拥有的输入：数据块切分为大小相同的数据块比如64MB，以及对应用户程序</li>
+<li>用户程序提交给master节点</li>
+<li>master节点寻找配置map节点和reduce节点，把数据和程序给map节点，把程序给reduce节点</li>
+<li>map节点优先从本地读取数据计算，并且做一些整理排序的任务，中间结果输出到本地，并且告知master计算已完成、和中间结果的存储位置</li>
+<li>reduce从存储位置中远程读中间结果，进行计算，输出到结果文件</li>
+</ol>
+<h3 id="4-MapReduce失效处理"><a href="#4-MapReduce失效处理" class="headerlink" title="4. MapReduce失效处理"></a>4. MapReduce失效处理</h3><p>主节点：定期设置计算任务的checkpoint，如果发现失效，恢复到最近的checkpoint继续执行</p>
+<p>工作节点：经常失效，主节点会发心跳包，假如没有回复，主节点把任务调度给其他节点并终止失效的工作节点</p>
+<h3 id="5-MR带宽优化"><a href="#5-MR带宽优化" class="headerlink" title="5. MR带宽优化"></a>5. MR带宽优化</h3><p>大量键值对在从map端中间结果，远程传输到reduce节点时会占用很大带宽，可以用combiner整合key相同的键值对，降低带宽占用</p>
+<h3 id="6-MR计算优化"><a href="#6-MR计算优化" class="headerlink" title="6. MR计算优化"></a>6. MR计算优化</h3><p>reduce节点需要等所有map节点算完后才能开始运行，所以如果有一个map很慢，拖后腿了，那会大幅降低性能，所以可以安排多个map节点同时算，取那个算得最快的</p>
+<h3 id="7-MR数据分区"><a href="#7-MR数据分区" class="headerlink" title="7. MR数据分区"></a>7. MR数据分区</h3><p>reduce的输入可能来自多个map端，所以需要先用partitioner进行分区，把属于同一个reduce的数据聚到一起，解决数据相关性问题</p>
+<h3 id="8-GFS的设计理念"><a href="#8-GFS的设计理念" class="headerlink" title="8. GFS的设计理念"></a>8. GFS的设计理念</h3><ul>
+<li><p>廉价的本地磁盘分布存储</p>
+</li>
+<li><p>多数据自动备份解决可靠性</p>
+</li>
+<li><p>为MapReduce框架提供支持</p>
+</li>
+</ul>
+<h3 id="9-GFS基本架构是什么"><a href="#9-GFS基本架构是什么" class="headerlink" title="9. GFS基本架构是什么"></a>9. GFS基本架构是什么</h3><p>用户-master节点-多个server</p>
+<p>master节点存储3种元数据</p>
+<ul>
+<li>GFS的目录结构（日志恢复）</li>
+<li>文件名和chunk的映射表（日志恢复）</li>
+<li>chunk副本的位置信息，默认3个副本（master启动或server注册时生成）</li>
+</ul>
+<p>一个chunk是64MB，数据更新只有3个副本都更新成功时才认为成功</p>
+<p>chunk再切分为64KB的子块，物理上存在linux文件系统里</p>
+<h3 id="10-用户在访问GFS文件时工作过程是什么"><a href="#10-用户在访问GFS文件时工作过程是什么" class="headerlink" title="10. 用户在访问GFS文件时工作过程是什么"></a>10. 用户在访问GFS文件时工作过程是什么</h3><p>用户告诉master：文件名或者chunk索引</p>
+<p>master查目录，告诉用户对应文件或chunk在哪些server上</p>
+<p>用户直接访问server，读取数据</p>
+<blockquote>
+<p>这样绕过了master读取实际数据，可以避免master成为瓶颈</p>
+</blockquote>
+<h3 id="11-GFS用到的技术"><a href="#11-GFS用到的技术" class="headerlink" title="11. GFS用到的技术"></a>11. GFS用到的技术</h3><ul>
+<li>大规模集群安装</li>
+<li>故障检测和恢复</li>
+<li>动态添加新节点</li>
+<li>节能技术：蓄电池，而非UPS</li>
+</ul>
+<h3 id="12-分布式数据表-BigTable-的设计目标"><a href="#12-分布式数据表-BigTable-的设计目标" class="headerlink" title="12. 分布式数据表 BigTable 的设计目标"></a>12. 分布式数据表 BigTable 的设计目标</h3><p>广泛的实用性：存储不同类型数据</p>
+<p>很强的可扩展性：新增服务器节点</p>
+<p>容错性和高可用性</p>
+<p>高吞吐量：PB级</p>
+<p>自动管理</p>
+<p>简单</p>
+<h3 id="13-BT的架构是什么样"><a href="#13-BT的架构是什么样" class="headerlink" title="13. BT的架构是什么样"></a>13. BT的架构是什么样</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200810172334336.png" alt="image-20200810172334336"></p>
+<p>主服务器-子表服务器</p>
+<p>子表服务器上用SSTable存子表</p>
+<ul>
+<li>一个SSTable有64KB大，存在GFS中</li>
+<li>一个GFS Chunk中可存1000+个子块，需要索引</li>
+<li>SSTable可以被不同子表共享，避免重复数据</li>
+<li>子表寻址：由chubby服务器找到根子表，再查二级索引子表，再访问到具体SSTable</li>
+</ul>
+<h3 id="14-BT的数据模型是什么样"><a href="#14-BT的数据模型是什么样" class="headerlink" title="14. BT的数据模型是什么样"></a>14. BT的数据模型是什么样</h3><p>行：行关键字</p>
+<p>列：族名+列名</p>
+<p>时间戳：比如网页数据跟随时间变化</p>
+<h3 id="15-Hadoop-MapReduce-的架构"><a href="#15-Hadoop-MapReduce-的架构" class="headerlink" title="15. Hadoop MapReduce 的架构"></a>15. Hadoop MapReduce 的架构</h3><p>把google mr里的master节点改名叫JobTracker节点，worker节点改名TaskTracker节点</p>
+<h3 id="16-Hadoop的一些组件"><a href="#16-Hadoop的一些组件" class="headerlink" title="16. Hadoop的一些组件"></a>16. Hadoop的一些组件</h3><p>InputFormat：决定读文件的格式，包括TextInputFormat、KeyValueInputFormat等</p>
+<p>InputSplit：记录数据分块，64MB为一块这样</p>
+<p>RecordReader：记录如何读取一块，LineRecordReader就是按行读，key为行号，value为行内容</p>
+<p>TextOutputFormat：输出文件的格式</p>
+<h3 id="17-HDFS-和-GFS-的联系"><a href="#17-HDFS-和-GFS-的联系" class="headerlink" title="17. HDFS 和 GFS 的联系"></a>17. HDFS 和 GFS 的联系</h3><p>NameNode对应master节点</p>
+<p>DataNode对应server</p>
+<h1 id="ch4-Hadoop环境配置和开发"><a href="#ch4-Hadoop环境配置和开发" class="headerlink" title="ch4 Hadoop环境配置和开发"></a>ch4 Hadoop环境配置和开发</h1><h2 id="需要掌握的问题-2"><a href="#需要掌握的问题-2" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>hadoop配置文件</li>
+</ol>
+<h2 id="回答-2"><a href="#回答-2" class="headerlink" title="回答"></a>回答</h2><h3 id="1-hadoop配置文件"><a href="#1-hadoop配置文件" class="headerlink" title="1. hadoop配置文件"></a>1. hadoop配置文件</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200811230439134.png" alt="image-20200811230439134"></p>
+<h1 id="ch5-MapReduce-算法设计"><a href="#ch5-MapReduce-算法设计" class="headerlink" title="ch5 MapReduce 算法设计"></a>ch5 MapReduce 算法设计</h1><h2 id="需要掌握的问题-3"><a href="#需要掌握的问题-3" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好</li>
+<li>自定义kv类型时重写的接口和继承类</li>
+<li>mr全局排序中，如何有效划分数据</li>
+<li>单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？</li>
+<li>web搜索服务，分为哪三步</li>
+<li>带全局排序的倒排索引</li>
+</ol>
+<h2 id="回答-3"><a href="#回答-3" class="headerlink" title="回答"></a>回答</h2><h3 id="1-结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好"><a href="#1-结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好" class="headerlink" title="1. 结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好"></a>1. 结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好</h3><h3 id="2-自定义kv类型时重写的接口和继承类"><a href="#2-自定义kv类型时重写的接口和继承类" class="headerlink" title="2. 自定义kv类型时重写的接口和继承类"></a>2. 自定义kv类型时重写的接口和继承类</h3><h3 id="3-mr全局排序中，如何有效划分数据"><a href="#3-mr全局排序中，如何有效划分数据" class="headerlink" title="3. mr全局排序中，如何有效划分数据"></a>3. mr全局排序中，如何有效划分数据</h3><p>TotalOrderPartitioner</p>
+<h3 id="4-单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？"><a href="#4-单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？" class="headerlink" title="4. 单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？"></a>4. 单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？</h3><p>自定义一个MyInputFormat，extends FileInputFormat，重写getSplits和getRecordReader方法，指定不拆分文件，然后在driver端设置InputFormat为自定义的</p>
+<h3 id="5-web搜索服务，分为哪三步"><a href="#5-web搜索服务，分为哪三步" class="headerlink" title="5. web搜索服务，分为哪三步"></a>5. web搜索服务，分为哪三步</h3><ol>
+<li>爬取网页内容</li>
+<li>建立倒排索引</li>
+<li>根据搜索内容返回排好序的网页</li>
+</ol>
+<h3 id="6-带全局排序的倒排索引"><a href="#6-带全局排序的倒排索引" class="headerlink" title="6. 带全局排序的倒排索引"></a>6. 带全局排序的倒排索引</h3><p>map in: &lt;docid id, doc&gt;</p>
+<p>map out: &lt;(term, docid), f(term)&gt;</p>
+<p>partitioner: 自定义MyPartitioner，extends HashPartitioner，重写getPartition方法，在driver中setPartitionerClass(MyPartitioner)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyPartitioner extends HashPartitioner&lt;K, V&gt; &#123;</span><br><span class="line">	getPartitioner(K key, V value, int numReduceTasks) &#123;</span><br><span class="line">		term = key.split(&apos;#&apos;)[0];</span><br><span class="line">		super.getPartition(term, value, numReduceTasks);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>reduce:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Reducer &#123;</span><br><span class="line">	method setup() &#123;</span><br><span class="line">		t_prev = null;</span><br><span class="line">		P = new PostingList;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	method reduce(tuple&lt;term, docid&gt;, Iterable(fs)) &#123;</span><br><span class="line">		for (f in)</span><br><span class="line">		if (term != t_prev &amp;&amp; t_prev != null) &#123;</span><br><span class="line">			emit(t_prev, P);</span><br><span class="line">			P.Reset();</span><br><span class="line">		&#125;</span><br><span class="line">		P.append(&lt;docid, f&gt;);</span><br><span class="line">		t_prev = term;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	method cleanup() &#123;</span><br><span class="line">		emit(t_prev, P)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ch6-HBase和Hive"><a href="#ch6-HBase和Hive" class="headerlink" title="ch6 HBase和Hive"></a>ch6 HBase和Hive</h1><h2 id="需要掌握的问题-4"><a href="#需要掌握的问题-4" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>CAP定理</li>
+<li>普通数据库为什么不适用</li>
+<li>HBase 的物理结构</li>
+<li>HBase 的逻辑结构</li>
+</ol>
+<h2 id="回答-4"><a href="#回答-4" class="headerlink" title="回答"></a>回答</h2><h3 id="1-CAP定理"><a href="#1-CAP定理" class="headerlink" title="1. CAP定理"></a>1. CAP定理</h3><p>Consistency，一致性</p>
+<p>Availablity，可用性</p>
+<p>PartitionTolerance，分区容错性</p>
+<p>三者不可兼得</p>
+<h3 id="2-普通数据库为什么不适用"><a href="#2-普通数据库为什么不适用" class="headerlink" title="2. 普通数据库为什么不适用"></a>2. 普通数据库为什么不适用</h3><p>大表</p>
+<p>高并发访问</p>
+<p>不停机情况下的动态增删列</p>
+<p>分布式网络分片问题</p>
+<h3 id="3-HBase的逻辑结构"><a href="#3-HBase的逻辑结构" class="headerlink" title="3. HBase的逻辑结构"></a>3. HBase的逻辑结构</h3><p>行关键字，时间戳，列关键字</p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812101854154.png" alt="image-20200812101854154"></p>
+<h3 id="4-HBase的架构"><a href="#4-HBase的架构" class="headerlink" title="4. HBase的架构"></a>4. HBase的架构</h3><p>HBase位于HDFS和上层应用之间</p>
+<p>有MasterServer和RegionServer，对应BigTable里的主服务器和子表服务器</p>
+<p>大表中的底层数据存在HDFS里</p>
+<p>子表中的数据区Region</p>
+<ul>
+<li>由很多Store组成</li>
+<li>每个Store由一个memStore和若干FileStore组成</li>
+</ul>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812102810139.png" alt="image-20200812102810139"></p>
+<p>除此之外还有一个HLog，日志恢复</p>
+<h3 id="5-访问-更新HBase数据的过程"><a href="#5-访问-更新HBase数据的过程" class="headerlink" title="5. 访问&#x2F;更新HBase数据的过程"></a>5. 访问&#x2F;更新HBase数据的过程</h3><p>三级搜索结构：</p>
+<ul>
+<li><p>用户的数据表存在子表服务器上，它的信息记录在元数据表（.META.表）里</p>
+</li>
+<li><p>元数据表存在特殊的子表服务器上，它的信息记录在根子表（root region）里</p>
+</li>
+<li><p>根子表在主服务器里</p>
+</li>
+</ul>
+<blockquote>
+<p> 查的时候是反过来，先扫描根子表，得到元数据表位置，再查元数据表，得到用户数据表在哪个子表服务器上</p>
+</blockquote>
+<p>访问：</p>
+<ul>
+<li>先从Master服务器查到子表服务器，去memStore里找，如果没有，再去StoreFile里搜索，B+树结构，定期压缩</li>
+<li>两个小的子表可以合并为大子表</li>
+<li>子表大到一定程度调用 HRegion.closeAndSplit() 进行拆分</li>
+</ul>
+<p>更新：</p>
+<ul>
+<li>先从Master服务器查到子表服务器，然后提交数据更新请求，新数据先写在memStore里，等满一定大小了再往StoreFile里写，StoreFile位于HDFS</li>
+</ul>
+<h3 id="6-HBase相关命令"><a href="#6-HBase相关命令" class="headerlink" title="6. HBase相关命令"></a>6. HBase相关命令</h3><p>建立表、插入数据，查看表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create &apos;student&apos;, &apos;id&apos;, &apos;Description&apos;, &apos;Courses&apos;, &apos;home&apos;;</span><br><span class="line"></span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Description:name&apos;, &apos;lilei&apos;;</span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Description:height&apos;, &apos;186&apos;;</span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Courses:Math&apos;, &apos;99&apos;;</span><br><span class="line"></span><br><span class="line">describle &apos;student&apos;</span><br><span class="line">scan &apos;student&apos;</span><br><span class="line">scan &apos;student&apos;, &#123;COLUMNS=&gt;&apos;Courses:&apos;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-HBase-disable和enable"><a href="#7-HBase-disable和enable" class="headerlink" title="7. HBase disable和enable"></a>7. HBase disable和enable</h3><p>disable ‘student’时，会将该表在zookeeper下做记录，然后将表的region全部下线</p>
+<p>enable ‘student’时，将region全部上线，会去掉zookeeper中的标记，然后看.MATA表中有无该子表的服务器，如果有就上线到那台子表服务器，如果没有就随机选择一个服务器上线</p>
+<h3 id="8-Hive的架构"><a href="#8-Hive的架构" class="headerlink" title="8. Hive的架构"></a>8. Hive的架构</h3><p>组成元素：</p>
+<ul>
+<li>HiveQL：查询语言</li>
+<li>Driver：驱动程序</li>
+<li>Compiler：编译器，用来将HiveQL转化为中间语言</li>
+<li>Execution engine：执行引擎，在driver的驱动下具体执行操作</li>
+<li>metastore：存储操作的数据对象的位置信息等</li>
+</ul>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812112340611.png" alt="image-20200812112340611"></p>
+<h3 id="9-Hive的逻辑结构"><a href="#9-Hive的逻辑结构" class="headerlink" title="9. Hive的逻辑结构"></a>9. Hive的逻辑结构</h3><ul>
+<li>Tables：数据表中的列是有类型的，int float string boolean，也可是复合类型map</li>
+<li>partitions：数据表可以按日期划分</li>
+<li>buckets：用桶按hash的方式划分，对抽样和join优化有意义</li>
+</ul>
+<h3 id="10-Hive相关命令"><a href="#10-Hive相关命令" class="headerlink" title="10. Hive相关命令"></a>10. Hive相关命令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show tables;</span><br><span class="line"></span><br><span class="line">create table sharkspeare (freq int, word string) row format delimtied fields terminated by &apos;\t&apos; as textfile;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">discrible sharkspeare;</span><br><span class="line"></span><br><span class="line">load data inpath &apos;xxx-freq&apos; into table sharkspeare;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from sharkspeare limit 10;</span><br><span class="line"></span><br><span class="line">select * from sharkspeare where freq &gt; 10 sort by freq asc limit 10;</span><br><span class="line"></span><br><span class="line">select a.foo from invites a where a.ds = &apos;2020-8-12&apos;</span><br><span class="line"></span><br><span class="line">select t1.bar t1.foo t2.foo from</span><br><span class="line">	pokes t1 join invites t2 on t1.bar = t2.bar;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ch7-MapReduce-高级编程技术"><a href="#ch7-MapReduce-高级编程技术" class="headerlink" title="ch7 MapReduce 高级编程技术"></a>ch7 MapReduce 高级编程技术</h1><h2 id="需要掌握的问题-5"><a href="#需要掌握的问题-5" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>复合键值对的使用</li>
+<li>用户自定义数据类型</li>
+<li>用户自定义输入输出格式</li>
+<li>用户自定义Partitioner和Combiner</li>
+<li>迭代完成MapReduce计算</li>
+<li>组合式MapReduce程序设计</li>
+<li>多数据源的连接</li>
+<li>全局参数&#x2F;数据文件的传递</li>
+<li>其它处理技术</li>
+</ol>
+<h2 id="回答-5"><a href="#回答-5" class="headerlink" title="回答"></a>回答</h2><h3 id="1-复合键值对的使用"><a href="#1-复合键值对的使用" class="headerlink" title="1. 复合键值对的使用"></a>1. 复合键值对的使用</h3><p>倒排索引中的value-to-key思想，完成排序</p>
+<h3 id="2-用户自定义数据类型"><a href="#2-用户自定义数据类型" class="headerlink" title="2. 用户自定义数据类型"></a>2. 用户自定义数据类型</h3><p>需要implements WritableComparable接口</p>
+<p>重写readFields, write, compareTo函数</p>
+<p>并</p>
+<p>setMapOutputKeyClass(xxx.class)</p>
+<p>setMapOutputValueClass()</p>
+<p>setOutputKeyClass</p>
+<p>setOutputValueClass</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Point3D</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">Point3D</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">float</span> x, y, z;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		out.write(x);</span><br><span class="line">		out.write(y);</span><br><span class="line">		out.write(z);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		x = in.readFloat();</span><br><span class="line">		y = in.readFloat();</span><br><span class="line">		z = in.readFloat();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Point3D p)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//compare</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-用户自定义输入输出格式"><a href="#3-用户自定义输入输出格式" class="headerlink" title="3. 用户自定义输入输出格式"></a>3. 用户自定义输入输出格式</h3><p>需要extends FileInputFormat</p>
+<p>重写createRecordReader、getCurrentKey，getCurrentValue，initialize函数</p>
+<p>并且setInputFormatClass(xxx.class)</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileNameOffsetInputFormat</span> <span class="keyword">extends</span> <span class="title">FileInputFormat</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>&gt; </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RecordReader&lt;Text, Text&gt; <span class="title">createRecordReader</span><span class="params">(InputSplit split, </span></span></span><br><span class="line"><span class="function"><span class="params">    TaskAttemptContext context)</span> </span></span><br><span class="line"><span class="function">    </span>&#123; </span><br><span class="line">        FileNameOffsetRecordReader fnrr = <span class="keyword">new</span> FileNameOffsetRecordReader();</span><br><span class="line">        <span class="keyword">try</span> </span><br><span class="line">        &#123; fnrr.initialize(split, context); &#125; </span><br><span class="line">        <span class="keyword">catch</span> (IOException e) &#123; e.printStackTrace(); &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">        <span class="keyword">return</span> fnrr;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileNameOffsetRecordReader</span> <span class="keyword">extends</span> <span class="title">RecordReader</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>&gt; </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">    String fileName;</span><br><span class="line">    LineRecordReader lrr = <span class="keyword">new</span> LineRecordReader();</span><br><span class="line">    ……</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Text <span class="title">getCurrentKey</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line">    &#123; return new Text("(" + fileName + “#" + lrr.getCurrentKey() + ")"); &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Text <span class="title">getCurrentValue</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line"><span class="function">    </span>&#123; <span class="keyword">return</span> lrr.getCurrentValue(); &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(InputSplit arg0, TaskAttemptContext arg1)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line"><span class="function">    </span>&#123; lrr.initialize(arg0, arg1);</span><br><span class="line">    fileName = ((FileSplit)arg0).getPath().getName();</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-用户自定义Partitioner和Combiner"><a href="#4-用户自定义Partitioner和Combiner" class="headerlink" title="4. 用户自定义Partitioner和Combiner"></a>4. 用户自定义Partitioner和Combiner</h3><p>extends HashPartitioner&lt;K,V&gt;并重写getPartition函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class MyPartitioner extends HashPartitioner&lt;K, V&gt; &#123;</span><br><span class="line">	public int getPartition(K key, V value, int numReduceTasks) &#123;</span><br><span class="line">		return ...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>extends Reducer&lt;K, V&gt;并重写reduce函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class MyCombiner extends Reducer&lt;K, V&gt; &#123;</span><br><span class="line">	void reduce(K key, V value, Context context) throws IOException, InterruptedException&#123;</span><br><span class="line">		context.write(..., ...)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-迭代完成MapReduce计算"><a href="#5-迭代完成MapReduce计算" class="headerlink" title="5. 迭代完成MapReduce计算"></a>5. 迭代完成MapReduce计算</h3><p>pagerank</p>
+<h3 id="6-组合式MapReduce程序设计"><a href="#6-组合式MapReduce程序设计" class="headerlink" title="6. 组合式MapReduce程序设计"></a>6. 组合式MapReduce程序设计</h3><p>可视作pagerank的三个阶段</p>
+<p>依赖任务的添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">joby.addDependingJob(jobx); 使得y需要等待x结束</span><br><span class="line">JobControl JC = new JobControl(&quot;xy&quot;);</span><br><span class="line">JC.addJob(jobx);</span><br><span class="line">JC.addJob(joby);</span><br><span class="line">JC.run();</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-多数据源的连接"><a href="#7-多数据源的连接" class="headerlink" title="7. 多数据源的连接"></a>7. 多数据源的连接</h3><p>比如join两张表</p>
+<ul>
+<li>可以自行添加标签然后reduce端join，也可以用DataJoin类</li>
+<li>也可以map端join，利用distributedCache传递较小的文件</li>
+</ul>
+<h3 id="8-全局参数-数据文件的传递"><a href="#8-全局参数-数据文件的传递" class="headerlink" title="8. 全局参数&#x2F;数据文件的传递"></a>8. 全局参数&#x2F;数据文件的传递</h3><p>driver端：conf.set(…)</p>
+<p>map&#x2F;reduce端：context.getConfiguration().get(…)</p>
+<h3 id="9-其它处理技术"><a href="#9-其它处理技术" class="headerlink" title="9. 其它处理技术"></a>9. 其它处理技术</h3><p>多文件输出</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class MyOutputFormat extends MultipleTextOutputFormat&lt;K, V&gt; &#123;</span><br><span class="line">	protected String generateFileNameForKeyValue(K, V, String filename) &#123;</span><br><span class="line">		return &quot;self&quot;;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ch8-PageRank"><a href="#ch8-PageRank" class="headerlink" title="ch8 PageRank"></a>ch8 PageRank</h1><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812151512228.png" alt="image-20200812151512228"></p>
+<h1 id="ch9-数据挖掘"><a href="#ch9-数据挖掘" class="headerlink" title="ch9 数据挖掘"></a>ch9 数据挖掘</h1><h2 id="需要掌握的问题-6"><a href="#需要掌握的问题-6" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
+<li>K-means聚类算法</li>
+<li>分类算法</li>
+<li>频繁项集挖掘算法</li>
+<li>SVM</li>
+</ol>
+<h2 id="回答-6"><a href="#回答-6" class="headerlink" title="回答"></a>回答</h2><h3 id="1-K-means聚类算法"><a href="#1-K-means聚类算法" class="headerlink" title="1. K-means聚类算法"></a>1. K-means聚类算法</h3><p>将N个点分为K类</p>
+<ol>
+<li>选取K个初始中心点</li>
+<li>对每个点归进离他最近的中心点，完毕后重新计算K个中心点的值</li>
+<li>如果迭代结束条件为满足，重复2</li>
+</ol>
+<h3 id="2-K近邻"><a href="#2-K近邻" class="headerlink" title="2. K近邻"></a>2. K近邻</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812153312447.png" alt="image-20200812153312447"></p>
+<h3 id="3-朴素贝叶斯"><a href="#3-朴素贝叶斯" class="headerlink" title="3. 朴素贝叶斯"></a>3. 朴素贝叶斯</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812154826826.png" alt="image-20200812154826826"></p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812154810381.png" alt="image-20200812154810381"></p>
+<h3 id="4-SVM"><a href="#4-SVM" class="headerlink" title="4. SVM"></a>4. SVM</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812155037507.png" alt="image-20200812155037507"></p>
+<h1 id="ch10-spark"><a href="#ch10-spark" class="headerlink" title="ch10 spark"></a>ch10 spark</h1><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812155814219.png" alt="image-20200812155814219"></p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Big Data</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习笔记</title>
+    <url>/2019/02/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>机器学习复习笔记</p>
+<p>参考书目：西瓜书</p>
+<h1 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h1><h2 id="课程任务"><a href="#课程任务" class="headerlink" title="课程任务"></a>课程任务</h2><ol>
+<li>平时作业40%</li>
+<li>期中30%</li>
+<li>期末30%（投票决定闭卷&#x2F;半开卷）</li>
+</ol>
+<p>平时作业有2次取较高分作为期中成绩，其他4次作为平时成绩<br>半开卷：允许带一张a4纸，上面写什么都可以，考完交a4纸</p>
+<h2 id="机器学习示例："><a href="#机器学习示例：" class="headerlink" title="机器学习示例："></a>机器学习示例：</h2><p>文献筛选<br>在<code>循证医学</code>中，针对特定临床问题，要先查文献进行详细研究评估。<br>提取摘要-&gt;人工筛选。应用机器学习后专家读少量文献，标记有关&#x2F;无关，模型去读剩下来的文献。</p>
+<p>搜索引擎<br><code>用机器学习解决排序问题</code></p>
+<p>战场战术层面<br><code>损害管制自主机器人</code><br><code>罗盘系统</code></p>
+<h2 id="典型的机器学习过程："><a href="#典型的机器学习过程：" class="headerlink" title="典型的机器学习过程："></a>典型的机器学习过程：</h2><p>给模型以数据（包含一系列属性+1个label），训练，检测。</p>
+<h2 id="几个分类："><a href="#几个分类：" class="headerlink" title="几个分类："></a>几个分类：</h2><p><code>符号主义学习</code>、<code>连接主义学习</code></p>
+<p>贝叶斯学派：<br>第1天，太阳升起，建立模型，预测明天太阳升起概率1&#x2F;2<br>第2天，太阳升起，修正参数，预测明天太阳升起概率1&#x2F;3<br>…<br>第30000天，预测30000&#x2F;300001</p>
+<p>非贝叶斯学派：<br>第1天，太阳升起，预测1<br>第2天，太阳升起，预测1<br>…<br>第30000天，根据之前的事实证据，认为太阳升起概率恒为1</p>
+<h2 id="面临问题"><a href="#面临问题" class="headerlink" title="面临问题"></a>面临问题</h2><p>现在的问题在于大厂缺少需求，算力过剩。Google收购DeepMind是为了消耗TPU，AI实际上是互联网商们的一个出口。</p>
+<p>鲁棒性不行，人类棋手犯错，从九段跌到八段，机器犯错，从九段跌到业余。</p>
+<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>预测目标：</p>
+<ul>
+<li>分类：最后的输出是离散值<ul>
+<li>二分类：好瓜、坏瓜</li>
+<li>多分类：冬瓜、南瓜、西瓜</li>
+</ul>
+</li>
+<li>回归：连续值<ul>
+<li>瓜的成熟度</li>
+</ul>
+</li>
+<li>聚类：无标记信息（物以类聚&#x2F;具有相同hash feature的数据被hash后放入同一个桶&#x2F;韩信点兵&#x2F;等价类划分）</li>
+</ul>
+<p>有无标记信息：</p>
+<ul>
+<li>监督学习：分类、回归</li>
+<li>无监督学习：聚类</li>
+<li>半监督学习：两者结合</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -2988,418 +3478,443 @@
       </tags>
   </entry>
   <entry>
-    <title>图论定理收集</title>
-    <url>/2019/02/26/%E5%9B%BE%E8%AE%BA%E5%AE%9A%E7%90%86%E6%94%B6%E9%9B%86/</url>
-    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>参考书目：《图论与网络理论》和ppt</p>
-<p>要求：复习的时候都会证明</p>
-<h1 id="第一章-图的基本概念"><a href="#第一章-图的基本概念" class="headerlink" title="第一章 图的基本概念"></a>第一章 图的基本概念</h1><p>定理1.1.1 对任何图 $ G $ ，各顶点度数之和等于边数的2倍.即 $ \sum\limits_{\nu\in V(G)}d(\nu) &#x3D; 2\varepsilon. $</p>
-<p>推论1.1.1 任何图中，奇度顶点个数为偶数.</p>
-<p>例1.1.2 设 $ G $ 是一个简单图，若最小度 $ \delta(G) \geq 2 $，则 $ G $ 中必含有圈.</p>
-<p>例1.1.3 设 $ G $ 是一个简单图，若最小度 $ \delta(G) \geq 3 $，则 $ G $ 中必含有偶圈.</p>
-<p>例1.1.4 设 $ G $ 是简单图，若最小度 $ \delta(G) \geq 3 $，则 $ G $ 中各个圈长的最大公因数是1或2.</p>
-<p>定理1.1.2 一个图是二部图当且仅当它不含有奇圈.</p>
-<p>定理1.1.3 如果图 $ G $ 连通，$ \varepsilon(G) \geq \nu(G)-1 $.</p>
-<p>例1.1.6 设图 $ G $ 有 $ 2n $个顶点，$ \delta(G) \geq n $，求证 $ G $ 连通.</p>
-<p>例1.1.7 求证：若图中有且仅有2个奇度顶点，则它们必然连通.</p>
-<p>定理1.3.1<br>下列命题等价</p>
+    <title>渗透学习笔记</title>
+    <url>/2020/11/06/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>移动计算笔记</title>
+    <url>/2022/02/14/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>考核：无期末考，老师讲8-10课，学生6-8课，每周2篇论文，讨论答疑</p>
+<p>pre 45%</p>
+<p>lab 25%：移动计算服务的算法，c++，matlab</p>
+<p>final project30%：做一个实际的东西，survey，论文</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214115650118.png" alt="image-20220214115650118"></p>
+<h1 id="class-1"><a href="#class-1" class="headerlink" title="class-1"></a>class-1</h1><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214101117654.png" alt="image-20220214101117654"></p>
+<ul>
+<li></li>
+</ul>
+<h2 id="课程内容"><a href="#课程内容" class="headerlink" title="课程内容"></a>课程内容</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214101439145.png" alt="image-20220214101439145"></p>
+<ul>
+<li></li>
+</ul>
+<p>移动计算分为</p>
+<ul>
+<li>移动通信</li>
+<li>移动硬件</li>
+<li>移动软件</li>
+</ul>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214102809060.png" alt="image-20220214102809060"></p>
+<ul>
+<li></li>
+</ul>
+<h2 id="移动通信演进"><a href="#移动通信演进" class="headerlink" title="移动通信演进"></a>移动通信演进</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214103846785.png" alt="image-20220214103846785"></p>
+<ul>
+<li></li>
+</ul>
+<h2 id="关键技术"><a href="#关键技术" class="headerlink" title="关键技术"></a>关键技术</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214110904123.png" alt="image-20220214110904123"></p>
+<ul>
+<li></li>
+</ul>
+<h3 id="可见光的无线通信"><a href="#可见光的无线通信" class="headerlink" title="可见光的无线通信"></a>可见光的无线通信</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214111446423.png" alt="image-20220214111446423"></p>
+<p>用LED阵列传输信息，LIFI，速度10~100Gbps</p>
+<ul>
+<li></li>
+</ul>
+<h3 id="通信感知一体化"><a href="#通信感知一体化" class="headerlink" title="通信感知一体化"></a>通信感知一体化</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214111930776.png" alt="image-20220214111930776"></p>
+<ul>
+<li></li>
+</ul>
+<h3 id="AI-for-system"><a href="#AI-for-system" class="headerlink" title="AI for system"></a>AI for system</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214112203951.png" alt="image-20220214112203951"></p>
+<ul>
+<li></li>
+</ul>
+<h3 id="多模信任模型，新型密码技术"><a href="#多模信任模型，新型密码技术" class="headerlink" title="多模信任模型，新型密码技术"></a>多模信任模型，新型密码技术</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214112632015.png" alt="image-20220214112632015"></p>
+<h3 id="节能"><a href="#节能" class="headerlink" title="节能"></a>节能</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214113341240.png" alt="image-20220214113341240"></p>
+<h3 id="沉浸式用户体验"><a href="#沉浸式用户体验" class="headerlink" title="沉浸式用户体验"></a>沉浸式用户体验</h3><p>10ms是底线，不然会让用户头晕想吐<img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214113949434.png" alt="image-20220214113949434"></p>
+<h3 id="感知、定位、成像"><a href="#感知、定位、成像" class="headerlink" title="感知、定位、成像"></a>感知、定位、成像</h3><p>矿场里机器人挖矿，精细化</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214114600781.png" alt="image-20220214114600781"></p>
+<h1 id="class-2"><a href="#class-2" class="headerlink" title="class-2"></a>class-2</h1><p>一些术语，缩写</p>
+<p>RAN：接入网</p>
+<p>UE：user equipment</p>
+<h2 id="移动计算通用架构"><a href="#移动计算通用架构" class="headerlink" title="移动计算通用架构"></a>移动计算通用架构</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221102031389.png" alt="image-20220221102031389"></p>
+<ul>
+<li></li>
+</ul>
+<p>3G时代，你的请求可能会跑到3 4公里外的基站处理，而不是你身边1cm的基站，因为做负载均衡。</p>
+<p>4G时代，做端到端时延的降低，让eNodeB之间互联。个人用户的电路交换是附在ip包上的，4G没有拉到电话网里数据传输，纯用ip网络，但是ip是锁死的，灵活性不如纯ip</p>
+<p>S-GW：和基站相连，gate way，负责数据业务转发</p>
+<p>MME：移动性管理，小区切换，接管了BSC和RNC的一部分功能</p>
+<p>P-GW：和ip网络相连</p>
+<ul>
+<li></li>
+</ul>
+<p>整体趋势：2G-&gt;3G-&gt;4G解耦，功能上移</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221103349081.png" alt="image-20220221103349081"></p>
+<ul>
+<li></li>
+</ul>
+<h2 id="234G网络对比"><a href="#234G网络对比" class="headerlink" title="234G网络对比"></a>234G网络对比</h2><p>十倍量级的变化</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221103939677.png" alt="image-20220221103939677"></p>
+<h2 id="万物互联时代"><a href="#万物互联时代" class="headerlink" title="万物互联时代"></a>万物互联时代</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221104548573.png" alt="image-20220221104548573"></p>
+<h2 id="5G指标"><a href="#5G指标" class="headerlink" title="5G指标"></a>5G指标</h2><p>空中接口：空口，用户设备-RAN之间的接口（目前的瓶颈）</p>
+<p>LTE：4G LTE</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221104727830.png" alt="image-20220221104727830"></p>
+<h2 id="5G组网架构"><a href="#5G组网架构" class="headerlink" title="5G组网架构"></a>5G组网架构</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>最简单的一个图了嗷，两层架构</p>
+<p>gNB：G Node B</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221104904190.png" alt="image-20220221104904190"></p>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>灵活性和可扩展性的要求，要求建立更多基站，但没这么多地皮来建基站了，咋办？</p>
+<p>所以5G尽量继承一下234G的基础设施，一点点演进过来。非独立子网-&gt;演进到独立子网</p>
+<p>现在的5G还是借助4G的非独立子网，有点类似ipv6藏在ipv4里运输？</p>
+<ul>
+<li></li>
+</ul>
+<p>5G的接入网：</p>
+<p>34G基站体积都很大，覆盖范围1km</p>
+<p>5G覆盖范围200m，微基站50m</p>
+<p>要想覆盖江苏省，需要的基站也忒多了。。现在每个楼的楼顶都有基站，一人高，白盒子，一打开里面密密麻麻都是线</p>
+<ul>
+<li></li>
+</ul>
+<p>5G的核心网：</p>
+<p>可靠，可扩展，稳定性，大负载，低时延</p>
+<p>不能像以前那样用专有设备来做这件事，这样不满足可扩展，面对潮汐时也不经济（只能按最大流量买设备）</p>
+<p>灵活：要求网络切片，粒度要很小，比如就这几小时，在南大体育馆，办一个比赛，直播。</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221105145352.png"></p>
+<h2 id="5G接入网"><a href="#5G接入网" class="headerlink" title="5G接入网"></a>5G接入网</h2><p>从左到右时代进化ing，解耦</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221112512011.png" alt="image-20220221112512011"></p>
+<h2 id="5G组网架构变革技术"><a href="#5G组网架构变革技术" class="headerlink" title="5G组网架构变革技术"></a>5G组网架构变革技术</h2><h3 id="NFV"><a href="#NFV" class="headerlink" title="NFV"></a>NFV</h3><p>NFV：虚拟化，用通用设备达到专用设备的效果</p>
+<p>专用设备，无论是路由器还是交换机，其设计都是很完美的，CPU，内存都是匹配好的，当需求变化时，只能新买整机</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221112832803.png" alt="image-20220221112832803"></p>
+<h3 id="SDN"><a href="#SDN" class="headerlink" title="SDN"></a>SDN</h3><p>用软件做一切的功能</p>
+<p>开放可编程的接口，方便做验证，部署，升级</p>
+<p>问题：分布式系统可以做到自适应，鲁棒性好，集中式的管理容易出问题。但历史就是在分布式-集中式之间跳转，循环向上</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221113538334.png" alt="image-20220221113538334"></p>
+<h2 id="5G技术要点"><a href="#5G技术要点" class="headerlink" title="5G技术要点"></a>5G技术要点</h2><p>亚马逊，微软Azure，阿里，腾讯的云服务，可以体验下</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221114341526.png" alt="image-20220221114341526"></p>
+<ul>
+<li></li>
+</ul>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221114714741.png" alt="image-20220221114714741"></p>
+<h1 id="class-3-Iot-Edge"><a href="#class-3-Iot-Edge" class="headerlink" title="class-3 Iot&amp;Edge"></a>class-3 Iot&amp;Edge</h1><p>edge和iot所在的位置，红圈</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228101524021.png" alt="image-20220228101524021"></p>
+<ul>
+<li></li>
+</ul>
+<h2 id="物联网发展"><a href="#物联网发展" class="headerlink" title="物联网发展"></a>物联网发展</h2><p>隐私要求、低功耗要求</p>
+<p>本地数据安全、传输安全（传输层，应用层都加密）、云计算安全</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228101725128.png" alt="image-20220228101725128"></p>
+<h2 id="什么是物"><a href="#什么是物" class="headerlink" title="什么是物"></a>什么是物</h2><p>提到了数字孪生设备</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228102022633.png" alt="image-20220228102022633"></p>
+<h2 id="朴素iot模型"><a href="#朴素iot模型" class="headerlink" title="朴素iot模型"></a>朴素iot模型</h2><p>四层模型</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228103657188.png" alt="image-20220228103657188"></p>
+<h2 id="iot七层模型"><a href="#iot七层模型" class="headerlink" title="iot七层模型"></a>iot七层模型</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228104736405.png" alt="image-20220228104736405"></p>
+<h2 id="iot平台"><a href="#iot平台" class="headerlink" title="iot平台"></a>iot平台</h2><p>一张arm的架构图</p>
+<p>大厂在做小盒子，学名SD-WAN，提供第二列的服务</p>
+<p>tx阿里只做了12列</p>
+<p>华为做了全4列</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228110049167.png" alt="image-20220228110049167"></p>
+<h2 id="iot-edge计算平台"><a href="#iot-edge计算平台" class="headerlink" title="iot edge计算平台"></a>iot edge计算平台</h2><p>edge位于Iot hub之前&#x2F;</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228112102214.png" alt="image-20220228112102214"></p>
+<ul>
+<li></li>
+</ul>
+<h2 id="MQTT协议"><a href="#MQTT协议" class="headerlink" title="MQTT协议"></a>MQTT协议</h2><p>IBM自己搞的协议</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228114434714.png" alt="image-20220228114434714"></p>
+<h2 id="CoAP协议"><a href="#CoAP协议" class="headerlink" title="CoAP协议"></a>CoAP协议</h2><p>IETF官方协议，TCP也是这个组织制定的</p>
+<p>内容很复杂</p>
+<p>protobuf底层也是这个，在网络环境不好时使用</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228114557171.png" alt="image-20220228114557171"></p>
+<h2 id="C-RAN"><a href="#C-RAN" class="headerlink" title="C-RAN"></a>C-RAN</h2><p>买本书系统化看看，不要看视频碎片化</p>
+<h1 id="class-4"><a href="#class-4" class="headerlink" title="class-4"></a>class-4</h1><p>讲了2h的趋势</p>
+<p>计算能力部署</p>
+<ul>
+<li>物联网网关，CDN</li>
+<li>提供服务质量保证</li>
+<li>业务流调度：多云，多网</li>
+<li><strong>安全与隐私：SASE：secure access service edge</strong></li>
+</ul>
+<p>另，课件没发，下节课信号处理</p>
+<h1 id="class-5"><a href="#class-5" class="headerlink" title="class-5"></a>class-5</h1><h2 id="感知"><a href="#感知" class="headerlink" title="感知"></a>感知</h2><p>感知：移动设备对周围环境的感知能力，利用传感器等实现，日后做产品这是一个很重要的概念</p>
+<h2 id="模拟信号-vs-数字信号"><a href="#模拟信号-vs-数字信号" class="headerlink" title="模拟信号 vs. 数字信号"></a>模拟信号 vs. 数字信号</h2><p>模拟信号：连续函数，连续的dom和rang，蕴含了无穷的信息量（从不同方向解读出无穷信息）</p>
+<p>数字信号：对模拟信号进行采样得到的离散函数</p>
+<h2 id="傅里叶变换-Fourier-Transform"><a href="#傅里叶变换-Fourier-Transform" class="headerlink" title="傅里叶变换 Fourier Transform"></a>傅里叶变换 Fourier Transform</h2><p>为什么要有傅里叶变换？在deep learning领域，有些样本特征太小，不好学，放大到频率域之后特征就很显著了</p>
+<h3 id="连续傅里叶变换"><a href="#连续傅里叶变换" class="headerlink" title="连续傅里叶变换"></a>连续傅里叶变换</h3><p>傅里叶变换：对于周期函数，进行时域和频率域的变换，借助cos和sin的性质</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220314162900162.png" alt="image-20220314162900162"></p>
+<h3 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220314163811730.png" alt="image-20220314163811730"></p>
+<h3 id="正vs-逆-离散vs-连续"><a href="#正vs-逆-离散vs-连续" class="headerlink" title="正vs.逆 离散vs.连续"></a>正vs.逆 离散vs.连续</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220314164045598.png" alt="image-20220314164045598"></p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>应用：通过傅里叶变换，可以把心跳、呼吸区分出来（变换后有明显区别）</p>
+<h2 id="卷积-convolution-vs-相关性-correlation"><a href="#卷积-convolution-vs-相关性-correlation" class="headerlink" title="卷积 convolution vs 相关性 correlation"></a>卷积 convolution vs 相关性 correlation</h2><p>计算得到信号量的某种属性</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220314164240617.png" alt="image-20220314164240617"></p>
+<h2 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h2><p>f(a+b) &#x3D; f(a) + f(b)，具体是讲什么没听清</p>
+<h1 id="class-6"><a href="#class-6" class="headerlink" title="class-6"></a>class-6</h1><p>迟到40min，课件未发</p>
+<h2 id="Orithogonal-Frame-Structure"><a href="#Orithogonal-Frame-Structure" class="headerlink" title="Orithogonal Frame Structure"></a>Orithogonal Frame Structure</h2><p>做OFDM的时候</p>
+<p>循环位移，保证信号互相正交不干扰，循环10位，在频域上表现为加上了一个数，可以逆向出来</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220321104507966.png" alt="image-20220321104507966"></p>
+<p>然后讲下一个课件了</p>
+<h2 id="sensor"><a href="#sensor" class="headerlink" title="sensor"></a>sensor</h2><p>继续sensor</p>
+<ul>
+<li></li>
+</ul>
+<p>手机摄像头的光圈是按一行一行的条状采样，如果LED灯的频率和细条适合，就会显示几条暗，几条亮，照片呈条纹状。</p>
+<ul>
+<li></li>
+</ul>
+<p>步幅，步频，判断走路，跑步和摔倒状态</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220321115333247.png" alt="image-20220321115333247"></p>
+<h1 id="class-7-定位"><a href="#class-7-定位" class="headerlink" title="class-7 定位"></a>class-7 定位</h1><p>两大定位方法</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328102305660.png" alt="image-20220328102305660"></p>
+<h2 id="Range-Based-Localization"><a href="#Range-Based-Localization" class="headerlink" title="Range-Based Localization"></a>Range-Based Localization</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328102346580.png" alt="image-20220328102346580"></p>
+<h3 id="三角定位"><a href="#三角定位" class="headerlink" title="三角定位"></a>三角定位</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328103042450.png" alt="image-20220328103042450"></p>
+<p>一式减掉二式，得到线性方程，二式减掉三式，同样，所以只要解线性方程组</p>
+<h3 id="测距方法"><a href="#测距方法" class="headerlink" title="测距方法"></a>测距方法</h3><p>TOA受限于source和dst的时钟不一致，时钟慢1微秒，光速走了300m</p>
+<p>TDOA：多个接受天线、用声波</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328103941320.png" alt="image-20220328103941320"></p>
+<h3 id="TOA-GPS"><a href="#TOA-GPS" class="headerlink" title="TOA-GPS"></a>TOA-GPS</h3><p>非常厉害的工程，1970s，没有大规模集成电路，还要考虑由于卫星飞行造成相对论的时钟误差，精度几十米</p>
+<p><strong>并且提供了纳秒级的时间信息</strong></p>
+<ul>
+<li></li>
+</ul>
+<p>国内的所有基站都连了GPS天线，用于时间同步，如果GPS关了，那么基站的时钟会慢慢偏掉</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328104621697.png" alt="image-20220328104621697"></p>
+<ul>
+<li></li>
+</ul>
+<p>GPS信号的频率高，没有办法穿墙</p>
+<p>比特率很低，50bit&#x2F;s，传递一个超帧要30s</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328105325235.png" alt="image-20220328105325235"></p>
+<h3 id="TDOA-Cricket"><a href="#TDOA-Cricket" class="headerlink" title="TDOA-Cricket"></a>TDOA-Cricket</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328111304727.png" alt="image-20220328111304727"></p>
+<h3 id="BeepBeep"><a href="#BeepBeep" class="headerlink" title="BeepBeep"></a>BeepBeep</h3><p>声音采样率48k&#x2F;s，每秒采样48k次，声速340m&#x2F;s，除一下就是7mm</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328111647532.png" alt="image-20220328111647532"></p>
+<ul>
+<li></li>
+</ul>
+<p>测相位，波峰的距离差</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328111943924.png" alt="image-20220328111943924"></p>
+<h3 id="Centroid"><a href="#Centroid" class="headerlink" title="Centroid"></a>Centroid</h3><p>天花板上布置密集的bacon</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328113543990.png" alt="image-20220328113543990"></p>
+<h3 id="APIT"><a href="#APIT" class="headerlink" title="APIT"></a>APIT</h3><p>不那么密集</p>
+<p>如果一个点M在三角形ABC内部，他无论往哪个方向移动，都会离某个顶点越来越近</p>
+<p>如果在外部，总能找到某个方向，同时远离三个顶点</p>
+<p>APIT使用邻居作为虚拟移动点，用户不用真的去移动来移动去</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328113618333.png" alt="image-20220328113618333"></p>
+<h1 id="class-8"><a href="#class-8" class="headerlink" title="class-8"></a>class-8</h1><p>3节课讲部署DeepLearning的知识，最后一节讲大作业</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220402101748119.png" alt="image-20220402101748119"></p>
+<h2 id="logistic-regression-vs-lonear-regression"><a href="#logistic-regression-vs-lonear-regression" class="headerlink" title="logistic regression vs. lonear regression"></a>logistic regression vs. lonear regression</h2><p>损失函数不同，梯度是一样的</p>
+<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220402112852652.png" alt="image-20220402112852652"></p>
+<h1 id="class-9"><a href="#class-9" class="headerlink" title="class-9"></a>class-9</h1><p>？</p>
+<h1 id="class-10"><a href="#class-10" class="headerlink" title="class-10"></a>class-10</h1><p>review on last class</p>
+<p>用硬件方案对深度学习进行加速</p>
+<p>模型大小进行优化</p>
+<p>提高并行度，优化矩阵乘法</p>
+<hr>
+<p>分享论文</p>
 <ol>
-<li>$ G $ 是树（无圈的连通图）.</li>
-<li>$ G $ 无环边且 $ G $ 中任意两个顶点间有唯一的路.</li>
-<li>$ G $ 无圈且 $ \varepsilon &#x3D; v-1 $.</li>
-<li>$ G $ 连通且 $ \varepsilon &#x3D; v-1 $.</li>
-<li>$ G $ 连通且对于任意 $ e \in E(G)$，$ G-e $ 不连通.</li>
-<li>$ G $ 无圈且对于任意 $ e \in E(\overline{G}) $，$ G+e $ 恰有一个圈.</li>
+<li>ppt准备好，可以使用原作的ppt，魔改一下 </li>
+<li>20min讲解，10min讨论，回答其他同学的问题</li>
+<li>最后提交一篇review，内容类似审论文的pros&amp;cons，其他同学的问题，基于这篇论文的启发等等，ddl期末</li>
 </ol>
 <hr>
-<p>定理2.1.3 设 $ v $ 是树的顶点，则 $ v $ 是 $ T $ 的割点当且仅当 $ d(v)&gt;1 $.</p>
-<p>推论2.1.1 每个非平凡无圈连通图至少有2个顶点不是割点.</p>
-<p>定理2.1.5 边 $ e $ 是割边当且仅当 $ e $ 不在 $ G $ 的任何一个圈上.</p>
-<p>定理2.2.1 $ \kappa(G) \leq \kappa’(G) \leq \delta(G) $</p>
-<p>定理2.2.2 对具有 $ v $ 个顶点 $ \varepsilon $，有$ \kappa(G) \leq \lfloor \frac{2\varepsilon}{v} \rfloor $.</p>
-<p>定理2.2.3 设 $ G $ 是一个简单图，$ k $ 是一个自然数，若$ \delta(G) \geq \frac{v+k+2}{2} $，则 $ G $ 是连通的.</p>
-<p>推论2.2.1 设 $ G $ 是一个简单图，若 $ \delta(G) \geq \frac{v-1}{2} $，则 $ G $ 是连通图。</p>
-<p>定理2.2.4 设 $ G $ 是一个直径为2的简单图，则 $ \kappa’(G)&#x3D;\delta(G) $.</p>
-<h1 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h1><h2 id="中国邮递员问题-带权最短闭途径"><a href="#中国邮递员问题-带权最短闭途径" class="headerlink" title="中国邮递员问题-&gt;带权最短闭途径"></a>中国邮递员问题-&gt;带权最短闭途径</h2><p>Edmonds-Johnson 算法（补成欧拉图）</p>
+<p>实验</p>
 <ol>
-<li>找出奇度顶点，拉出来</li>
-<li>画一个完全图，需要找两两之间最短路</li>
-<li>找最小权匹配</li>
-<li>在原来的图中添边</li>
+<li>有框架，自己要改的不多</li>
 </ol>
-<p>Fleury 算法（找欧拉闭迹）</p>
-<ul>
-<li>沿着图的非割边前行</li>
-</ul>
-<h1 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h1><h2 id="支配集"><a href="#支配集" class="headerlink" title="支配集"></a>支配集</h2><p>支配数 $ \gamma(G) $</p>
-<p>支配周围的点</p>
-<p>极小支配集的补集也是支配集</p>
-<h2 id="点独立集"><a href="#点独立集" class="headerlink" title="点独立集"></a>点独立集</h2><p>点独立数 $ \alpha(G) $</p>
-<p>任二顶点有 d(u)+d(v) &gt;&#x3D; v(G)，则 a &lt; gamma</p>
-<h2 id="点覆盖集"><a href="#点覆盖集" class="headerlink" title="点覆盖集"></a>点覆盖集</h2><p>覆盖了所有的边</p>
-<h2 id="边覆盖集"><a href="#边覆盖集" class="headerlink" title="边覆盖集"></a>边覆盖集</h2><p>覆盖了所有的顶点</p>
+<p>首先是数据解调，raw-&gt;cir</p>
+<p>然后是数据拼接，*.cir 拼成 *.nmp</p>
+<p>然后是hand_recognition，深度学习识别手势</p>
+<p>toAndroid_cnn.py中三条线训练，可以自行修改该文件</p>
+<h1 id="论文分享"><a href="#论文分享" class="headerlink" title="论文分享"></a>论文分享</h1><p>题目：Ekya: Continuous Learning of Video Analytics Models on Edge Compute Servers</p>
+<p>一句话总结：在计算边缘上用持续学习进行视频流分析</p>
+<p>问题list</p>
+<p>1、为什么视频分析要在edge上跑，而不上传到server？</p>
+<p>2、edge上跑DNN有什么限制，怎么解决？</p>
+<p>3、 持续学习的代价是什么？</p>
+<p>4、基于此，改进目标是什么？</p>
+<p>1、为什么视频分析要在edge上跑，而不上传到server？</p>
+<p>两方面原因，隐私和带宽</p>
+<p>隐私方面：</p>
+<ol>
+<li>视频是敏感数据</li>
+<li>法规禁止将视频传到公有云上</li>
+</ol>
+<p>带宽方面：</p>
+<ol>
+<li>带宽不够传</li>
+<li>网络不稳定</li>
+<li>网络不可靠</li>
+</ol>
+<p>2、edge上跑DNN有什么限制，怎么解决？</p>
+<p>两方面限制，模型和数据漂移</p>
+<p>模型方面：</p>
+<ol>
+<li>模型小，泛化能力差</li>
+</ol>
+<p>数据漂移：</p>
+<ol>
+<li>观察到的数据分布与训练集数据分布不一致</li>
+<li>例如，训练时，对车辆识别的准确率高，行人识别率低。但实际观察到的行人很多，车很少</li>
+</ol>
+<p>解决方法：持续学习</p>
+<ol>
+<li>持续性学习会周期性进行重复训练</li>
+</ol>
+<p>3、持续学习的代价</p>
+<ol>
+<li>retraining的时候会占用资源，影响模型推理的精度</li>
+<li>适当的配置可以改变代价</li>
+</ol>
+<p>4、基于此，改进目标是什么？</p>
+<p>通过选择配置和资源分配，最大化所有相机的平均推理精度</p>
+<p>5、改进策略是什么？</p>
+<p>总目标是最大化平均精度，自变量是GPU cost</p>
+<p>如果一个retraining job可以带来更高的精度，那就多给他资源</p>
+<p>平衡一下retaining从推理部分拿走的时间和资源，防止推理部分精度出现跳水现象</p>
 ]]></content>
       <categories>
-        <category>Algorithm</category>
+        <category>Mobile</category>
       </categories>
       <tags>
-        <tag>Graph Theory</tag>
+        <tag>Mobile Computing</tag>
       </tags>
   </entry>
   <entry>
-    <title>大数据与并行计算复习笔记</title>
-    <url>/2020/08/08/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="ch1-概论"><a href="#ch1-概论" class="headerlink" title="ch1 概论"></a>ch1 概论</h1><h2 id="需要掌握的问题"><a href="#需要掌握的问题" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
-<li>为什么需要并行计算？</li>
-<li>提高计算性能的方法？</li>
-<li>上述方法的瓶颈是什么？</li>
-<li>并行计算技术的分类</li>
-<li>并行加速评估公式 Amdahl 公式</li>
-<li>MPI 主要功能</li>
-<li>MPI 的优点和缺点</li>
-<li>MapReduce的三种理解是什么</li>
-</ol>
-<h2 id="回答"><a href="#回答" class="headerlink" title="回答"></a>回答</h2><h3 id="1-为什么需要并行计算？"><a href="#1-为什么需要并行计算？" class="headerlink" title="1. 为什么需要并行计算？"></a>1. 为什么需要并行计算？</h3><p>web规模爆炸增加</p>
-<p>计算量和计算复杂度增加，比如电影渲染</p>
-<h3 id="2-曾经的提高计算性能的方法？"><a href="#2-曾经的提高计算性能的方法？" class="headerlink" title="2. 曾经的提高计算性能的方法？"></a>2. 曾经的提高计算性能的方法？</h3><ol>
-<li>处理器字长变长</li>
-<li>提高集成度</li>
-<li>微体系结构技术，如流水线，乱序发射</li>
-<li>提高处理器频率（CPU主频）</li>
-</ol>
-<h3 id="3-上述方法的瓶颈"><a href="#3-上述方法的瓶颈" class="headerlink" title="3. 上述方法的瓶颈"></a>3. 上述方法的瓶颈</h3><ol>
-<li>集成度到极限了，受制于芯片制作工艺</li>
-<li>微体系指令并行技术到极限了，ILP墙</li>
-<li>处理器速度与存储器速度不匹配，存储墙</li>
-<li>功耗和散热限制了处理器速度，功耗墙</li>
-</ol>
-<h3 id="4-并行计算技术的分类"><a href="#4-并行计算技术的分类" class="headerlink" title="4. 并行计算技术的分类"></a>4. 并行计算技术的分类</h3><ol>
-<li>按数据和指令类型分（弗林分类）</li>
-<li>按并行类型</li>
-<li>按存储访问结构</li>
-<li>按计算特征</li>
-<li>按系统特征</li>
-<li>按并行程序设计模型&#x2F;方法</li>
-</ol>
-<p>弗林分类：SISD, SIMD, MISD, MIMD，用的最多的是MIMD</p>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808115717945.png" alt="image-20200808115717945"></p>
-<p>并行类型</p>
-<ul>
-<li>bit级并行</li>
-<li>指令级并行（ILP: instruction-level parallelism</li>
-<li>线程级并行<ul>
-<li>数据级并行：大数据块切成小数据块</li>
-<li>任务级并行：大任务切成子任务</li>
+    <title>算法学习笔记</title>
+    <url>/2019/02/10/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本篇供日后复习，跳跃性很大，随性更新。</p>
+<p>参考书目：《算法设计与分析》 黄宇 机械工业出版社</p>
+<h1 id="第2章-从算法的角度重新审视数学的概念"><a href="#第2章-从算法的角度重新审视数学的概念" class="headerlink" title="第2章 从算法的角度重新审视数学的概念"></a>第2章 从算法的角度重新审视数学的概念</h1><h3 id="2-1-3-阶乘n"><a href="#2-1-3-阶乘n" class="headerlink" title="2.1.3 阶乘n!"></a>2.1.3 阶乘n!</h3><p>根据<code>Stirling公式</code>，可以将<code>n!</code>转化为更易于处理的闭形式，对<code>n&gt;=1</code>，有：</p>
+<p>$$ \sqrt{2\pi n}(\frac{n}{e})^n &lt; n! &lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}) $$</p>
+<p><code>Stirling公式</code>也可以写成：</p>
+<p>$$ n! &#x3D; \sqrt{2\pi n}(\frac{n}{e})^n e^{\varepsilon(n)},其中\frac{1}{12n+1} \leq \varepsilon(n) \leq \frac{1}{12n} $$</p>
+<p>写成近似形式：</p>
+<p>$$ n! &#x3D; \sqrt{2\pi n}(\frac{n}{e})^n(1+\Theta(\frac{1}{n})) $$</p>
+<p>由于 $\Theta(\frac{1}{n})$ 是无穷小量，$\lim\limits_{n \to \infty} \frac{1}{n}&#x3D;0$ ，忽略。所以得到进一步的近似式：</p>
+<p>$$ n! \approx \sqrt{2\pi n}(\frac{n}{e})^n $$</p>
+<h3 id="2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><a href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i" class="headerlink" title="2.1.4 常见级数求和 $\sum\limits_{i&#x3D;1}^{n}f(i)$"></a>2.1.4 常见级数求和 $\sum\limits_{i&#x3D;1}^{n}f(i)$</h3><ul>
+<li>多项式级数(polynomial series)<br>  $ \sum\limits_{i&#x3D;1}^{n}i &#x3D; \dfrac{n(n+1)}{2} $<br>  .<br>  $ \sum\limits_{i&#x3D;1}^{n}i^2 &#x3D; \dfrac{1}{3}n(n+\dfrac{1}{2})(n+1) $<br>  .<br>  $ \sum\limits_{i&#x3D;1}^{n}i^k &#x3D; \Theta(\dfrac{1}{k+1}n^{k+1}) $<br>  .</li>
+<li>几何级数(geometric series)<br>  $ \sum\limits_{i&#x3D;0}^{k}ar^i &#x3D; a(\dfrac{r^{k+1}-1}{r-1}) $</li>
 </ul>
+<p>测试用<br>$\begin{eqnarray}f(x,y)<br>    &amp;&#x3D;&amp;2xy+(x-y)^2\<br>    &amp;&#x3D;&amp;x^2+y^2<br>\end{eqnarray}$</p>
+<h1 id="第0章-概论"><a href="#第0章-概论" class="headerlink" title="第0章 概论"></a>第0章 概论</h1><h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>Q1: 在数组中找最大元素和最小元素</p>
+<p>A1: 最优：n为偶数时，将数组切分为($a_0$,$a_1$)($a_2$,$a_3$)…($a_{n-2}$, $a_{n-1}$)，组内比较后分出胜者组和败者组，胜者组遍历一遍得到最大元素，败者组遍历一遍得到最小元素。n为奇数时先抛开最后一个元素，最后额外比较一下。</p>
+<hr>
+<p>Q2: 比较3匹马的预测性</p>
+<p>A2: 将马的过去两百场比赛进行huffman编码，所用字符最少的马预测性越强，原理是信息熵。</p>
+<hr>
+<p>Q3: 停机问题</p>
+<p>A3: 不可判定，假设有程序terminate(p:program, x:input)能判断对于程序p，给一个输入x，p是否会终止（即判定p(x)是否终止），那么定义程序paradox(z:file)</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">paradox(z:file):</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">if</span>(<span class="built_in">terminate</span>(z, z)) <span class="keyword">goto</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>paradox(z)的执行结果为<br>$$<br>\left{<br>\begin{array}{aligned}<br>z(z)不终止   &amp;&amp;  {paradox(z)终止}\<br>z(z)终止     &amp;&amp;  {paradox(z)不终止}\<br>\end{array} \right.<br>$$</p>
+<p>此时，paradox(paradox)便成为矛盾体<br>$$<br>\left{<br>\begin{array}{aligned}<br>paradox(paradox)不终止 &amp;&amp;   {paradox(paradox)终止}\<br>paradox(paradox)终止   &amp;&amp;   paradox(paradox)不终止<br>\end{array} \right.<br>$$</p>
+<h2 id="课程任务："><a href="#课程任务：" class="headerlink" title="课程任务："></a>课程任务：</h2><p>书面作业15%（8次，准备2个作业本）<br>编程15%（6-8次，每次2-4题，时间2-3周）<br>期中20%<br>期末50%</p>
+<h1 id="第1章-概论"><a href="#第1章-概论" class="headerlink" title="第1章 概论"></a>第1章 概论</h1><p>《proof without words》中的有趣证明？</p>
+<p>double counting 思想用于证明</p>
+<h2 id="平均复杂度"><a href="#平均复杂度" class="headerlink" title="平均复杂度"></a>平均复杂度</h2><p>$ \sum\limits_{i&#x3D;1}^{n}Pr(i)I(i) $</p>
+<h2 id="算法的最优性"><a href="#算法的最优性" class="headerlink" title="算法的最优性"></a>算法的最优性</h2><p>如果一个算法的最坏情况等于问题的下界，那么这个算法是最优的。</p>
+<h1 id="第2讲-渐进时间复杂度"><a href="#第2讲-渐进时间复杂度" class="headerlink" title="第2讲 渐进时间复杂度"></a>第2讲 渐进时间复杂度</h1><p>$ log_{n}, n^\alpha, c^n, n!, n^n $</p>
+<p>$$<br>\lim\limits_{n\to \infty}\frac{f(n)}{g(n)}&#x3D;c,<br>\left{<br>\begin{array}{aligned}<br>c&#x3D;0 &amp;&amp;  f&#x3D;o(g)\<br>0 \leq c &lt; \infty   &amp;&amp; f&#x3D;O(g)\<br>0 &lt; c &lt; \infty      &amp;&amp; f&#x3D;\Theta(g)\<br>0 &lt; c \leq \infty   &amp;&amp; f&#x3D;\Omega(g)\<br>c &#x3D; \infty          &amp;&amp; f&#x3D;\omega(g)<br>\end{array} \right.<br>$$</p>
+<p>不是所有俩函数之间都有上述五种关系，比如$ f(n)&#x3D;n, g(n)&#x3D;n^{1+sin n}$，极限不存在。</p>
+<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树的高度p是问题的lower bound，基于比较的决策树节点数为n，有$ n \leq 2^{p-1} $，所以$ p &gt;&#x3D; lgn $，所以查找问题的lower bound为$lgn$，二分查找是最优算法。</p>
+<p>无关思考题：圆的内接八边形，边长4个2，4个3，求八边形面积。<br>放到正方形里去，减去四个角的等腰直角三角形</p>
+<p>$$<br>f(n) &#x3D;<br>\begin{cases}<br>n&#x2F;2,  &amp; \text{if $n$ is even}\<br>3n+1, &amp; \text{if $n$ is odd}<br>\end{cases}<br>$$</p>
+<h1 id="第3讲-递归"><a href="#第3讲-递归" class="headerlink" title="第3讲 递归"></a>第3讲 递归</h1><p>时间复杂度计算</p>
+<h3 id="齐次线性"><a href="#齐次线性" class="headerlink" title="齐次线性"></a>齐次线性</h3><p>$ a_n &#x3D; r_1a_{n-1} + r_2a_{n-2} + … + r_ma_{n-k} $</p>
+<p>特例<br>$ 形如T(n)&#x3D;r_1T(n-1)+r_2T(n-2),有特征方程x^2 &#x3D; r_1x + r_2x $<br>$ 则T(n) &#x3D; ux_1^n + vx_2^n. $</p>
+<p>证明：<br>$ B.C: T(1), T(2) $</p>
+<p>$ I.H: 1 \leq m &lt; n, T(m) &#x3D; ux_1^m + vx_2^m $</p>
+<p>$\begin{eqnarray}T(n)<br>    &amp;&#x3D;&amp; ux_1^n+vx_2^n\<br>    &amp;&#x3D;&amp; ux_1^{n-2}x_1^2+vx_2^{n-2}x_2^2\<br>    &amp;&#x3D;&amp; ux_1^{n-2}(r_1x_1+r_2)+vx_2^{n-2}(r_1x_2+r_2)\<br>    &amp;&#x3D;&amp; r_1(ux_1^{n-1}+vx_1^{n-2})+r_2(ux_1^{n-2}+vx2^{n-2})\<br>    &amp;&#x3D;&amp; r_1T(n-1)+r_2T(n-2)<br>\end{eqnarray}$</p>
+<p>代价 &#x3D; 递归代价 + 非递归代价</p>
+<p>$ T(n) &#x3D; bT(\frac{n}{c})+f(n) $</p>
+<p>after $k$ th expansion</p>
+<p>$ T(n) &#x3D; b^kT(\frac{n}{c^k})+\sum\limits_{i&#x3D;1}^{k}f(\frac{n}{c^{i-1}}) $</p>
+<p>意味着递归树高度$\log_c n$</p>
+<p>$$<br>\sum\limits_{i&#x3D;0}^{n-1}&#x3D;<br>\begin{cases}<br>n&#x2F;2, \text{xxx} \<br>ss<br>\end{cases}<br>$$</p>
+<h2 id="最大子序列之和"><a href="#最大子序列之和" class="headerlink" title="最大子序列之和"></a>最大子序列之和</h2><ol>
+<li><p>暴力枚举<br> 算法：取所有sequence[i, j]，比较。<br> 时间复杂度：$O(n^3)$</p>
 </li>
-</ul>
-<p>按存储访问结构</p>
-<ul>
-<li>共享内存，也称UMA，uniform memory acess</li>
-<li>分布式共享存储，每个处理器有自己的本地存储器，再共享一个全局存储器</li>
-<li>分布式内存，每个处理器有自己的本地存储器，无全局存储器</li>
-</ul>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808120105679.png" alt="image-20200808120105679"></p>
-<p>按系统类型分</p>
-<ul>
-<li>多核处理器MC</li>
-<li>对称多处理系统 SMP：symmetric multiprocessing</li>
-<li>大规模并行处理 MPP：massive multiprocessing</li>
-<li>集群cluster</li>
-<li>网格grid：异构计算机</li>
-</ul>
-<p>按计算特征分：</p>
-<ul>
-<li>数据密集型：web搜索</li>
-<li>计算密集型：天气预报，一大堆矩阵运算</li>
-<li>混合型：3d电影渲染</li>
-</ul>
-<p>按并行程序设计模型&#x2F;方法：</p>
-<ul>
-<li>共享内存变量：Pthread，OpenMP</li>
-<li>消息传递方式：MPI</li>
-<li>mapreduce</li>
-</ul>
-<h3 id="5-并行加速评估公式-Amdahl-公式"><a href="#5-并行加速评估公式-Amdahl-公式" class="headerlink" title="5. 并行加速评估公式 Amdahl 公式"></a>5. 并行加速评估公式 Amdahl 公式</h3><p>设S为加速比，P为程序中可并行的比例，N是处理器数量</p>
-<p>$S &#x3D; \frac{1}{(1-P)+\frac{P}{N}}$</p>
-<h3 id="6-MPI主要功能"><a href="#6-MPI主要功能" class="headerlink" title="6. MPI主要功能"></a>6. MPI主要功能</h3><p>message passing interface，消息传递接口</p>
-<p>计算密集型任务，所有节点运行同一个程序，但数据不同</p>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808235228378.png" alt="image-20200808235228378"></p>
-<h3 id="7-MPI-优点和缺点"><a href="#7-MPI-优点和缺点" class="headerlink" title="7. MPI 优点和缺点"></a>7. MPI 优点和缺点</h3><p>优点：</p>
+<li><p>减少重复计算</p>
+</li>
+<li><p>二分，最长要么在左，要么在右，要么有左有右</p>
+</li>
+<li><p>假设A[0, n]中最大和为M[0, n]，那么A[0, n+1]中最大和为$\max{M[0,n], \sum\limits_{i&#x3D;0}^{n}A_i, \sum\limits_{i&#x3D;1}^{n}A_i, …,\sum\limits_{i&#x3D;n-1}^{n}, A_n}$</p>
+<p> 当前和一直加，保持增长，如果小于0，就丢弃前面的（即丢弃当前和）</p>
+ <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ThisSum = MaxSum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; N; j++) &#123;</span><br><span class="line">    ThisSum += A[j];</span><br><span class="line">    <span class="keyword">if</span>(ThisSum &gt; MaxSum) &#123;</span><br><span class="line">        MaxSum = ThisSum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(ThisSum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        ThisSum = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> MaxSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="一个盘子可以被n个直线最多分为多少块"><a href="#一个盘子可以被n个直线最多分为多少块" class="headerlink" title="一个盘子可以被n个直线最多分为多少块"></a>一个盘子可以被n个直线最多分为多少块</h2><p>L(0) &#x3D; 1<br>L(n) &#x3D; L(n-1) + n</p>
+<h2 id="合法字符串"><a href="#合法字符串" class="headerlink" title="合法字符串"></a>合法字符串</h2><p>字符串只有abc三种字符，aa不允许出现，长度为n的合法字符串有多少个</p>
+<p>f(1) &#x3D; 3<br>f(2) &#x3D; 8<br>str(n)  : ab+str(n-2)<br>        : ac+str(n-2)<br>        : b+str(n-1)<br>        : c+str(n-1)<br>f(n) &#x3D; 2f(n-1)+2f(n-2)</p>
+<h2 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h2><p>strassen’s alogorithm runs in $O(n^{2.81})$</p>
+<p>f(n) &#x3D; 7f(n&#x2F;2) + $\Theta(n^2)$</p>
+<h1 id="第4讲-quick-sort"><a href="#第4讲-quick-sort" class="headerlink" title="第4讲 quick sort"></a>第4讲 quick sort</h1><p>易合难分</p>
+<p>partition的方法不同<br>最坏复杂度分析<br>平均复杂度分析</p>
+<h1 id="第5讲-merge-sort"><a href="#第5讲-merge-sort" class="headerlink" title="第5讲 merge sort"></a>第5讲 merge sort</h1><p>易分难合</p>
+<h1 id="第6讲-heap-sort"><a href="#第6讲-heap-sort" class="headerlink" title="第6讲 heap sort"></a>第6讲 heap sort</h1><h2 id="common-version"><a href="#common-version" class="headerlink" title="common version"></a>common version</h2><h2 id="accelerated-heap-sort"><a href="#accelerated-heap-sort" class="headerlink" title="accelerated heap sort"></a>accelerated heap sort</h2><h1 id="第7讲-选择"><a href="#第7讲-选择" class="headerlink" title="第7讲 选择"></a>第7讲 选择</h1><h2 id="找最大最小元素"><a href="#找最大最小元素" class="headerlink" title="找最大最小元素"></a>找最大最小元素</h2><h2 id="找第2大元素"><a href="#找第2大元素" class="headerlink" title="找第2大元素"></a>找第2大元素</h2><h2 id="找第k大-小元素"><a href="#找第k大-小元素" class="headerlink" title="找第k大&#x2F;小元素"></a>找第k大&#x2F;小元素</h2><h2 id="找中位数"><a href="#找中位数" class="headerlink" title="找中位数"></a>找中位数</h2><p>算法1：</p>
 <ol>
-<li>适合计算密集型任务</li>
-<li>有独立于语言外的标准，可移植性好</li>
-<li>有很多开放机构和厂商提供支持</li>
+<li>寻找 pivot，将数组分两半，在基数比较大的一半里找第 n&#x2F;2 - |S小| - 1 小的元素<br>最坏情况：<br>类似快排，pivot选不好</li>
 </ol>
-<p>缺点：</p>
+<p>6次比较找出5个元素中的中位数：</p>
+<p>算法2：</p>
+<h1 id="第8讲-adversary-BST"><a href="#第8讲-adversary-BST" class="headerlink" title="第8讲 adversary &amp; BST"></a>第8讲 adversary &amp; BST</h1><h2 id="判断5个元素中是否有3个连续的1"><a href="#判断5个元素中是否有3个连续的1" class="headerlink" title="判断5个元素中是否有3个连续的1"></a>判断5个元素中是否有3个连续的1</h2><p>3次之内不够<br>对手策略：定义 x: 1 1 1 1 1, y: 0 0 0 0 0，我想看第i位的值，就先去 x 里看，如果把 xi 变成0还能保证有3个连续1，那么把 xi 变成0，否则把 yi 变成1.</p>
+<p>4次：</p>
+<h2 id="判断图的连通性"><a href="#判断图的连通性" class="headerlink" title="判断图的连通性"></a>判断图的连通性</h2><p>必须看$\frac{n(n-1)}{2}$次，否则<br>对手策略：</p>
+<p>性质的单调性：图有这个性质，它的子图也有这个性质</p>
+<p>图可平面化：图在平面上可以画出边不相交，条件是不含 K3,3 和 K5 这两个子图</p>
+<h2 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h2><p>例如求$\sqrt{N}$<br>当 N 很大时，等于是找 x，使得 $ x^2 \leq N, (x+1)^2 &gt; N $</p>
+<h2 id="AVL-tree"><a href="#AVL-tree" class="headerlink" title="AVL tree"></a>AVL tree</h2><h2 id="RB-tree"><a href="#RB-tree" class="headerlink" title="RB tree"></a>RB tree</h2><h2 id="搜索的-tutorial"><a href="#搜索的-tutorial" class="headerlink" title="搜索的 tutorial"></a>搜索的 tutorial</h2><h3 id="扔鸡蛋问题"><a href="#扔鸡蛋问题" class="headerlink" title="扔鸡蛋问题"></a>扔鸡蛋问题</h3><p>Q: n 层楼，从某层楼扔下去鸡蛋会碎，求这个楼层</p>
 <ol>
-<li>没有数据划分和任务划分</li>
-<li>通信开销大</li>
-<li>无分布式文件系统支撑</li>
-<li>无错误恢复机制，一个节点计算失效可能导致所有结果无效</li>
-<li>无良好架构，程序员需要考虑复杂的细节</li>
+<li>如果只有1个鸡蛋，easy</li>
+<li>如果有无穷多个鸡蛋，二分法</li>
+<li>如果有2个鸡蛋<br>A1: 每隔$\sqrt(n)$层扔1个鸡蛋，尝试次数为$\sqrt(n) ~ 2\sqrt(n)$<br>A2: 第1次，从x层扔（碎了，最坏比x次，没碎继续），第2次从2x-1层扔（碎了，比1+x-1次，没碎继续），。。。共 (x+1)x&#x2F;2 层，令它 &gt;&#x3D;n 就求得了 x</li>
 </ol>
-<h3 id="8-MapReduce的三种理解是什么？"><a href="#8-MapReduce的三种理解是什么？" class="headerlink" title="8. MapReduce的三种理解是什么？"></a>8. MapReduce的三种理解是什么？</h3><ol>
-<li>基于集群的高性能并行计算平台</li>
-<li>并行程序开发与运行框架：自动完成任务的并行化处理、自动划分数据、数据通信、错误恢复等等</li>
-<li>并行程序设计模型与方法：函数式编程思想，用两个函数完成基本的并行计算任务</li>
-</ol>
-<h1 id="ch2-MapReduce-简介"><a href="#ch2-MapReduce-简介" class="headerlink" title="ch2 MapReduce 简介"></a>ch2 MapReduce 简介</h1><h2 id="需要掌握的问题-1"><a href="#需要掌握的问题-1" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
-<li>mapper，combiner，partitionner，reducer的关系</li>
-<li>MapReduce的优点</li>
-</ol>
-<h2 id="回答-1"><a href="#回答-1" class="headerlink" title="回答"></a>回答</h2><h3 id="1-mapper，combiner，partitionner，reducer的关系"><a href="#1-mapper，combiner，partitionner，reducer的关系" class="headerlink" title="1. mapper，combiner，partitionner，reducer的关系"></a>1. mapper，combiner，partitionner，reducer的关系</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200809152940591.png" alt="image-20200809152940591"></p>
-<h3 id="2-MapReduce-的优点"><a href="#2-MapReduce-的优点" class="headerlink" title="2. MapReduce 的优点"></a>2. MapReduce 的优点</h3><p>提供了统一的计算框架</p>
-<ul>
-<li>划分数据和任务、出错恢复、数据通信、负载均衡等等</li>
-</ul>
-<p>提供了抽象的程序模型</p>
-<ul>
-<li>map函数和reduce函数，把做什么和怎么做区分开</li>
-</ul>
-<p>平滑的可扩展性</p>
-<ul>
-<li>用的集群是普通商用机，可扩展性好，性能可以随处理器数量线性增长</li>
-</ul>
-<p>把处理向数据迁移</p>
-<ul>
-<li>处理器先处理本地磁盘的数据，处理不了时再用就近原则把数据传输去附近的计算节点上算</li>
-</ul>
-<h3 id="3-Google-MapReduce-基本工作流程"><a href="#3-Google-MapReduce-基本工作流程" class="headerlink" title="3. Google MapReduce 基本工作流程"></a>3. Google MapReduce 基本工作流程</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200810095325815.png" alt="image-20200810095325815"></p>
+<h3 id="找名人"><a href="#找名人" class="headerlink" title="找名人"></a>找名人</h3><p>Q: n 个人，名人定义：被其他所有人认识，但不认识其他任何人，操作是拿A和B来，问A是否认识B，B是否认识A<br>O(n)算法：每次比较可以淘汰1个人</p>
+<h3 id="赛马问题"><a href="#赛马问题" class="headerlink" title="赛马问题"></a>赛马问题</h3><p>Q: 共25匹马，每次可以选5匹马进行比赛，并得到次序（无法计时），问至少要多少次比赛才能确定跑的 最快、第二快、第三块的马</p>
+<p>最快的：比赛6次即可<br>第二快：出现在第1快的那一组的第2名（1匹），以及所有组第一快里的那5匹里输给第1快的第2名（1匹）（只输给最大元素的元素是候选人）。<br>第三快：候选人，第1组第3快，第2组第2快，第3组第一快</p>
+<p>共7次找出前三快的马</p>
+<h3 id="2018-mid-term"><a href="#2018-mid-term" class="headerlink" title="2018 mid-term"></a>2018 mid-term</h3><p>Q: 有sort5算法，一次排序5个元素，求n个元素的最大值和第二大</p>
+<p>最大值：一次sort5丢弃4个元素，所以最多比较$\frac{n-1}{4}$取上整</p>
+<p>第二大：采用5叉胜者树，即可得出 max，和仅仅输给 max 的元素</p>
+<h3 id="带权中位数"><a href="#带权中位数" class="headerlink" title="带权中位数"></a>带权中位数</h3><p>Q: 所有权之和为1，带权中位数$ x_k: \sum_{x_i &lt; x_k}{w_i} &lt; 1&#x2F;2 且 \sum_{x_i &gt; x_k}{w_i} \leq 1&#x2F;2 $<br>A: 找普通中位数，判断行不行，小不行就将小于它的权和加到它头上，然后递归后半部，大不行就同理</p>
+<h3 id="最小未出现自然数"><a href="#最小未出现自然数" class="headerlink" title="最小未出现自然数"></a>最小未出现自然数</h3><p>n个大小不同的自然数E[1]~E[n]，找出不在这个自然数序列中出现的最小自然数</p>
 <ol>
-<li>拥有的输入：数据块切分为大小相同的数据块比如64MB，以及对应用户程序</li>
-<li>用户程序提交给master节点</li>
-<li>master节点寻找配置map节点和reduce节点，把数据和程序给map节点，把程序给reduce节点</li>
-<li>map节点优先从本地读取数据计算，并且做一些整理排序的任务，中间结果输出到本地，并且告知master计算已完成、和中间结果的存储位置</li>
-<li>reduce从存储位置中远程读中间结果，进行计算，输出到结果文件</li>
+<li>若已排序，二分查找，若E[n&#x2F;2]&gt;n&#x2F;2，在前一半，若等于，在后一半，不可能小于..</li>
+<li>若未排序，<br>法1：开n位数组，遍历，出现置1，然后第一个0元素下标就是<br>法2：找中位数x，按x和n&#x2F;2大小丢掉一半元素</li>
 </ol>
-<h3 id="4-MapReduce失效处理"><a href="#4-MapReduce失效处理" class="headerlink" title="4. MapReduce失效处理"></a>4. MapReduce失效处理</h3><p>主节点：定期设置计算任务的checkpoint，如果发现失效，恢复到最近的checkpoint继续执行</p>
-<p>工作节点：经常失效，主节点会发心跳包，假如没有回复，主节点把任务调度给其他节点并终止失效的工作节点</p>
-<h3 id="5-MR带宽优化"><a href="#5-MR带宽优化" class="headerlink" title="5. MR带宽优化"></a>5. MR带宽优化</h3><p>大量键值对在从map端中间结果，远程传输到reduce节点时会占用很大带宽，可以用combiner整合key相同的键值对，降低带宽占用</p>
-<h3 id="6-MR计算优化"><a href="#6-MR计算优化" class="headerlink" title="6. MR计算优化"></a>6. MR计算优化</h3><p>reduce节点需要等所有map节点算完后才能开始运行，所以如果有一个map很慢，拖后腿了，那会大幅降低性能，所以可以安排多个map节点同时算，取那个算得最快的</p>
-<h3 id="7-MR数据分区"><a href="#7-MR数据分区" class="headerlink" title="7. MR数据分区"></a>7. MR数据分区</h3><p>reduce的输入可能来自多个map端，所以需要先用partitioner进行分区，把属于同一个reduce的数据聚到一起，解决数据相关性问题</p>
-<h3 id="8-GFS的设计理念"><a href="#8-GFS的设计理念" class="headerlink" title="8. GFS的设计理念"></a>8. GFS的设计理念</h3><ul>
-<li><p>廉价的本地磁盘分布存储</p>
+<h3 id="前k大的数们"><a href="#前k大的数们" class="headerlink" title="前k大的数们"></a>前k大的数们</h3><ol>
+<li>排序，取后k个，nlogn</li>
+<li>建堆+取出k个元素，n+klogn</li>
+<li>先找第k大元素，n，再遍历找出比第k大都大的元素，n，然后排序，klogk，合计 n+klogk</li>
+</ol>
+<h3 id="两个已排序数组中的第k小元素-LeetCode"><a href="#两个已排序数组中的第k小元素-LeetCode" class="headerlink" title="两个已排序数组中的第k小元素 LeetCode-"></a>两个已排序数组中的第k小元素 LeetCode-</h3><ol>
+<li>merge到第k个就行，$\Theta(k)$</li>
+<li>找两数组中位数A[m&#x2F;2], B[n&#x2F;2]<br>若 m&#x2F;2+n&#x2F;2 &lt; k，若A[m&#x2F;2] &gt; B[n&#x2F;2]，说明比B[n&#x2F;2]小的元素数量[n&#x2F;2, m&#x2F;2+n&#x2F;2]，所以确定比B小的B的前半部分可以丢了<br>         若       &lt; ，丢A的前半部分</li>
+</ol>
+<h3 id="5个元素6次比较找中位数讲过了，7次比较排序"><a href="#5个元素6次比较找中位数讲过了，7次比较排序" class="headerlink" title="5个元素6次比较找中位数讲过了，7次比较排序"></a>5个元素6次比较找中位数讲过了，7次比较排序</h3><p>ppt</p>
+<h3 id="k个已排序树组-merge-策略"><a href="#k个已排序树组-merge-策略" class="headerlink" title="k个已排序树组 merge 策略"></a>k个已排序树组 merge 策略</h3><p>两两merge</p>
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>简单一致哈希假设</p>
+<h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><h2 id="均摊时间代价"><a href="#均摊时间代价" class="headerlink" title="均摊时间代价"></a>均摊时间代价</h2><h3 id="accounting-cost"><a href="#accounting-cost" class="headerlink" title="accounting cost"></a>accounting cost</h3><p>这个真不会，[UST]</p>
+<p>一般是对一系列操作进行分析才使用均摊分析，分析出一次操作的代价，而且这些操作是由规律的</p>
+<p>accounting cost 之和必须大于0，这样计算出的 amortized cost 是 actual cost 的一个上界</p>
+<h4 id="二-计数器-ppt上的"><a href="#二-计数器-ppt上的" class="headerlink" title="二-计数器 ppt上的"></a>二-计数器 ppt上的</h4><p>发现：一开始每一位都是0，<br>每一位想要从1变为0，首先得从0变为1，于是把0-&gt;1的accost 为1，1-&gt;0的ac cost为-1，这样 ac cost 始终大于0</p>
+<h3 id="聚合法"><a href="#聚合法" class="headerlink" title="聚合法"></a>聚合法</h3><p>比如作业那个 三-计数器，个位每次变，十位每3次变，百位每9次变。。所以操作n次increment，变了n+n&#x2F;3+n&#x2F;3^2+…. &lt; 2n</p>
+<p>栈的pop，multipop，可见每次操作</p>
+<h3 id="势能法？potential-method"><a href="#势能法？potential-method" class="headerlink" title="势能法？potential method"></a>势能法？potential method</h3><h2 id="统一-hash"><a href="#统一-hash" class="headerlink" title="统一 hash"></a>统一 hash</h2><p>解决类似快排 partition 没选好的问题，快排随机选 pivot</p>
+<h1 id="期中考试讲解"><a href="#期中考试讲解" class="headerlink" title="期中考试讲解"></a>期中考试讲解</h1><ol start="3">
+<li><p>根节点到最深节点的路径长度就是基于比较的排序的最坏情况</p>
 </li>
-<li><p>多数据自动备份解决可靠性</p>
+<li><p>(2) 逆序对的情况只能是 (i,i+1) (j, j+1)  或 (i, i+2) (i, i+1) 或 (i, i+2) (i+1,i+2) </p>
 </li>
-<li><p>为MapReduce框架提供支持</p>
+<li><p>(2) 看 tutorial，找中位数，如果满足直接返回，不满足就把某一半边的权重加到中位数上，然后继续递归另一半边</p>
 </li>
-</ul>
-<h3 id="9-GFS基本架构是什么"><a href="#9-GFS基本架构是什么" class="headerlink" title="9. GFS基本架构是什么"></a>9. GFS基本架构是什么</h3><p>用户-master节点-多个server</p>
-<p>master节点存储3种元数据</p>
-<ul>
-<li>GFS的目录结构（日志恢复）</li>
-<li>文件名和chunk的映射表（日志恢复）</li>
-<li>chunk副本的位置信息，默认3个副本（master启动或server注册时生成）</li>
-</ul>
-<p>一个chunk是64MB，数据更新只有3个副本都更新成功时才认为成功</p>
-<p>chunk再切分为64KB的子块，物理上存在linux文件系统里</p>
-<h3 id="10-用户在访问GFS文件时工作过程是什么"><a href="#10-用户在访问GFS文件时工作过程是什么" class="headerlink" title="10. 用户在访问GFS文件时工作过程是什么"></a>10. 用户在访问GFS文件时工作过程是什么</h3><p>用户告诉master：文件名或者chunk索引</p>
-<p>master查目录，告诉用户对应文件或chunk在哪些server上</p>
-<p>用户直接访问server，读取数据</p>
-<blockquote>
-<p>这样绕过了master读取实际数据，可以避免master成为瓶颈</p>
-</blockquote>
-<h3 id="11-GFS用到的技术"><a href="#11-GFS用到的技术" class="headerlink" title="11. GFS用到的技术"></a>11. GFS用到的技术</h3><ul>
-<li>大规模集群安装</li>
-<li>故障检测和恢复</li>
-<li>动态添加新节点</li>
-<li>节能技术：蓄电池，而非UPS</li>
-</ul>
-<h3 id="12-分布式数据表-BigTable-的设计目标"><a href="#12-分布式数据表-BigTable-的设计目标" class="headerlink" title="12. 分布式数据表 BigTable 的设计目标"></a>12. 分布式数据表 BigTable 的设计目标</h3><p>广泛的实用性：存储不同类型数据</p>
-<p>很强的可扩展性：新增服务器节点</p>
-<p>容错性和高可用性</p>
-<p>高吞吐量：PB级</p>
-<p>自动管理</p>
-<p>简单</p>
-<h3 id="13-BT的架构是什么样"><a href="#13-BT的架构是什么样" class="headerlink" title="13. BT的架构是什么样"></a>13. BT的架构是什么样</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200810172334336.png" alt="image-20200810172334336"></p>
-<p>主服务器-子表服务器</p>
-<p>子表服务器上用SSTable存子表</p>
-<ul>
-<li>一个SSTable有64KB大，存在GFS中</li>
-<li>一个GFS Chunk中可存1000+个子块，需要索引</li>
-<li>SSTable可以被不同子表共享，避免重复数据</li>
-<li>子表寻址：由chubby服务器找到根子表，再查二级索引子表，再访问到具体SSTable</li>
-</ul>
-<h3 id="14-BT的数据模型是什么样"><a href="#14-BT的数据模型是什么样" class="headerlink" title="14. BT的数据模型是什么样"></a>14. BT的数据模型是什么样</h3><p>行：行关键字</p>
-<p>列：族名+列名</p>
-<p>时间戳：比如网页数据跟随时间变化</p>
-<h3 id="15-Hadoop-MapReduce-的架构"><a href="#15-Hadoop-MapReduce-的架构" class="headerlink" title="15. Hadoop MapReduce 的架构"></a>15. Hadoop MapReduce 的架构</h3><p>把google mr里的master节点改名叫JobTracker节点，worker节点改名TaskTracker节点</p>
-<h3 id="16-Hadoop的一些组件"><a href="#16-Hadoop的一些组件" class="headerlink" title="16. Hadoop的一些组件"></a>16. Hadoop的一些组件</h3><p>InputFormat：决定读文件的格式，包括TextInputFormat、KeyValueInputFormat等</p>
-<p>InputSplit：记录数据分块，64MB为一块这样</p>
-<p>RecordReader：记录如何读取一块，LineRecordReader就是按行读，key为行号，value为行内容</p>
-<p>TextOutputFormat：输出文件的格式</p>
-<h3 id="17-HDFS-和-GFS-的联系"><a href="#17-HDFS-和-GFS-的联系" class="headerlink" title="17. HDFS 和 GFS 的联系"></a>17. HDFS 和 GFS 的联系</h3><p>NameNode对应master节点</p>
-<p>DataNode对应server</p>
-<h1 id="ch4-Hadoop环境配置和开发"><a href="#ch4-Hadoop环境配置和开发" class="headerlink" title="ch4 Hadoop环境配置和开发"></a>ch4 Hadoop环境配置和开发</h1><h2 id="需要掌握的问题-2"><a href="#需要掌握的问题-2" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
-<li>hadoop配置文件</li>
-</ol>
-<h2 id="回答-2"><a href="#回答-2" class="headerlink" title="回答"></a>回答</h2><h3 id="1-hadoop配置文件"><a href="#1-hadoop配置文件" class="headerlink" title="1. hadoop配置文件"></a>1. hadoop配置文件</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200811230439134.png" alt="image-20200811230439134"></p>
-<h1 id="ch5-MapReduce-算法设计"><a href="#ch5-MapReduce-算法设计" class="headerlink" title="ch5 MapReduce 算法设计"></a>ch5 MapReduce 算法设计</h1><h2 id="需要掌握的问题-3"><a href="#需要掌握的问题-3" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
-<li>结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好</li>
-<li>自定义kv类型时重写的接口和继承类</li>
-<li>mr全局排序中，如何有效划分数据</li>
-<li>单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？</li>
-<li>web搜索服务，分为哪三步</li>
-<li>带全局排序的倒排索引</li>
-</ol>
-<h2 id="回答-3"><a href="#回答-3" class="headerlink" title="回答"></a>回答</h2><h3 id="1-结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好"><a href="#1-结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好" class="headerlink" title="1. 结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好"></a>1. 结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好</h3><h3 id="2-自定义kv类型时重写的接口和继承类"><a href="#2-自定义kv类型时重写的接口和继承类" class="headerlink" title="2. 自定义kv类型时重写的接口和继承类"></a>2. 自定义kv类型时重写的接口和继承类</h3><h3 id="3-mr全局排序中，如何有效划分数据"><a href="#3-mr全局排序中，如何有效划分数据" class="headerlink" title="3. mr全局排序中，如何有效划分数据"></a>3. mr全局排序中，如何有效划分数据</h3><p>TotalOrderPartitioner</p>
-<h3 id="4-单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？"><a href="#4-单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？" class="headerlink" title="4. 单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？"></a>4. 单词同现算法，如果neighbour的范围是一篇文档，要如何构造InputFormat呢？</h3><p>自定义一个MyInputFormat，extends FileInputFormat，重写getSplits和getRecordReader方法，指定不拆分文件，然后在driver端设置InputFormat为自定义的</p>
-<h3 id="5-web搜索服务，分为哪三步"><a href="#5-web搜索服务，分为哪三步" class="headerlink" title="5. web搜索服务，分为哪三步"></a>5. web搜索服务，分为哪三步</h3><ol>
-<li>爬取网页内容</li>
-<li>建立倒排索引</li>
-<li>根据搜索内容返回排好序的网页</li>
-</ol>
-<h3 id="6-带全局排序的倒排索引"><a href="#6-带全局排序的倒排索引" class="headerlink" title="6. 带全局排序的倒排索引"></a>6. 带全局排序的倒排索引</h3><p>map in: &lt;docid id, doc&gt;</p>
-<p>map out: &lt;(term, docid), f(term)&gt;</p>
-<p>partitioner: 自定义MyPartitioner，extends HashPartitioner，重写getPartition方法，在driver中setPartitionerClass(MyPartitioner)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyPartitioner extends HashPartitioner&lt;K, V&gt; &#123;</span><br><span class="line">	getPartitioner(K key, V value, int numReduceTasks) &#123;</span><br><span class="line">		term = key.split(&apos;#&apos;)[0];</span><br><span class="line">		super.getPartition(term, value, numReduceTasks);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>reduce:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Reducer &#123;</span><br><span class="line">	method setup() &#123;</span><br><span class="line">		t_prev = null;</span><br><span class="line">		P = new PostingList;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	method reduce(tuple&lt;term, docid&gt;, Iterable(fs)) &#123;</span><br><span class="line">		for (f in)</span><br><span class="line">		if (term != t_prev &amp;&amp; t_prev != null) &#123;</span><br><span class="line">			emit(t_prev, P);</span><br><span class="line">			P.Reset();</span><br><span class="line">		&#125;</span><br><span class="line">		P.append(&lt;docid, f&gt;);</span><br><span class="line">		t_prev = term;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	method cleanup() &#123;</span><br><span class="line">		emit(t_prev, P)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="ch6-HBase和Hive"><a href="#ch6-HBase和Hive" class="headerlink" title="ch6 HBase和Hive"></a>ch6 HBase和Hive</h1><h2 id="需要掌握的问题-4"><a href="#需要掌握的问题-4" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
-<li>CAP定理</li>
-<li>普通数据库为什么不适用</li>
-<li>HBase 的物理结构</li>
-<li>HBase 的逻辑结构</li>
-</ol>
-<h2 id="回答-4"><a href="#回答-4" class="headerlink" title="回答"></a>回答</h2><h3 id="1-CAP定理"><a href="#1-CAP定理" class="headerlink" title="1. CAP定理"></a>1. CAP定理</h3><p>Consistency，一致性</p>
-<p>Availablity，可用性</p>
-<p>PartitionTolerance，分区容错性</p>
-<p>三者不可兼得</p>
-<h3 id="2-普通数据库为什么不适用"><a href="#2-普通数据库为什么不适用" class="headerlink" title="2. 普通数据库为什么不适用"></a>2. 普通数据库为什么不适用</h3><p>大表</p>
-<p>高并发访问</p>
-<p>不停机情况下的动态增删列</p>
-<p>分布式网络分片问题</p>
-<h3 id="3-HBase的逻辑结构"><a href="#3-HBase的逻辑结构" class="headerlink" title="3. HBase的逻辑结构"></a>3. HBase的逻辑结构</h3><p>行关键字，时间戳，列关键字</p>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812101854154.png" alt="image-20200812101854154"></p>
-<h3 id="4-HBase的架构"><a href="#4-HBase的架构" class="headerlink" title="4. HBase的架构"></a>4. HBase的架构</h3><p>HBase位于HDFS和上层应用之间</p>
-<p>有MasterServer和RegionServer，对应BigTable里的主服务器和子表服务器</p>
-<p>大表中的底层数据存在HDFS里</p>
-<p>子表中的数据区Region</p>
-<ul>
-<li>由很多Store组成</li>
-<li>每个Store由一个memStore和若干FileStore组成</li>
-</ul>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812102810139.png" alt="image-20200812102810139"></p>
-<p>除此之外还有一个HLog，日志恢复</p>
-<h3 id="5-访问-更新HBase数据的过程"><a href="#5-访问-更新HBase数据的过程" class="headerlink" title="5. 访问&#x2F;更新HBase数据的过程"></a>5. 访问&#x2F;更新HBase数据的过程</h3><p>三级搜索结构：</p>
-<ul>
-<li><p>用户的数据表存在子表服务器上，它的信息记录在元数据表（.META.表）里</p>
+<li><p>其实链表就可以了？删除时的代价n在插入时每次 accounting cost 预付掉，然后就是常数级别的了</p>
 </li>
-<li><p>元数据表存在特殊的子表服务器上，它的信息记录在根子表（root region）里</p>
-</li>
-<li><p>根子表在主服务器里</p>
-</li>
-</ul>
-<blockquote>
-<p> 查的时候是反过来，先扫描根子表，得到元数据表位置，再查元数据表，得到用户数据表在哪个子表服务器上</p>
-</blockquote>
-<p>访问：</p>
-<ul>
-<li>先从Master服务器查到子表服务器，去memStore里找，如果没有，再去StoreFile里搜索，B+树结构，定期压缩</li>
-<li>两个小的子表可以合并为大子表</li>
-<li>子表大到一定程度调用 HRegion.closeAndSplit() 进行拆分</li>
-</ul>
-<p>更新：</p>
-<ul>
-<li>先从Master服务器查到子表服务器，然后提交数据更新请求，新数据先写在memStore里，等满一定大小了再往StoreFile里写，StoreFile位于HDFS</li>
-</ul>
-<h3 id="6-HBase相关命令"><a href="#6-HBase相关命令" class="headerlink" title="6. HBase相关命令"></a>6. HBase相关命令</h3><p>建立表、插入数据，查看表</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create &apos;student&apos;, &apos;id&apos;, &apos;Description&apos;, &apos;Courses&apos;, &apos;home&apos;;</span><br><span class="line"></span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Description:name&apos;, &apos;lilei&apos;;</span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Description:height&apos;, &apos;186&apos;;</span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Courses:Math&apos;, &apos;99&apos;;</span><br><span class="line"></span><br><span class="line">describle &apos;student&apos;</span><br><span class="line">scan &apos;student&apos;</span><br><span class="line">scan &apos;student&apos;, &#123;COLUMNS=&gt;&apos;Courses:&apos;&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-HBase-disable和enable"><a href="#7-HBase-disable和enable" class="headerlink" title="7. HBase disable和enable"></a>7. HBase disable和enable</h3><p>disable ‘student’时，会将该表在zookeeper下做记录，然后将表的region全部下线</p>
-<p>enable ‘student’时，将region全部上线，会去掉zookeeper中的标记，然后看.MATA表中有无该子表的服务器，如果有就上线到那台子表服务器，如果没有就随机选择一个服务器上线</p>
-<h3 id="8-Hive的架构"><a href="#8-Hive的架构" class="headerlink" title="8. Hive的架构"></a>8. Hive的架构</h3><p>组成元素：</p>
-<ul>
-<li>HiveQL：查询语言</li>
-<li>Driver：驱动程序</li>
-<li>Compiler：编译器，用来将HiveQL转化为中间语言</li>
-<li>Execution engine：执行引擎，在driver的驱动下具体执行操作</li>
-<li>metastore：存储操作的数据对象的位置信息等</li>
-</ul>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812112340611.png" alt="image-20200812112340611"></p>
-<h3 id="9-Hive的逻辑结构"><a href="#9-Hive的逻辑结构" class="headerlink" title="9. Hive的逻辑结构"></a>9. Hive的逻辑结构</h3><ul>
-<li>Tables：数据表中的列是有类型的，int float string boolean，也可是复合类型map</li>
-<li>partitions：数据表可以按日期划分</li>
-<li>buckets：用桶按hash的方式划分，对抽样和join优化有意义</li>
-</ul>
-<h3 id="10-Hive相关命令"><a href="#10-Hive相关命令" class="headerlink" title="10. Hive相关命令"></a>10. Hive相关命令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show tables;</span><br><span class="line"></span><br><span class="line">create table sharkspeare (freq int, word string) row format delimtied fields terminated by &apos;\t&apos; as textfile;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">discrible sharkspeare;</span><br><span class="line"></span><br><span class="line">load data inpath &apos;xxx-freq&apos; into table sharkspeare;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from sharkspeare limit 10;</span><br><span class="line"></span><br><span class="line">select * from sharkspeare where freq &gt; 10 sort by freq asc limit 10;</span><br><span class="line"></span><br><span class="line">select a.foo from invites a where a.ds = &apos;2020-8-12&apos;</span><br><span class="line"></span><br><span class="line">select t1.bar t1.foo t2.foo from</span><br><span class="line">	pokes t1 join invites t2 on t1.bar = t2.bar;</span><br></pre></td></tr></table></figure>
-
-<h1 id="ch7-MapReduce-高级编程技术"><a href="#ch7-MapReduce-高级编程技术" class="headerlink" title="ch7 MapReduce 高级编程技术"></a>ch7 MapReduce 高级编程技术</h1><h2 id="需要掌握的问题-5"><a href="#需要掌握的问题-5" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
-<li>复合键值对的使用</li>
-<li>用户自定义数据类型</li>
-<li>用户自定义输入输出格式</li>
-<li>用户自定义Partitioner和Combiner</li>
-<li>迭代完成MapReduce计算</li>
-<li>组合式MapReduce程序设计</li>
-<li>多数据源的连接</li>
-<li>全局参数&#x2F;数据文件的传递</li>
-<li>其它处理技术</li>
 </ol>
-<h2 id="回答-5"><a href="#回答-5" class="headerlink" title="回答"></a>回答</h2><h3 id="1-复合键值对的使用"><a href="#1-复合键值对的使用" class="headerlink" title="1. 复合键值对的使用"></a>1. 复合键值对的使用</h3><p>倒排索引中的value-to-key思想，完成排序</p>
-<h3 id="2-用户自定义数据类型"><a href="#2-用户自定义数据类型" class="headerlink" title="2. 用户自定义数据类型"></a>2. 用户自定义数据类型</h3><p>需要implements WritableComparable接口</p>
-<p>重写readFields, write, compareTo函数</p>
-<p>并</p>
-<p>setMapOutputKeyClass(xxx.class)</p>
-<p>setMapOutputValueClass()</p>
-<p>setOutputKeyClass</p>
-<p>setOutputValueClass</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Point3D</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">Point3D</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">float</span> x, y, z;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		out.write(x);</span><br><span class="line">		out.write(y);</span><br><span class="line">		out.write(z);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		x = in.readFloat();</span><br><span class="line">		y = in.readFloat();</span><br><span class="line">		z = in.readFloat();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Point3D p)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//compare</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-用户自定义输入输出格式"><a href="#3-用户自定义输入输出格式" class="headerlink" title="3. 用户自定义输入输出格式"></a>3. 用户自定义输入输出格式</h3><p>需要extends FileInputFormat</p>
-<p>重写createRecordReader、getCurrentKey，getCurrentValue，initialize函数</p>
-<p>并且setInputFormatClass(xxx.class)</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileNameOffsetInputFormat</span> <span class="keyword">extends</span> <span class="title">FileInputFormat</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>&gt; </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RecordReader&lt;Text, Text&gt; <span class="title">createRecordReader</span><span class="params">(InputSplit split, </span></span></span><br><span class="line"><span class="function"><span class="params">    TaskAttemptContext context)</span> </span></span><br><span class="line"><span class="function">    </span>&#123; </span><br><span class="line">        FileNameOffsetRecordReader fnrr = <span class="keyword">new</span> FileNameOffsetRecordReader();</span><br><span class="line">        <span class="keyword">try</span> </span><br><span class="line">        &#123; fnrr.initialize(split, context); &#125; </span><br><span class="line">        <span class="keyword">catch</span> (IOException e) &#123; e.printStackTrace(); &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">        <span class="keyword">return</span> fnrr;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileNameOffsetRecordReader</span> <span class="keyword">extends</span> <span class="title">RecordReader</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>&gt; </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">    String fileName;</span><br><span class="line">    LineRecordReader lrr = <span class="keyword">new</span> LineRecordReader();</span><br><span class="line">    ……</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Text <span class="title">getCurrentKey</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line">    &#123; return new Text("(" + fileName + “#" + lrr.getCurrentKey() + ")"); &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Text <span class="title">getCurrentValue</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line"><span class="function">    </span>&#123; <span class="keyword">return</span> lrr.getCurrentValue(); &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(InputSplit arg0, TaskAttemptContext arg1)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line"><span class="function">    </span>&#123; lrr.initialize(arg0, arg1);</span><br><span class="line">    fileName = ((FileSplit)arg0).getPath().getName();</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-用户自定义Partitioner和Combiner"><a href="#4-用户自定义Partitioner和Combiner" class="headerlink" title="4. 用户自定义Partitioner和Combiner"></a>4. 用户自定义Partitioner和Combiner</h3><p>extends HashPartitioner&lt;K,V&gt;并重写getPartition函数</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class MyPartitioner extends HashPartitioner&lt;K, V&gt; &#123;</span><br><span class="line">	public int getPartition(K key, V value, int numReduceTasks) &#123;</span><br><span class="line">		return ...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>extends Reducer&lt;K, V&gt;并重写reduce函数</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class MyCombiner extends Reducer&lt;K, V&gt; &#123;</span><br><span class="line">	void reduce(K key, V value, Context context) throws IOException, InterruptedException&#123;</span><br><span class="line">		context.write(..., ...)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-迭代完成MapReduce计算"><a href="#5-迭代完成MapReduce计算" class="headerlink" title="5. 迭代完成MapReduce计算"></a>5. 迭代完成MapReduce计算</h3><p>pagerank</p>
-<h3 id="6-组合式MapReduce程序设计"><a href="#6-组合式MapReduce程序设计" class="headerlink" title="6. 组合式MapReduce程序设计"></a>6. 组合式MapReduce程序设计</h3><p>可视作pagerank的三个阶段</p>
-<p>依赖任务的添加</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">joby.addDependingJob(jobx); 使得y需要等待x结束</span><br><span class="line">JobControl JC = new JobControl(&quot;xy&quot;);</span><br><span class="line">JC.addJob(jobx);</span><br><span class="line">JC.addJob(joby);</span><br><span class="line">JC.run();</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-多数据源的连接"><a href="#7-多数据源的连接" class="headerlink" title="7. 多数据源的连接"></a>7. 多数据源的连接</h3><p>比如join两张表</p>
-<ul>
-<li>可以自行添加标签然后reduce端join，也可以用DataJoin类</li>
-<li>也可以map端join，利用distributedCache传递较小的文件</li>
-</ul>
-<h3 id="8-全局参数-数据文件的传递"><a href="#8-全局参数-数据文件的传递" class="headerlink" title="8. 全局参数&#x2F;数据文件的传递"></a>8. 全局参数&#x2F;数据文件的传递</h3><p>driver端：conf.set(…)</p>
-<p>map&#x2F;reduce端：context.getConfiguration().get(…)</p>
-<h3 id="9-其它处理技术"><a href="#9-其它处理技术" class="headerlink" title="9. 其它处理技术"></a>9. 其它处理技术</h3><p>多文件输出</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class MyOutputFormat extends MultipleTextOutputFormat&lt;K, V&gt; &#123;</span><br><span class="line">	protected String generateFileNameForKeyValue(K, V, String filename) &#123;</span><br><span class="line">		return &quot;self&quot;;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="ch8-PageRank"><a href="#ch8-PageRank" class="headerlink" title="ch8 PageRank"></a>ch8 PageRank</h1><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812151512228.png" alt="image-20200812151512228"></p>
-<h1 id="ch9-数据挖掘"><a href="#ch9-数据挖掘" class="headerlink" title="ch9 数据挖掘"></a>ch9 数据挖掘</h1><h2 id="需要掌握的问题-6"><a href="#需要掌握的问题-6" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
-<li>K-means聚类算法</li>
-<li>分类算法</li>
-<li>频繁项集挖掘算法</li>
-<li>SVM</li>
-</ol>
-<h2 id="回答-6"><a href="#回答-6" class="headerlink" title="回答"></a>回答</h2><h3 id="1-K-means聚类算法"><a href="#1-K-means聚类算法" class="headerlink" title="1. K-means聚类算法"></a>1. K-means聚类算法</h3><p>将N个点分为K类</p>
-<ol>
-<li>选取K个初始中心点</li>
-<li>对每个点归进离他最近的中心点，完毕后重新计算K个中心点的值</li>
-<li>如果迭代结束条件为满足，重复2</li>
-</ol>
-<h3 id="2-K近邻"><a href="#2-K近邻" class="headerlink" title="2. K近邻"></a>2. K近邻</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812153312447.png" alt="image-20200812153312447"></p>
-<h3 id="3-朴素贝叶斯"><a href="#3-朴素贝叶斯" class="headerlink" title="3. 朴素贝叶斯"></a>3. 朴素贝叶斯</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812154826826.png" alt="image-20200812154826826"></p>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812154810381.png" alt="image-20200812154810381"></p>
-<h3 id="4-SVM"><a href="#4-SVM" class="headerlink" title="4. SVM"></a>4. SVM</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812155037507.png" alt="image-20200812155037507"></p>
-<h1 id="ch10-spark"><a href="#ch10-spark" class="headerlink" title="ch10 spark"></a>ch10 spark</h1><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812155814219.png" alt="image-20200812155814219"></p>
 ]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Big Data</tag>
+        <tag>Algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -4858,493 +5373,6 @@
       </categories>
       <tags>
         <tag>Concurrency</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习笔记</title>
-    <url>/2019/02/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>机器学习复习笔记</p>
-<p>参考书目：西瓜书</p>
-<h1 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h1><h2 id="课程任务"><a href="#课程任务" class="headerlink" title="课程任务"></a>课程任务</h2><ol>
-<li>平时作业40%</li>
-<li>期中30%</li>
-<li>期末30%（投票决定闭卷&#x2F;半开卷）</li>
-</ol>
-<p>平时作业有2次取较高分作为期中成绩，其他4次作为平时成绩<br>半开卷：允许带一张a4纸，上面写什么都可以，考完交a4纸</p>
-<h2 id="机器学习示例："><a href="#机器学习示例：" class="headerlink" title="机器学习示例："></a>机器学习示例：</h2><p>文献筛选<br>在<code>循证医学</code>中，针对特定临床问题，要先查文献进行详细研究评估。<br>提取摘要-&gt;人工筛选。应用机器学习后专家读少量文献，标记有关&#x2F;无关，模型去读剩下来的文献。</p>
-<p>搜索引擎<br><code>用机器学习解决排序问题</code></p>
-<p>战场战术层面<br><code>损害管制自主机器人</code><br><code>罗盘系统</code></p>
-<h2 id="典型的机器学习过程："><a href="#典型的机器学习过程：" class="headerlink" title="典型的机器学习过程："></a>典型的机器学习过程：</h2><p>给模型以数据（包含一系列属性+1个label），训练，检测。</p>
-<h2 id="几个分类："><a href="#几个分类：" class="headerlink" title="几个分类："></a>几个分类：</h2><p><code>符号主义学习</code>、<code>连接主义学习</code></p>
-<p>贝叶斯学派：<br>第1天，太阳升起，建立模型，预测明天太阳升起概率1&#x2F;2<br>第2天，太阳升起，修正参数，预测明天太阳升起概率1&#x2F;3<br>…<br>第30000天，预测30000&#x2F;300001</p>
-<p>非贝叶斯学派：<br>第1天，太阳升起，预测1<br>第2天，太阳升起，预测1<br>…<br>第30000天，根据之前的事实证据，认为太阳升起概率恒为1</p>
-<h2 id="面临问题"><a href="#面临问题" class="headerlink" title="面临问题"></a>面临问题</h2><p>现在的问题在于大厂缺少需求，算力过剩。Google收购DeepMind是为了消耗TPU，AI实际上是互联网商们的一个出口。</p>
-<p>鲁棒性不行，人类棋手犯错，从九段跌到八段，机器犯错，从九段跌到业余。</p>
-<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>预测目标：</p>
-<ul>
-<li>分类：最后的输出是离散值<ul>
-<li>二分类：好瓜、坏瓜</li>
-<li>多分类：冬瓜、南瓜、西瓜</li>
-</ul>
-</li>
-<li>回归：连续值<ul>
-<li>瓜的成熟度</li>
-</ul>
-</li>
-<li>聚类：无标记信息（物以类聚&#x2F;具有相同hash feature的数据被hash后放入同一个桶&#x2F;韩信点兵&#x2F;等价类划分）</li>
-</ul>
-<p>有无标记信息：</p>
-<ul>
-<li>监督学习：分类、回归</li>
-<li>无监督学习：聚类</li>
-<li>半监督学习：两者结合</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Machine Learning</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>渗透学习笔记</title>
-    <url>/2020/11/06/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>移动计算笔记</title>
-    <url>/2022/02/14/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>考核：无期末考，老师讲8-10课，学生6-8课，每周2篇论文，讨论答疑</p>
-<p>pre 45%</p>
-<p>lab 25%：移动计算服务的算法，c++，matlab</p>
-<p>final project30%：做一个实际的东西，survey，论文</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214115650118.png" alt="image-20220214115650118"></p>
-<h1 id="class-1"><a href="#class-1" class="headerlink" title="class-1"></a>class-1</h1><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214101117654.png" alt="image-20220214101117654"></p>
-<ul>
-<li></li>
-</ul>
-<h2 id="课程内容"><a href="#课程内容" class="headerlink" title="课程内容"></a>课程内容</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214101439145.png" alt="image-20220214101439145"></p>
-<ul>
-<li></li>
-</ul>
-<p>移动计算分为</p>
-<ul>
-<li>移动通信</li>
-<li>移动硬件</li>
-<li>移动软件</li>
-</ul>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214102809060.png" alt="image-20220214102809060"></p>
-<ul>
-<li></li>
-</ul>
-<h2 id="移动通信演进"><a href="#移动通信演进" class="headerlink" title="移动通信演进"></a>移动通信演进</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214103846785.png" alt="image-20220214103846785"></p>
-<ul>
-<li></li>
-</ul>
-<h2 id="关键技术"><a href="#关键技术" class="headerlink" title="关键技术"></a>关键技术</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214110904123.png" alt="image-20220214110904123"></p>
-<ul>
-<li></li>
-</ul>
-<h3 id="可见光的无线通信"><a href="#可见光的无线通信" class="headerlink" title="可见光的无线通信"></a>可见光的无线通信</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214111446423.png" alt="image-20220214111446423"></p>
-<p>用LED阵列传输信息，LIFI，速度10~100Gbps</p>
-<ul>
-<li></li>
-</ul>
-<h3 id="通信感知一体化"><a href="#通信感知一体化" class="headerlink" title="通信感知一体化"></a>通信感知一体化</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214111930776.png" alt="image-20220214111930776"></p>
-<ul>
-<li></li>
-</ul>
-<h3 id="AI-for-system"><a href="#AI-for-system" class="headerlink" title="AI for system"></a>AI for system</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214112203951.png" alt="image-20220214112203951"></p>
-<ul>
-<li></li>
-</ul>
-<h3 id="多模信任模型，新型密码技术"><a href="#多模信任模型，新型密码技术" class="headerlink" title="多模信任模型，新型密码技术"></a>多模信任模型，新型密码技术</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214112632015.png" alt="image-20220214112632015"></p>
-<h3 id="节能"><a href="#节能" class="headerlink" title="节能"></a>节能</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214113341240.png" alt="image-20220214113341240"></p>
-<h3 id="沉浸式用户体验"><a href="#沉浸式用户体验" class="headerlink" title="沉浸式用户体验"></a>沉浸式用户体验</h3><p>10ms是底线，不然会让用户头晕想吐<img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214113949434.png" alt="image-20220214113949434"></p>
-<h3 id="感知、定位、成像"><a href="#感知、定位、成像" class="headerlink" title="感知、定位、成像"></a>感知、定位、成像</h3><p>矿场里机器人挖矿，精细化</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220214114600781.png" alt="image-20220214114600781"></p>
-<h1 id="class-2"><a href="#class-2" class="headerlink" title="class-2"></a>class-2</h1><p>一些术语，缩写</p>
-<p>RAN：接入网</p>
-<p>UE：user equipment</p>
-<h2 id="移动计算通用架构"><a href="#移动计算通用架构" class="headerlink" title="移动计算通用架构"></a>移动计算通用架构</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221102031389.png" alt="image-20220221102031389"></p>
-<ul>
-<li></li>
-</ul>
-<p>3G时代，你的请求可能会跑到3 4公里外的基站处理，而不是你身边1cm的基站，因为做负载均衡。</p>
-<p>4G时代，做端到端时延的降低，让eNodeB之间互联。个人用户的电路交换是附在ip包上的，4G没有拉到电话网里数据传输，纯用ip网络，但是ip是锁死的，灵活性不如纯ip</p>
-<p>S-GW：和基站相连，gate way，负责数据业务转发</p>
-<p>MME：移动性管理，小区切换，接管了BSC和RNC的一部分功能</p>
-<p>P-GW：和ip网络相连</p>
-<ul>
-<li></li>
-</ul>
-<p>整体趋势：2G-&gt;3G-&gt;4G解耦，功能上移</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221103349081.png" alt="image-20220221103349081"></p>
-<ul>
-<li></li>
-</ul>
-<h2 id="234G网络对比"><a href="#234G网络对比" class="headerlink" title="234G网络对比"></a>234G网络对比</h2><p>十倍量级的变化</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221103939677.png" alt="image-20220221103939677"></p>
-<h2 id="万物互联时代"><a href="#万物互联时代" class="headerlink" title="万物互联时代"></a>万物互联时代</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221104548573.png" alt="image-20220221104548573"></p>
-<h2 id="5G指标"><a href="#5G指标" class="headerlink" title="5G指标"></a>5G指标</h2><p>空中接口：空口，用户设备-RAN之间的接口（目前的瓶颈）</p>
-<p>LTE：4G LTE</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221104727830.png" alt="image-20220221104727830"></p>
-<h2 id="5G组网架构"><a href="#5G组网架构" class="headerlink" title="5G组网架构"></a>5G组网架构</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>最简单的一个图了嗷，两层架构</p>
-<p>gNB：G Node B</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221104904190.png" alt="image-20220221104904190"></p>
-<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>灵活性和可扩展性的要求，要求建立更多基站，但没这么多地皮来建基站了，咋办？</p>
-<p>所以5G尽量继承一下234G的基础设施，一点点演进过来。非独立子网-&gt;演进到独立子网</p>
-<p>现在的5G还是借助4G的非独立子网，有点类似ipv6藏在ipv4里运输？</p>
-<ul>
-<li></li>
-</ul>
-<p>5G的接入网：</p>
-<p>34G基站体积都很大，覆盖范围1km</p>
-<p>5G覆盖范围200m，微基站50m</p>
-<p>要想覆盖江苏省，需要的基站也忒多了。。现在每个楼的楼顶都有基站，一人高，白盒子，一打开里面密密麻麻都是线</p>
-<ul>
-<li></li>
-</ul>
-<p>5G的核心网：</p>
-<p>可靠，可扩展，稳定性，大负载，低时延</p>
-<p>不能像以前那样用专有设备来做这件事，这样不满足可扩展，面对潮汐时也不经济（只能按最大流量买设备）</p>
-<p>灵活：要求网络切片，粒度要很小，比如就这几小时，在南大体育馆，办一个比赛，直播。</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221105145352.png"></p>
-<h2 id="5G接入网"><a href="#5G接入网" class="headerlink" title="5G接入网"></a>5G接入网</h2><p>从左到右时代进化ing，解耦</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221112512011.png" alt="image-20220221112512011"></p>
-<h2 id="5G组网架构变革技术"><a href="#5G组网架构变革技术" class="headerlink" title="5G组网架构变革技术"></a>5G组网架构变革技术</h2><h3 id="NFV"><a href="#NFV" class="headerlink" title="NFV"></a>NFV</h3><p>NFV：虚拟化，用通用设备达到专用设备的效果</p>
-<p>专用设备，无论是路由器还是交换机，其设计都是很完美的，CPU，内存都是匹配好的，当需求变化时，只能新买整机</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221112832803.png" alt="image-20220221112832803"></p>
-<h3 id="SDN"><a href="#SDN" class="headerlink" title="SDN"></a>SDN</h3><p>用软件做一切的功能</p>
-<p>开放可编程的接口，方便做验证，部署，升级</p>
-<p>问题：分布式系统可以做到自适应，鲁棒性好，集中式的管理容易出问题。但历史就是在分布式-集中式之间跳转，循环向上</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221113538334.png" alt="image-20220221113538334"></p>
-<h2 id="5G技术要点"><a href="#5G技术要点" class="headerlink" title="5G技术要点"></a>5G技术要点</h2><p>亚马逊，微软Azure，阿里，腾讯的云服务，可以体验下</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221114341526.png" alt="image-20220221114341526"></p>
-<ul>
-<li></li>
-</ul>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220221114714741.png" alt="image-20220221114714741"></p>
-<h1 id="class-3-Iot-Edge"><a href="#class-3-Iot-Edge" class="headerlink" title="class-3 Iot&amp;Edge"></a>class-3 Iot&amp;Edge</h1><p>edge和iot所在的位置，红圈</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228101524021.png" alt="image-20220228101524021"></p>
-<ul>
-<li></li>
-</ul>
-<h2 id="物联网发展"><a href="#物联网发展" class="headerlink" title="物联网发展"></a>物联网发展</h2><p>隐私要求、低功耗要求</p>
-<p>本地数据安全、传输安全（传输层，应用层都加密）、云计算安全</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228101725128.png" alt="image-20220228101725128"></p>
-<h2 id="什么是物"><a href="#什么是物" class="headerlink" title="什么是物"></a>什么是物</h2><p>提到了数字孪生设备</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228102022633.png" alt="image-20220228102022633"></p>
-<h2 id="朴素iot模型"><a href="#朴素iot模型" class="headerlink" title="朴素iot模型"></a>朴素iot模型</h2><p>四层模型</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228103657188.png" alt="image-20220228103657188"></p>
-<h2 id="iot七层模型"><a href="#iot七层模型" class="headerlink" title="iot七层模型"></a>iot七层模型</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228104736405.png" alt="image-20220228104736405"></p>
-<h2 id="iot平台"><a href="#iot平台" class="headerlink" title="iot平台"></a>iot平台</h2><p>一张arm的架构图</p>
-<p>大厂在做小盒子，学名SD-WAN，提供第二列的服务</p>
-<p>tx阿里只做了12列</p>
-<p>华为做了全4列</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228110049167.png" alt="image-20220228110049167"></p>
-<h2 id="iot-edge计算平台"><a href="#iot-edge计算平台" class="headerlink" title="iot edge计算平台"></a>iot edge计算平台</h2><p>edge位于Iot hub之前&#x2F;</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228112102214.png" alt="image-20220228112102214"></p>
-<ul>
-<li></li>
-</ul>
-<h2 id="MQTT协议"><a href="#MQTT协议" class="headerlink" title="MQTT协议"></a>MQTT协议</h2><p>IBM自己搞的协议</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228114434714.png" alt="image-20220228114434714"></p>
-<h2 id="CoAP协议"><a href="#CoAP协议" class="headerlink" title="CoAP协议"></a>CoAP协议</h2><p>IETF官方协议，TCP也是这个组织制定的</p>
-<p>内容很复杂</p>
-<p>protobuf底层也是这个，在网络环境不好时使用</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220228114557171.png" alt="image-20220228114557171"></p>
-<h2 id="C-RAN"><a href="#C-RAN" class="headerlink" title="C-RAN"></a>C-RAN</h2><p>买本书系统化看看，不要看视频碎片化</p>
-<h1 id="class-4"><a href="#class-4" class="headerlink" title="class-4"></a>class-4</h1><p>讲了2h的趋势</p>
-<p>计算能力部署</p>
-<ul>
-<li>物联网网关，CDN</li>
-<li>提供服务质量保证</li>
-<li>业务流调度：多云，多网</li>
-<li><strong>安全与隐私：SASE：secure access service edge</strong></li>
-</ul>
-<p>另，课件没发，下节课信号处理</p>
-<h1 id="class-5"><a href="#class-5" class="headerlink" title="class-5"></a>class-5</h1><h2 id="感知"><a href="#感知" class="headerlink" title="感知"></a>感知</h2><p>感知：移动设备对周围环境的感知能力，利用传感器等实现，日后做产品这是一个很重要的概念</p>
-<h2 id="模拟信号-vs-数字信号"><a href="#模拟信号-vs-数字信号" class="headerlink" title="模拟信号 vs. 数字信号"></a>模拟信号 vs. 数字信号</h2><p>模拟信号：连续函数，连续的dom和rang，蕴含了无穷的信息量（从不同方向解读出无穷信息）</p>
-<p>数字信号：对模拟信号进行采样得到的离散函数</p>
-<h2 id="傅里叶变换-Fourier-Transform"><a href="#傅里叶变换-Fourier-Transform" class="headerlink" title="傅里叶变换 Fourier Transform"></a>傅里叶变换 Fourier Transform</h2><p>为什么要有傅里叶变换？在deep learning领域，有些样本特征太小，不好学，放大到频率域之后特征就很显著了</p>
-<h3 id="连续傅里叶变换"><a href="#连续傅里叶变换" class="headerlink" title="连续傅里叶变换"></a>连续傅里叶变换</h3><p>傅里叶变换：对于周期函数，进行时域和频率域的变换，借助cos和sin的性质</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220314162900162.png" alt="image-20220314162900162"></p>
-<h3 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220314163811730.png" alt="image-20220314163811730"></p>
-<h3 id="正vs-逆-离散vs-连续"><a href="#正vs-逆-离散vs-连续" class="headerlink" title="正vs.逆 离散vs.连续"></a>正vs.逆 离散vs.连续</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220314164045598.png" alt="image-20220314164045598"></p>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>应用：通过傅里叶变换，可以把心跳、呼吸区分出来（变换后有明显区别）</p>
-<h2 id="卷积-convolution-vs-相关性-correlation"><a href="#卷积-convolution-vs-相关性-correlation" class="headerlink" title="卷积 convolution vs 相关性 correlation"></a>卷积 convolution vs 相关性 correlation</h2><p>计算得到信号量的某种属性</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220314164240617.png" alt="image-20220314164240617"></p>
-<h2 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h2><p>f(a+b) &#x3D; f(a) + f(b)，具体是讲什么没听清</p>
-<h1 id="class-6"><a href="#class-6" class="headerlink" title="class-6"></a>class-6</h1><p>迟到40min，课件未发</p>
-<h2 id="Orithogonal-Frame-Structure"><a href="#Orithogonal-Frame-Structure" class="headerlink" title="Orithogonal Frame Structure"></a>Orithogonal Frame Structure</h2><p>做OFDM的时候</p>
-<p>循环位移，保证信号互相正交不干扰，循环10位，在频域上表现为加上了一个数，可以逆向出来</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220321104507966.png" alt="image-20220321104507966"></p>
-<p>然后讲下一个课件了</p>
-<h2 id="sensor"><a href="#sensor" class="headerlink" title="sensor"></a>sensor</h2><p>继续sensor</p>
-<ul>
-<li></li>
-</ul>
-<p>手机摄像头的光圈是按一行一行的条状采样，如果LED灯的频率和细条适合，就会显示几条暗，几条亮，照片呈条纹状。</p>
-<ul>
-<li></li>
-</ul>
-<p>步幅，步频，判断走路，跑步和摔倒状态</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220321115333247.png" alt="image-20220321115333247"></p>
-<h1 id="class-7-定位"><a href="#class-7-定位" class="headerlink" title="class-7 定位"></a>class-7 定位</h1><p>两大定位方法</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328102305660.png" alt="image-20220328102305660"></p>
-<h2 id="Range-Based-Localization"><a href="#Range-Based-Localization" class="headerlink" title="Range-Based Localization"></a>Range-Based Localization</h2><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328102346580.png" alt="image-20220328102346580"></p>
-<h3 id="三角定位"><a href="#三角定位" class="headerlink" title="三角定位"></a>三角定位</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328103042450.png" alt="image-20220328103042450"></p>
-<p>一式减掉二式，得到线性方程，二式减掉三式，同样，所以只要解线性方程组</p>
-<h3 id="测距方法"><a href="#测距方法" class="headerlink" title="测距方法"></a>测距方法</h3><p>TOA受限于source和dst的时钟不一致，时钟慢1微秒，光速走了300m</p>
-<p>TDOA：多个接受天线、用声波</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328103941320.png" alt="image-20220328103941320"></p>
-<h3 id="TOA-GPS"><a href="#TOA-GPS" class="headerlink" title="TOA-GPS"></a>TOA-GPS</h3><p>非常厉害的工程，1970s，没有大规模集成电路，还要考虑由于卫星飞行造成相对论的时钟误差，精度几十米</p>
-<p><strong>并且提供了纳秒级的时间信息</strong></p>
-<ul>
-<li></li>
-</ul>
-<p>国内的所有基站都连了GPS天线，用于时间同步，如果GPS关了，那么基站的时钟会慢慢偏掉</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328104621697.png" alt="image-20220328104621697"></p>
-<ul>
-<li></li>
-</ul>
-<p>GPS信号的频率高，没有办法穿墙</p>
-<p>比特率很低，50bit&#x2F;s，传递一个超帧要30s</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328105325235.png" alt="image-20220328105325235"></p>
-<h3 id="TDOA-Cricket"><a href="#TDOA-Cricket" class="headerlink" title="TDOA-Cricket"></a>TDOA-Cricket</h3><p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328111304727.png" alt="image-20220328111304727"></p>
-<h3 id="BeepBeep"><a href="#BeepBeep" class="headerlink" title="BeepBeep"></a>BeepBeep</h3><p>声音采样率48k&#x2F;s，每秒采样48k次，声速340m&#x2F;s，除一下就是7mm</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328111647532.png" alt="image-20220328111647532"></p>
-<ul>
-<li></li>
-</ul>
-<p>测相位，波峰的距离差</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328111943924.png" alt="image-20220328111943924"></p>
-<h3 id="Centroid"><a href="#Centroid" class="headerlink" title="Centroid"></a>Centroid</h3><p>天花板上布置密集的bacon</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328113543990.png" alt="image-20220328113543990"></p>
-<h3 id="APIT"><a href="#APIT" class="headerlink" title="APIT"></a>APIT</h3><p>不那么密集</p>
-<p>如果一个点M在三角形ABC内部，他无论往哪个方向移动，都会离某个顶点越来越近</p>
-<p>如果在外部，总能找到某个方向，同时远离三个顶点</p>
-<p>APIT使用邻居作为虚拟移动点，用户不用真的去移动来移动去</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220328113618333.png" alt="image-20220328113618333"></p>
-<h1 id="class-8"><a href="#class-8" class="headerlink" title="class-8"></a>class-8</h1><p>3节课讲部署DeepLearning的知识，最后一节讲大作业</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220402101748119.png" alt="image-20220402101748119"></p>
-<h2 id="logistic-regression-vs-lonear-regression"><a href="#logistic-regression-vs-lonear-regression" class="headerlink" title="logistic regression vs. lonear regression"></a>logistic regression vs. lonear regression</h2><p>损失函数不同，梯度是一样的</p>
-<p><img src="/2022/02/14/移动计算笔记/%E7%A7%BB%E5%8A%A8%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0/image-20220402112852652.png" alt="image-20220402112852652"></p>
-<h1 id="class-9"><a href="#class-9" class="headerlink" title="class-9"></a>class-9</h1><p>？</p>
-<h1 id="class-10"><a href="#class-10" class="headerlink" title="class-10"></a>class-10</h1><p>review on last class</p>
-<p>用硬件方案对深度学习进行加速</p>
-<p>模型大小进行优化</p>
-<p>提高并行度，优化矩阵乘法</p>
-<hr>
-<p>分享论文</p>
-<ol>
-<li>ppt准备好，可以使用原作的ppt，魔改一下 </li>
-<li>20min讲解，10min讨论，回答其他同学的问题</li>
-<li>最后提交一篇review，内容类似审论文的pros&amp;cons，其他同学的问题，基于这篇论文的启发等等，ddl期末</li>
-</ol>
-<hr>
-<p>实验</p>
-<ol>
-<li>有框架，自己要改的不多</li>
-</ol>
-<p>首先是数据解调，raw-&gt;cir</p>
-<p>然后是数据拼接，*.cir 拼成 *.nmp</p>
-<p>然后是hand_recognition，深度学习识别手势</p>
-<p>toAndroid_cnn.py中三条线训练，可以自行修改该文件</p>
-<h1 id="论文分享"><a href="#论文分享" class="headerlink" title="论文分享"></a>论文分享</h1><p>题目：Ekya: Continuous Learning of Video Analytics Models on Edge Compute Servers</p>
-<p>一句话总结：在计算边缘上用持续学习进行视频流分析</p>
-<p>问题list</p>
-<p>1、为什么视频分析要在edge上跑，而不上传到server？</p>
-<p>2、edge上跑DNN有什么限制，怎么解决？</p>
-<p>3、 持续学习的代价是什么？</p>
-<p>4、基于此，改进目标是什么？</p>
-<p>1、为什么视频分析要在edge上跑，而不上传到server？</p>
-<p>两方面原因，隐私和带宽</p>
-<p>隐私方面：</p>
-<ol>
-<li>视频是敏感数据</li>
-<li>法规禁止将视频传到公有云上</li>
-</ol>
-<p>带宽方面：</p>
-<ol>
-<li>带宽不够传</li>
-<li>网络不稳定</li>
-<li>网络不可靠</li>
-</ol>
-<p>2、edge上跑DNN有什么限制，怎么解决？</p>
-<p>两方面限制，模型和数据漂移</p>
-<p>模型方面：</p>
-<ol>
-<li>模型小，泛化能力差</li>
-</ol>
-<p>数据漂移：</p>
-<ol>
-<li>观察到的数据分布与训练集数据分布不一致</li>
-<li>例如，训练时，对车辆识别的准确率高，行人识别率低。但实际观察到的行人很多，车很少</li>
-</ol>
-<p>解决方法：持续学习</p>
-<ol>
-<li>持续性学习会周期性进行重复训练</li>
-</ol>
-<p>3、持续学习的代价</p>
-<ol>
-<li>retraining的时候会占用资源，影响模型推理的精度</li>
-<li>适当的配置可以改变代价</li>
-</ol>
-<p>4、基于此，改进目标是什么？</p>
-<p>通过选择配置和资源分配，最大化所有相机的平均推理精度</p>
-<p>5、改进策略是什么？</p>
-<p>总目标是最大化平均精度，自变量是GPU cost</p>
-<p>如果一个retraining job可以带来更高的精度，那就多给他资源</p>
-<p>平衡一下retaining从推理部分拿走的时间和资源，防止推理部分精度出现跳水现象</p>
-]]></content>
-      <categories>
-        <category>Mobile</category>
-      </categories>
-      <tags>
-        <tag>Mobile Computing</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法学习笔记</title>
-    <url>/2019/02/10/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本篇供日后复习，跳跃性很大，随性更新。</p>
-<p>参考书目：《算法设计与分析》 黄宇 机械工业出版社</p>
-<h1 id="第2章-从算法的角度重新审视数学的概念"><a href="#第2章-从算法的角度重新审视数学的概念" class="headerlink" title="第2章 从算法的角度重新审视数学的概念"></a>第2章 从算法的角度重新审视数学的概念</h1><h3 id="2-1-3-阶乘n"><a href="#2-1-3-阶乘n" class="headerlink" title="2.1.3 阶乘n!"></a>2.1.3 阶乘n!</h3><p>根据<code>Stirling公式</code>，可以将<code>n!</code>转化为更易于处理的闭形式，对<code>n&gt;=1</code>，有：</p>
-<p>$$ \sqrt{2\pi n}(\frac{n}{e})^n &lt; n! &lt; \sqrt{2\pi n}(\frac{n}{e})^n(1+\frac{1}{11n}) $$</p>
-<p><code>Stirling公式</code>也可以写成：</p>
-<p>$$ n! &#x3D; \sqrt{2\pi n}(\frac{n}{e})^n e^{\varepsilon(n)},其中\frac{1}{12n+1} \leq \varepsilon(n) \leq \frac{1}{12n} $$</p>
-<p>写成近似形式：</p>
-<p>$$ n! &#x3D; \sqrt{2\pi n}(\frac{n}{e})^n(1+\Theta(\frac{1}{n})) $$</p>
-<p>由于 $\Theta(\frac{1}{n})$ 是无穷小量，$\lim\limits_{n \to \infty} \frac{1}{n}&#x3D;0$ ，忽略。所以得到进一步的近似式：</p>
-<p>$$ n! \approx \sqrt{2\pi n}(\frac{n}{e})^n $$</p>
-<h3 id="2-1-4-常见级数求和-sum-limits-i-1-n-f-i"><a href="#2-1-4-常见级数求和-sum-limits-i-1-n-f-i" class="headerlink" title="2.1.4 常见级数求和 $\sum\limits_{i&#x3D;1}^{n}f(i)$"></a>2.1.4 常见级数求和 $\sum\limits_{i&#x3D;1}^{n}f(i)$</h3><ul>
-<li>多项式级数(polynomial series)<br>  $ \sum\limits_{i&#x3D;1}^{n}i &#x3D; \dfrac{n(n+1)}{2} $<br>  .<br>  $ \sum\limits_{i&#x3D;1}^{n}i^2 &#x3D; \dfrac{1}{3}n(n+\dfrac{1}{2})(n+1) $<br>  .<br>  $ \sum\limits_{i&#x3D;1}^{n}i^k &#x3D; \Theta(\dfrac{1}{k+1}n^{k+1}) $<br>  .</li>
-<li>几何级数(geometric series)<br>  $ \sum\limits_{i&#x3D;0}^{k}ar^i &#x3D; a(\dfrac{r^{k+1}-1}{r-1}) $</li>
-</ul>
-<p>测试用<br>$\begin{eqnarray}f(x,y)<br>    &amp;&#x3D;&amp;2xy+(x-y)^2\<br>    &amp;&#x3D;&amp;x^2+y^2<br>\end{eqnarray}$</p>
-<h1 id="第0章-概论"><a href="#第0章-概论" class="headerlink" title="第0章 概论"></a>第0章 概论</h1><h2 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h2><p>Q1: 在数组中找最大元素和最小元素</p>
-<p>A1: 最优：n为偶数时，将数组切分为($a_0$,$a_1$)($a_2$,$a_3$)…($a_{n-2}$, $a_{n-1}$)，组内比较后分出胜者组和败者组，胜者组遍历一遍得到最大元素，败者组遍历一遍得到最小元素。n为奇数时先抛开最后一个元素，最后额外比较一下。</p>
-<hr>
-<p>Q2: 比较3匹马的预测性</p>
-<p>A2: 将马的过去两百场比赛进行huffman编码，所用字符最少的马预测性越强，原理是信息熵。</p>
-<hr>
-<p>Q3: 停机问题</p>
-<p>A3: 不可判定，假设有程序terminate(p:program, x:input)能判断对于程序p，给一个输入x，p是否会终止（即判定p(x)是否终止），那么定义程序paradox(z:file)</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">paradox(z:file):</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">if</span>(<span class="built_in">terminate</span>(z, z)) <span class="keyword">goto</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
-<p>paradox(z)的执行结果为<br>$$<br>\left{<br>\begin{array}{aligned}<br>z(z)不终止   &amp;&amp;  {paradox(z)终止}\<br>z(z)终止     &amp;&amp;  {paradox(z)不终止}\<br>\end{array} \right.<br>$$</p>
-<p>此时，paradox(paradox)便成为矛盾体<br>$$<br>\left{<br>\begin{array}{aligned}<br>paradox(paradox)不终止 &amp;&amp;   {paradox(paradox)终止}\<br>paradox(paradox)终止   &amp;&amp;   paradox(paradox)不终止<br>\end{array} \right.<br>$$</p>
-<h2 id="课程任务："><a href="#课程任务：" class="headerlink" title="课程任务："></a>课程任务：</h2><p>书面作业15%（8次，准备2个作业本）<br>编程15%（6-8次，每次2-4题，时间2-3周）<br>期中20%<br>期末50%</p>
-<h1 id="第1章-概论"><a href="#第1章-概论" class="headerlink" title="第1章 概论"></a>第1章 概论</h1><p>《proof without words》中的有趣证明？</p>
-<p>double counting 思想用于证明</p>
-<h2 id="平均复杂度"><a href="#平均复杂度" class="headerlink" title="平均复杂度"></a>平均复杂度</h2><p>$ \sum\limits_{i&#x3D;1}^{n}Pr(i)I(i) $</p>
-<h2 id="算法的最优性"><a href="#算法的最优性" class="headerlink" title="算法的最优性"></a>算法的最优性</h2><p>如果一个算法的最坏情况等于问题的下界，那么这个算法是最优的。</p>
-<h1 id="第2讲-渐进时间复杂度"><a href="#第2讲-渐进时间复杂度" class="headerlink" title="第2讲 渐进时间复杂度"></a>第2讲 渐进时间复杂度</h1><p>$ log_{n}, n^\alpha, c^n, n!, n^n $</p>
-<p>$$<br>\lim\limits_{n\to \infty}\frac{f(n)}{g(n)}&#x3D;c,<br>\left{<br>\begin{array}{aligned}<br>c&#x3D;0 &amp;&amp;  f&#x3D;o(g)\<br>0 \leq c &lt; \infty   &amp;&amp; f&#x3D;O(g)\<br>0 &lt; c &lt; \infty      &amp;&amp; f&#x3D;\Theta(g)\<br>0 &lt; c \leq \infty   &amp;&amp; f&#x3D;\Omega(g)\<br>c &#x3D; \infty          &amp;&amp; f&#x3D;\omega(g)<br>\end{array} \right.<br>$$</p>
-<p>不是所有俩函数之间都有上述五种关系，比如$ f(n)&#x3D;n, g(n)&#x3D;n^{1+sin n}$，极限不存在。</p>
-<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树的高度p是问题的lower bound，基于比较的决策树节点数为n，有$ n \leq 2^{p-1} $，所以$ p &gt;&#x3D; lgn $，所以查找问题的lower bound为$lgn$，二分查找是最优算法。</p>
-<p>无关思考题：圆的内接八边形，边长4个2，4个3，求八边形面积。<br>放到正方形里去，减去四个角的等腰直角三角形</p>
-<p>$$<br>f(n) &#x3D;<br>\begin{cases}<br>n&#x2F;2,  &amp; \text{if $n$ is even}\<br>3n+1, &amp; \text{if $n$ is odd}<br>\end{cases}<br>$$</p>
-<h1 id="第3讲-递归"><a href="#第3讲-递归" class="headerlink" title="第3讲 递归"></a>第3讲 递归</h1><p>时间复杂度计算</p>
-<h3 id="齐次线性"><a href="#齐次线性" class="headerlink" title="齐次线性"></a>齐次线性</h3><p>$ a_n &#x3D; r_1a_{n-1} + r_2a_{n-2} + … + r_ma_{n-k} $</p>
-<p>特例<br>$ 形如T(n)&#x3D;r_1T(n-1)+r_2T(n-2),有特征方程x^2 &#x3D; r_1x + r_2x $<br>$ 则T(n) &#x3D; ux_1^n + vx_2^n. $</p>
-<p>证明：<br>$ B.C: T(1), T(2) $</p>
-<p>$ I.H: 1 \leq m &lt; n, T(m) &#x3D; ux_1^m + vx_2^m $</p>
-<p>$\begin{eqnarray}T(n)<br>    &amp;&#x3D;&amp; ux_1^n+vx_2^n\<br>    &amp;&#x3D;&amp; ux_1^{n-2}x_1^2+vx_2^{n-2}x_2^2\<br>    &amp;&#x3D;&amp; ux_1^{n-2}(r_1x_1+r_2)+vx_2^{n-2}(r_1x_2+r_2)\<br>    &amp;&#x3D;&amp; r_1(ux_1^{n-1}+vx_1^{n-2})+r_2(ux_1^{n-2}+vx2^{n-2})\<br>    &amp;&#x3D;&amp; r_1T(n-1)+r_2T(n-2)<br>\end{eqnarray}$</p>
-<p>代价 &#x3D; 递归代价 + 非递归代价</p>
-<p>$ T(n) &#x3D; bT(\frac{n}{c})+f(n) $</p>
-<p>after $k$ th expansion</p>
-<p>$ T(n) &#x3D; b^kT(\frac{n}{c^k})+\sum\limits_{i&#x3D;1}^{k}f(\frac{n}{c^{i-1}}) $</p>
-<p>意味着递归树高度$\log_c n$</p>
-<p>$$<br>\sum\limits_{i&#x3D;0}^{n-1}&#x3D;<br>\begin{cases}<br>n&#x2F;2, \text{xxx} \<br>ss<br>\end{cases}<br>$$</p>
-<h2 id="最大子序列之和"><a href="#最大子序列之和" class="headerlink" title="最大子序列之和"></a>最大子序列之和</h2><ol>
-<li><p>暴力枚举<br> 算法：取所有sequence[i, j]，比较。<br> 时间复杂度：$O(n^3)$</p>
-</li>
-<li><p>减少重复计算</p>
-</li>
-<li><p>二分，最长要么在左，要么在右，要么有左有右</p>
-</li>
-<li><p>假设A[0, n]中最大和为M[0, n]，那么A[0, n+1]中最大和为$\max{M[0,n], \sum\limits_{i&#x3D;0}^{n}A_i, \sum\limits_{i&#x3D;1}^{n}A_i, …,\sum\limits_{i&#x3D;n-1}^{n}, A_n}$</p>
-<p> 当前和一直加，保持增长，如果小于0，就丢弃前面的（即丢弃当前和）</p>
- <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ThisSum = MaxSum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; N; j++) &#123;</span><br><span class="line">    ThisSum += A[j];</span><br><span class="line">    <span class="keyword">if</span>(ThisSum &gt; MaxSum) &#123;</span><br><span class="line">        MaxSum = ThisSum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(ThisSum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        ThisSum = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> MaxSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="一个盘子可以被n个直线最多分为多少块"><a href="#一个盘子可以被n个直线最多分为多少块" class="headerlink" title="一个盘子可以被n个直线最多分为多少块"></a>一个盘子可以被n个直线最多分为多少块</h2><p>L(0) &#x3D; 1<br>L(n) &#x3D; L(n-1) + n</p>
-<h2 id="合法字符串"><a href="#合法字符串" class="headerlink" title="合法字符串"></a>合法字符串</h2><p>字符串只有abc三种字符，aa不允许出现，长度为n的合法字符串有多少个</p>
-<p>f(1) &#x3D; 3<br>f(2) &#x3D; 8<br>str(n)  : ab+str(n-2)<br>        : ac+str(n-2)<br>        : b+str(n-1)<br>        : c+str(n-1)<br>f(n) &#x3D; 2f(n-1)+2f(n-2)</p>
-<h2 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h2><p>strassen’s alogorithm runs in $O(n^{2.81})$</p>
-<p>f(n) &#x3D; 7f(n&#x2F;2) + $\Theta(n^2)$</p>
-<h1 id="第4讲-quick-sort"><a href="#第4讲-quick-sort" class="headerlink" title="第4讲 quick sort"></a>第4讲 quick sort</h1><p>易合难分</p>
-<p>partition的方法不同<br>最坏复杂度分析<br>平均复杂度分析</p>
-<h1 id="第5讲-merge-sort"><a href="#第5讲-merge-sort" class="headerlink" title="第5讲 merge sort"></a>第5讲 merge sort</h1><p>易分难合</p>
-<h1 id="第6讲-heap-sort"><a href="#第6讲-heap-sort" class="headerlink" title="第6讲 heap sort"></a>第6讲 heap sort</h1><h2 id="common-version"><a href="#common-version" class="headerlink" title="common version"></a>common version</h2><h2 id="accelerated-heap-sort"><a href="#accelerated-heap-sort" class="headerlink" title="accelerated heap sort"></a>accelerated heap sort</h2><h1 id="第7讲-选择"><a href="#第7讲-选择" class="headerlink" title="第7讲 选择"></a>第7讲 选择</h1><h2 id="找最大最小元素"><a href="#找最大最小元素" class="headerlink" title="找最大最小元素"></a>找最大最小元素</h2><h2 id="找第2大元素"><a href="#找第2大元素" class="headerlink" title="找第2大元素"></a>找第2大元素</h2><h2 id="找第k大-小元素"><a href="#找第k大-小元素" class="headerlink" title="找第k大&#x2F;小元素"></a>找第k大&#x2F;小元素</h2><h2 id="找中位数"><a href="#找中位数" class="headerlink" title="找中位数"></a>找中位数</h2><p>算法1：</p>
-<ol>
-<li>寻找 pivot，将数组分两半，在基数比较大的一半里找第 n&#x2F;2 - |S小| - 1 小的元素<br>最坏情况：<br>类似快排，pivot选不好</li>
-</ol>
-<p>6次比较找出5个元素中的中位数：</p>
-<p>算法2：</p>
-<h1 id="第8讲-adversary-BST"><a href="#第8讲-adversary-BST" class="headerlink" title="第8讲 adversary &amp; BST"></a>第8讲 adversary &amp; BST</h1><h2 id="判断5个元素中是否有3个连续的1"><a href="#判断5个元素中是否有3个连续的1" class="headerlink" title="判断5个元素中是否有3个连续的1"></a>判断5个元素中是否有3个连续的1</h2><p>3次之内不够<br>对手策略：定义 x: 1 1 1 1 1, y: 0 0 0 0 0，我想看第i位的值，就先去 x 里看，如果把 xi 变成0还能保证有3个连续1，那么把 xi 变成0，否则把 yi 变成1.</p>
-<p>4次：</p>
-<h2 id="判断图的连通性"><a href="#判断图的连通性" class="headerlink" title="判断图的连通性"></a>判断图的连通性</h2><p>必须看$\frac{n(n-1)}{2}$次，否则<br>对手策略：</p>
-<p>性质的单调性：图有这个性质，它的子图也有这个性质</p>
-<p>图可平面化：图在平面上可以画出边不相交，条件是不含 K3,3 和 K5 这两个子图</p>
-<h2 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h2><p>例如求$\sqrt{N}$<br>当 N 很大时，等于是找 x，使得 $ x^2 \leq N, (x+1)^2 &gt; N $</p>
-<h2 id="AVL-tree"><a href="#AVL-tree" class="headerlink" title="AVL tree"></a>AVL tree</h2><h2 id="RB-tree"><a href="#RB-tree" class="headerlink" title="RB tree"></a>RB tree</h2><h2 id="搜索的-tutorial"><a href="#搜索的-tutorial" class="headerlink" title="搜索的 tutorial"></a>搜索的 tutorial</h2><h3 id="扔鸡蛋问题"><a href="#扔鸡蛋问题" class="headerlink" title="扔鸡蛋问题"></a>扔鸡蛋问题</h3><p>Q: n 层楼，从某层楼扔下去鸡蛋会碎，求这个楼层</p>
-<ol>
-<li>如果只有1个鸡蛋，easy</li>
-<li>如果有无穷多个鸡蛋，二分法</li>
-<li>如果有2个鸡蛋<br>A1: 每隔$\sqrt(n)$层扔1个鸡蛋，尝试次数为$\sqrt(n) ~ 2\sqrt(n)$<br>A2: 第1次，从x层扔（碎了，最坏比x次，没碎继续），第2次从2x-1层扔（碎了，比1+x-1次，没碎继续），。。。共 (x+1)x&#x2F;2 层，令它 &gt;&#x3D;n 就求得了 x</li>
-</ol>
-<h3 id="找名人"><a href="#找名人" class="headerlink" title="找名人"></a>找名人</h3><p>Q: n 个人，名人定义：被其他所有人认识，但不认识其他任何人，操作是拿A和B来，问A是否认识B，B是否认识A<br>O(n)算法：每次比较可以淘汰1个人</p>
-<h3 id="赛马问题"><a href="#赛马问题" class="headerlink" title="赛马问题"></a>赛马问题</h3><p>Q: 共25匹马，每次可以选5匹马进行比赛，并得到次序（无法计时），问至少要多少次比赛才能确定跑的 最快、第二快、第三块的马</p>
-<p>最快的：比赛6次即可<br>第二快：出现在第1快的那一组的第2名（1匹），以及所有组第一快里的那5匹里输给第1快的第2名（1匹）（只输给最大元素的元素是候选人）。<br>第三快：候选人，第1组第3快，第2组第2快，第3组第一快</p>
-<p>共7次找出前三快的马</p>
-<h3 id="2018-mid-term"><a href="#2018-mid-term" class="headerlink" title="2018 mid-term"></a>2018 mid-term</h3><p>Q: 有sort5算法，一次排序5个元素，求n个元素的最大值和第二大</p>
-<p>最大值：一次sort5丢弃4个元素，所以最多比较$\frac{n-1}{4}$取上整</p>
-<p>第二大：采用5叉胜者树，即可得出 max，和仅仅输给 max 的元素</p>
-<h3 id="带权中位数"><a href="#带权中位数" class="headerlink" title="带权中位数"></a>带权中位数</h3><p>Q: 所有权之和为1，带权中位数$ x_k: \sum_{x_i &lt; x_k}{w_i} &lt; 1&#x2F;2 且 \sum_{x_i &gt; x_k}{w_i} \leq 1&#x2F;2 $<br>A: 找普通中位数，判断行不行，小不行就将小于它的权和加到它头上，然后递归后半部，大不行就同理</p>
-<h3 id="最小未出现自然数"><a href="#最小未出现自然数" class="headerlink" title="最小未出现自然数"></a>最小未出现自然数</h3><p>n个大小不同的自然数E[1]~E[n]，找出不在这个自然数序列中出现的最小自然数</p>
-<ol>
-<li>若已排序，二分查找，若E[n&#x2F;2]&gt;n&#x2F;2，在前一半，若等于，在后一半，不可能小于..</li>
-<li>若未排序，<br>法1：开n位数组，遍历，出现置1，然后第一个0元素下标就是<br>法2：找中位数x，按x和n&#x2F;2大小丢掉一半元素</li>
-</ol>
-<h3 id="前k大的数们"><a href="#前k大的数们" class="headerlink" title="前k大的数们"></a>前k大的数们</h3><ol>
-<li>排序，取后k个，nlogn</li>
-<li>建堆+取出k个元素，n+klogn</li>
-<li>先找第k大元素，n，再遍历找出比第k大都大的元素，n，然后排序，klogk，合计 n+klogk</li>
-</ol>
-<h3 id="两个已排序数组中的第k小元素-LeetCode"><a href="#两个已排序数组中的第k小元素-LeetCode" class="headerlink" title="两个已排序数组中的第k小元素 LeetCode-"></a>两个已排序数组中的第k小元素 LeetCode-</h3><ol>
-<li>merge到第k个就行，$\Theta(k)$</li>
-<li>找两数组中位数A[m&#x2F;2], B[n&#x2F;2]<br>若 m&#x2F;2+n&#x2F;2 &lt; k，若A[m&#x2F;2] &gt; B[n&#x2F;2]，说明比B[n&#x2F;2]小的元素数量[n&#x2F;2, m&#x2F;2+n&#x2F;2]，所以确定比B小的B的前半部分可以丢了<br>         若       &lt; ，丢A的前半部分</li>
-</ol>
-<h3 id="5个元素6次比较找中位数讲过了，7次比较排序"><a href="#5个元素6次比较找中位数讲过了，7次比较排序" class="headerlink" title="5个元素6次比较找中位数讲过了，7次比较排序"></a>5个元素6次比较找中位数讲过了，7次比较排序</h3><p>ppt</p>
-<h3 id="k个已排序树组-merge-策略"><a href="#k个已排序树组-merge-策略" class="headerlink" title="k个已排序树组 merge 策略"></a>k个已排序树组 merge 策略</h3><p>两两merge</p>
-<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>简单一致哈希假设</p>
-<h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><h2 id="均摊时间代价"><a href="#均摊时间代价" class="headerlink" title="均摊时间代价"></a>均摊时间代价</h2><h3 id="accounting-cost"><a href="#accounting-cost" class="headerlink" title="accounting cost"></a>accounting cost</h3><p>这个真不会，[UST]</p>
-<p>一般是对一系列操作进行分析才使用均摊分析，分析出一次操作的代价，而且这些操作是由规律的</p>
-<p>accounting cost 之和必须大于0，这样计算出的 amortized cost 是 actual cost 的一个上界</p>
-<h4 id="二-计数器-ppt上的"><a href="#二-计数器-ppt上的" class="headerlink" title="二-计数器 ppt上的"></a>二-计数器 ppt上的</h4><p>发现：一开始每一位都是0，<br>每一位想要从1变为0，首先得从0变为1，于是把0-&gt;1的accost 为1，1-&gt;0的ac cost为-1，这样 ac cost 始终大于0</p>
-<h3 id="聚合法"><a href="#聚合法" class="headerlink" title="聚合法"></a>聚合法</h3><p>比如作业那个 三-计数器，个位每次变，十位每3次变，百位每9次变。。所以操作n次increment，变了n+n&#x2F;3+n&#x2F;3^2+…. &lt; 2n</p>
-<p>栈的pop，multipop，可见每次操作</p>
-<h3 id="势能法？potential-method"><a href="#势能法？potential-method" class="headerlink" title="势能法？potential method"></a>势能法？potential method</h3><h2 id="统一-hash"><a href="#统一-hash" class="headerlink" title="统一 hash"></a>统一 hash</h2><p>解决类似快排 partition 没选好的问题，快排随机选 pivot</p>
-<h1 id="期中考试讲解"><a href="#期中考试讲解" class="headerlink" title="期中考试讲解"></a>期中考试讲解</h1><ol start="3">
-<li><p>根节点到最深节点的路径长度就是基于比较的排序的最坏情况</p>
-</li>
-<li><p>(2) 逆序对的情况只能是 (i,i+1) (j, j+1)  或 (i, i+2) (i, i+1) 或 (i, i+2) (i+1,i+2) </p>
-</li>
-<li><p>(2) 看 tutorial，找中位数，如果满足直接返回，不满足就把某一半边的权重加到中位数上，然后继续递归另一半边</p>
-</li>
-<li><p>其实链表就可以了？删除时的代价n在插入时每次 accounting cost 预付掉，然后就是常数级别的了</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -7077,42 +7105,6 @@
       </tags>
   </entry>
   <entry>
-    <title>软件安装参考网站</title>
-    <url>/2019/02/03/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%8F%82%E8%80%83%E7%BD%91%E7%AB%99/</url>
-    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本文包含一些软件的优秀安装指南，都是亲测可用的。以备以后重新安装系统快速使用，本文会热更新。</p>
-<p>每段的格式为：</p>
-<ul>
-<li><p>[已有教程网址]</p>
-</li>
-<li><p>[排除教程中的坑]</p>
-</li>
-<li><p>[对教程中的简要概括(防止教程404)]</p>
-</li>
-</ul>
-<hr>
-<h1 id="蓝灯lantern"><a href="#蓝灯lantern" class="headerlink" title="蓝灯lantern"></a>蓝灯lantern</h1><ul>
-<li><p>教程：<a href="http://www.pianshen.com/article/5553973/" target="_blank" rel="noopener">lantern傻瓜式安装教程</a></p>
-</li>
-<li><p>排坑：进入 <a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">https://github.com/getlantern/lantern</a> 最下面。如果左击 <strong>ubuntu 14.04 64 bit</strong> 后没有直接下载：右击 <strong>ubuntu 14.04 64 bit</strong> 用迅雷下载链接。</p>
-</li>
-</ul>
-<hr>
-<h1 id="sublime-text-3"><a href="#sublime-text-3" class="headerlink" title="sublime text 3"></a>sublime text 3</h1><ul>
-<li><p>教程：<a href="https://jingyan.baidu.com/article/64d05a023cd849de55f73be4.html" target="_blank" rel="noopener">命令行安装sublime text 3</a></p>
-</li>
-<li><p>概括：三条命令即可</p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team/sublime-text-3</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install sublime-text-installer</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>软件分析笔记</title>
     <url>/2021/11/15/%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p>软件分析笔记</p>
@@ -8451,6 +8443,42 @@
       <tags>
         <tag>Program Analysis</tag>
         <tag>Static Analysis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>软件安装参考网站</title>
+    <url>/2019/02/03/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%8F%82%E8%80%83%E7%BD%91%E7%AB%99/</url>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本文包含一些软件的优秀安装指南，都是亲测可用的。以备以后重新安装系统快速使用，本文会热更新。</p>
+<p>每段的格式为：</p>
+<ul>
+<li><p>[已有教程网址]</p>
+</li>
+<li><p>[排除教程中的坑]</p>
+</li>
+<li><p>[对教程中的简要概括(防止教程404)]</p>
+</li>
+</ul>
+<hr>
+<h1 id="蓝灯lantern"><a href="#蓝灯lantern" class="headerlink" title="蓝灯lantern"></a>蓝灯lantern</h1><ul>
+<li><p>教程：<a href="http://www.pianshen.com/article/5553973/" target="_blank" rel="noopener">lantern傻瓜式安装教程</a></p>
+</li>
+<li><p>排坑：进入 <a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">https://github.com/getlantern/lantern</a> 最下面。如果左击 <strong>ubuntu 14.04 64 bit</strong> 后没有直接下载：右击 <strong>ubuntu 14.04 64 bit</strong> 用迅雷下载链接。</p>
+</li>
+</ul>
+<hr>
+<h1 id="sublime-text-3"><a href="#sublime-text-3" class="headerlink" title="sublime text 3"></a>sublime text 3</h1><ul>
+<li><p>教程：<a href="https://jingyan.baidu.com/article/64d05a023cd849de55f73be4.html" target="_blank" rel="noopener">命令行安装sublime text 3</a></p>
+</li>
+<li><p>概括：三条命令即可</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team/sublime-text-3</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install sublime-text-installer</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
