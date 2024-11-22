@@ -381,7 +381,7 @@
       
         <h1 id="前期环境准备"><a href="#前期环境准备" class="headerlink" title="前期环境准备"></a>前期环境准备</h1><h2 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h2><p>@所有人<br>感谢大家报名《2020 SDC 安卓app加固攻与防》训练营,下面给大家说下训练营需要做好预先准备的内容:<br>1、提前准备好500G的存储空间。课程会给大家准备好aosp完整编译和实验环境，因此需要提前准备好足够的空间。<br>2、课程全程在pixel手机上进行实验，该机型随报名课程赠送每人一个。<br>3、需要提前掌握aosp系统编译与刷机、常见逆向分析常见工具如jadx,jeb，ida，gdb等的使用<br>4、鉴于直接拉aosp代码非常耗时，我这里上传了压缩的aosp8.0源码，下载解压直接搭建源码编译环境即可，复制这段内容后打开百度网盘手机App，操作更方便哦 链接:<a href="https://pan.baidu.com/s/1XrJ_TziryjuDBwa5JCpbIg" target="_blank" rel="noopener">https://pan.baidu.com/s/1XrJ_TziryjuDBwa5JCpbIg</a> 提取码:7x41</p>
 <hr>
-<p>训练营地点确定了。在上海裕景大饭店<br>时间10&#x2F;22  9：00-18：00</p>
+<p>训练营地点确定了。在上海裕景大饭店<br>时间10/22  9：00-18：00</p>
 <h2 id="aosp系统编译"><a href="#aosp系统编译" class="headerlink" title="aosp系统编译"></a>aosp系统编译</h2><h2 id="jadx，jeb，ida，gdb在android上的使用"><a href="#jadx，jeb，ida，gdb在android上的使用" class="headerlink" title="jadx，jeb，ida，gdb在android上的使用"></a>jadx，jeb，ida，gdb在android上的使用</h2><p>jadx：<a href="https://github.com/skylot/jadx" target="_blank" rel="noopener">https://github.com/skylot/jadx</a></p>
 <p>jeb：<a href="https://www.52pojie.cn/thread-722648-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-722648-1-1.html</a></p>
 <p>jeb要java 8.121及之前版本</p>
@@ -394,12 +394,13 @@
 <hr>
 <p>判断壳的类型：</p>
 <ol>
-<li><p>整体壳只要完整dump下来就行</p>
-</li>
-<li><p>函数壳在dump完内存dex镜像后，依然存在函数内容无效的情况，（直接nop或随机填充）</p>
-</li>
-<li><p>指令粒度壳：</p>
-</li>
+<li>整体壳只要完整dump下来就行</li>
+</ol>
+<ol>
+<li>函数壳在dump完内存dex镜像后，依然存在函数内容无效的情况，（直接nop或随机填充）</li>
+</ol>
+<ol>
+<li>指令粒度壳：</li>
 </ol>
 <ul>
 <li><p>如果每个函数绑定到相同地址（共享解释器），是vmp</p>
@@ -410,7 +411,6 @@
 <p>vmp映射关系，const string之类的指令可以很方便猜出来，因为长度固定，允许多对一映射，每个函数的映射关系都不一样</p>
 <h2 id="2-and-app脱壳原理"><a href="#2-and-app脱壳原理" class="headerlink" title="2. and app脱壳原理"></a>2. and app脱壳原理</h2><p>dexcode的前16字节是固定的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">struct DexCode &#123;</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u2</span><br><span class="line">	u4</span><br><span class="line">	u4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>如何整体dex获取？</p>
 <ol>
 <li>内存中dex文件的起始地址和大小</li>

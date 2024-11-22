@@ -431,21 +431,21 @@
 <h2 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h2><p>电路交换：在两点之间建立通道，src和dst之间直接连接（中间类似于多刀多掷开关）</p>
 <p>建链-传输-拆链。想象成老电影里的电话局，处长和局长通话需要接线员接线、通话、拔线。</p>
 <p>时间分片：比如，将1ms分为1000片，1000个用户同话，用户1通话时只占用1ms的第1片，然后若干个1ms组成了通话时间。如果有人通话量大，就多分几片。</p>
-<p>频率分片：将频率切片，比如1Mhz的一段切成100片分给不同的用户，实际上要分很多级&#x2F;空间复用，不然没法满足几亿用户的分配需求，频率之间不干扰，频率由国家法律严格控制，比如联通被分在800-850Mhz。</p>
+<p>频率分片：将频率切片，比如1Mhz的一段切成100片分给不同的用户，实际上要分很多级/空间复用，不然没法满足几亿用户的分配需求，频率之间不干扰，频率由国家法律严格控制，比如联通被分在800-850Mhz。</p>
 <p>低频波的波长长，容易绕开障碍物。所以停用2G用户，这样子那一段频率就可以用来给5G了。</p>
 <p>1G频分，2G时分，后面的利用更高级原理。</p>
 <p><img src="/2019/02/25/计网学习笔记/" alt="电路交换的时序图1"></p>
 <p><strong>为什么建链时有delay，拆链时没有delay？</strong><br>因为建链时，需要预留电路，要时间，可能会失败。拆链直接拆就行。</p>
 <p><img src="/2019/02/25/计网学习笔记/" alt="电路交换的时序图2"></p>
-<p>传输data时，不一定是连续的，不传输的时候就浪费了。比如2G&#x2F;3G时代的手机QQ，发一个消息要建链-拆链一次，电费消耗大。在传大文件或者看电影才划算。</p>
+<p>传输data时，不一定是连续的，不传输的时候就浪费了。比如2G/3G时代的手机QQ，发一个消息要建链-拆链一次，电费消耗大。在传大文件或者看电影才划算。</p>
 <p><strong>优点：</strong></p>
 <ol>
 <li>predictable performance（保证一定送到，速度也有保障）</li>
-<li>simple&#x2F;fast switching (once circuit established)（建链后很简单）</li>
+<li>simple/fast switching (once circuit established)（建链后很简单）</li>
 </ol>
 <p><strong>缺点：</strong></p>
 <ol>
-<li>complexity of circuit setup&#x2F;teardown（建链和拆链很麻烦）</li>
+<li>complexity of circuit setup/teardown（建链和拆链很麻烦）</li>
 <li>inefficient when traffic is bursty（上述手机QQ的浪费、驿站的一匹马只运输一串荔枝，但实际上可以驼很多东西，这些空间浪费了。）</li>
 <li>circuit setup adds delay（建链需要一来一回，增加时延，聊微信会很花时延）</li>
 <li>switch fails-&gt;circuit fails（建链失败就完蛋）</li>
@@ -483,34 +483,34 @@
 <p>数据中心侧重时延</p>
 <h3 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h3><p>Consists</p>
 <ul>
-<li>transmission delay (link，取决于带宽，$数据量&#x2F;带宽$)</li>
-<li>propagation delay (link，取决于路长，$长度&#x2F;光速$)</li>
-<li>queueing delay<br> (取决于来的包，冲突就进队列，队列溢出就丢掉，由于包有编号，接收端数一数123457，丢了6号，那么通知发送方重发)(按均值和variance来衡量，由排队论设计好)（数据中心的主要时延）（平均排队时长）<blockquote>
-<p>Littes’s law(1961)<br>L &#x3D; A * W</p>
+<li>transmission delay (link，取决于带宽，$数据量/带宽$)</li>
+<li>propagation delay (link，取决于路长，$长度/光速$)</li>
+<li>queueing delay<br>(取决于来的包，冲突就进队列，队列溢出就丢掉，由于包有编号，接收端数一数123457，丢了6号，那么通知发送方重发)(按均值和variance来衡量，由排队论设计好)（数据中心的主要时延）（平均排队时长）<blockquote>
+<p>Littes’s law(1961)<br>L = A * W</p>
 </blockquote>
 </li>
-<li>processing delay (有但可以忽略不计了，和电子工业发展有关)</li>
+<li>processing delay (有但可以忽略不计了，和电子工业发展有关) </li>
 </ul>
 <p>链路带宽bandwidth：八车道的八（同时有几个比特在链路里跑）</p>
-<p>BDP &#x3D; Bandwidth * propagation delay</p>
-<p>$1G&#x3D;10^9$</p>
-<p>对于小文件，$D_{prop}$占主导，对于大文件，$D_{trans}$占主导时延</p>
+<p>BDP = Bandwidth * propagation delay</p>
+<p>$1G=10^9$</p>
+<p>对于小文件，$D<em>{prop}$占主导，对于大文件，$D</em>{trans}$占主导时延</p>
 <p>普通交换机遵循store-forward模式，交换机收到包先存起来解析包头再发下一站。<br>端(trans,prop,queue&amp;process)交换机()交换机()端</p>
 <p>高频交换机（高频率股票交易）不遵循上述模式<br>带宽极高不用queue，收到1bit就直接发。</p>
-<h3 id="丢包loss"><a href="#丢包loss" class="headerlink" title="丢包loss"></a>丢包loss</h3><h3 id="吞吐率throughput"><a href="#吞吐率throughput" class="headerlink" title="吞吐率throughput"></a>吞吐率throughput</h3><p>transmission rate R bits&#x2F;sec</p>
+<h3 id="丢包loss"><a href="#丢包loss" class="headerlink" title="丢包loss"></a>丢包loss</h3><h3 id="吞吐率throughput"><a href="#吞吐率throughput" class="headerlink" title="吞吐率throughput"></a>吞吐率throughput</h3><p>transmission rate R bits/sec</p>
 <p>file of size F bits<br>packets of size L bits</p>
-<p>Transfer time(T) &#x3D; F&#x2F;R + propagation delay</p>
+<p>Transfer time(T) = F/R + propagation delay</p>
 <p>木桶原理，端到端的速率取决于最细的那一段</p>
-<h2 id="Little-laws的证明"><a href="#Little-laws的证明" class="headerlink" title="Little laws的证明"></a>Little laws的证明</h2><p>$<br>\begin{equation}<br>\lambda\overset{def}{&#x3D;}\lim\limits_{t\to \infty} \frac{N(t)}{t}, \text{the arrival rate into the system}<br>\end{equation}<br>$</p>
-<p>$<br>\begin{equation}<br>\omega\overset{def}{&#x3D;}\lim\limits_{n\to \infty} \frac{1}{n}\sum\limits_{j&#x3D;1}^{n}W_j, \text{average sojourn time}<br>\end{equation}<br>$</p>
-<p>$<br>\begin{equation}<br>l\overset{def}{&#x3D;}\lim\limits_{t\to \infty} {\frac{1}{t}\int_{0}^{t}L(s)ds}, \text{average number in system}<br>\end{equation}<br>$</p>
+<h2 id="Little-laws的证明"><a href="#Little-laws的证明" class="headerlink" title="Little laws的证明"></a>Little laws的证明</h2><p>$<br>\begin{equation}<br>\lambda\overset{def}{=}\lim\limits_{t\to \infty} \frac{N(t)}{t}, \text{the arrival rate into the system}<br>\end{equation}<br>$</p>
+<p>$<br>\begin{equation}<br>\omega\overset{def}{=}\lim\limits<em>{n\to \infty} \frac{1}{n}\sum\limits</em>{j=1}^{n}W_j, \text{average sojourn time}<br>\end{equation}<br>$</p>
+<p>$<br>\begin{equation}<br>l\overset{def}{=}\lim\limits<em>{t\to \infty} {\frac{1}{t}\int</em>{0}^{t}L(s)ds}, \text{average number in system}<br>\end{equation}<br>$</p>
 <p>$<br>L(t):\text{the total number of customers in the system at time t.}<br>$</p>
-<p>$<br>N(t)&#x3D;max{n:t_n\leq t}<br>$</p>
-<p>$<br>L(t)&#x3D;\sum\limits_{n&#x3D;1}^{\infty}{I{t_n\leq t\leq t_n^a}}&#x3D;<br>$</p>
-<p>$<br>\frac{1}{t}\sum\limits_{j:t_j^{\alpha}\leq t}{W_j} \leq \frac{1}{t}\int_{0}^{t}{L(s)ds} \leq \frac{1}{t}\sum\limits_{j:t_j &lt; t}{W_j}<br>$</p>
-<p>后者&#x3D;$ \lim\limits_{t\to \infty} \frac{N(t)}{t} \frac{1}{N(t)}\sum\limits_{j&#x3D;1}{N(t)}W_j $</p>
-<p>Lemme: if $\lambda$ and $\omega$ exists and finite, then<br>$$ \lim\limits_{n\to \infty}{\frac{W_n}{n}&#x3D;0}, \lim\limits_{n\to \infty}{\frac{W_n}{t_n}&#x3D;0} $$</p>
-<p>前者<img src="/2019/02/25/计网学习笔记/" alt="手机图片"></p>
+<p>$<br>N(t)=max{n:t_n\leq t}<br>$</p>
+<p>$<br>L(t)=\sum\limits_{n=1}^{\infty}{I{t_n\leq t\leq t_n^a}}=<br>$</p>
+<p>$<br>\frac{1}{t}\sum\limits<em>{j:t_j^{\alpha}\leq t}{W_j} \leq \frac{1}{t}\int</em>{0}^{t}{L(s)ds} \leq \frac{1}{t}\sum\limits_{j:t_j &lt; t}{W_j}<br>$</p>
+<p>后者=$ \lim\limits<em>{t\to \infty} \frac{N(t)}{t} \frac{1}{N(t)}\sum\limits</em>{j=1}{N(t)}W_j $</p>
+<p>Lemme: if $\lambda$ and $\omega$ exists and finite, then</p>
+<script type="math/tex; mode=display">\lim\limits_{n\to \infty}{\frac{W_n}{n}=0}, \lim\limits_{n\to \infty}{\frac{W_n}{t_n}=0}</script><p>前者<img src="/2019/02/25/计网学习笔记/" alt="手机图片"></p>
 <h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>层与层之间没有耦合关系，所以更新时候方便。</p>
 <p>OSI七层（L7应用层，L6表示层，L5会话层），TCP\IP五层</p>
 <p>沙漏状的五层：（海淘）<br>应用层-CEO写的内容（确定到南大的哪个人）（千万种协议）<br>传输层-秘书（写美国哪个州哪个县）（TCP可靠，UDP不可靠）<br><strong>网络层-全球可达（only IP，基石）</strong><br>链路层-局部可达<br>物理层-计科不管</p>
@@ -539,12 +539,12 @@
 <h3 id="data-link-layer-做的事："><a href="#data-link-layer-做的事：" class="headerlink" title="data link layer 做的事："></a>data link layer 做的事：</h3><ul>
 <li>framing（将 L3 的 packet 封成 frame）</li>
 <li>link access（宿舍四个人在使用同一个物理机，决定谁来用）</li>
-<li>reliable delivery（应对错误和丢包丢 frame，用于无线网&#x2F;基站通信，一个包发两次或者其他保护机制）</li>
+<li>reliable delivery（应对错误和丢包丢 frame，用于无线网/基站通信，一个包发两次或者其他保护机制）</li>
 <li>error detection and correction（包收到了，但内容不对，用校验码，纠错码）</li>
 </ul>
 <h3 id="传输方式："><a href="#传输方式：" class="headerlink" title="传输方式："></a>传输方式：</h3><ul>
 <li>point to point（海底光缆，电话线，以太网-墙上的网口）</li>
-<li>broadcast（无线局域网，不安全&#x3D; &#x3D;，几个人会同时讲话）</li>
+<li>broadcast（无线局域网，不安全= =，几个人会同时讲话）</li>
 </ul>
 <h4 id="广播-broadcast"><a href="#广播-broadcast" class="headerlink" title="广播 broadcast"></a>广播 broadcast</h4><p>广播方式中，物理媒介是共享的，如何决定谁说话？</p>
 <ul>
@@ -561,7 +561,7 @@
 <h3 id="broadcast-Ethernet（老）"><a href="#broadcast-Ethernet（老）" class="headerlink" title="broadcast Ethernet（老）"></a>broadcast Ethernet（老）</h3><p>CD: collision detection</p>
 <p>老的是 broadcast 方式，新的是网口直连交换机。</p>
 <p>CSMA(carrier sense multiple access)<br>发之前监听一下，媒体空着我就说话，没空着我就等等再说<br>问题在于，有传播时延、还是有冲突没法消灭</p>
-<p>CSMA&#x2F;CD<br>limits:</p>
+<p>CSMA/CD<br>limits:</p>
 <ul>
 <li>包的最小值</li>
 <li>传输距离最大值</li>
@@ -569,7 +569,7 @@
 <p>原因：propagation delay</p>
 <p>以太网最短帧限定 64bytes</p>
 <p>Q: 冲突后 AB 都停止发送，何时重新开始？<br>AQ: 随机一段时间再发，随机多久？<br>A: binary exponential back-off（在小区间里取随机数，发，失败了就在更大区间里取随机数，重复，直到不拥塞）</p>
-<p>CSMA&#x2F;CD 效率<br>$ Efficiency \approx \frac{d_{trans}}{d_{trans}+5d_{prop}} $</p>
+<p>CSMA/CD 效率<br>$ Efficiency \approx \frac{d<em>{trans}}{d</em>{trans}+5d_{prop}} $</p>
 <h3 id="switched-Ethernet（新）"><a href="#switched-Ethernet（新）" class="headerlink" title="switched Ethernet（新）"></a>switched Ethernet（新）</h3><p>点到点，交换机判断 A 和 C 通信，那么 A 的消息就不往 B 和 D 发了。</p>
 <h3 id="Ethernet"><a href="#Ethernet" class="headerlink" title="Ethernet"></a>Ethernet</h3><p>以太网协议除了帧格式没变，其他基本都变了，API 为帧格式。</p>
 <p><img src="/2019/02/25/计网学习笔记/" alt="PPT图示以太网帧结构"></p>
@@ -637,25 +637,25 @@
 <ul>
 <li>IP addr</li>
 <li>netmask</li>
-<li>IP addr for its local DNS name server （没有DNS也能通信，直接输入 IP 地址就行，DNS 坏了表现为 <a href="http://www.baidu.com/" target="_blank" rel="noopener">www.baidu.com</a> 上不去，但QQ（内置了对方IP地址）可以用）</li>
+<li>IP addr for its local DNS name server （没有DNS也能通信，直接输入 IP 地址就行，DNS 坏了表现为 www.baidu.com 上不去，但QQ（内置了对方IP地址）可以用）</li>
 <li>IP addr for its fist-hop “default” router(s)</li>
 </ul>
 <p>过程如下：<br>一个 DHCP 服务器把 IP addr，DNS addr 都弄好<br>用户先用全 f 进行广播，所有的 DHCP 服务器（一个就能工作，多个为了鲁棒）回一个 offer<br>用户选择一个，发一个 request， DHCP 服务器回一个 ACK<br>然后就能用了</p>
 <p>DHCP uses “soft state”（软状态就好比普通内存，得不停的刷它，不然比特会翻转，所以得一直耗电，硬状态好比固态硬盘，即使不给他电，比特也不会翻转）<br>一个用户比如12小时不继续申请，DHCP server 就收回 IP addr，适用于咖啡馆这类客户用会就走了<br>如果用户在到期前“续租”，配置不会改变，应用不会断（网上银行之类，换个 IP addr 就直接断开），如果过期后续租，IP addr 可能就改了</p>
 <p>如果用户挂了，租约到期时 DHCP 回收回<br>如果 DHCP 挂了，租约到期前用户正常使用，到期后用户企图续租，但没人鸟他，该 IP addr 就没法用了<br>如果用户和 DHCP 之间的链路挂了，用户到期前正常，到期后找别的 DHCP 服务器</p>
-<h4 id="ARP-DNS"><a href="#ARP-DNS" class="headerlink" title="ARP, DNS"></a>ARP, DNS</h4><p>假设我的 IP addr 为 1.2.3.53<br>掩码 netmask 是 1.2.3.0&#x2F;24<br>DNS IP addr 为 1.2.3.156</p>
+<h4 id="ARP-DNS"><a href="#ARP-DNS" class="headerlink" title="ARP, DNS"></a>ARP, DNS</h4><p>假设我的 IP addr 为 1.2.3.53<br>掩码 netmask 是 1.2.3.0/24<br>DNS IP addr 为 1.2.3.156</p>
 <ol>
-<li>在网页浏览器输入 <a href="http://www.sina.com/" target="_blank" rel="noopener">www.sina.com</a></li>
+<li>在网页浏览器输入 www.sina.com</li>
 <li>浏览器一看，就去问 DNS，由于在以太网内，就要知道 DNS 的 MAC addr</li>
 <li>怎么知道呢，在以太网内广播一次，就知道哪个 MAC addr 拥有 1.2.3.156 这个 IP addr（即使要通信10000次也只要广播一次就知道 MAC addr 了）</li>
-<li>利用每个主机都有一张 ARP table，记录最近和本主机通信过的 &lt;IP addr, MAC addr&gt;</li>
+<li>利用每个主机都有一张 ARP table，记录最近和本主机通信过的 <ip addr, mac addr></ip></li>
 </ol>
 <p>本地通信：<br>直接丢局域网就解决了（类似同一个宿舍传递毛巾）</p>
 <p>远程通信：<br>丢到网关里，然后事情丢给网关（类似快递丢给快递员，怎么送我就不关心了）</p>
 <p>远程通信的四大关键要素：<br>IP addr<br>netmask<br>DNS IP addr<br>Gateway IP addr</p>
 <p>ARP 负责 链路层和网络层映射<br>DNS 负责 应用层和网络层映射</p>
 <p>DNS 是一级级的，有南大级别的，教育网级别的，中国级别的…</p>
-<h3 id="无线网络-WLAN"><a href="#无线网络-WLAN" class="headerlink" title="无线网络 WLAN"></a>无线网络 WLAN</h3><p>wireless !&#x3D; mobility</p>
+<h3 id="无线网络-WLAN"><a href="#无线网络-WLAN" class="headerlink" title="无线网络 WLAN"></a>无线网络 WLAN</h3><p>wireless != mobility</p>
 <p>handoff: mobile changes base station providing connection into wired network（从南校门走到北校门，手机用的基站已经换了一个了）<br>5G 目标就是解决高铁高速移动中迅速切换基站</p>
 <p>基站：<br>可以理解为连接无线和有线的，解决最后一公里问题。<br>部署在位置比较好的地方，铁塔公司把基站后连接有线连入因特网核心</p>
 <p>无线链路：<br>按照目标来划分，目标有：通信距离</p>
@@ -667,7 +667,7 @@
 <p>single hop: 宿舍两个人手机通信，实际上 A-AP-B<br>multiple hop: MANET, VANET（车联网用的到，企图把道路上的一片区域的车组成小网络，防止碰撞）</p>
 <p>无线连接的特征：</p>
 <ol>
-<li>decreased signal strength: 信号衰减<br> 自由路径损失公式<br> free space path loss(FSPL)<br> $ FSPL &#x3D; (\frac{4\pi df}{c})^2 $<br> d &#x3D; distance<br> $\lamda$ &#x3D; wave length(c&#x2F;f)<br> f &#x3D; frequency<br> c &#x3D; speed of light</li>
+<li>decreased signal strength: 信号衰减<br> 自由路径损失公式<br> free space path loss(FSPL)<br> $ FSPL = (\frac{4\pi df}{c})^2 $<br> d = distance<br> $\lamda$ = wave length(c/f)<br> f = frequency<br> c = speed of light</li>
 </ol>
 <hr>
 <p><strong>TODO:</strong><br>第5周周四的课补</p>
@@ -701,9 +701,10 @@
 <li><p>preventing loops（TLL）<br> 为什么不用二层的 spanning tree？</p>
 <ol>
 <li>太大了不好剪</li>
-<li>局域网里链路很便宜，广域网太贵了，一条光纤不能扔那不用</li>
+<li><p>局域网里链路很便宜，广域网太贵了，一条光纤不能扔那不用</p>
+<p>解决：<br>在包里加了 Time-to-Live（TTL）field（8 bit），每被发一次，TTL 就减一点，减到0就丢掉这个包<br>负责丢的路由器告诉 source 没发成</p>
+</li>
 </ol>
-<p> 解决：<br> 在包里加了 Time-to-Live（TTL）field（8 bit），每被发一次，TTL 就减一点，减到0就丢掉这个包<br> 负责丢的路由器告诉 source 没发成</p>
 </li>
 <li><p>corruption<br> checksum（16 bit），每发一次都计算一次 checksum，保证刚才一跳中包头未发生改变</p>
 </li>
@@ -768,9 +769,9 @@
 <h2 id="IP-router"><a href="#IP-router" class="headerlink" title="IP router"></a>IP router</h2><p>IP router 的架构大大小小都差不多，差别就是吞吐量</p>
 <p>如何评价 router？</p>
 <ul>
-<li>Router capacity &#x3D; N * R</li>
-<li>N &#x3D; number of external router “ports”（有几个口）</li>
-<li>R &#x3D; speed(“line rate”) of a port（一个口有多快）</li>
+<li>Router capacity = N * R</li>
+<li>N = number of external router “ports”（有几个口）</li>
+<li>R = speed(“line rate”) of a port（一个口有多快）</li>
 </ul>
 <p>router 分类：</p>
 <ol>
@@ -832,7 +833,8 @@
 </ol>
 <h3 id="local-state-vs-global-view-of-state"><a href="#local-state-vs-global-view-of-state" class="headerlink" title="local state vs. global view of state"></a>local state vs. global view of state</h3><p>单看一个路由器，无法判断它正确与否。要判断正确（即是否能正确转发到目的地），得看全局。</p>
 <h3 id="路由正确性的充要条件"><a href="#路由正确性的充要条件" class="headerlink" title="路由正确性的充要条件"></a>路由正确性的充要条件</h3><ol>
-<li>没有死路（即不会出现一个路由器在接到包后，不知道这个数据包该往哪发）<br>     （case 1, case 2, …, default。default 来保证没有 dead ends)</li>
+<li>没有死路（即不会出现一个路由器在接到包后，不知道这个数据包该往哪发）<pre><code>     （case 1, case 2, ..., default。default 来保证没有 dead ends)
+</code></pre></li>
 <li>没有环路</li>
 </ol>
 <h3 id="least-cost-path-routing（收敛的越快越好）"><a href="#least-cost-path-routing（收敛的越快越好）" class="headerlink" title="least-cost path routing（收敛的越快越好）"></a>least-cost path routing（收敛的越快越好）</h3><p>dijkstra 算法</p>
@@ -930,7 +932,7 @@
 <h3 id="IPv4-设计（为了scaling）"><a href="#IPv4-设计（为了scaling）" class="headerlink" title="IPv4 设计（为了scaling）"></a>IPv4 设计（为了scaling）</h3><p>一段 host 地址一般全0，全1，01不能用（留给网关）</p>
 <p>一开始分为 ABCD 四类地址，愚蠢的设计</p>
 <p>CIDR: 无类别的</p>
-<p>比如一个公司 50 台主机，2^5 &lt; 50 &lt; 2^6，移动就给你 32 - 6 &#x3D; 26 位前缀，IP 范围就是 128.23.9&#x2F;26。掩码 26 个 1，6 个 0</p>
+<p>比如一个公司 50 台主机，2^5 &lt; 50 &lt; 2^6，移动就给你 32 - 6 = 26 位前缀，IP 范围就是 128.23.9/26。掩码 26 个 1，6 个 0</p>
 <p>大运营商层层分 IP，比如分给南大一段，南大再给下面的机子分配，运营商联系南大的时候，不需要知道南大下面的具体细节，只要知道是发往南大就行，剩下来的事情交给南大的路由器。</p>
 <p>这就是聚合。</p>
 <h3 id="AS-之间的关系"><a href="#AS-之间的关系" class="headerlink" title="AS 之间的关系"></a>AS 之间的关系</h3><p>AS A 可以是 B 的客户（付钱）</p>
@@ -1013,9 +1015,9 @@
 <li>forward error correction</li>
 </ul>
 <h4 id="检错、纠错"><a href="#检错、纠错" class="headerlink" title="检错、纠错"></a>检错、纠错</h4><p>checksum</p>
-<h4 id="告诉发送端发生了啥"><a href="#告诉发送端发生了啥" class="headerlink" title="告诉发送端发生了啥"></a>告诉发送端发生了啥</h4><p>ACK&#x2F;NACK</p>
+<h4 id="告诉发送端发生了啥"><a href="#告诉发送端发生了啥" class="headerlink" title="告诉发送端发生了啥"></a>告诉发送端发生了啥</h4><p>ACK/NACK</p>
 <p>PPT 图</p>
-<p>如果 ACK&#x2F;NACK 包出错，那么也再发一遍 ACK&#x2F;NACK（对于发送端来说，它只感受到刚发的没发好）</p>
+<p>如果 ACK/NACK 包出错，那么也再发一遍 ACK/NACK（对于发送端来说，它只感受到刚发的没发好）</p>
 <p>如果 A-&gt;B P1(yes), B-&gt;A ACK(no), A 重发 B P1，如果不编号，那么 B 不知道收到的是第几个包<br>所以要用 sequence number</p>
 <h4 id="处理丢包"><a href="#处理丢包" class="headerlink" title="处理丢包"></a>处理丢包</h4><p>PPT 图</p>
 <p>用 Timeout，如果过了时间没收到回复，那就重新发</p>
@@ -1024,15 +1026,15 @@
 <ol>
 <li>send, then wait</li>
 <li>if(ack) i++; repeat;</li>
-<li>if(nack&#x2F;timeout) repeat;</li>
+<li>if(nack/timeout) repeat;</li>
 </ol>
 <p>弊端：不高效，因为 send 1 个 data 时间少，等待时间 RTT 太长！</p>
-<p>效率 &#x3D; data&#x2F;RTT</p>
+<p>效率 = data/RTT</p>
 <p>在广域网情况下，带宽利用率会很低！<br>但如果很短的线直连，利用率还是挺高的</p>
 <h5 id="sliding-window"><a href="#sliding-window" class="headerlink" title="sliding window"></a>sliding window</h5><p>PPT 图</p>
 <p>窗里 记录应当在传输，而还未确认的那些包</p>
 <p>一次发一批，发送端和接收端维护相同长度的滑动窗</p>
-<p>效率 &#x3D; min{n*data&#x2F;RTT, link bandwidth}</p>
+<p>效率 = min{n*data/RTT, link bandwidth}</p>
 <p>n 太大的情况下（一次传的超过带宽），包会堆积，然后丢包</p>
 <p>接收端收到了一个包就滑动一格，然后顺便发出 ack，然后发送端收到 ack 后也滑动一格。</p>
 <h6 id="如何确认"><a href="#如何确认" class="headerlink" title="如何确认"></a>如何确认</h6><ol>
@@ -1040,7 +1042,7 @@
 </ol>
 <p>每次收到连续的 包 时更新 ack 的编号，再发</p>
 <p>如果中间有一个没收到，那么后面的包都不发 ack 了</p>
-<ol start="2">
+<ol>
 <li>selective ack</li>
 </ol>
 <p>每次收到都更新 ack 编号，发（导致 ack 数量很多，这是消耗）</p>
@@ -1050,7 +1052,7 @@
 </ol>
 <p>发送端按序发送（12345），接收端按序接受（12 45），其中 3 在路上丢了，则接收端没收到 3，就把 45 都丢了，然后无作为，发送端的 timeout 到了没收到 3 的 ack，察觉到 3 丢了，则发送端把 345.. 都重传</p>
 <p>要求错误率极低，这样效率才不会很差（1% 的错误率就 gg 了）</p>
-<ol start="2">
+<ol>
 <li>selective repeat</li>
 </ol>
 <p>发送端按序发送（12345），接收端按序接受（12 45），其中 3 在路上丢了，则接收端没收到 3，就把 45 都 buffer 存住先不提交给应用层，回 45 的 ack，接收端的 timeout 到了没收到 3 的 ack，察觉到 3 丢了，重传 3，接收端收到 3 之后再将 3 和 buffered 45 拼起来，再提交给应用层。</p>
@@ -1070,17 +1072,17 @@
 <li>IP 包头不带选项是 20 字节，TCP 包头 20 字节，那么最大不超过 1460</li>
 </ul>
 <h4 id="TCP-sequence-number、acknowledgement"><a href="#TCP-sequence-number、acknowledgement" class="headerlink" title="TCP sequence number、acknowledgement"></a>TCP sequence number、acknowledgement</h4><p>seqno 是我正在发送的数据位于数据流的哪个位置</p>
-<p>sender: seqno &#x3D; X, length &#x3D; B<br>recv: ack &#x3D; X + B</p>
-<p>sender: seqno &#x3D; X + B, length &#x3D; B<br>recv: ack &#x3D; X + 2B</p>
+<p>sender: seqno = X, length = B<br>recv: ack = X + B</p>
+<p>sender: seqno = X + B, length = B<br>recv: ack = X + 2B</p>
 <p>…</p>
 <h4 id="如果丢包了"><a href="#如果丢包了" class="headerlink" title="如果丢包了"></a>如果丢包了</h4><p>比如一个包 100B，期望 seqno 如下<br>100, 200, 300, 400, 500, 600</p>
 <p>假如第五个丢了，即第 500~599 字节丢了，ack 为 200,300,400,500(seqno 600),500(seqno 700)…</p>
 <p>快速重传：不用等 timeout 耗尽，改为：看PPT，我课上没听到</p>
 <h4 id="timeout-怎么设定"><a href="#timeout-怎么设定" class="headerlink" title="timeout 怎么设定"></a>timeout 怎么设定</h4><p>采样得到 sampleRTT</p>
-<p>estimateRTT &#x3D; (1-a) * old_estimateRTT + a * sampleRTT</p>
+<p>estimateRTT = (1-a) <em> old_estimateRTT + a </em> sampleRTT</p>
 <h3 id="TCP-建立过程"><a href="#TCP-建立过程" class="headerlink" title="TCP 建立过程"></a>TCP 建立过程</h3><p>进行三次握手</p>
 <p>ISN 不是从 0 开始编号的</p>
-<p>*** 2019-5-20 断线重连</p>
+<p><em>*</em> 2019-5-20 断线重连</p>
 <h2 id="TCP-缺陷"><a href="#TCP-缺陷" class="headerlink" title="TCP 缺陷"></a>TCP 缺陷</h2><ol>
 <li><p>misled by non-congetion losses</p>
 </li>
@@ -1110,12 +1112,12 @@
 <h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><p>翘课</p>
 <h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p>翘课</p>
 <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>最早出现在欧洲核子中心</p>
-<p>HTTP&#x2F;1.1 明文表示，便于调试，消耗空间</p>
-<p>HTTP&#x2F;2 二进制表示，省空间</p>
+<p>HTTP/1.1 明文表示，便于调试，消耗空间</p>
+<p>HTTP/2 二进制表示，省空间</p>
 <h3 id="Web-组成部分"><a href="#Web-组成部分" class="headerlink" title="Web 组成部分"></a>Web 组成部分</h3><p>客户端-用户</p>
 <p>URL 全球资源标识</p>
 <p>资源格式 HTML</p>
-<h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>protocol:&#x2F;&#x2F;host-name[:port]&#x2F;directory-path&#x2F;resource</p>
+<h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>protocol://host-name[:port]/directory-path/resource</p>
 <h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>GET, HEAD</p>
 <p>POST, PUT, DELETE</p>
 <h4 id="cookies"><a href="#cookies" class="headerlink" title="cookies"></a>cookies</h4><p>为无状态的 HTTP 加上状态，这个状态不放在服务器端，放在客户端 </p>
@@ -1127,11 +1129,11 @@
 <h1 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h1><h2 id="包交换-电路交换"><a href="#包交换-电路交换" class="headerlink" title="包交换-电路交换"></a>包交换-电路交换</h2><h2 id="统计复用"><a href="#统计复用" class="headerlink" title="统计复用"></a>统计复用</h2><h2 id="如何刻画一条链路的特征"><a href="#如何刻画一条链路的特征" class="headerlink" title="如何刻画一条链路的特征"></a>如何刻画一条链路的特征</h2><p>带宽，点到点</p>
 <h2 id="OSI-模型和-TCP-IP-模型"><a href="#OSI-模型和-TCP-IP-模型" class="headerlink" title="OSI 模型和 TCP-IP 模型"></a>OSI 模型和 TCP-IP 模型</h2><p>OSI 七层，TCP-IP 五层</p>
 <p>考一个设备是第几层的</p>
-<h2 id="时延由那几个部分组成"><a href="#时延由那几个部分组成" class="headerlink" title="时延由那几个部分组成"></a>时延由那几个部分组成</h2><h2 id="包是怎么封装-解封的"><a href="#包是怎么封装-解封的" class="headerlink" title="包是怎么封装&#x2F;解封的"></a>包是怎么封装&#x2F;解封的</h2><p>给定链路层 MTU，给头部大小，问应用层数据该有多大</p>
+<h2 id="时延由那几个部分组成"><a href="#时延由那几个部分组成" class="headerlink" title="时延由那几个部分组成"></a>时延由那几个部分组成</h2><h2 id="包是怎么封装-解封的"><a href="#包是怎么封装-解封的" class="headerlink" title="包是怎么封装/解封的"></a>包是怎么封装/解封的</h2><p>给定链路层 MTU，给头部大小，问应用层数据该有多大</p>
 <p>中间路由器会不会分片</p>
-<h1 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h1><h2 id="TDMA-FDMA-CDMA"><a href="#TDMA-FDMA-CDMA" class="headerlink" title="TDMA&#x2F;FDMA&#x2F;CDMA"></a>TDMA&#x2F;FDMA&#x2F;CDMA</h2><h2 id="Aloha-Slotted-Aloha-什么时候用哪个"><a href="#Aloha-Slotted-Aloha-什么时候用哪个" class="headerlink" title="Aloha&#x2F;Slotted-Aloha 什么时候用哪个"></a>Aloha&#x2F;Slotted-Aloha 什么时候用哪个</h2><p>发数据的成功概率</p>
-<h2 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h2><p>CSMA&#x2F;CD 是怎么做的，重点看</p>
-<h2 id="Wireless"><a href="#Wireless" class="headerlink" title="Wireless"></a>Wireless</h2><p>CSMA&#x2F;CA or <em>Distributed Coordination&lt;-这个没讲过，自己看一下</em></p>
+<h1 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h1><h2 id="TDMA-FDMA-CDMA"><a href="#TDMA-FDMA-CDMA" class="headerlink" title="TDMA/FDMA/CDMA"></a>TDMA/FDMA/CDMA</h2><h2 id="Aloha-Slotted-Aloha-什么时候用哪个"><a href="#Aloha-Slotted-Aloha-什么时候用哪个" class="headerlink" title="Aloha/Slotted-Aloha 什么时候用哪个"></a>Aloha/Slotted-Aloha 什么时候用哪个</h2><p>发数据的成功概率</p>
+<h2 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h2><p>CSMA/CD 是怎么做的，重点看</p>
+<h2 id="Wireless"><a href="#Wireless" class="headerlink" title="Wireless"></a>Wireless</h2><p>CSMA/CA or <em>Distributed Coordination&lt;-这个没讲过，自己看一下</em></p>
 <p>问为什么不直接用 CD 而要用 CA</p>
 <p>特征<br>Hidden terminal</p>
 <p>Multi-path</p>
@@ -1140,7 +1142,7 @@
 <h2 id="交换机和网桥有什么区别"><a href="#交换机和网桥有什么区别" class="headerlink" title="交换机和网桥有什么区别"></a>交换机和网桥有什么区别</h2><p>地址的 self learning（交换机）</p>
 <p>spanning tree（交换机）防止环路</p>
 <h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h2 id="IP-header"><a href="#IP-header" class="headerlink" title="IP header"></a>IP header</h2><h2 id="link-state-算法-distance-vector-算法，区别，代表性算法"><a href="#link-state-算法-distance-vector-算法，区别，代表性算法" class="headerlink" title="link-state 算法 distance vector 算法，区别，代表性算法"></a>link-state 算法 distance vector 算法，区别，代表性算法</h2><p>dijkstra and bf</p>
-<h2 id="域间，域内-routing"><a href="#域间，域内-routing" class="headerlink" title="域间，域内 routing"></a>域间，域内 routing</h2><p>RIP&#x2F;OSPF&#x2F;BGP，用的什么算法</p>
+<h2 id="域间，域内-routing"><a href="#域间，域内-routing" class="headerlink" title="域间，域内 routing"></a>域间，域内 routing</h2><p>RIP/OSPF/BGP，用的什么算法</p>
 <p>哪些是用于域间，哪些域内</p>
 <h2 id="subnet，netmask，gateway"><a href="#subnet，netmask，gateway" class="headerlink" title="subnet，netmask，gateway"></a>subnet，netmask，gateway</h2><p>是什么，为什么gateway</p>
 <p>如果没配置会有什么后果</p>
