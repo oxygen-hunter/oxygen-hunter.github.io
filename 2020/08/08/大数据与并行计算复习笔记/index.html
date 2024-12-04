@@ -84,30 +84,30 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据与并行计算复习笔记">
 <meta property="og:url" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/index.html">
-<meta property="og:site_name" content="懵逼树树洞">
+<meta property="og:site_name" content="xiao&#39;s blog">
 <meta property="og:description" content="ch1 概论需要掌握的问题 为什么需要并行计算？ 提高计算性能的方法？ 上述方法的瓶颈是什么？ 并行计算技术的分类 并行加速评估公式 Amdahl 公式 MPI 主要功能 MPI 的优点和缺点 MapReduce的三种理解是什么  回答1. 为什么需要并行计算？web规模爆炸增加 计算量和计算复杂度增加，比如电影渲染 2. 曾经的提高计算性能的方法？ 处理器字长变长 提高集成度 微体系结构技术，如">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200808115717945.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200808120105679.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200808235228378.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200809152940591.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200810095325815.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200810172334336.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200811230439134.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812101854154.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812102810139.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812112340611.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812151512228.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812153312447.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812154826826.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812154810381.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812155037507.png">
-<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200812155814219.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808115717945.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808120105679.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808235228378.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200809152940591.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200810095325815.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200810172334336.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200811230439134.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812101854154.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812102810139.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812112340611.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812151512228.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812153312447.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812154826826.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812154810381.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812155037507.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812155814219.png">
 <meta property="og:updated_time" content="2021-11-18T03:19:33.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据与并行计算复习笔记">
 <meta name="twitter:description" content="ch1 概论需要掌握的问题 为什么需要并行计算？ 提高计算性能的方法？ 上述方法的瓶颈是什么？ 并行计算技术的分类 并行加速评估公式 Amdahl 公式 MPI 主要功能 MPI 的优点和缺点 MapReduce的三种理解是什么  回答1. 为什么需要并行计算？web规模爆炸增加 计算量和计算复杂度增加，比如电影渲染 2. 曾经的提高计算性能的方法？ 处理器字长变长 提高集成度 微体系结构技术，如">
-<meta name="twitter:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/image-20200808115717945.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808115717945.png">
 
 
 
@@ -143,7 +143,7 @@
 
 
 
-  <title>大数据与并行计算复习笔记 | 懵逼树树洞</title>
+  <title>大数据与并行计算复习笔记 | xiao's blog</title>
   
 
 
@@ -173,7 +173,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">懵逼树树洞</span>
+        <span class="site-title">xiao's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -311,7 +311,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="懵逼树树洞">
+      <meta itemprop="name" content="xiao's blog">
     </span>
 
     
@@ -426,10 +426,10 @@
 <li>按存储访问结构</li>
 <li>按计算特征</li>
 <li>按系统特征</li>
-<li>按并行程序设计模型/方法</li>
+<li>按并行程序设计模型&#x2F;方法</li>
 </ol>
 <p>弗林分类：SISD, SIMD, MISD, MIMD，用的最多的是MIMD</p>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200808115717945.png" alt="image-20200808115717945"></p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808115717945.png" alt="image-20200808115717945"></p>
 <p>并行类型</p>
 <ul>
 <li>bit级并行</li>
@@ -446,7 +446,7 @@
 <li>分布式共享存储，每个处理器有自己的本地存储器，再共享一个全局存储器</li>
 <li>分布式内存，每个处理器有自己的本地存储器，无全局存储器</li>
 </ul>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200808120105679.png" alt="image-20200808120105679"></p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808120105679.png" alt="image-20200808120105679"></p>
 <p>按系统类型分</p>
 <ul>
 <li>多核处理器MC</li>
@@ -461,17 +461,17 @@
 <li>计算密集型：天气预报，一大堆矩阵运算</li>
 <li>混合型：3d电影渲染</li>
 </ul>
-<p>按并行程序设计模型/方法：</p>
+<p>按并行程序设计模型&#x2F;方法：</p>
 <ul>
 <li>共享内存变量：Pthread，OpenMP</li>
 <li>消息传递方式：MPI</li>
 <li>mapreduce</li>
 </ul>
 <h3 id="5-并行加速评估公式-Amdahl-公式"><a href="#5-并行加速评估公式-Amdahl-公式" class="headerlink" title="5. 并行加速评估公式 Amdahl 公式"></a>5. 并行加速评估公式 Amdahl 公式</h3><p>设S为加速比，P为程序中可并行的比例，N是处理器数量</p>
-<p>$S = \frac{1}{(1-P)+\frac{P}{N}}$</p>
+<p>$S &#x3D; \frac{1}{(1-P)+\frac{P}{N}}$</p>
 <h3 id="6-MPI主要功能"><a href="#6-MPI主要功能" class="headerlink" title="6. MPI主要功能"></a>6. MPI主要功能</h3><p>message passing interface，消息传递接口</p>
 <p>计算密集型任务，所有节点运行同一个程序，但数据不同</p>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200808235228378.png" alt="image-20200808235228378"></p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200808235228378.png" alt="image-20200808235228378"></p>
 <h3 id="7-MPI-优点和缺点"><a href="#7-MPI-优点和缺点" class="headerlink" title="7. MPI 优点和缺点"></a>7. MPI 优点和缺点</h3><p>优点：</p>
 <ol>
 <li>适合计算密集型任务</li>
@@ -495,7 +495,7 @@
 <li>mapper，combiner，partitionner，reducer的关系</li>
 <li>MapReduce的优点</li>
 </ol>
-<h2 id="回答-1"><a href="#回答-1" class="headerlink" title="回答"></a>回答</h2><h3 id="1-mapper，combiner，partitionner，reducer的关系"><a href="#1-mapper，combiner，partitionner，reducer的关系" class="headerlink" title="1. mapper，combiner，partitionner，reducer的关系"></a>1. mapper，combiner，partitionner，reducer的关系</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200809152940591.png" alt="image-20200809152940591"></p>
+<h2 id="回答-1"><a href="#回答-1" class="headerlink" title="回答"></a>回答</h2><h3 id="1-mapper，combiner，partitionner，reducer的关系"><a href="#1-mapper，combiner，partitionner，reducer的关系" class="headerlink" title="1. mapper，combiner，partitionner，reducer的关系"></a>1. mapper，combiner，partitionner，reducer的关系</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200809152940591.png" alt="image-20200809152940591"></p>
 <h3 id="2-MapReduce-的优点"><a href="#2-MapReduce-的优点" class="headerlink" title="2. MapReduce 的优点"></a>2. MapReduce 的优点</h3><p>提供了统一的计算框架</p>
 <ul>
 <li>划分数据和任务、出错恢复、数据通信、负载均衡等等</li>
@@ -512,7 +512,7 @@
 <ul>
 <li>处理器先处理本地磁盘的数据，处理不了时再用就近原则把数据传输去附近的计算节点上算</li>
 </ul>
-<h3 id="3-Google-MapReduce-基本工作流程"><a href="#3-Google-MapReduce-基本工作流程" class="headerlink" title="3. Google MapReduce 基本工作流程"></a>3. Google MapReduce 基本工作流程</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200810095325815.png" alt="image-20200810095325815"></p>
+<h3 id="3-Google-MapReduce-基本工作流程"><a href="#3-Google-MapReduce-基本工作流程" class="headerlink" title="3. Google MapReduce 基本工作流程"></a>3. Google MapReduce 基本工作流程</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200810095325815.png" alt="image-20200810095325815"></p>
 <ol>
 <li>拥有的输入：数据块切分为大小相同的数据块比如64MB，以及对应用户程序</li>
 <li>用户程序提交给master节点</li>
@@ -560,7 +560,7 @@
 <p>高吞吐量：PB级</p>
 <p>自动管理</p>
 <p>简单</p>
-<h3 id="13-BT的架构是什么样"><a href="#13-BT的架构是什么样" class="headerlink" title="13. BT的架构是什么样"></a>13. BT的架构是什么样</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200810172334336.png" alt="image-20200810172334336"></p>
+<h3 id="13-BT的架构是什么样"><a href="#13-BT的架构是什么样" class="headerlink" title="13. BT的架构是什么样"></a>13. BT的架构是什么样</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200810172334336.png" alt="image-20200810172334336"></p>
 <p>主服务器-子表服务器</p>
 <p>子表服务器上用SSTable存子表</p>
 <ul>
@@ -582,7 +582,7 @@
 <h1 id="ch4-Hadoop环境配置和开发"><a href="#ch4-Hadoop环境配置和开发" class="headerlink" title="ch4 Hadoop环境配置和开发"></a>ch4 Hadoop环境配置和开发</h1><h2 id="需要掌握的问题-2"><a href="#需要掌握的问题-2" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
 <li>hadoop配置文件</li>
 </ol>
-<h2 id="回答-2"><a href="#回答-2" class="headerlink" title="回答"></a>回答</h2><h3 id="1-hadoop配置文件"><a href="#1-hadoop配置文件" class="headerlink" title="1. hadoop配置文件"></a>1. hadoop配置文件</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200811230439134.png" alt="image-20200811230439134"></p>
+<h2 id="回答-2"><a href="#回答-2" class="headerlink" title="回答"></a>回答</h2><h3 id="1-hadoop配置文件"><a href="#1-hadoop配置文件" class="headerlink" title="1. hadoop配置文件"></a>1. hadoop配置文件</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200811230439134.png" alt="image-20200811230439134"></p>
 <h1 id="ch5-MapReduce-算法设计"><a href="#ch5-MapReduce-算法设计" class="headerlink" title="ch5 MapReduce 算法设计"></a>ch5 MapReduce 算法设计</h1><h2 id="需要掌握的问题-3"><a href="#需要掌握的问题-3" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
 <li>结论：大数据集上的简单算法能比小数据集上的复杂算法结果更好</li>
 <li>自定义kv类型时重写的接口和继承类</li>
@@ -598,12 +598,14 @@
 <li>建立倒排索引</li>
 <li>根据搜索内容返回排好序的网页</li>
 </ol>
-<h3 id="6-带全局排序的倒排索引"><a href="#6-带全局排序的倒排索引" class="headerlink" title="6. 带全局排序的倒排索引"></a>6. 带全局排序的倒排索引</h3><p>map in: <docid id, doc></docid></p>
+<h3 id="6-带全局排序的倒排索引"><a href="#6-带全局排序的倒排索引" class="headerlink" title="6. 带全局排序的倒排索引"></a>6. 带全局排序的倒排索引</h3><p>map in: &lt;docid id, doc&gt;</p>
 <p>map out: &lt;(term, docid), f(term)&gt;</p>
 <p>partitioner: 自定义MyPartitioner，extends HashPartitioner，重写getPartition方法，在driver中setPartitionerClass(MyPartitioner)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class MyPartitioner extends HashPartitioner&lt;K, V&gt; &#123;</span><br><span class="line">	getPartitioner(K key, V value, int numReduceTasks) &#123;</span><br><span class="line">		term = key.split(&apos;#&apos;)[0];</span><br><span class="line">		super.getPartition(term, value, numReduceTasks);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>reduce:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Reducer &#123;</span><br><span class="line">	method setup() &#123;</span><br><span class="line">		t_prev = null;</span><br><span class="line">		P = new PostingList;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	method reduce(tuple&lt;term, docid&gt;, Iterable(fs)) &#123;</span><br><span class="line">		for (f in)</span><br><span class="line">		if (term != t_prev &amp;&amp; t_prev != null) &#123;</span><br><span class="line">			emit(t_prev, P);</span><br><span class="line">			P.Reset();</span><br><span class="line">		&#125;</span><br><span class="line">		P.append(&lt;docid, f&gt;);</span><br><span class="line">		t_prev = term;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	method cleanup() &#123;</span><br><span class="line">		emit(t_prev, P)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="ch6-HBase和Hive"><a href="#ch6-HBase和Hive" class="headerlink" title="ch6 HBase和Hive"></a>ch6 HBase和Hive</h1><h2 id="需要掌握的问题-4"><a href="#需要掌握的问题-4" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
 <li>CAP定理</li>
 <li>普通数据库为什么不适用</li>
@@ -619,7 +621,7 @@
 <p>不停机情况下的动态增删列</p>
 <p>分布式网络分片问题</p>
 <h3 id="3-HBase的逻辑结构"><a href="#3-HBase的逻辑结构" class="headerlink" title="3. HBase的逻辑结构"></a>3. HBase的逻辑结构</h3><p>行关键字，时间戳，列关键字</p>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812101854154.png" alt="image-20200812101854154"></p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812101854154.png" alt="image-20200812101854154"></p>
 <h3 id="4-HBase的架构"><a href="#4-HBase的架构" class="headerlink" title="4. HBase的架构"></a>4. HBase的架构</h3><p>HBase位于HDFS和上层应用之间</p>
 <p>有MasterServer和RegionServer，对应BigTable里的主服务器和子表服务器</p>
 <p>大表中的底层数据存在HDFS里</p>
@@ -628,9 +630,9 @@
 <li>由很多Store组成</li>
 <li>每个Store由一个memStore和若干FileStore组成</li>
 </ul>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812102810139.png" alt="image-20200812102810139"></p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812102810139.png" alt="image-20200812102810139"></p>
 <p>除此之外还有一个HLog，日志恢复</p>
-<h3 id="5-访问-更新HBase数据的过程"><a href="#5-访问-更新HBase数据的过程" class="headerlink" title="5. 访问/更新HBase数据的过程"></a>5. 访问/更新HBase数据的过程</h3><p>三级搜索结构：</p>
+<h3 id="5-访问-更新HBase数据的过程"><a href="#5-访问-更新HBase数据的过程" class="headerlink" title="5. 访问&#x2F;更新HBase数据的过程"></a>5. 访问&#x2F;更新HBase数据的过程</h3><p>三级搜索结构：</p>
 <ul>
 <li><p>用户的数据表存在子表服务器上，它的信息记录在元数据表（.META.表）里</p>
 </li>
@@ -654,6 +656,7 @@
 </ul>
 <h3 id="6-HBase相关命令"><a href="#6-HBase相关命令" class="headerlink" title="6. HBase相关命令"></a>6. HBase相关命令</h3><p>建立表、插入数据，查看表</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create &apos;student&apos;, &apos;id&apos;, &apos;Description&apos;, &apos;Courses&apos;, &apos;home&apos;;</span><br><span class="line"></span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Description:name&apos;, &apos;lilei&apos;;</span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Description:height&apos;, &apos;186&apos;;</span><br><span class="line">put &apos;student&apos;, &apos;001&apos;, &apos;Courses:Math&apos;, &apos;99&apos;;</span><br><span class="line"></span><br><span class="line">describle &apos;student&apos;</span><br><span class="line">scan &apos;student&apos;</span><br><span class="line">scan &apos;student&apos;, &#123;COLUMNS=&gt;&apos;Courses:&apos;&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="7-HBase-disable和enable"><a href="#7-HBase-disable和enable" class="headerlink" title="7. HBase disable和enable"></a>7. HBase disable和enable</h3><p>disable ‘student’时，会将该表在zookeeper下做记录，然后将表的region全部下线</p>
 <p>enable ‘student’时，将region全部上线，会去掉zookeeper中的标记，然后看.MATA表中有无该子表的服务器，如果有就上线到那台子表服务器，如果没有就随机选择一个服务器上线</p>
 <h3 id="8-Hive的架构"><a href="#8-Hive的架构" class="headerlink" title="8. Hive的架构"></a>8. Hive的架构</h3><p>组成元素：</p>
@@ -664,14 +667,16 @@
 <li>Execution engine：执行引擎，在driver的驱动下具体执行操作</li>
 <li>metastore：存储操作的数据对象的位置信息等</li>
 </ul>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812112340611.png" alt="image-20200812112340611"></p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812112340611.png" alt="image-20200812112340611"></p>
 <h3 id="9-Hive的逻辑结构"><a href="#9-Hive的逻辑结构" class="headerlink" title="9. Hive的逻辑结构"></a>9. Hive的逻辑结构</h3><ul>
 <li>Tables：数据表中的列是有类型的，int float string boolean，也可是复合类型map</li>
 <li>partitions：数据表可以按日期划分</li>
 <li>buckets：用桶按hash的方式划分，对抽样和join优化有意义</li>
 </ul>
 <h3 id="10-Hive相关命令"><a href="#10-Hive相关命令" class="headerlink" title="10. Hive相关命令"></a>10. Hive相关命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br><span class="line"></span><br><span class="line">create table sharkspeare (freq int, word string) row format delimtied fields terminated by &apos;\t&apos; as textfile;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">discrible sharkspeare;</span><br><span class="line"></span><br><span class="line">load data inpath &apos;xxx-freq&apos; into table sharkspeare;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select * from sharkspeare limit 10;</span><br><span class="line"></span><br><span class="line">select * from sharkspeare where freq &gt; 10 sort by freq asc limit 10;</span><br><span class="line"></span><br><span class="line">select a.foo from invites a where a.ds = &apos;2020-8-12&apos;</span><br><span class="line"></span><br><span class="line">select t1.bar t1.foo t2.foo from</span><br><span class="line">	pokes t1 join invites t2 on t1.bar = t2.bar;</span><br></pre></td></tr></table></figure>
+
 <h1 id="ch7-MapReduce-高级编程技术"><a href="#ch7-MapReduce-高级编程技术" class="headerlink" title="ch7 MapReduce 高级编程技术"></a>ch7 MapReduce 高级编程技术</h1><h2 id="需要掌握的问题-5"><a href="#需要掌握的问题-5" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
 <li>复合键值对的使用</li>
 <li>用户自定义数据类型</li>
@@ -680,7 +685,7 @@
 <li>迭代完成MapReduce计算</li>
 <li>组合式MapReduce程序设计</li>
 <li>多数据源的连接</li>
-<li>全局参数/数据文件的传递</li>
+<li>全局参数&#x2F;数据文件的传递</li>
 <li>其它处理技术</li>
 </ol>
 <h2 id="回答-5"><a href="#回答-5" class="headerlink" title="回答"></a>回答</h2><h3 id="1-复合键值对的使用"><a href="#1-复合键值对的使用" class="headerlink" title="1. 复合键值对的使用"></a>1. 复合键值对的使用</h3><p>倒排索引中的value-to-key思想，完成排序</p>
@@ -692,28 +697,34 @@
 <p>setOutputKeyClass</p>
 <p>setOutputValueClass</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Point3D</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">Point3D</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">float</span> x, y, z;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		out.write(x);</span><br><span class="line">		out.write(y);</span><br><span class="line">		out.write(z);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		x = in.readFloat();</span><br><span class="line">		y = in.readFloat();</span><br><span class="line">		z = in.readFloat();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Point3D p)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//compare</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="3-用户自定义输入输出格式"><a href="#3-用户自定义输入输出格式" class="headerlink" title="3. 用户自定义输入输出格式"></a>3. 用户自定义输入输出格式</h3><p>需要extends FileInputFormat</p>
 <p>重写createRecordReader、getCurrentKey，getCurrentValue，initialize函数</p>
 <p>并且setInputFormatClass(xxx.class)</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileNameOffsetInputFormat</span> <span class="keyword">extends</span> <span class="title">FileInputFormat</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>&gt; </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RecordReader&lt;Text, Text&gt; <span class="title">createRecordReader</span><span class="params">(InputSplit split, </span></span></span><br><span class="line"><span class="function"><span class="params">    TaskAttemptContext context)</span> </span></span><br><span class="line"><span class="function">    </span>&#123; </span><br><span class="line">        FileNameOffsetRecordReader fnrr = <span class="keyword">new</span> FileNameOffsetRecordReader();</span><br><span class="line">        <span class="keyword">try</span> </span><br><span class="line">        &#123; fnrr.initialize(split, context); &#125; </span><br><span class="line">        <span class="keyword">catch</span> (IOException e) &#123; e.printStackTrace(); &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">        <span class="keyword">return</span> fnrr;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileNameOffsetRecordReader</span> <span class="keyword">extends</span> <span class="title">RecordReader</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>&gt; </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">    String fileName;</span><br><span class="line">    LineRecordReader lrr = <span class="keyword">new</span> LineRecordReader();</span><br><span class="line">    ……</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Text <span class="title">getCurrentKey</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line">    &#123; return new Text("(" + fileName + “#" + lrr.getCurrentKey() + ")"); &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Text <span class="title">getCurrentValue</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line"><span class="function">    </span>&#123; <span class="keyword">return</span> lrr.getCurrentValue(); &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(InputSplit arg0, TaskAttemptContext arg1)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> IOException, InterruptedException </span></span><br><span class="line"><span class="function">    </span>&#123; lrr.initialize(arg0, arg1);</span><br><span class="line">    fileName = ((FileSplit)arg0).getPath().getName();</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-用户自定义Partitioner和Combiner"><a href="#4-用户自定义Partitioner和Combiner" class="headerlink" title="4. 用户自定义Partitioner和Combiner"></a>4. 用户自定义Partitioner和Combiner</h3><p>extends HashPartitioner<k,v>并重写getPartition函数</k,v></p>
+
+<h3 id="4-用户自定义Partitioner和Combiner"><a href="#4-用户自定义Partitioner和Combiner" class="headerlink" title="4. 用户自定义Partitioner和Combiner"></a>4. 用户自定义Partitioner和Combiner</h3><p>extends HashPartitioner&lt;K,V&gt;并重写getPartition函数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class MyPartitioner extends HashPartitioner&lt;K, V&gt; &#123;</span><br><span class="line">	public int getPartition(K key, V value, int numReduceTasks) &#123;</span><br><span class="line">		return ...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>extends Reducer<k, v>并重写reduce函数</k,></p>
+
+<p>extends Reducer&lt;K, V&gt;并重写reduce函数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class MyCombiner extends Reducer&lt;K, V&gt; &#123;</span><br><span class="line">	void reduce(K key, V value, Context context) throws IOException, InterruptedException&#123;</span><br><span class="line">		context.write(..., ...)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="5-迭代完成MapReduce计算"><a href="#5-迭代完成MapReduce计算" class="headerlink" title="5. 迭代完成MapReduce计算"></a>5. 迭代完成MapReduce计算</h3><p>pagerank</p>
 <h3 id="6-组合式MapReduce程序设计"><a href="#6-组合式MapReduce程序设计" class="headerlink" title="6. 组合式MapReduce程序设计"></a>6. 组合式MapReduce程序设计</h3><p>可视作pagerank的三个阶段</p>
 <p>依赖任务的添加</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">joby.addDependingJob(jobx); 使得y需要等待x结束</span><br><span class="line">JobControl JC = new JobControl(&quot;xy&quot;);</span><br><span class="line">JC.addJob(jobx);</span><br><span class="line">JC.addJob(joby);</span><br><span class="line">JC.run();</span><br></pre></td></tr></table></figure>
+
 <h3 id="7-多数据源的连接"><a href="#7-多数据源的连接" class="headerlink" title="7. 多数据源的连接"></a>7. 多数据源的连接</h3><p>比如join两张表</p>
 <ul>
 <li>可以自行添加标签然后reduce端join，也可以用DataJoin类</li>
 <li>也可以map端join，利用distributedCache传递较小的文件</li>
 </ul>
-<h3 id="8-全局参数-数据文件的传递"><a href="#8-全局参数-数据文件的传递" class="headerlink" title="8. 全局参数/数据文件的传递"></a>8. 全局参数/数据文件的传递</h3><p>driver端：conf.set(…)</p>
-<p>map/reduce端：context.getConfiguration().get(…)</p>
+<h3 id="8-全局参数-数据文件的传递"><a href="#8-全局参数-数据文件的传递" class="headerlink" title="8. 全局参数&#x2F;数据文件的传递"></a>8. 全局参数&#x2F;数据文件的传递</h3><p>driver端：conf.set(…)</p>
+<p>map&#x2F;reduce端：context.getConfiguration().get(…)</p>
 <h3 id="9-其它处理技术"><a href="#9-其它处理技术" class="headerlink" title="9. 其它处理技术"></a>9. 其它处理技术</h3><p>多文件输出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class MyOutputFormat extends MultipleTextOutputFormat&lt;K, V&gt; &#123;</span><br><span class="line">	protected String generateFileNameForKeyValue(K, V, String filename) &#123;</span><br><span class="line">		return &quot;self&quot;;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="ch8-PageRank"><a href="#ch8-PageRank" class="headerlink" title="ch8 PageRank"></a>ch8 PageRank</h1><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812151512228.png" alt="image-20200812151512228"></p>
+
+<h1 id="ch8-PageRank"><a href="#ch8-PageRank" class="headerlink" title="ch8 PageRank"></a>ch8 PageRank</h1><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812151512228.png" alt="image-20200812151512228"></p>
 <h1 id="ch9-数据挖掘"><a href="#ch9-数据挖掘" class="headerlink" title="ch9 数据挖掘"></a>ch9 数据挖掘</h1><h2 id="需要掌握的问题-6"><a href="#需要掌握的问题-6" class="headerlink" title="需要掌握的问题"></a>需要掌握的问题</h2><ol>
 <li>K-means聚类算法</li>
 <li>分类算法</li>
@@ -726,11 +737,11 @@
 <li>对每个点归进离他最近的中心点，完毕后重新计算K个中心点的值</li>
 <li>如果迭代结束条件为满足，重复2</li>
 </ol>
-<h3 id="2-K近邻"><a href="#2-K近邻" class="headerlink" title="2. K近邻"></a>2. K近邻</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812153312447.png" alt="image-20200812153312447"></p>
-<h3 id="3-朴素贝叶斯"><a href="#3-朴素贝叶斯" class="headerlink" title="3. 朴素贝叶斯"></a>3. 朴素贝叶斯</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812154826826.png" alt="image-20200812154826826"></p>
-<p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812154810381.png" alt="image-20200812154810381"></p>
-<h3 id="4-SVM"><a href="#4-SVM" class="headerlink" title="4. SVM"></a>4. SVM</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812155037507.png" alt="image-20200812155037507"></p>
-<h1 id="ch10-spark"><a href="#ch10-spark" class="headerlink" title="ch10 spark"></a>ch10 spark</h1><p><img src="/2020/08/08/大数据与并行计算复习笔记/image-20200812155814219.png" alt="image-20200812155814219"></p>
+<h3 id="2-K近邻"><a href="#2-K近邻" class="headerlink" title="2. K近邻"></a>2. K近邻</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812153312447.png" alt="image-20200812153312447"></p>
+<h3 id="3-朴素贝叶斯"><a href="#3-朴素贝叶斯" class="headerlink" title="3. 朴素贝叶斯"></a>3. 朴素贝叶斯</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812154826826.png" alt="image-20200812154826826"></p>
+<p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812154810381.png" alt="image-20200812154810381"></p>
+<h3 id="4-SVM"><a href="#4-SVM" class="headerlink" title="4. SVM"></a>4. SVM</h3><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812155037507.png" alt="image-20200812155037507"></p>
+<h1 id="ch10-spark"><a href="#ch10-spark" class="headerlink" title="ch10 spark"></a>ch10 spark</h1><p><img src="/2020/08/08/大数据与并行计算复习笔记/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200812155814219.png" alt="image-20200812155814219"></p>
 
       
     </div>
@@ -852,7 +863,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

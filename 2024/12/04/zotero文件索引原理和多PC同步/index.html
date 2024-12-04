@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="intro需求是在两台PC上同步zotero文件 zotero文件管理原理首先，zotero的软件安装和数据管理是分开的 软件安装在D:\Softwares 数据管理由你自定义，默认在C:\Users\xander\Zotero，可以通过编辑-高级-文件和文件夹-数据存储位置-自定义来修改   数据管理的结构是这样的  zotero.sqlite存的是索引表（zotero打开期间会一直读写此文件）">
+<meta name="keywords" content="program analysis, compiler, security">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zotero文件索引原理和多PC同步">
+<meta property="og:url" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/index.html">
+<meta property="og:site_name" content="xiao&#39;s blog">
+<meta property="og:description" content="intro需求是在两台PC上同步zotero文件 zotero文件管理原理首先，zotero的软件安装和数据管理是分开的 软件安装在D:\Softwares 数据管理由你自定义，默认在C:\Users\xander\Zotero，可以通过编辑-高级-文件和文件夹-数据存储位置-自定义来修改   数据管理的结构是这样的  zotero.sqlite存的是索引表（zotero打开期间会一直读写此文件）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/image-20241204131808662.png">
+<meta property="og:image" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/zotero%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%92%8C%E5%A4%9APC%E5%90%8C%E6%AD%A5/image-20241204131925320.png">
+<meta property="og:image" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/zotero%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%92%8C%E5%A4%9APC%E5%90%8C%E6%AD%A5/image-20241204145322155.png">
+<meta property="og:image" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/image-20241204145541012.png">
+<meta property="og:image" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/image-20241204145510471.png">
+<meta property="og:image" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/zotero%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%92%8C%E5%A4%9APC%E5%90%8C%E6%AD%A5/image-20241204150110117.png">
+<meta property="og:image" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/zotero%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%92%8C%E5%A4%9APC%E5%90%8C%E6%AD%A5/image-20241204153527627.png">
+<meta property="og:updated_time" content="2024-12-04T08:49:15.827Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zotero文件索引原理和多PC同步">
+<meta name="twitter:description" content="intro需求是在两台PC上同步zotero文件 zotero文件管理原理首先，zotero的软件安装和数据管理是分开的 软件安装在D:\Softwares 数据管理由你自定义，默认在C:\Users\xander\Zotero，可以通过编辑-高级-文件和文件夹-数据存储位置-自定义来修改   数据管理的结构是这样的  zotero.sqlite存的是索引表（zotero打开期间会一直读写此文件）">
+<meta name="twitter:image" content="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/image-20241204131808662.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/">
+
+
+
+
+
+  <title>zotero文件索引原理和多PC同步 | xiao's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiao's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/12/04/zotero文件索引原理和多PC同步/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oxygen-hunter">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/juyoujing.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiao's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">zotero文件索引原理和多PC同步</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-12-04T13:14:43+08:00">
+                2024-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读量：
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><p>需求是在两台PC上同步zotero文件</p>
+<h2 id="zotero文件管理原理"><a href="#zotero文件管理原理" class="headerlink" title="zotero文件管理原理"></a>zotero文件管理原理</h2><p>首先，zotero的软件安装和数据管理是分开的</p>
+<p>软件安装在D:\Softwares</p>
+<p>数据管理由你自定义，默认在C:\Users\xander\Zotero，可以通过编辑-高级-文件和文件夹-数据存储位置-自定义来修改</p>
+<img src="/2024/12/04/zotero文件索引原理和多PC同步/image-20241204131808662.png" alt="image-20241204131808662" style="zoom:67%;">
+
+<p>数据管理的结构是这样的</p>
+<ul>
+<li>zotero.sqlite存的是索引表（zotero打开期间会一直读写此文件）</li>
+<li>zotero.sqlite.bak，zotero.sqlite.1.bak里也是索引表（跟随zotero启动出现，关闭zotero的时侯不会出现）</li>
+<li>storage存储了索引表里的具体内容（snapshot，pdf）</li>
+<li>其他都不重要，插件之类的</li>
+</ul>
+<p><img src="/2024/12/04/zotero文件索引原理和多PC同步/zotero%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%92%8C%E5%A4%9APC%E5%90%8C%E6%AD%A5/image-20241204131925320.png" alt="image-20241204131925320"></p>
+<p>zotero.sqlite的结构同zotero界面，比如这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">我的文库</span><br><span class="line">  - LLM (目录)</span><br><span class="line">    - attack on LLM (目录)</span><br><span class="line">      &gt; A Survey of Attacks on Large Vision-Language Models (top-item)</span><br><span class="line">        * Liu et al_2024_A Survey of Attacks on Large Vision-Language Models.pdf</span><br><span class="line">        * Snapshot</span><br><span class="line">    - defence on LLM</span><br></pre></td></tr></table></figure>
+
+<p>关于这个pdf，索引里会存它的文件地址，文件地址有哪几种？</p>
+<p>我们知道，一个top-item的建立，可以通过如下几种方式：</p>
+<ol>
+<li>手动新建+拖入pdf</li>
+<li>浏览器插件保存+下载pdf（成功）</li>
+<li>浏览器插件保存+下载pdf（失败，比如被ieee&#x2F;acm登录卡了），手动拖入pdf</li>
+<li>浏览器插件保存+下载pdf（失败，比如网络卡了下载失败），在top-item上寻找可用的pdf</li>
+</ol>
+<p>那么问题来了，pdf的文件地址分别会在哪里呢？如果不考虑zotfile插件的存在，位置情况如下</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>情况</th>
+<th>pdf位置（没zotfile）（可能有误，TODO测试）</th>
+<th>pdf位置（有zotfile并设置zotefile preferences-general settings-location of files-use subfolders defined by &#x2F;%c）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>从本地地址A拖入pdf（无论是直接拖到空白自动建立item，还是建立空的item后拖进来）</td>
+<td>storage&#x2F;..&#x2F;xx.pdf</td>
+<td>storage&#x2F;..&#x2F;xx.pdf</td>
+</tr>
+<tr>
+<td>2</td>
+<td>top-item右击添加附件-添加文件副本A</td>
+<td></td>
+<td>storage&#x2F;..&#x2F;xx.pdf</td>
+</tr>
+<tr>
+<td>3</td>
+<td>top-item右击添加附件-添加文件链接A</td>
+<td></td>
+<td>A&#x2F;xx.pdf</td>
+</tr>
+<tr>
+<td>4</td>
+<td>浏览器插件保存建立item+下载pdf（成功）</td>
+<td>storage&#x2F;..&#x2F;xx.pdf</td>
+<td>zotfile&#x2F;xx.pdf</td>
+</tr>
+<tr>
+<td>5</td>
+<td>浏览器插件保存建立item+下载pdf（失败，比如被ieee&#x2F;acm登录卡了），然后从本地地址A拖入pdf</td>
+<td>A&#x2F;xx.pdf</td>
+<td>storage&#x2F;..&#x2F;xx.pdf</td>
+</tr>
+<tr>
+<td>6</td>
+<td>浏览器插件保存+下载pdf（失败，比如网络卡了下载失败），在top-item上寻找可用的pdf</td>
+<td>storage&#x2F;..&#x2F;xx.pdf</td>
+<td>storage&#x2F;..&#x2F;xx.pdf</td>
+</tr>
+</tbody></table>
+<p>下面介绍一下zotfile插件，有它在情况会发生一点不同（？）</p>
+<h2 id="zotfile插件原理"><a href="#zotfile插件原理" class="headerlink" title="zotfile插件原理"></a>zotfile插件原理</h2><p>功能：帮用户整理附件pdf，从默认的storage目录复制到一个新目录上（或移动到，copy or move不重要，关键是索引的文件地址改成了新目录）</p>
+<p>好处：这样更美观。（storage中子目录的命名全是索引号，例如A3SADSA，无法直接看出某个pdf来源于哪个文库。但是zotfile目录可以设置&#x2F;%c，就可以按文库名和子文库名分类，从文件管理器里看得很爽）</p>
+<h2 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h3 id="Q：如果一个pdf的索引在storage，那么zotfile会备份这个文件吗？我通过zotero笔记改了storage文件，那么zotfile备份的pdf会一并修改吗？"><a href="#Q：如果一个pdf的索引在storage，那么zotfile会备份这个文件吗？我通过zotero笔记改了storage文件，那么zotfile备份的pdf会一并修改吗？" class="headerlink" title="Q：如果一个pdf的索引在storage，那么zotfile会备份这个文件吗？我通过zotero笔记改了storage文件，那么zotfile备份的pdf会一并修改吗？"></a>Q：如果一个pdf的索引在storage，那么zotfile会备份这个文件吗？我通过zotero笔记改了storage文件，那么zotfile备份的pdf会一并修改吗？</h3><p>TODO</p>
+<h3 id="Q：如果一个pdf的索引在zotfile，那么storage里会有这个文件吗？我通过zotero笔记改了zotfile的文件，storage里会一并修改吗？"><a href="#Q：如果一个pdf的索引在zotfile，那么storage里会有这个文件吗？我通过zotero笔记改了zotfile的文件，storage里会一并修改吗？" class="headerlink" title="Q：如果一个pdf的索引在zotfile，那么storage里会有这个文件吗？我通过zotero笔记改了zotfile的文件，storage里会一并修改吗？"></a>Q：如果一个pdf的索引在zotfile，那么storage里会有这个文件吗？我通过zotero笔记改了zotfile的文件，storage里会一并修改吗？</h3><p>TODO</p>
+<h3 id="Q：如何把乱七八糟的pdf索引，全部改成索引到storage，或者全部改成索引到zotfile？"><a href="#Q：如何把乱七八糟的pdf索引，全部改成索引到storage，或者全部改成索引到zotfile？" class="headerlink" title="Q：如何把乱七八糟的pdf索引，全部改成索引到storage，或者全部改成索引到zotfile？"></a>Q：如何把乱七八糟的pdf索引，全部改成索引到storage，或者全部改成索引到zotfile？</h3><p>A：</p>
+<ol>
+<li>zotero界面点到LLM&#x2F;attack on LLM目录</li>
+<li>ctrl+A全选top-items</li>
+<li>然后右击-manage attachments-rename and move</li>
+<li>这时候会提示你有多少个附件pdf需要被move，比如65个</li>
+<li>确认后，按理在zotfile目录里会找到这65个pdf</li>
+<li>但实际只转移了30个，还有35个还停留在老的zotfile目录（平板文献同步区），怎么办？</li>
+</ol>
+<p>原因</p>
+<ol>
+<li>zotero 在rename and move的时侯遇到第一个报错就会停下来</li>
+<li>报错的原因，目前发现有2种<ol>
+<li>pdf的文件名是“全文”</li>
+<li>pdf在adobe或者zotero里打开了</li>
+</ol>
+</li>
+</ol>
+<p>解决也简单</p>
+<ol>
+<li>全文：找到pdf然后按父级元数据重命名</li>
+<li>占用：关闭zotero所有pdf和adobe等</li>
+</ol>
+<h3 id="Q：如何实现pdf去重，主要是storage和zotfile都存在的时侯，会命名成title-pdf和title2-pdf"><a href="#Q：如何实现pdf去重，主要是storage和zotfile都存在的时侯，会命名成title-pdf和title2-pdf" class="headerlink" title="Q：如何实现pdf去重，主要是storage和zotfile都存在的时侯，会命名成title.pdf和title2.pdf"></a>Q：如何实现pdf去重，主要是storage和zotfile都存在的时侯，会命名成title.pdf和title2.pdf</h3><p>Q补充：如果不小心点过按父级元数据重命名，变成了“等”，而zotfile还是et al，也算是一种重命名</p>
+<p>A：TODO</p>
+<h3 id="Q：zotfile和storage里的pdf有什么区别？"><a href="#Q：zotfile和storage里的pdf有什么区别？" class="headerlink" title="Q：zotfile和storage里的pdf有什么区别？"></a>Q：zotfile和storage里的pdf有什么区别？</h3><p>区别1：logo不一样，zotfile有锁链，storage没锁链</p>
+<p><img src="/2024/12/04/zotero文件索引原理和多PC同步/zotero%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%92%8C%E5%A4%9APC%E5%90%8C%E6%AD%A5/image-20241204145322155.png" alt="image-20241204145322155"></p>
+<p>区别2：右侧是否已索引不一样，zotfile没索引，storage有索引</p>
+<img src="/2024/12/04/zotero文件索引原理和多PC同步/image-20241204145541012.png" alt="image-20241204145541012" style="zoom: 50%;">
+
+<img src="/2024/12/04/zotero文件索引原理和多PC同步/image-20241204145510471.png" alt="image-20241204145510471" style="zoom: 50%;">
+
+<p>区别3：将storage pdf做一下修改（比如abstract中标黄），发现没有同步到zotfile上。此时，点父目录TF-Attack的manage attachments-rename and move，发现storage也变成link logo了，而且文件地址移动到了zotfile，被命名为Li et al_2024_TF-Attack2.pdf，虽然在zotero里命名还是Li et al_2024_TF-Attack.pdf，没有2。</p>
+<p><img src="/2024/12/04/zotero文件索引原理和多PC同步/zotero%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%92%8C%E5%A4%9APC%E5%90%8C%E6%AD%A5/image-20241204150110117.png" alt="image-20241204150110117"></p>
+<h3 id="Q：zotero附件里，为什么有的命名作者是Li-et-al-TF-Attack-pdf，有的命名时Li等-TF-Attack-pdf？"><a href="#Q：zotero附件里，为什么有的命名作者是Li-et-al-TF-Attack-pdf，有的命名时Li等-TF-Attack-pdf？" class="headerlink" title="Q：zotero附件里，为什么有的命名作者是Li et al TF-Attack.pdf，有的命名时Li等 TF-Attack.pdf？"></a>Q：zotero附件里，为什么有的命名作者是Li et al TF-Attack.pdf，有的命名时Li等 TF-Attack.pdf？</h3><p>A：网页插件保存下来的默认是 et al，但如果在zotero里对着pdf右击-按父级元数据重命名文件，就会变成等</p>
+<p>这个重命名规则设置的地方：没找到……</p>
+<p>没事，不重要，只是pdf的命名有变化，想导出bibtex时侯还是会根据父级元数据导出</p>
+<h3 id="Q：为什么还有附件pdf命名是“全文”？"><a href="#Q：为什么还有附件pdf命名是“全文”？" class="headerlink" title="Q：为什么还有附件pdf命名是“全文”？"></a>Q：为什么还有附件pdf命名是“全文”？</h3><p>A：寻找可用pdf的命名就是全文，位置在storage，需要手动点pdf右击-按父级元数据重命名文件</p>
+<p><img src="/2024/12/04/zotero文件索引原理和多PC同步/zotero%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%92%8C%E5%A4%9APC%E5%90%8C%E6%AD%A5/image-20241204153527627.png" alt="image-20241204153527627"></p>
+<h2 id="多PC同步storage-zotero-sqlite"><a href="#多PC同步storage-zotero-sqlite" class="headerlink" title="多PC同步storage+zotero.sqlite"></a>多PC同步storage+zotero.sqlite</h2><p>我们想同步的东西就是storage和zotero.sqlite，其中</p>
+<ul>
+<li><p>storage借助onedrive来同步</p>
+</li>
+<li><p>zotero.sqlite用zotero.org提供的同步（只同步索引，不同步附件内容）（为什么不也用onedrive？因为zotero.sqlite在打开期间会一直读写占用文件，onedrive同步会有问题）</p>
+</li>
+</ul>
+<p>zotero.org提供的同步library网址：<a href="https://www.zotero.org/xanderli/library" target="_blank" rel="noopener">https://www.zotero.org/xanderli/library</a></p>
+<p>查看余量（初始送300MB）：<a href="https://www.zotero.org/settings/storage?ref=usb" target="_blank" rel="noopener">https://www.zotero.org/settings/storage?ref=usb</a></p>
+<p>如果仅存元数据肯定够够的了，但我之前错误设置导致zotero.org上还同步了一些附件，怎么一并删掉呢？</p>
+<p>TODO</p>
+<h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><p>[1] 讲win和mac互同步的，原理相同 <a href="https://www.vmvps.com/how-to-set-up-zotero-onedrive-to-sync-your-papers.html" target="_blank" rel="noopener">https://www.vmvps.com/how-to-set-up-zotero-onedrive-to-sync-your-papers.html</a></p>
+<p>[2] 同样是win和mac互同步，图不一样，<a href="https://www.cnblogs.com/blue-lin/p/14025541.html" target="_blank" rel="noopener">https://www.cnblogs.com/blue-lin/p/14025541.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/11/22/hexo-node版本问题解决/" rel="next" title="hexo-node版本问题解决">
+                <i class="fa fa-chevron-left"></i> hexo-node版本问题解决
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/juyoujing.jpg" alt="oxygen-hunter">
+            
+              <p class="site-author-name" itemprop="name">oxygen-hunter</p>
+              <p class="site-description motion-element" itemprop="description">E = MC^2, Errors = (More Code)^2</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/oxygen-hunter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiao.li@smail.nju.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://purecall.github.io/" title="vct" target="_blank">vct</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://kmuay.com/" title="kmuay" target="_blank">kmuay</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#intro"><span class="nav-number">1.</span> <span class="nav-text">intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zotero文件管理原理"><span class="nav-number">2.</span> <span class="nav-text">zotero文件管理原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zotfile插件原理"><span class="nav-number">3.</span> <span class="nav-text">zotfile插件原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-A"><span class="nav-number">4.</span> <span class="nav-text">Q&amp;A</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：如果一个pdf的索引在storage，那么zotfile会备份这个文件吗？我通过zotero笔记改了storage文件，那么zotfile备份的pdf会一并修改吗？"><span class="nav-number">4.1.</span> <span class="nav-text">Q：如果一个pdf的索引在storage，那么zotfile会备份这个文件吗？我通过zotero笔记改了storage文件，那么zotfile备份的pdf会一并修改吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：如果一个pdf的索引在zotfile，那么storage里会有这个文件吗？我通过zotero笔记改了zotfile的文件，storage里会一并修改吗？"><span class="nav-number">4.2.</span> <span class="nav-text">Q：如果一个pdf的索引在zotfile，那么storage里会有这个文件吗？我通过zotero笔记改了zotfile的文件，storage里会一并修改吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：如何把乱七八糟的pdf索引，全部改成索引到storage，或者全部改成索引到zotfile？"><span class="nav-number">4.3.</span> <span class="nav-text">Q：如何把乱七八糟的pdf索引，全部改成索引到storage，或者全部改成索引到zotfile？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：如何实现pdf去重，主要是storage和zotfile都存在的时侯，会命名成title-pdf和title2-pdf"><span class="nav-number">4.4.</span> <span class="nav-text">Q：如何实现pdf去重，主要是storage和zotfile都存在的时侯，会命名成title.pdf和title2.pdf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：zotfile和storage里的pdf有什么区别？"><span class="nav-number">4.5.</span> <span class="nav-text">Q：zotfile和storage里的pdf有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：zotero附件里，为什么有的命名作者是Li-et-al-TF-Attack-pdf，有的命名时Li等-TF-Attack-pdf？"><span class="nav-number">4.6.</span> <span class="nav-text">Q：zotero附件里，为什么有的命名作者是Li et al TF-Attack.pdf，有的命名时Li等 TF-Attack.pdf？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：为什么还有附件pdf命名是“全文”？"><span class="nav-number">4.7.</span> <span class="nav-text">Q：为什么还有附件pdf命名是“全文”？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多PC同步storage-zotero-sqlite"><span class="nav-number">5.</span> <span class="nav-text">多PC同步storage+zotero.sqlite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">6.</span> <span class="nav-text">references</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oxygen-hunter</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

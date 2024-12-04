@@ -84,15 +84,15 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="不同架构的编译方法总结">
 <meta property="og:url" content="http://yoursite.com/2020/08/19/不同架构的编译方法总结/index.html">
-<meta property="og:site_name" content="懵逼树树洞">
+<meta property="og:site_name" content="xiao&#39;s blog">
 <meta property="og:description" content="mipslinux环境下编译系统：ubuntu 18.04-64 安装编译器  sudo apt-get update sudo apt-get install g++-mips-linux-gnu  用的时候名字是反过来，命令和g++类似 编译成可执行文件：  mips-linux-gnu-g++ hello.cpp -o hello  编译成mips汇编文件  mips-linux-gnu-g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2020/08/19/不同架构的编译方法总结/image-20200819091402503.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/19/不同架构的编译方法总结/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/image-20200819091402503.png">
 <meta property="og:updated_time" content="2021-11-18T03:19:19.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="不同架构的编译方法总结">
 <meta name="twitter:description" content="mipslinux环境下编译系统：ubuntu 18.04-64 安装编译器  sudo apt-get update sudo apt-get install g++-mips-linux-gnu  用的时候名字是反过来，命令和g++类似 编译成可执行文件：  mips-linux-gnu-g++ hello.cpp -o hello  编译成mips汇编文件  mips-linux-gnu-g">
-<meta name="twitter:image" content="http://yoursite.com/2020/08/19/不同架构的编译方法总结/image-20200819091402503.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/08/19/不同架构的编译方法总结/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/image-20200819091402503.png">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>不同架构的编译方法总结 | 懵逼树树洞</title>
+  <title>不同架构的编译方法总结 | xiao's blog</title>
   
 
 
@@ -158,7 +158,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">懵逼树树洞</span>
+        <span class="site-title">xiao's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -296,7 +296,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="懵逼树树洞">
+      <meta itemprop="name" content="xiao's blog">
     </span>
 
     
@@ -413,11 +413,11 @@
 <li>将ld.so.1所在lib复制到当前目录</li>
 <li>运行<code>sudo chroot . ./qemu-mips-static ./hello</code>，完工</li>
 </ol>
-<p><img src="/2020/08/19/不同架构的编译方法总结/image-20200819091402503.png" alt="image-20200819091402503"></p>
+<p><img src="/2020/08/19/不同架构的编译方法总结/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/image-20200819091402503.png" alt="image-20200819091402503"></p>
 <p>或者，编译时就编译为静态程序，可直接执行，无需上面的复杂操作，弊端就是静态程序有点大</p>
 <blockquote>
 <p>mips-linux-gnu-g++ -static hello.cpp -o hello</p>
-<p>qemu-mips-static ./hello</p>
+<p>qemu-mips-static .&#x2F;hello</p>
 </blockquote>
 
       
@@ -540,7 +540,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
